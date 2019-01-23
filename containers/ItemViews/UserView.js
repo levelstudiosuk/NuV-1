@@ -32,9 +32,9 @@ export default class UserView extends React.Component {
 
 const userViewStyle = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: Constants.statusBarHeight,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
