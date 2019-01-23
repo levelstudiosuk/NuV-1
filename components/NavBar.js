@@ -28,25 +28,25 @@ export default class NavBar extends React.Component {
       <TouchableHighlight
           onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+            <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: 40, marginRight: 40, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
       onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+            <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
       onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+            <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
         onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+            <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       </View>
@@ -55,22 +55,11 @@ export default class NavBar extends React.Component {
 }
 
 const navStyle = StyleSheet.create({
-  container: {
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header: {
-    fontSize: 24,
-    color: 'green',
-    textAlign: 'center',
-    marginBottom: Dimensions.get('window').height*0.01
-  },
   iconsContainer: {
-    flex: 1,
+    position: 'absolute',
+    bottom: 0,
     justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'white',
   },
 });

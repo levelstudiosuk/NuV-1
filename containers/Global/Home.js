@@ -31,8 +31,9 @@ export default class Home extends React.Component {
 
 const homeStyle = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: Constants.statusBarHeight,
-    flexDirection: 'column',
+
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
