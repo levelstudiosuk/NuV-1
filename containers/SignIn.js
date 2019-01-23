@@ -60,7 +60,7 @@ export default class SignIn extends React.Component {
          <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
          <Button
            title="Sign in to NüV"
-           onPress={() => navigate('Home', {name: 'SignIn'})}
+           onPress={() => navigate('Landing', {name: 'SignIn'})}
          />
          </View>
 
