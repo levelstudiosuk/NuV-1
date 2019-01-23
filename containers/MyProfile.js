@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import * as TimeGreeting from '../helper_functions/TimeGreeting.js';
 
-export default class Landing extends React.Component {
+export default class MyProfile extends React.Component {
   static navigationOptions = {
       header: null,
 
@@ -13,10 +13,11 @@ export default class Landing extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View style={landingStyle.container}>
-      <Text style={landingStyle.header}>NüV - Lifestyle support</Text>
-      <View style={landingStyle.buttonContainer}>
+      <View style={myProfileStyle.container}>
+      <Text style={myProfileStyle.header}>NüV - Lifestyle support</Text>
+      <View style={myProfileStyle.buttonContainer}>
         <Text style={{fontSize: 18, color: 'midnightblue'}}> {TimeGreeting.getTimeBasedGreeting("Jarrod")} </Text>
+        <Text style={{fontSize: 18, color: 'midnightblue'}}> This is your private profile. Only you can see your profile as it appears here.</Text>
       </View>
       <Button
         title="Go home"
@@ -27,7 +28,7 @@ export default class Landing extends React.Component {
   }
 }
 
-const landingStyle = StyleSheet.create({
+const myProfileStyle = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
     flexDirection: 'column',

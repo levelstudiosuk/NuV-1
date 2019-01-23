@@ -39,7 +39,7 @@ export default class SignIn extends React.Component {
     return (
       <View style={signInStyle.container}>
         <Text style={signInStyle.header}>
-        Sign in to NüV
+        NüV - Lifestyle support
         </Text>
 
           <TextInput

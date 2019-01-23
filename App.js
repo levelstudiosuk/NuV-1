@@ -5,6 +5,7 @@ import Home from './containers/Home.js';
 import Register from './containers/Register.js';
 import SignIn from './containers/SignIn.js';
 import Landing from './containers/Landing.js';
+import MyProfile from './containers/MyProfile.js';
 import { Constants } from 'expo'
 
 const navigationVariable = createStackNavigator({
@@ -12,6 +13,7 @@ const navigationVariable = createStackNavigator({
   Register: {screen: Register},
   SignIn: {screen: SignIn},
   Landing: {screen: Landing},
+  MyProfile: {screen: MyProfile},
 });
 
 const App = createAppContainer(navigationVariable)
