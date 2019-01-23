@@ -12,16 +12,18 @@ export default class Home extends React.Component {
     return (
       <View style={homeStyle.container}>
       <Text style={homeStyle.header}>NüV - Lifestyle support</Text>
+      <View style={homeStyle.buttonContainer}>
       <Button
-        style={homeStyle.button}
         title="Register"
         onPress={() => navigate('Register', {name: 'Home'})}
       />
+      </View>
+      <View style={homeStyle.buttonContainer}>
       <Button
-        style={homeStyle.button}
         title="Sign in"
         onPress={() => navigate('SignIn', {name: 'Home'})}
       />
+      </View>
       </View>
     );
   }
@@ -41,7 +43,7 @@ const homeStyle = StyleSheet.create({
     textAlign: 'center',
     marginBottom: Dimensions.get('window').height*0.01
   },
-  button: {
-    marginBottom: 10
+  buttonContainer: {
+    marginBottom: Dimensions.get('window').height*0.01
   }
 });

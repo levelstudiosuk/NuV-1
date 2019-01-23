@@ -15,7 +15,7 @@ export default class SignIn extends React.Component {
       Sign in to NüV
       </Text>
       <Button
-        title="HOME"
+        title="Go home"
         onPress={() => navigate('Home', {name: 'SignIn'})}
       />
       </View>
