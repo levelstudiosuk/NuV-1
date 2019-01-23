@@ -22,7 +22,10 @@ export default class Landing extends React.Component {
     if (timeNow.hours > 22 && timeNow.hours < 5){
       return `Hello, ${user}, you'\re up awfully late tonight!`
     }
-    else if (timeNow.hours > 4 && timeNow.hours < 13){
+    else if (timeNow.hours > 4 && timeNow.hours < 8){
+      return `Good morning, ${user}, you'\re up bright and early today!`
+    }
+    else if (timeNow.hours > 7 && timeNow.hours < 13){
       return `Good morning, ${user}!`
     }
     else if (timeNow.hours > 13 && timeNow.hours < 18){
