@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import NavBar from '../../components/NavBar.js';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -22,6 +23,7 @@ export default class Home extends React.Component {
         title="Go [somewhere tbc]"
         onPress={() => navigate('Home', {name: 'SignIn'})}
       />
+      <NavBar navigation={this.props.navigation} />
       </View>
     );
   }
@@ -29,9 +31,9 @@ export default class Home extends React.Component {
 
 const homeStyle = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: Constants.statusBarHeight,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
+import NavBar from '../../components/NavBar.js';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
@@ -26,6 +27,7 @@ export default class Landing extends React.Component {
         onPress={() => navigate('SignIn', {name: 'Home'})}
       />
       </View>
+      
       </View>
     );
   }
