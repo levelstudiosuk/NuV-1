@@ -2,35 +2,30 @@ import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
-export default class Home extends React.Component {
+export default class SignIn extends React.Component {
   static navigationOptions = {
-      header: null,
-
+    title: 'Enter your NüV credentials below',
+    header: null,
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <View style={homeStyle.container}>
-      <Text style={homeStyle.header}>NüV - Lifestyle support</Text>
+      <View style={signInStyle.container}>
+      <Text style={signInStyle.header}>
+      Sign in to NüV
+      </Text>
       <Button
-        style={homeStyle.button}
-        title="Register"
-        onPress={() => navigate('Register', {name: 'Home'})}
-      />
-      <Button
-        style={homeStyle.button}
-        title="Sign in"
-        onPress={() => navigate('SignIn', {name: 'Home'})}
+        title="HOME"
+        onPress={() => navigate('Home', {name: 'SignIn'})}
       />
       </View>
     );
   }
 }
 
-const homeStyle = StyleSheet.create({
+const signInStyle = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,7 +36,4 @@ const homeStyle = StyleSheet.create({
     textAlign: 'center',
     marginBottom: Dimensions.get('window').height*0.01
   },
-  button: {
-    marginBottom: 10
-  }
 });

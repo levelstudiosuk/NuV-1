@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
+import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
 export default class Register extends React.Component {
@@ -11,8 +11,8 @@ export default class Register extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={registerStyle.container}>
-      <Text>
-      REGISTER FOR NÜV
+      <Text style={registerStyle.header}>
+      Register for NüV
       </Text>
       <Button
         title="Go home"
@@ -29,5 +29,11 @@ const registerStyle = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  header: {
+    fontSize: 24,
+    color: 'green',
+    textAlign: 'center',
+    marginBottom: Dimensions.get('window').height*0.01
   },
 });
