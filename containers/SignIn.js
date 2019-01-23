@@ -57,6 +57,13 @@ export default class SignIn extends React.Component {
            underlineColorAndroid='transparent'
          />
 
+         <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
+         <Button
+           title="Sign in to NüV"
+           onPress={() => navigate('Home', {name: 'SignIn'})}
+         />
+         </View>
+
          <Button
            title="Go home"
            onPress={() => navigate('Home', {name: 'SignIn'})}
