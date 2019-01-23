@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
-export default class SignIn extends React.Component {
+export default class RegisterUser extends React.Component {
   static navigationOptions = {
-    title: 'Enter your NüV credentials below',
+    title: 'Enter your NüV registration data below',
     header: null,
   };
 
@@ -37,8 +37,8 @@ export default class SignIn extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View style={signInStyle.container}>
-        <Text style={signInStyle.header}>
+      <View style={registerUserStyle.container}>
+        <Text style={registerUserStyle.header}>
         NüV - Lifestyle support
         </Text>
 
@@ -49,7 +49,6 @@ export default class SignIn extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-
          <TextInput
            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
            onChangeText={(password) => {this.changePasswordText(password)}}
@@ -59,8 +58,8 @@ export default class SignIn extends React.Component {
 
          <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
          <Button
-           title="Sign in to NüV"
-           onPress={() => navigate('Landing', {name: 'SignIn'})}
+           title="Submit and register for NüV"
+           onPress={() => navigate('MyProfile', {name: 'SignIn'})}
          />
          </View>
 
@@ -74,10 +73,10 @@ export default class SignIn extends React.Component {
   }
 }
 
-const signInStyle = StyleSheet.create({
+const registerUserStyle = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
