@@ -4,21 +4,71 @@ import { Constants } from 'expo'
 
 export default class Register extends React.Component {
   static navigationOptions = {
-    title: 'Register for NüV',
+    title: 'Enter your NüV registration data below',
     header: null,
   };
-  
+
+  constructor(props) {
+  super(props);
+
+  this.changeUsernameText = this.changeUsernameText.bind(this);
+  this.changePasswordText = this.changePasswordText.bind(this);
+
+}
+
+  state = {
+      username: "",
+      password: ""
+    };
+
+    changeUsernameText(username){
+      this.setState({
+        username: username
+      })
+    }
+
+    changePasswordText(password){
+      this.setState({
+        password: password
+      })
+    }
+
   render() {
     const {navigate} = this.props.navigation;
+
     return (
       <View style={registerStyle.container}>
-      <Text style={registerStyle.header}>
-      Register for NüV
-      </Text>
-      <Button
-        title="Go home"
-        onPress={() => navigate('Home', {name: 'Register'})}
-      />
+        <Text style={registerStyle.header}>
+        NüV - Lifestyle support
+        </Text>
+
+          <TextInput
+            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(username) => {this.changeUsernameText(username)}}
+            value={this.state.username} placeholder='Your NüV username' placeholderTextColor='black'
+            underlineColorAndroid='transparent'
+          />
+`````````````````````````````zz
+
+         <TextInput
+           style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+           onChangeText={(password) => {this.changePasswordText(password)}}
+           value={this.state.password} placeholder='Your NüV password' placeholderTextColor='black'
+           underlineColorAndroid='transparent'
+         />
+
+         <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
+         <Button
+           title="Submit and register for NüV"
+           onPress={() => navigate('MyProfile', {name: 'SignIn'})}
+         />
+         </View>
+
+         <Button
+           title="Go home"
+           onPress={() => navigate('Home', {name: 'SignIn'})}
+         />
+
       </View>
     );
   }
