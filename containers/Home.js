@@ -3,7 +3,7 @@ import { StyleSheet, Button, Text, View } from 'react-native';
 
 export default class Home extends React.Component {
   static navigationOptions = {
-    title: 'Welcome',
+    title: 'Welcome to NüV',
   };
   render() {
     const {navigate} = this.props.navigation;

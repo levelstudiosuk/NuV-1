@@ -6,7 +6,7 @@ import Register from './containers/Register.js';
 
 const navigationVariable = createStackNavigator({
   Home: {screen: Home},
-  Profile: {screen: Register},
+  Register: {screen: Register},
 });
 
 const App = createAppContainer(navigationVariable)
