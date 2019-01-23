@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
 export default class SignIn extends React.Component {
