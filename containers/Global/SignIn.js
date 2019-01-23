@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
-export default class Register extends React.Component {
+export default class SignIn extends React.Component {
   static navigationOptions = {
-    title: 'Enter your NüV registration data below',
+    title: 'Enter your NüV credentials below',
     header: null,
   };
 
@@ -37,8 +37,8 @@ export default class Register extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View style={registerStyle.container}>
-        <Text style={registerStyle.header}>
+      <View style={signInStyle.container}>
+        <Text style={signInStyle.header}>
         NüV - Lifestyle support
         </Text>
 
@@ -48,7 +48,7 @@ export default class Register extends React.Component {
             value={this.state.username} placeholder='Your NüV username' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
-`````````````````````````````zz
+
 
          <TextInput
            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
@@ -59,25 +59,25 @@ export default class Register extends React.Component {
 
          <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
          <Button
-           title="Submit and register for NüV"
-           onPress={() => navigate('MyProfile', {name: 'SignIn'})}
+           title="Sign in to NüV"
+           onPress={() => navigate('Home', {name: 'SignIn'})}
          />
          </View>
 
          <Button
            title="Go home"
-           onPress={() => navigate('Home', {name: 'SignIn'})}
-         />
+           onPress={() => navigate('Landing', {name: 'SignIn'})}
+         /> 
 
       </View>
     );
   }
 }
 
-const registerStyle = StyleSheet.create({
+const signInStyle = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },

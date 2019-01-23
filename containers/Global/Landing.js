@@ -1,27 +1,31 @@
 import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
-import * as TimeGreeting from '../helper_functions/TimeGreeting.js';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
       header: null,
 
   };
-
   render() {
+
     const {navigate} = this.props.navigation;
 
     return (
       <View style={landingStyle.container}>
       <Text style={landingStyle.header}>NüV - Lifestyle support</Text>
       <View style={landingStyle.buttonContainer}>
-        <Text style={{fontSize: 18, color: 'midnightblue'}}> {TimeGreeting.getTimeBasedGreeting("Jarrod")} </Text>
-      </View>
       <Button
-        title="Go home"
-        onPress={() => navigate('Home', {name: 'SignIn'})}
+        title="Register"
+        onPress={() => navigate('Register', {name: 'Home'})}
       />
+      </View>
+      <View style={landingStyle.buttonContainer}>
+      <Button
+        title="Sign in"
+        onPress={() => navigate('SignIn', {name: 'Home'})}
+      />
+      </View>
       </View>
     );
   }
