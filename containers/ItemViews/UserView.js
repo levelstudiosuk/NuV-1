@@ -40,6 +40,9 @@ const userViewStyle = StyleSheet.create({
   },
   header: {
     fontSize: 24,
+    position: 'absolute',
+    top: 0,
+    marginTop: 10,
     color: 'green',
     textAlign: 'center',
     marginBottom: Dimensions.get('window').height*0.01
