@@ -48,7 +48,7 @@ export default class Register extends React.Component {
             value={this.state.username} placeholder='Your NüV username' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
-
+`````````````````````````````zz
 
          <TextInput
            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
