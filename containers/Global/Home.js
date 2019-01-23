@@ -33,8 +33,7 @@ const homeStyle = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-
-    backgroundColor: '#fff',
+    backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
   },
