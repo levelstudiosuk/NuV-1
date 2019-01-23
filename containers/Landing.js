@@ -42,6 +42,10 @@ export default class Landing extends React.Component {
       <View style={homeStyle.buttonContainer}>
         <Text style={{fontSize: 18, color: 'midnightblue'}}> {this.getTimeBasedGreeting("Jarrod")} </Text>
       </View>
+      <Button
+        title="Go home"
+        onPress={() => navigate('Home', {name: 'SignIn'})}
+      />
       </View>
     );
   }
