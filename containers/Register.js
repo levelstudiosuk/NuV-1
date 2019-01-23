@@ -7,6 +7,7 @@ export default class Register extends React.Component {
     title: 'Register for NüV',
     header: null,
   };
+  
   render() {
     const {navigate} = this.props.navigation;
     return (

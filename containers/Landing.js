@@ -7,6 +7,32 @@ export default class Landing extends React.Component {
       header: null,
 
   };
+
+  currentTime(){
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    return {hours: hours, minutes: minutes}
+  }
+
+  getTimeBasedGreeting(user){
+    var timeNow = this.currentTime();
+
+    if (timeNow.hours > 22 && timeNow.hours < 5){
+      return `Hello, ${user}, you'\re up awfully late tonight!`
+    }
+    else if (timeNow.hours > 4 && timeNow.hours < 13){
+      return `Good morning, ${user}!`
+    }
+    else if (timeNow.hours > 13 && timeNow.hours < 18){
+      return `Good afternoon, ${user}!`
+    }
+    else if (timeNow.hours > 18 && timeNow.hours < 23){
+      return `Good evening, ${user}!`
+    }
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -14,7 +40,7 @@ export default class Landing extends React.Component {
       <View style={homeStyle.container}>
       <Text style={homeStyle.header}>NüV - Lifestyle support</Text>
       <View style={homeStyle.buttonContainer}>
-        <Text style={{fontSize: 18, color: 'midnightblue'}}> Good afternoon, User </Text>
+        <Text style={{fontSize: 18, color: 'midnightblue'}}> {this.getTimeBasedGreeting("Jarrod")} </Text>
       </View>
       </View>
     );
