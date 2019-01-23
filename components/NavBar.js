@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, TouchableHighlight, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, TextInput, Image, TouchableHighlight, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 
 export default class NavBar extends React.Component {
@@ -18,33 +18,35 @@ export default class NavBar extends React.Component {
     };
 
   render() {
+
     const {navigate} = this.props.navigation;
 
+
     return (
-      <View style={ChooseTimePeriodStyle.iconsContainer}>
+      <View style={navStyle.iconsContainer}>
 
       <TouchableHighlight
-      style={{position: 'relative', top: '0%'}}
-        onPress={() => {
-          onPress={() => navigate('Home', {name: 'NavBar'})}
-          }}>
+          onPress={() => navigate('Landing', {name: 'NavBar'})}
+          >
             <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
-      style={{position: 'relative', top: '0%'}}
-        onPress={() => {
-          onPress={() => navigate('Home', {name: 'NavBar'})}
-          }}>
-            <Image source={require('../assets/icons/map.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+      onPress={() => navigate('Landing', {name: 'NavBar'})}
+          >
+            <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
-      style={{position: 'relative', top: '0%'}}
-        onPress={() => {
-          onPress={() => navigate('Home', {name: 'NavBar'})}
-          }}>
-            <Image source={require('../assets/icons/settings.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+      onPress={() => navigate('Landing', {name: 'NavBar'})}
+          >
+            <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
+      </TouchableHighlight>
+
+      <TouchableHighlight
+        onPress={() => navigate('Landing', {name: 'NavBar'})}
+          >
+            <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: 40, width: 32, position: 'relative'}}/>
       </TouchableHighlight>
 
       </View>
@@ -52,7 +54,7 @@ export default class NavBar extends React.Component {
   }
 }
 
-const registerUserStyle = StyleSheet.create({
+const navStyle = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
@@ -66,6 +68,7 @@ const registerUserStyle = StyleSheet.create({
     marginBottom: Dimensions.get('window').height*0.01
   },
   iconsContainer: {
+    flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: 'white',

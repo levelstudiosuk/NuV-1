@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import NavBar from '../../components/NavBar.js';
 
 export default class Home extends React.Component {
   static navigationOptions = {
