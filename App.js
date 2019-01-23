@@ -9,7 +9,7 @@ export default class App extends React.Component {
       </View>
     );
   }
-}
+} 
 
 const styles = StyleSheet.create({
   container: {
