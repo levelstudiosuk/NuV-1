@@ -2,7 +2,7 @@
   "expo": {
     "name": "NüV",
     "description": "A 'life(style) support system' for vegans and vegetarians. A communal hub for all things that concern the ethical and healthy eaters amongst us",
-    "slug": "NüV",
+    "slug": "nuv",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
@@ -12,7 +12,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "green"
+      "backgroundColor": "#003366"
     },
 
     "updates": {
