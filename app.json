@@ -4,7 +4,7 @@
     "description": "A 'life(style) support system' for vegans and vegetarians. A communal hub for all things that concern the ethical and healthy eaters amongst us",
     "slug": "nuv",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
