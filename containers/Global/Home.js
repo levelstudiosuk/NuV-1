@@ -23,6 +23,7 @@ export default class Home extends React.Component {
         title="Go [somewhere tbc]"
         onPress={() => navigate('Home', {name: 'SignIn'})}
       />
+      <NavBar navigation={this.props.navigation} />
       </View>
     );
   }

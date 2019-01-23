@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import NavBar from '../../components/NavBar.js';
 
 export default class UserView extends React.Component {
   static navigationOptions = {
@@ -23,6 +24,7 @@ export default class UserView extends React.Component {
         title="Go home"
         onPress={() => navigate('Home', {name: 'SignIn'})}
       />
+      <NavBar navigation={this.props.navigation} />
       </View>
     );
   }

@@ -27,7 +27,7 @@ export default class Landing extends React.Component {
         onPress={() => navigate('SignIn', {name: 'Home'})}
       />
       </View>
-      <NavBar navigation={this.props.navigation} />
+      
       </View>
     );
   }
