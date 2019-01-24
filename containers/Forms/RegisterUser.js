@@ -90,7 +90,7 @@ export default class RegisterUser extends React.Component {
 
       <View style={registerUserStyle.container}>
 
-      <ScrollView style={{width: Dimensions.get('window').width*0.95}}>
+      <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
 
           <TextInput
