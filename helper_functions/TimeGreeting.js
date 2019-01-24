@@ -21,7 +21,8 @@ export function getTimeBasedGreeting(user){
   else if (timeNow.hours > 13 && timeNow.hours < 18){
     return `Good afternoon, ${user}!`
   }
-  else if (timeNow.hours > 18 && timeNow.hours < 23){
+  else if (timeNow.hours > 17 && timeNow.hours < 23){
+    console.log("CALLING");
     return `Good evening, ${user}!`
   }
 }

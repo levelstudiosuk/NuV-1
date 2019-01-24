@@ -28,25 +28,25 @@ export default class NavBar extends React.Component {
       <TouchableHighlight
           onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: 40, marginRight: 40, width: 32, marginBottom: 20}}/>
+            <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
       onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
+            <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
       onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
+            <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight
         onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
-            <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: 40, width: 32, marginBottom: 20}}/>
+            <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
       </View>
@@ -58,7 +58,7 @@ const navStyle = StyleSheet.create({
   iconsContainer: {
     position: 'absolute',
     bottom: 0,
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

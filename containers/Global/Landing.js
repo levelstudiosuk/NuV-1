@@ -21,7 +21,7 @@ export default class Landing extends React.Component {
       <View style={landingStyle.iconsContainer}>
 
       <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('SignIn', {name: 'Home'})} buttonTitle={"Sign in"} />
-      <GlobalButton marginRight={Dimensions.get('window').width*0.20} onPress={() => navigate('Register', {name: 'Home'})} buttonTitle={"Register"} />
+      <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('Register', {name: 'Home'})} buttonTitle={"Register"} />
 
       </View>
 
