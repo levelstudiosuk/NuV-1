@@ -70,7 +70,7 @@ export default class VWayToggle extends React.Component {
           <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-between", alignItems: 'center'}}>
 
             <View style={{width: Dimensions.get('window').width*0.3, justifyContent: 'center', alignItems: 'center'}}>
-              <MultiSwitch choiceSize={Dimensions.get('window').width*0.2}
+              <MultiSwitch choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.10 : Dimensions.get('window').width*0.2}
                             activeItemStyle={[{color: 'white'}, {color: 'white'}, {color: 'white'}, ]}
                             layout={{vertical: 0, horizontal: -1}}
                             onActivate={(number) => this.setActiveItem(number)}
@@ -84,13 +84,13 @@ export default class VWayToggle extends React.Component {
                             }))}
                             active={1}>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
+                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'grey'}}>Vegan</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vegetarian</Text>
+                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'grey'}}>Vegetarian</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'white'}}>V-curious</Text>
+                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'grey'}}>V-curious</Text>
                             </View>
               </MultiSwitch>
             </View>
