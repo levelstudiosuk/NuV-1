@@ -16,17 +16,20 @@ export default class Landing extends React.Component {
     return (
       <View style={landingStyle.container}>
       <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.25}} width={Dimensions.get('window').width*0.77} />
-      <View style={landingStyle.buttonContainer}>
+
+      <View style={landingStyle.iconsContainer}>
       <Button
         title="Register"
+        style={{marginLeft: Dimensions.get('window').width*0.035, marginRight: Dimensions.get('window').width*0.035}}
         onPress={() => navigate('Register', {name: 'Home'})}
       />
-      </View>
-      <View style={landingStyle.buttonContainer}>
+
       <Button
+        style={{marginLeft: Dimensions.get('window').width*0.035, marginRight: Dimensions.get('window').width*0.035}}
         title="Sign in"
         onPress={() => navigate('SignIn', {name: 'Home'})}
       />
+
       </View>
 
       </View>
@@ -41,7 +44,11 @@ const landingStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonContainer: {
-    marginBottom: Dimensions.get('window').height*0.01
-  }
+  iconsContainer: {
+    width: Dimensions.get('window').width*0.5,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 });
