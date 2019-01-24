@@ -85,6 +85,7 @@ export default class MultiSwitch extends Component {
             }
           )
         }
+
       </TouchableOpacity>
     )
   }
@@ -97,6 +98,7 @@ export default class MultiSwitch extends Component {
                   renderItem={this.renderItem.bind(this)} numColumns={this.getLayout().horizontal} style={{flex: 1}}
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}/>
+
       </View>
     )
   }

@@ -31,9 +31,6 @@ export default class GlobalButton extends Component {
                 containerStyle={{ marginTop: 20 }}
               />
 
-
-
-
     )
   }
 }
