@@ -46,17 +46,17 @@ export default class SignIn extends React.Component {
 
 
           <TextInput
-            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(username) => {this.changeUsernameText(username)}}
-            value={this.state.username} placeholder='Your NüV username' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            value={this.state.username} placeholder='Username' placeholderTextColor='black'
+            underlineColorAndroid='transparent' underlineColorIOS="grey"
           />
 
 
          <TextInput
-           style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
            onChangeText={(password) => {this.changePasswordText(password)}}
-           value={this.state.password} placeholder='Your NüV password' placeholderTextColor='black'
+           value={this.state.password} placeholder='Password' placeholderTextColor='black'
            underlineColorAndroid='transparent'
          />
 
