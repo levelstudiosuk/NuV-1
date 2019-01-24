@@ -130,11 +130,12 @@ export default class RegisterUser extends React.Component {
 
 
         <Button
-          title="Pick an image from camera roll"
+          title="Pick an image from your gallery"
+
           onPress={() => this.pickImage()}
         />
         {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
 
 
@@ -161,6 +162,7 @@ const registerUserStyle = StyleSheet.create({
   },
   submitContainer: {
     alignItems: 'center',
+    marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
   },
   header: {
