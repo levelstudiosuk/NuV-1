@@ -84,13 +84,13 @@ export default class VWayToggle extends React.Component {
                             }))}
                             active={1}>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
+                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'grey'}}>Vegan</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vegetarian</Text>
+                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'grey'}}>Vegetarian</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'white'}}>V-curious</Text>
+                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'grey'}}>V-curious</Text>
                             </View>
               </MultiSwitch>
             </View>
