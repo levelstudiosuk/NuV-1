@@ -90,7 +90,7 @@ export default class RegisterUser extends React.Component {
 
       <View style={registerUserStyle.container}>
 
-      <ScrollView>
+      <ScrollView style={{width: Dimensions.get('window').width*0.95}}>
       <View style={registerUserStyle.container}>
 
           <TextInput
@@ -122,7 +122,7 @@ export default class RegisterUser extends React.Component {
           />
 
           <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.65, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(bio) => {this.changeBioText(bio)}}
             value={this.state.bio} placeholder='Tell us about yourself' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
