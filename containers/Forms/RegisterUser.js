@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Platform, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
+import Expo, { ImagePicker } from 'expo';
+import {Permissions} from 'expo'
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -20,6 +22,7 @@ export default class RegisterUser extends React.Component {
   this.changeNameText = this.changeNameText.bind(this);
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeBioText = this.changeBioText.bind(this);
+  this.pickImage = this.pickImage.bind(this);
 
 }
 
@@ -28,7 +31,8 @@ export default class RegisterUser extends React.Component {
       password: "",
       name: "",
       location: "",
-      bio: ""
+      bio: "",
+      image: null
     };
 
     changeEmailText(email){
@@ -61,8 +65,26 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    pickImage = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+     let result = await ImagePicker.launchImageLibraryAsync({
+       allowsEditing: true,
+       aspect: [4, 4],
+     });
+
+     console.log(result);
+
+     if (!result.cancelled) {
+       this.setState({ image: result.uri });
+     }
+   };
+
+
   render() {
     const {navigate} = this.props.navigation;
+    var image = this.state.image
+    console.log("IMage", this.state.image);
 
     return (
 
@@ -100,12 +122,21 @@ export default class RegisterUser extends React.Component {
           />
 
           <TextInput
-            style={{borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.65, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(bio) => {this.changeBioText(bio)}}
             value={this.state.bio} placeholder='Tell us about yourself' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
-        
+
+
+        <Button
+          title="Pick an image from camera roll"
+          onPress={() => this.pickImage()}
+        />
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
+
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
