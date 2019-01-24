@@ -20,7 +20,7 @@ export default class GlobalButton extends Component {
                 title={this.props.buttonTitle}
                 titleStyle={{  }}
                 buttonStyle={{
-                  backgroundColor: "#a8ff78",
+                  backgroundColor: "#78ffd6",
                   marginLeft: this.props.marginLeft ? this.props.marginLeft : 0,
                   marginRight: this.props.marginRight ? this.props.marginRight : 0,
                   width: Dimensions.get('window').width*0.3,

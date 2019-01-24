@@ -1,29 +1,33 @@
 import React from 'react';
-import { StyleSheet, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Platform, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
+import GlobalButton from '../../components/GlobalButton.js';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
-    title: 'Enter your NüV registration data below',
-    header: null,
-  };
+    title: null,
+    headerTitle: (
+     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -Dimensions.get('window').width*0.18 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
+ ),
+}
 
   constructor(props) {
   super(props);
 
-  this.changeUsernameText = this.changeUsernameText.bind(this);
+  this.changeEmailText = this.changeEmailText.bind(this);
   this.changePasswordText = this.changePasswordText.bind(this);
 
 }
 
   state = {
-      username: "",
+      email: "",
       password: ""
     };
 
-    changeUsernameText(username){
+    changeEmailText(email){
       this.setState({
-        username: username
+        email: email
       })
     }
 
@@ -37,36 +41,29 @@ export default class RegisterUser extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
+
       <View style={registerUserStyle.container}>
-        <Text style={registerUserStyle.header}>
-        NüV - Lifestyle support
-        </Text>
 
           <TextInput
-            style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(username) => {this.changeUsernameText(username)}}
-            value={this.state.username} placeholder='Your NüV username' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(username) => {this.changeEmailText(email)}}
+            value={this.state.username} placeholder='Email address' placeholderTextColor='black'
+            underlineColorAndroid='transparent' underlineColorIOS="grey"
           />
 
+
          <TextInput
-           style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
            onChangeText={(password) => {this.changePasswordText(password)}}
-           value={this.state.password} placeholder='Your NüV password' placeholderTextColor='black'
+           value={this.state.password} placeholder='Password' placeholderTextColor='black'
            underlineColorAndroid='transparent'
          />
 
-         <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
-         <Button
-           title="Submit and register for NüV"
-           onPress={() => navigate('MyProfile', {name: 'SignIn'})}
-         />
+         <View style={registerUserStyle.submitContainer}>
+         <GlobalButton
+            buttonTitle="Register"
+            onPress={() => navigate('MyProfile', {name: 'SignIn'})}/>
          </View>
-
-         <Button
-           title="Go home"
-           onPress={() => navigate('Home', {name: 'SignIn'})}
-         />
 
       </View>
     );
@@ -75,9 +72,12 @@ export default class RegisterUser extends React.Component {
 
 const registerUserStyle = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  submitContainer: {
+    alignItems: 'center'
   },
   header: {
     fontSize: 24,

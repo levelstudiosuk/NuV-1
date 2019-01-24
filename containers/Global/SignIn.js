@@ -9,25 +9,25 @@ export default class SignIn extends React.Component {
     title: null,
     headerTitle: (
      <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -Dimensions.get('window').width*0.18 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
- )
+ ),
 }
 
   constructor(props) {
   super(props);
 
-  this.changeUsernameText = this.changeUsernameText.bind(this);
+  this.changeEmailText = this.changeEmailText.bind(this);
   this.changePasswordText = this.changePasswordText.bind(this);
 
 }
 
   state = {
-      username: "",
+      email: "",
       password: ""
     };
 
-    changeUsernameText(username){
+    changeEmailText(email){
       this.setState({
-        username: username
+        email: email
       })
     }
 
@@ -45,8 +45,8 @@ export default class SignIn extends React.Component {
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(username) => {this.changeUsernameText(username)}}
-            value={this.state.username} placeholder='Username' placeholderTextColor='black'
+            onChangeText={(username) => {this.changeEmailText(email)}}
+            value={this.state.username} placeholder='Email address' placeholderTextColor='black'
             underlineColorAndroid='transparent' underlineColorIOS="grey"
           />
 
