@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Dimensions, Text, View } from 'react-native';
+import { StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -7,8 +7,10 @@ import AutoHeightImage from 'react-native-auto-height-image';
 export default class SignIn extends React.Component {
   static navigationOptions = {
     title: null,
-
-  };
+    headerTitle: (
+     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -Dimensions.get('window').width*0.18 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
+ )
+}
 
   constructor(props) {
   super(props);
@@ -41,12 +43,8 @@ export default class SignIn extends React.Component {
     return (
       <View style={signInStyle.container}>
 
-
-      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.05}} width={Dimensions.get('window').width*0.77} />
-
-
           <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(username) => {this.changeUsernameText(username)}}
             value={this.state.username} placeholder='Username' placeholderTextColor='black'
             underlineColorAndroid='transparent' underlineColorIOS="grey"
