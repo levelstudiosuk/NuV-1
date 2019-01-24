@@ -12,22 +12,60 @@ export default class VWayToggle extends React.Component {
     super(props);
 
     this.setActiveItem = this.setActiveItem.bind(this);
+    this.changeToggleSelection = this.changeToggleSelection.bind(this);
 
   }
 
     state = {
-        activeIndex: 1
+        activeIndex: 1,
+        vegan: false,
+        vegetarian: true,
+        vCurious: false
       };
+
+  changeToggleSelection(number){
+
+      if (number === 0 ) {
+      this.setState({
+        vegan: true,
+        vegetarian: false,
+        vCurious: false
+      })
+    }
+
+      else if (number === 1){
+      this.setState({
+        vegan: false,
+        vegetarian: true,
+        vCurious: false
+      })
+    }
+
+    else {
+      this.setState({
+        vegan: false,
+        vegetarian: false,
+        vCurious: true
+      })
+    }
+
+  }
 
   setActiveItem(number){
 
     this.setState({
       activeIndex: number
-    })
+    }, function(){
+
+      this.changeToggleSelection(number)
+
+    }
+  )
 
   }
 
     render() {
+
         return (
           <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-between", alignItems: 'center'}}>
 
