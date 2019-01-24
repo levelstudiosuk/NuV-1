@@ -94,8 +94,6 @@ export default class RegisterUser extends React.Component {
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
 
-        <VWayToggle />
-
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
@@ -123,6 +121,8 @@ export default class RegisterUser extends React.Component {
             value={this.state.location} placeholder='Town/City' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
+
+            <VWayToggle />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
