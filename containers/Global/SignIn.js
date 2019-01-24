@@ -4,8 +4,8 @@ import { Constants } from 'expo'
 
 export default class SignIn extends React.Component {
   static navigationOptions = {
-    title: 'Enter your NüV credentials below',
-    header: null,
+    title: null,
+
   };
 
   constructor(props) {
