@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Platform, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -19,6 +19,7 @@ export default class RegisterUser extends React.Component {
   this.changePasswordText = this.changePasswordText.bind(this);
   this.changeNameText = this.changeNameText.bind(this);
   this.changeLocationText = this.changeLocationText.bind(this);
+  this.changeBioText = this.changeBioText.bind(this);
 
 }
 
@@ -26,7 +27,8 @@ export default class RegisterUser extends React.Component {
       email: "",
       password: "",
       name: "",
-      location: ""
+      location: "",
+      bio: ""
     };
 
     changeEmailText(email){
@@ -53,6 +55,12 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    changeBioText(bio){
+      this.setState({
+        bio: bio
+      })
+    }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -60,10 +68,20 @@ export default class RegisterUser extends React.Component {
 
       <View style={registerUserStyle.container}>
 
+      <ScrollView>
+      <View style={registerUserStyle.container}>
+
           <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
             value={this.state.email} placeholder='Email address' placeholderTextColor='black'
+            underlineColorAndroid='transparent'
+          />
+
+          <TextInput
+            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(password) => {this.changePasswordText(password)}}
+            value={this.state.password} placeholder='Password' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
 
@@ -77,22 +95,27 @@ export default class RegisterUser extends React.Component {
           <TextInput
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(location) => {this.changeLocationText(location)}}
-            value={this.state.location} placeholder='Where ya at?' placeholderTextColor='black'
+            value={this.state.location} placeholder='Town/City' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
 
-         <TextInput
-           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-           onChangeText={(password) => {this.changePasswordText(password)}}
-           value={this.state.password} placeholder='Password' placeholderTextColor='black'
-           underlineColorAndroid='transparent'
-         />
+          <TextInput
+            style={{borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(bio) => {this.changeBioText(bio)}}
+            value={this.state.bio} placeholder='Tell us about yourself' placeholderTextColor='black'
+            underlineColorAndroid='transparent' maxLength={500} multiline={true}
+          />
+        
 
-         <View style={registerUserStyle.submitContainer}>
-         <GlobalButton
-            buttonTitle="Register"
-            onPress={() => navigate('MyProfile', {name: 'SignIn'})}/>
-         </View>
+          <View style={registerUserStyle.submitContainer}>
+          <GlobalButton
+             buttonTitle="Submit"
+             onPress={() => navigate('MyProfile', {name: 'SignIn'})}/>
+          </View>
+
+          </View>
+
+          </ScrollView>
 
       </View>
     );
@@ -106,7 +129,8 @@ const registerUserStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   submitContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
   },
   header: {
     fontSize: 24,
