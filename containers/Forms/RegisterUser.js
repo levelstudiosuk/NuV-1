@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -128,16 +128,13 @@ export default class RegisterUser extends React.Component {
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
 
+          <GlobalButton
+             buttonTitle="Profile pic"
+             onPress={() => this.pickImage()}/>
 
-        <Button
-          title="Pick an image from your gallery"
 
-          onPress={() => this.pickImage()}
-        />
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
-
-
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
