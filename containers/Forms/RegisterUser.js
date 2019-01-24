@@ -71,7 +71,10 @@ export default class RegisterUser extends React.Component {
 
      let result = await ImagePicker.launchImageLibraryAsync({
        allowsEditing: true,
-       aspect: [4, 4],
+       mediaTypes: ImagePicker.MediaTypeOptions.All,
+       quality: 1,
+       exif: true,
+       aspect: [4, 4]
      });
 
      console.log(result);
@@ -85,7 +88,6 @@ export default class RegisterUser extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     var image = this.state.image
-    console.log("IMage", this.state.image);
 
     return (
 

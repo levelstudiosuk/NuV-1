@@ -16,7 +16,7 @@ export default class Landing extends React.Component {
 
     return (
       <View style={landingStyle.container}>
-      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.18}} width={Dimensions.get('window').width*0.77} />
+      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}} width={Dimensions.get('window').width*0.77} />
 
       <View style={landingStyle.iconsContainer}>
 
@@ -26,7 +26,17 @@ export default class Landing extends React.Component {
       </View>
 
       <View style={landingStyle.descriptionContainer}>
-        <Text style={landingStyle.descriptionText}>DESCRIPTION: At vero eos et aos ducimupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod max</Text>
+        <Text style={landingStyle.descriptionText}>
+
+            Hi! Welcome to NüV. The lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
+
+            Our community will help you find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
+
+            To get started simply register using your email address and set up a NüV profile.{"\n"}{"\n"}
+
+            Together, lettuce grow this community.  This is just the veganning…
+
+        </Text>
       </View>
 
       </View>
@@ -42,16 +52,19 @@ const landingStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   descriptionContainer: {
-    marginTop: Dimensions.get('window').height*0.1
+    marginTop: Dimensions.get('window').height*0.065
   },
   descriptionText: {
     paddingLeft: Dimensions.get('window').width*0.115,
-    paddingRight: Dimensions.get('window').width*0.115
+    paddingRight: Dimensions.get('window').width*0.115,
+    textAlign: 'center',
+    fontSize: 14
   },
 
   iconsContainer: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
+    marginTop: Dimensions.get('window').height*0.035,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',
