@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, TextInput, Dimensions, Text, View } from 'react-native';
 import { Constants } from 'expo'
+import GlobalButton from '../../components/GlobalButton.js';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 export default class SignIn extends React.Component {
   static navigationOptions = {
@@ -38,9 +40,10 @@ export default class SignIn extends React.Component {
 
     return (
       <View style={signInStyle.container}>
-        <Text style={signInStyle.header}>
-        NüV - Lifestyle support
-        </Text>
+
+
+      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.05}} width={Dimensions.get('window').width*0.77} />
+
 
           <TextInput
             style={{height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'green', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
@@ -57,17 +60,9 @@ export default class SignIn extends React.Component {
            underlineColorAndroid='transparent'
          />
 
-         <View style={{marginBottom: Dimensions.get('window').height*0.02}}>
-         <Button
-           title="Sign in to NüV"
-           onPress={() => navigate('Home', {name: 'SignIn'})}
-         />
+         <View style={signInStyle.submitContainer}>
+         <GlobalButton onPress={() => navigate('Home', {name: 'SignIn'})} buttonTitle={"Sign in"} />
          </View>
-
-         <Button
-           title="Go home"
-           onPress={() => navigate('Landing', {name: 'SignIn'})}
-         />
 
       </View>
     );
@@ -76,9 +71,12 @@ export default class SignIn extends React.Component {
 
 const signInStyle = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  submitContainer: {
+    alignItems: 'center'
   },
   header: {
     fontSize: 24,
