@@ -67,7 +67,7 @@ export default class SignIn extends React.Component {
          <Button
            title="Go home"
            onPress={() => navigate('Landing', {name: 'SignIn'})}
-         /> 
+         />
 
       </View>
     );
@@ -76,8 +76,7 @@ export default class SignIn extends React.Component {
 
 const signInStyle = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: 'transparent',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -85,6 +84,7 @@ const signInStyle = StyleSheet.create({
     fontSize: 24,
     color: 'green',
     textAlign: 'center',
+    marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
   },
 });

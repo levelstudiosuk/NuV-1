@@ -17,7 +17,7 @@ export default class Home extends React.Component {
       <View style={homeStyle.container}>
       <Text style={homeStyle.header}>NüV - Lifestyle support</Text>
       <View style={homeStyle.buttonContainer}>
-        <Text style={{fontSize: 18, color: 'midnightblue'}}> {TimeGreeting.getTimeBasedGreeting("Jarrod")} </Text>
+        <Text style={{fontSize: 18, color: 'midnightblue'}}>{TimeGreeting.getTimeBasedGreeting("Jarrod")} </Text>
       </View>
       <Button
         title="Go [somewhere tbc]"
@@ -32,8 +32,7 @@ export default class Home extends React.Component {
 const homeStyle = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -44,6 +43,7 @@ const homeStyle = StyleSheet.create({
     marginTop: 10,
     color: 'green',
     textAlign: 'center',
+    marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
   },
   buttonContainer: {

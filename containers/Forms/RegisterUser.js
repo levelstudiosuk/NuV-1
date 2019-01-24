@@ -75,8 +75,7 @@ export default class RegisterUser extends React.Component {
 
 const registerUserStyle = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -84,6 +83,7 @@ const registerUserStyle = StyleSheet.create({
     fontSize: 24,
     color: 'green',
     textAlign: 'center',
+    marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
   },
 });

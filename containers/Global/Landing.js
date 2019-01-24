@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Image, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import NavBar from '../../components/NavBar.js';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
@@ -14,7 +15,7 @@ export default class Landing extends React.Component {
 
     return (
       <View style={landingStyle.container}>
-      <Text style={landingStyle.header}>NüV - Lifestyle support</Text>
+      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.25}} width={Dimensions.get('window').width*0.77} />
       <View style={landingStyle.buttonContainer}>
       <Button
         title="Register"
@@ -27,7 +28,7 @@ export default class Landing extends React.Component {
         onPress={() => navigate('SignIn', {name: 'Home'})}
       />
       </View>
-      
+
       </View>
     );
   }
@@ -35,17 +36,10 @@ export default class Landing extends React.Component {
 
 const landingStyle = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  header: {
-    fontSize: 24,
-    color: 'green',
-    textAlign: 'center',
-    marginBottom: Dimensions.get('window').height*0.01
   },
   buttonContainer: {
     marginBottom: Dimensions.get('window').height*0.01

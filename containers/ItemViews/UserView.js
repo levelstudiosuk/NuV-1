@@ -33,8 +33,7 @@ export default class UserView extends React.Component {
 const userViewStyle = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -45,6 +44,7 @@ const userViewStyle = StyleSheet.create({
     marginTop: 10,
     color: 'green',
     textAlign: 'center',
+    marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
   },
   buttonContainer: {
