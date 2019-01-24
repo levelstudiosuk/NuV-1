@@ -17,17 +17,33 @@ export default class RegisterUser extends React.Component {
 
   this.changeEmailText = this.changeEmailText.bind(this);
   this.changePasswordText = this.changePasswordText.bind(this);
+  this.changeNameText = this.changeNameText.bind(this);
+  this.changeLocationText = this.changeLocationText.bind(this);
 
 }
 
   state = {
       email: "",
-      password: ""
+      password: "",
+      name: "",
+      location: ""
     };
 
     changeEmailText(email){
       this.setState({
         email: email
+      })
+    }
+
+    changeNameText(name){
+      this.setState({
+        name: name
+      })
+    }
+
+    changeLocationText(location){
+      this.setState({
+        location: location
       })
     }
 
@@ -46,11 +62,24 @@ export default class RegisterUser extends React.Component {
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(username) => {this.changeEmailText(email)}}
-            value={this.state.username} placeholder='Email address' placeholderTextColor='black'
-            underlineColorAndroid='transparent' underlineColorIOS="grey"
+            onChangeText={(email) => {this.changeEmailText(email)}}
+            value={this.state.email} placeholder='Email address' placeholderTextColor='black'
+            underlineColorAndroid='transparent'
           />
 
+          <TextInput
+            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(name) => {this.changeNameText(name)}}
+            value={this.state.name} placeholder='Name' placeholderTextColor='black'
+            underlineColorAndroid='transparent'
+          />
+
+          <TextInput
+            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(location) => {this.changeLocationText(location)}}
+            value={this.state.location} placeholder='Where ya at?' placeholderTextColor='black'
+            underlineColorAndroid='transparent'
+          />
 
          <TextInput
            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

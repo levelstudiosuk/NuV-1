@@ -45,8 +45,8 @@ export default class SignIn extends React.Component {
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(username) => {this.changeEmailText(email)}}
-            value={this.state.username} placeholder='Email address' placeholderTextColor='black'
+            onChangeText={(email) => {this.changeEmailText(email)}}
+            value={this.state.email} placeholder='Email address' placeholderTextColor='black'
             underlineColorAndroid='transparent' underlineColorIOS="grey"
           />
 
