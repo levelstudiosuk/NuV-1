@@ -25,25 +25,25 @@ export default class NavBar extends React.Component {
     return (
       <View style={navStyle.iconsContainer}>
 
-      <TouchableHighlight
+      <TouchableHighlight underlayColor="white"
           onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
             <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
-      <TouchableHighlight
+      <TouchableHighlight underlayColor="white"
       onPress={() => navigate('Map', {name: 'NavBar'})}
           >
             <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
-      <TouchableHighlight
+      <TouchableHighlight underlayColor="white"
       onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
             <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
       </TouchableHighlight>
 
-      <TouchableHighlight
+      <TouchableHighlight underlayColor="white"
         onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
             <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
