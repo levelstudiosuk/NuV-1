@@ -5,6 +5,7 @@ import Home from './containers/Global/Home.js';
 import Register from './containers/Forms/RegisterUser.js';
 import SignIn from './containers/Global/SignIn.js';
 import Landing from './containers/Global/Landing.js';
+import Map from './containers/Global/Map.js';
 import BrandForm from './containers/Forms/BrandForm.js';
 import RecipeForm from './containers/Forms/RecipeForm.js';
 import MyProfile from './containers/ItemViews/UserView.js';
@@ -23,7 +24,8 @@ const navigationVariable = createStackNavigator({
   BrandForm: {screen: BrandForm},
   RecipeForm: {screen: RecipeForm},
   MediaForm: {screen: MediaForm},
-  VenueForm: {screen: VenueForm}
+  VenueForm: {screen: VenueForm},
+  Map: {screen: Map}
 });
 
 const App = createAppContainer(navigationVariable)
