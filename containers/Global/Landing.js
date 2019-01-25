@@ -43,7 +43,7 @@ export default class Landing extends React.Component {
     </View>
     );
   }
-}
+}  
 
 const landingStyle = StyleSheet.create({
   container: {
