@@ -8,6 +8,7 @@ import Landing from './containers/Global/Landing.js';
 import BrandForm from './containers/Forms/BrandForm.js';
 import MyProfile from './containers/ItemViews/UserView.js';
 import MediaForm from './containers/Forms/MediaForm.js';
+import VenueForm from './containers/Forms/VenueForm.js';
 import NavBar from './components/NavBar.js';
 import { Constants } from 'expo'
 
@@ -19,7 +20,8 @@ const navigationVariable = createStackNavigator({
   MyProfile: {screen: MyProfile},
   NavBar: {screen: NavBar},
   BrandForm: {screen: BrandForm},
-  MediaForm: {screen: MediaForm}
+  MediaForm: {screen: MediaForm},
+  VenueForm: {screen: VenueForm}
 });
 
 const App = createAppContainer(navigationVariable)
