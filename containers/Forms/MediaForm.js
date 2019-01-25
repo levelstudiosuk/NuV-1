@@ -70,8 +70,6 @@ export default class MediaForm extends React.Component {
        aspect: [4, 4]
      });
 
-     console.log(result);
-
      if (!result.cancelled) {
        this.setState({ image: result.uri });
      }
@@ -109,7 +107,6 @@ export default class MediaForm extends React.Component {
 
             <TwoWayToggle />
 
-
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(name) => {this.changeNameText(name)}}
@@ -141,7 +138,6 @@ export default class MediaForm extends React.Component {
           <GlobalButton
              buttonTitle="Item image"
              onPress={() => this.pickImage()}/>
-
 
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}

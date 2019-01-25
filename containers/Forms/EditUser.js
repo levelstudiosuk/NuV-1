@@ -7,7 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 
-export default class RegisterUser extends React.Component {
+export default class EditUser extends React.Component {
   static navigationOptions = {
     title: null,
     headerTitle: (
@@ -18,8 +18,6 @@ export default class RegisterUser extends React.Component {
   constructor(props) {
   super(props);
 
-  this.changeEmailText = this.changeEmailText.bind(this);
-  this.changePasswordText = this.changePasswordText.bind(this);
   this.changeNameText = this.changeNameText.bind(this);
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeBioText = this.changeBioText.bind(this);
@@ -91,24 +89,16 @@ export default class RegisterUser extends React.Component {
 
     return (
 
-      <View style={registerUserStyle.container}>
+      <View style={editUserStyle.container}>
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
-      <View style={registerUserStyle.container}>
+      <View style={editUserStyle.container}>
 
-          <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(email) => {this.changeEmailText(email)}}
-            value={this.state.email} placeholder='Email address' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
-          />
-
-          <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(password) => {this.changePasswordText(password)}}
-            value={this.state.password} placeholder='Password' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
-          />
+      <Text style={{fontSize: 18, textAlign: 'center', marginTop: Dimensions.get('window').height*0.035, marginBottom: Dimensions.get('window').height*0.02 }}>
+      You are editing your NüV profile.{"\n"}{"\n"}
+      Please ensure information is true and complete all fields.{"\n"}{"\n"}
+      Thank you! :-)
+      </Text>
 
           <TextInput
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
@@ -141,7 +131,7 @@ export default class RegisterUser extends React.Component {
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
-          <View style={registerUserStyle.submitContainer}>
+          <View style={editUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
              onPress={() => navigate('UserView', {name: 'SignIn'})}/>
@@ -156,7 +146,7 @@ export default class RegisterUser extends React.Component {
   }
 }
 
-const registerUserStyle = StyleSheet.create({
+const editUserStyle = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     alignItems: 'center',
