@@ -92,11 +92,16 @@ export default class MediaForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
 
+            <AutoHeightImage
+              width={70}
+              source={require('../../assets/AppIcons/newspaper.png')}
+              style={{marginBottom: Dimensions.get('window').height*0.04}}
+            />
 
             <Text style={{fontSize: 18, textAlign: 'center'}}>
-            You are adding a media item to NüV.{"\n"}{"\n"}
-            Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            Thank you! :-)
+            You are adding a media ARTICLE.{"\n"}{"\n"}
+            Found an interesting blog, newspost or podcast? Share it here. Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
+            PS: Thanks [USER_NAME]; you are a star!
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
@@ -108,7 +113,7 @@ export default class MediaForm extends React.Component {
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(name) => {this.changeNameText(name)}}
-            value={this.state.name} placeholder='Media item name' placeholderTextColor='black'
+            value={this.state.name} placeholder='Title' placeholderTextColor='black'
             underlineColorAndroid='transparent'
           />
 

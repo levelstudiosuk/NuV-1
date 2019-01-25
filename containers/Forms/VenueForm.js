@@ -123,11 +123,16 @@ export default class VenueForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
 
+            <AutoHeightImage
+              width={70}
+              source={require('../../assets/AppIcons/dining.png')}
+              style={{marginBottom: Dimensions.get('window').height*0.04}}
+            />
 
             <Text style={{fontSize: 18, textAlign: 'center'}}>
-            You are adding a venue to NüV.{"\n"}{"\n"}
-            Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            Thank you! :-)
+            You are adding an EATERY.{"\n"}{"\n"}
+            Our community would love to hear about your favourite ethical cafe, restauraunt, market or streetfood stall. Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
+            PS: Thanks [USER_NAME]; you are a star!
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
