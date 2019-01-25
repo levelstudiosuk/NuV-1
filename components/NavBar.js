@@ -25,7 +25,7 @@ export default class NavBar extends React.Component {
     return (
       <View style={navStyle.iconsContainer}>
 
-      <TouchableHighlight underlayColor="white" 
+      <TouchableHighlight underlayColor="white"
           onPress={() => navigate('Landing', {name: 'NavBar'})}
           >
             <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
@@ -58,6 +58,7 @@ const navStyle = StyleSheet.create({
   iconsContainer: {
     position: 'absolute',
     bottom: 0,
+    width: Dimensions.get('window').width*1,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
