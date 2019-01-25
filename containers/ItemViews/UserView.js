@@ -15,6 +15,36 @@ export default class UserView extends React.Component {
  ),
 }
 
+      constructor(props) {
+      super(props);
+
+      this.pickImage = this.pickImage.bind(this);
+
+      }
+
+      state = {
+          image: null
+        };
+
+
+      pickImage = async () => {
+      await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+       let result = await ImagePicker.launchImageLibraryAsync({
+         allowsEditing: true,
+         mediaTypes: ImagePicker.MediaTypeOptions.All,
+         quality: 1,
+         exif: true,
+         aspect: [4, 4]
+       });
+
+       console.log(result);
+
+       if (!result.cancelled) {
+         this.setState({ image: result.uri });
+       }
+      };
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -30,15 +60,30 @@ export default class UserView extends React.Component {
         </View>
       )}
     >
-    <View style={userViewStyle.buttonContainer}>
-    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView')} style={{width: Dimensions.get('window').width*0.5}}>
-    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/wil.jpg')}/>
-    </TouchableHighlight>
+    <View style={userViewStyle.flexRowContainer}>
+    <View style={{flexDirection: 'column'}}>
+
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+      <Text style={userViewStyle.profileItem}>Name: Wil Cornish </Text>
     </View>
 
-    <View style={userViewStyle.greetingContainer}>
-      <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting("Wil Cornish")} </Text>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+      <Text style={userViewStyle.profileItem}>Hometown: Hastings </Text>
     </View>
+
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+      <Text style={userViewStyle.profileItem}>NüV Status: V-curious </Text>
+    </View>
+
+    </View>
+
+    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/wil.jpg')}/>
+
+    </View>
+
+    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>Usually if not always finished first, coming up on a full set of offers from all the most selective tech firms in the north. Sometimes it gets really hard rejecting offer after offer, but fortunately live music remains a huge source of catharsis for me.</Text>
+
+    <Text style={{textAlign: 'center', fontSize: 26, fontWeight: 'bold', marginTop: Dimensions.get('window').height*0.06, marginBottom: Dimensions.get('window').height*0.03}}>My NüV Contributions</Text>
 
     <View style={userViewStyle.iconsContainer}>
 
@@ -67,12 +112,23 @@ const userViewStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  profileItem: {
+    padding: Dimensions.get('window').width* 0.025,
+    fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
+    color: 'black'
+  },
   iconsContainer: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
     marginTop: Dimensions.get('window').height*0.035,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  flexRowContainer: {
+    backgroundColor: 'white',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
