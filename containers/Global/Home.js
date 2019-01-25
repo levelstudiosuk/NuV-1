@@ -40,15 +40,16 @@ export default class Home extends React.Component {
 
     <View style={homeStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('SignIn', {name: 'Home'})} buttonTitle={"Recipes"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('Register', {name: 'Home'})} buttonTitle={"Eateries"} />
+    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeForm')} buttonTitle={"Recipes"} />
+    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueForm')} buttonTitle={"Eateries"} />
+
 
     </View>
 
     <View style={homeStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm', {name: 'Home'})} buttonTitle={"Brands"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('Register', {name: 'Home'})} buttonTitle={"Media"} />
+    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm')} buttonTitle={"Brands"} />
+    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaForm')} buttonTitle={"Media"} />
 
     </View>
     </StickyHeaderFooterScrollView>

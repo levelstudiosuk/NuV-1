@@ -6,7 +6,10 @@ import Register from './containers/Forms/RegisterUser.js';
 import SignIn from './containers/Global/SignIn.js';
 import Landing from './containers/Global/Landing.js';
 import BrandForm from './containers/Forms/BrandForm.js';
+import RecipeForm from './containers/Forms/RecipeForm.js';
 import MyProfile from './containers/ItemViews/UserView.js';
+import MediaForm from './containers/Forms/MediaForm.js';
+import VenueForm from './containers/Forms/VenueForm.js';
 import NavBar from './components/NavBar.js';
 import { Constants } from 'expo'
 
@@ -17,7 +20,10 @@ const navigationVariable = createStackNavigator({
   Home: {screen: Home},
   MyProfile: {screen: MyProfile},
   NavBar: {screen: NavBar},
-  BrandForm: {screen: BrandForm}
+  BrandForm: {screen: BrandForm},
+  RecipeForm: {screen: RecipeForm},
+  MediaForm: {screen: MediaForm},
+  VenueForm: {screen: VenueForm}
 });
 
 const App = createAppContainer(navigationVariable)

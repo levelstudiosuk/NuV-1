@@ -18,7 +18,7 @@ export default class GlobalButton extends Component {
         }}>
               <GradientButton
                 onPressAction={this.props.onPress}
-                textStyle={{fontSize: 15, color: 'grey', fontWeight: 'normal'}}
+                textStyle={{fontSize: 15, color: 'black', fontWeight: 'normal'}}
                 text={this.props.buttonTitle}
                 radius={10}
                 height={45}
