@@ -144,7 +144,7 @@ export default class RegisterUser extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('MyProfile', {name: 'SignIn'})}/>
+             onPress={() => navigate('UserView', {name: 'SignIn'})}/>
           </View>
 
           </View>

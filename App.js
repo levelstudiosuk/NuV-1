@@ -7,7 +7,7 @@ import SignIn from './containers/Global/SignIn.js';
 import Landing from './containers/Global/Landing.js';
 import BrandForm from './containers/Forms/BrandForm.js';
 import RecipeForm from './containers/Forms/RecipeForm.js';
-import MyProfile from './containers/ItemViews/UserView.js';
+import UserView from './containers/ItemViews/UserView.js';
 import MediaForm from './containers/Forms/MediaForm.js';
 import VenueForm from './containers/Forms/VenueForm.js';
 import NavBar from './components/NavBar.js';
@@ -18,7 +18,7 @@ const navigationVariable = createStackNavigator({
   Register: {screen: Register},
   SignIn: {screen: SignIn},
   Home: {screen: Home},
-  MyProfile: {screen: MyProfile},
+  UserView: {screen: UserView},
   NavBar: {screen: NavBar},
   BrandForm: {screen: BrandForm},
   RecipeForm: {screen: RecipeForm},

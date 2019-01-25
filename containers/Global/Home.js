@@ -31,7 +31,7 @@ export default class Home extends React.Component {
       )}
     >
     <View style={homeStyle.buttonContainer}>
-    <TouchableHighlight underlayColor="white" onPress={() => navigate('RecipeForm')} style={{width: Dimensions.get('window').width*0.5}}>
+    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView')} style={{width: Dimensions.get('window').width*0.5}}>
     <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/wil.jpg')}/>
     </TouchableHighlight>
     </View>
