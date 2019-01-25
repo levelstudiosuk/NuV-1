@@ -47,8 +47,8 @@ export default class Home extends React.Component {
 
     <View style={homeStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm')} buttonTitle={"Brands"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('Register')} buttonTitle={"Media"} />
+    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm', {name: 'Home'})} buttonTitle={"Brands"} />
+    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaForm', {name: 'Home'})} buttonTitle={"Media"} />
 
     </View>
     </StickyHeaderFooterScrollView>

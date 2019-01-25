@@ -19,7 +19,7 @@ export default class BrandForm extends React.Component {
   constructor(props) {
   super(props);
 
-  this.changenNameText = this.changeNameText.bind(this);
+  this.changeNameText = this.changeNameText.bind(this);
   this.changeDescriptionText = this.changeDescriptionText.bind(this);
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeUrlText = this.changeUrlText.bind(this);
