@@ -7,6 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
+import StarRating from 'react-native-star-rating';
 
 export default class VenueForm extends React.Component {
   static navigationOptions = {
@@ -25,6 +26,7 @@ export default class VenueForm extends React.Component {
   this.changeUrlText = this.changeUrlText.bind(this);
   this.changePostcodeText = this.changePostcodeText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.onStarRatingPress = this.onStarRatingPress.bind(this);
 
 }
 
@@ -34,8 +36,15 @@ export default class VenueForm extends React.Component {
       location: "",
       url: "",
       image: null,
-      type: ""
+      type: "",
+      starCount: 3
     };
+
+    onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating
+    });
+  }
 
     changeNameText(name){
       this.setState({
@@ -167,9 +176,18 @@ export default class VenueForm extends React.Component {
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.01, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(description) => {this.changeDescriptionText(description)}}
-            value={this.state.postcode} placeholder='Help out the NüV community by writing something' placeholderTextColor='black'
+            value={this.state.description} placeholder='Help out the NüV community by writing something' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
+
+          <StarRating
+        disabled={false}
+        maxStars={5}
+        rating={this.state.starCount}
+        selectedStar={(rating) => this.onStarRatingPress(rating)}
+        fullStarColor={'#0DC6B5'}
+        containerStyle={{marginBottom: Dimensions.get('window').height*0.04}}
+      />
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
@@ -196,7 +214,7 @@ const registerUserStyle = StyleSheet.create({
   submitContainer: {
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
-    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.28 : Dimensions.get('window').height*0.28
   },
   header: {
     fontSize: 24,
