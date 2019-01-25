@@ -17,7 +17,7 @@ export default class TwoWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: 1,
+        activeIndex: 0,
         vegan: false,
         vegetarian: true
       };
