@@ -90,6 +90,17 @@ export default class BrandForm extends React.Component {
 
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
+
+
+            <Text style={{fontSize: 18, textAlign: 'center'}}>
+            You are adding a brand to NüV.{"\n"}{"\n"}
+            Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
+            Thank you! :-)
+            </Text>
+
+            <View style={{marginTop: Dimensions.get('window').height*0.04}}>
+            </View>
+
             <TwoWayToggle />
 
 
