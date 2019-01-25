@@ -17,7 +17,7 @@ export default class TwoWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: 1,
+        activeIndex: 0,
         vegan: false,
         vegetarian: true
       };
@@ -71,7 +71,7 @@ export default class TwoWayToggle extends React.Component {
                             layout={{vertical: 0, horizontal: -1}}
                             onActivate={(number) => this.setActiveItem(number)}
                             containerStyles={_.times(3, () => ({
-                              backgroundColor: '#78ffd6',
+                              backgroundColor: '#0dc6b5',
                               borderRadius: 40,
                               borderWidth: 1,
                               borderColor: "white",
@@ -80,10 +80,10 @@ export default class TwoWayToggle extends React.Component {
                             }))}
                             active={0}>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'grey'}}>Vegan</Text>
+                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'grey'}}>Vegetarian</Text>
+                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vegetarian</Text>
                             </View>
               </MultiSwitch>
             </View>

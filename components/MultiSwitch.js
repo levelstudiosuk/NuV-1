@@ -111,13 +111,13 @@ MultiSwitch.defaultProps = {
                        , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: 'rgb(180, 180, 180)'}
                        , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: 'rgb(180, 180, 180)'}
                        ],
-  inactiveContainerStyle: [{ backgroundColor: '#78ffd6', borderRadius: 100,}
-                       , { backgroundColor: '#78ffd6', borderRadius: 100,}
-                       , { backgroundColor: '#78ffd6', borderRadius: 100,}
-                       , { backgroundColor: '#78ffd6', borderRadius: 100,}
+  inactiveContainerStyle: [{ backgroundColor: '#0dc6b5', borderRadius: 100,}
+                       , { backgroundColor: '#0dc6b5', borderRadius: 100,}
+                       , { backgroundColor: '#0dc6b5', borderRadius: 100,}
+                       , { backgroundColor: '#0dc6b5', borderRadius: 100,}
                        ],
   activeItemStyle: [{}, {}, {}, {}],
-  inactiveItemStyle: [{backgroundColor: '#78ffd6'}, {backgroundColor: '#78ffd6'}, {backgroundColor: '#78ffd6'}, {backgroundColor: '#78ffd6'}],
+  inactiveItemStyle: [{backgroundColor: '#0dc6b5'}, {backgroundColor: '#0dc6b5'}, {backgroundColor: '#0dc6b5'}, {backgroundColor: '#0dc6b5'}],
   neverActivate: [],
   layout: {horizontal: -1, vertical: 0},
   onActivate: () => { },
