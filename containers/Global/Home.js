@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, ScrollView, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
@@ -31,7 +31,9 @@ export default class Home extends React.Component {
       )}
     >
     <View style={homeStyle.buttonContainer}>
+    <TouchableHighlight underlayColor="white" onPress={() => navigate('RecipeForm')} style={{width: Dimensions.get('window').width*0.5}}>
     <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/wil.jpg')}/>
+    </TouchableHighlight>
     </View>
 
     <View style={homeStyle.greetingContainer}>
@@ -42,7 +44,6 @@ export default class Home extends React.Component {
 
     <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeForm')} buttonTitle={"Recipes"} />
     <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueForm')} buttonTitle={"Eateries"} />
-
 
     </View>
 
