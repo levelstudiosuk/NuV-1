@@ -83,6 +83,12 @@ export default class UserView extends React.Component {
 
     <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>Usually if not always finished first, coming up on a full set of offers from all the most selective tech firms in the north. Sometimes it gets really hard rejecting offer after offer, but fortunately live music remains a huge source of catharsis for me.</Text>
 
+    <View style={userViewStyle.editButtonContainer}>
+
+    <GlobalButton onPress={() => navigate('EditUser')} buttonTitle={"Edit profile"} />
+
+    </View>
+
     <Text style={{textAlign: 'center', fontSize: 26, fontWeight: 'bold', marginTop: Dimensions.get('window').height*0.06, marginBottom: Dimensions.get('window').height*0.03}}>My NüV Contributions</Text>
 
     <View style={userViewStyle.iconsContainer}>
@@ -131,6 +137,9 @@ const userViewStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  editButtonContainer: {
+    alignItems: 'center'
   },
   buttonContainer: {
     marginBottom: Dimensions.get('window').height*0.01,
