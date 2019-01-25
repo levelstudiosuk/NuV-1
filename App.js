@@ -20,11 +20,9 @@ const navigationVariable = createStackNavigator({
   MyProfile: {screen: MyProfile},
   NavBar: {screen: NavBar},
   BrandForm: {screen: BrandForm},
-<<<<<<< HEAD
-  RecipeForm: {screen: RecipeForm}
-=======
+  RecipeForm: {screen: RecipeForm},
   MediaForm: {screen: MediaForm}
->>>>>>> 79f2f6159b46fa0ba6c0cfb5b35a01fafee4d658
+
 });
 
 const App = createAppContainer(navigationVariable)
