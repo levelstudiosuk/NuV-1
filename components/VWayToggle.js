@@ -75,7 +75,7 @@ export default class VWayToggle extends React.Component {
                             layout={{vertical: 0, horizontal: -1}}
                             onActivate={(number) => this.setActiveItem(number)}
                             containerStyles={_.times(3, () => ({
-                              backgroundColor: '#78ffd6',
+                              backgroundColor: '#0dc6b5',
                               borderRadius: 40,
                               borderWidth: 1,
                               borderColor: "white",
@@ -84,13 +84,13 @@ export default class VWayToggle extends React.Component {
                             }))}
                             active={1}>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'grey'}}>Vegan</Text>
+                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'grey'}}>Vegetarian</Text>
+                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vegetarian</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'grey'}}>V-curious</Text>
+                            <Text style={{color: this.state.activeIndex === 2 ? 'black' : 'white'}}>V-curious</Text>
                             </View>
               </MultiSwitch>
             </View>

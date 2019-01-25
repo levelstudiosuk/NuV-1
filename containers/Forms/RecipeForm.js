@@ -23,7 +23,10 @@ export default class RecipeForm extends React.Component {
   this.changeWordsText = this.changeWordsText.bind(this);
   this.changeUrlText = this.changeUrlText.bind(this);
   this.pickImage = this.pickImage.bind(this);
-
+  this.onChangedPrep = this.onChangedPrep.bind(this);
+  this.changeIngredientText = this.changeIngredientText.bind(this);
+  this.onChangedCook = this.onChangedCook.bind(this);
+  this.changeMethodText = this.changeMethodText.bind(this);
 }
 
   state = {
@@ -32,7 +35,12 @@ export default class RecipeForm extends React.Component {
       location: "",
       url: "",
       image: null,
-      type: ""
+      type: "",
+      prep: "",
+      ingredient: "",
+      method: "",
+      cook: ""
+
     };
 
     changeNameText(name){
@@ -59,6 +67,18 @@ export default class RecipeForm extends React.Component {
       })
     }
 
+    changeIngredientText(bio){
+      this.setState({
+        ingredient: ingredient
+      })
+    }
+
+    changeMethodText(bio){
+      this.setState({
+        ingredient: ingredient
+      })
+    }
+
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -77,6 +97,38 @@ export default class RecipeForm extends React.Component {
      }
    };
 
+   onChangedPrep(text){
+    let newText = '';
+    let numbers = '0123456789';
+
+    for (var i=0; i < text.length; i++) {
+        if(numbers.indexOf(text[i]) > -1 ) {
+            newText = newText + text[i];
+        }
+        else {
+            // your call back function
+            alert("please enter numbers only");
+        }
+    }
+    this.setState({ prepTime: newText});
+}
+
+onChangedCook(text){
+ let newText = '';
+ let numbers = '0123456789';
+
+ for (var i=0; i < text.length; i++) {
+     if(numbers.indexOf(text[i]) > -1 ) {
+         newText = newText + text[i];
+     }
+     else {
+         // your call back function
+         alert("please enter numbers only");
+     }
+ }
+ this.setState({ cookTime: newText});
+}
+
 
   render() {
     const {navigate} = this.props.navigation;
@@ -92,11 +144,16 @@ export default class RecipeForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
 
+            <AutoHeightImage
+              width={70}
+              source={require('../../assets/AppIcons/cooking.png')}
+              style={{marginBottom: Dimensions.get('window').height*0.04}}
+            />
 
             <Text style={{fontSize: 18, textAlign: 'center'}}>
-            You are adding a media item to NüV.{"\n"}{"\n"}
-            Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            Thank you! :-)
+            You are adding a RECIPE{"\n"}{"\n"}
+            Please be as accurate as possible and complete all fields, it will make it easier to follow your instructions{"\n"}{"\n"}
+            PS: Thanks [user name], you are a star :)
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
@@ -104,42 +161,72 @@ export default class RecipeForm extends React.Component {
 
             <TwoWayToggle />
 
+            <TextInput
+              style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+              onChangeText={(name) => {this.changeNameText(name)}}
+              value={this.state.name} placeholder='Recipe Title' placeholderTextColor='black'
+              underlineColorAndroid='transparent'
+            />
 
-          <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(name) => {this.changeNameText(name)}}
-            value={this.state.name} placeholder='Media item name' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
-          />
+            <TextInput
+              style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+              onChangeText={(description) => {this.changeDescriptionText(description)}}
+              value={this.state.description} placeholder='Brief description' placeholderTextColor='black'
+              underlineColorAndroid='transparent'
+            />
 
-          <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(description) => {this.changeDescriptionText(description)}}
-            value={this.state.description} placeholder='Brief description' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
-          />
+            <TextInput
+              style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+              onChangeText={(words) => {this.changeWordsText(url)}}
+              value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
+              underlineColorAndroid='transparent' maxLength={500} multiline={true}
+            />
 
-          <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(words) => {this.changeWordsText(url)}}
-            value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
-            underlineColorAndroid='transparent' maxLength={500} multiline={true}
-          />
 
-          <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(url) => {this.changeUrlText(url)}}
-            value={this.state.url} placeholder='Link to item' placeholderTextColor='black'
-            underlineColorAndroid='transparent' maxLength={500} multiline={true}
-          />
-
-          <GlobalButton
-             buttonTitle="Item image"
-             onPress={() => this.pickImage()}/>
-
+            <GlobalButton
+               buttonTitle="Add Image"
+               onPress={() => this.pickImage()}
+            />
 
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+
+          <TextInput
+           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+           placeholder='Preperation Time (mins)'
+           placeholderTextColor='black'
+           keyboardType='numeric'
+           onChangeText={(text)=> this.onChangedPrep(text)}
+           value={this.state.myNumber}
+           maxLength={10}  //setting limit of input
+          />
+
+          <TextInput
+           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+           placeholder='Cooking Time (mins)'
+           placeholderTextColor='black'
+           keyboardType='numeric'
+           onChangeText={(text)=> this.onChangedCook(text)}
+           value={this.state.myNumber}
+           maxLength={10}  //setting limit of input
+          />
+
+
+          <TextInput
+            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(bio) => {this.changeIngredientText(bio)}}
+            value={this.state.bio} placeholder='ingredients' placeholderTextColor='black'
+            underlineColorAndroid='transparent' maxLength={10000} multiline={true}
+          />
+
+          <TextInput
+            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(bio) => {this.changeMethodText(bio)}}
+            value={this.state.bio} placeholder='Method' placeholderTextColor='black'
+            underlineColorAndroid='transparent' maxLength={10000} multiline={true}
+          />
+
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
