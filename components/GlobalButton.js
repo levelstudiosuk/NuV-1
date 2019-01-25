@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native-elements';
 import { View, Dimensions, StyleSheet } from 'react-native';
-import GradientButton from './GradientButton/index.js';
+import GradientButton from './GradientButton.js';
 
 
 export default class GlobalButton extends Component {
@@ -18,7 +18,7 @@ export default class GlobalButton extends Component {
         }}>
               <GradientButton
                 onPressAction={this.props.onPress}
-                textStyle={{fontSize: 10, color: 'black'}}
+                textStyle={{fontSize: 15, color: 'grey', fontWeight: 'normal'}}
                 text={this.props.buttonTitle}
                 radius={10}
                 height={45}

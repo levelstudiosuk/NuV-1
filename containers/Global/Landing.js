@@ -4,7 +4,6 @@ import { Constants } from 'expo'
 import NavBar from '../../components/NavBar.js';
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
-import GradientButton from '../../components/GradientButton/index.js';
 
 
 export default class Landing extends React.Component {
@@ -43,7 +42,7 @@ export default class Landing extends React.Component {
     </View>
     );
   }
-}  
+}
 
 const landingStyle = StyleSheet.create({
   container: {
