@@ -36,8 +36,6 @@ export default class BrandForm extends React.Component {
       type: ""
     };
 
-
-
     changeNameText(name){
       this.setState({
         name: name

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native-elements';
 import { View, Dimensions, StyleSheet } from 'react-native';
+import GradientButton from './GradientButton.js';
 
 
 export default class GlobalButton extends Component {
@@ -11,25 +12,25 @@ export default class GlobalButton extends Component {
 
   render() {
     return (
-
-
-
-              <Button
-                onPress={this.props.onPress}
-                textStyle={{fontSize: 19, color: 'black'}}
-                title={this.props.buttonTitle}
-                titleStyle={{  }}
-                buttonStyle={{
-                  backgroundColor: "#78ffd6",
-                  marginLeft: this.props.marginLeft ? this.props.marginLeft : 0,
-                  marginRight: this.props.marginRight ? this.props.marginRight : 0,
-                  width: Dimensions.get('window').width*0.3,
-                  height: 55,
-                  borderRadius: 10,
-
-                }}
+        <View style={{
+          marginLeft: this.props.marginLeft ? this.props.marginLeft : 0,
+          marginRight: this.props.marginRight ? this.props.marginRight : 0,
+        }}>
+              <GradientButton
+                onPressAction={this.props.onPress}
+                textStyle={{fontSize: 15, color: 'grey', fontWeight: 'normal'}}
+                text={this.props.buttonTitle}
+                radius={10}
+                height={45}
+                width={Dimensions.get('window').width*0.3}
+                impact='True'
+                impactStyle='Light'
+                gradientBegin="#0dc6b5"
+                gradientEnd="#92FE9D"
+                gradientDirection="horizontal"
                 containerStyle={{ marginTop: 20 }}
               />
+              </View>
 
     )
   }
