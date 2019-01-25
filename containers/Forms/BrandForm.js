@@ -6,6 +6,7 @@ import TwoWayToggle from '../../components/TwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import { Dropdown } from 'react-native-material-dropdown';
 
 export default class BrandForm extends React.Component {
   static navigationOptions = {
@@ -31,8 +32,11 @@ export default class BrandForm extends React.Component {
       description: "",
       location: "",
       url: "",
-      image: null
+      image: null,
+      type: ""
     };
+
+
 
     changeNameText(name){
       this.setState({
@@ -81,6 +85,20 @@ export default class BrandForm extends React.Component {
     const {navigate} = this.props.navigation;
     var image = this.state.image
 
+    let typeOptions = [{
+      value: 'Fashion',
+    },
+     {
+      value: 'Cosmetics',
+    },
+     {
+      value: 'Technology',
+    },
+    {
+     value: 'Entertainment',
+   }
+  ];
+
     return (
 
       <View style={registerUserStyle.container}>
@@ -105,10 +123,26 @@ export default class BrandForm extends React.Component {
 
 
           <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(name) => {this.changeNameText(name)}}
             value={this.state.name} placeholder='Brand name' placeholderTextColor='black'
             underlineColorAndroid='transparent'
+          />
+
+          <Dropdown
+            containerStyle={{justifyContent: 'center', height: Dimensions.get('window').height*0.04, width: Dimensions.get('window').width*0.5, marginBottom: Dimensions.get('window').height*0.04}}
+            label='Brand category'
+            textColor={'black'}
+            baseColor={'black'}
+            dropdownOffset={{ top: 0, left: 0 }}
+            data={typeOptions}
+            itemTextStyle={{textAlign: 'center'}}
+            overlayStyle={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.09}}
+            pickerStyle={{alignItems: 'center', backgroundColor: 'white', width: Dimensions.get('window').width*0.5}}
+            selectedItemColor={'black'}
+            disabledItemColor={'grey'}
+            itemTextStyle={{textAlign: 'center'}}
+            onChangeText={(value) => this.setState({type: value}) }
           />
 
           <TextInput
@@ -136,7 +170,7 @@ export default class BrandForm extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('MyProfile', {name: 'SignIn'})}/>
+             onPress={() => navigate('Home', {name: 'SignIn'})}/>
           </View>
 
           </View>
