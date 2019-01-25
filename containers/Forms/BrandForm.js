@@ -107,11 +107,16 @@ export default class BrandForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
 
+            <AutoHeightImage
+              width={70}
+              source={require('../../assets/AppIcons/shopping.png')}
+              style={{marginBottom: Dimensions.get('window').height*0.04}}
+            />
 
             <Text style={{fontSize: 18, textAlign: 'center'}}>
-            You are adding a brand to NüV.{"\n"}{"\n"}
-            Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            Thank you! :-)
+            You are adding a BRAND or SHOP{"\n"}{"\n"}
+            Please share your favourite ethical brands and shops here, our community will thank you. All we ask is you ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
+            PS. Thanks [USER_NAME]; you are a star!
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
