@@ -43,7 +43,7 @@ export default class Home extends React.Component {
     <View style={homeStyle.iconsContainer}>
 
     <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList')} buttonTitle={"Recipes"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueForm')} buttonTitle={"Eateries"} />
+    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList')} buttonTitle={"Eateries"} />
 
     </View>
 

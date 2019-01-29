@@ -47,7 +47,7 @@ export default class MediaList extends React.Component {
       />
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
-          [Good morning] [User_name]; here is the news{"\n"}{"\n"}
+          [Good morning] [User_name]{"\n"} Here is the news...
       </Text>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
