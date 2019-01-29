@@ -17,6 +17,7 @@ import EditUser from './containers/Forms/EditUser.js';
 import RecipeList from './containers/ListViews/RecipeList.js';
 import VenueList from './containers/ListViews/VenueList.js';
 import VenueView from './containers/ItemViews/VenueView.js';
+import RecipeView from './containers/ItemViews/RecipeView.js';
 import AddItemButton from './components/AddItemButton.js';
 import FaveButton from './components/FaveButton.js';
 import NavBar from './components/NavBar.js';
@@ -45,6 +46,7 @@ const navigationVariable = createStackNavigator({
   AddItemButton: {screen: AddItemButton},
   FaveButton: {screen: FaveButton},
   BrandView: {screen: BrandView},
+  RecipeView: {screen: RecipeView},
   MediaItemView: {screen: MediaItemView}
 
 });
