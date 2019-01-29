@@ -41,7 +41,7 @@ export default class VenueView extends React.Component {
 
     <View style={venueViewStyle.container}>
 
-    <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
     <View style={venueViewStyle.container}>
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
@@ -126,6 +126,7 @@ export default class VenueView extends React.Component {
 
     <View style={venueViewStyle.submitContainer}>
       <GlobalButton
+      marginLeft={Dimensions.get('window').width*0.03}
          buttonTitle="Rate and go"
          onPress={() => navigate('Home', {name: 'SignIn'})}/>
     </View>
