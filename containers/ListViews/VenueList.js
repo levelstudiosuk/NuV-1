@@ -55,7 +55,7 @@ export default class VenueList extends React.Component {
 
       <View style={venueListStyle.venueitem}>
       <TouchableHighlight style={venueListStyle.venueimage}>
-        <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 100, width: 100}}/>
+        <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
       </TouchableHighlight>
           <View style={venueListStyle.venuetextcontainer}>
             <View>
