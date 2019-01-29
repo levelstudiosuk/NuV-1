@@ -9,13 +9,14 @@ export default class FaveButton extends Component {
 
       <TouchableHighlight
         style={faveButtonStyle.content}
-        onPress={this.props.handleButtonClick}>
-        {
+        onPress={this.props.handleButtonClick}
+        underlayColor="white"
+        >
           <Image
             source={require('../assets/AppIcons/fave.png')}
             style={{height:50, width:50}}
           />
-        }
+
       </TouchableHighlight>
 
     )

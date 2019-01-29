@@ -10,7 +10,8 @@ export default class AddItemButton extends Component {
 
       <TouchableHighlight
         style={addItemButtonStyle.content}
-        onPress={this.props.onPress}>
+        onPress={this.props.onPress}
+        underlayColor="white">
         {
           <Image
             source={require('../assets/AppIcons/plus.png')}

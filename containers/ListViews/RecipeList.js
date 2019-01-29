@@ -5,6 +5,9 @@ import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
+import AddItemButton from '../../components/AddItemButton.js';
+import FaveButton from '../../components/FaveButton.js';
+import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import _ from 'lodash';
 const ITEM_HEIGHT = 100;
 import {Permissions} from 'expo'
@@ -148,6 +151,8 @@ export default class RecipeList extends React.Component {
 
   render() {
 
+    const {navigate} = this.props.navigation;
+
     const query = this.state.recipeTyped;
     const recipes = this.findRecipe(query, false);
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
@@ -284,12 +289,19 @@ export default class RecipeList extends React.Component {
       }
         </View>
 
-    <View style={{flexDirection: 'column', position: 'absolute', borderRightWidth: 0.5, borderColor: 'black', top: height*0.065}}>
+        <View style={{flex: 1, flexDirection: 'row', position: 'absolute', top: height*0.012}}>
+          <SmallTwoWayToggle marginLeft={5}/>
+          <AddItemButton navigation={this.props.navigation}
+          onPress={() => navigate('RecipeForm')} />
+          {/*<FaveButton navigation={this.props.navigation}/>*/}
+        </View>
+
+    <View style={{flexDirection: 'column', position: 'absolute', borderRightWidth: 0.5, borderColor: 'black', top: height*0.025}}>
 
     <Autocomplete
       autoCapitalize="none"
       autoCorrect={false}
-      containerStyle={{width: Dimensions.get('window').width*0.55}}
+      containerStyle={{width: Dimensions.get('window').width*0.4}}
       data={this.state.names === 1 && comp(query, this.state.names[0]) ? [] : recipes}
       defaultValue={query}
       inputContainerStyle={{flex: 1}}

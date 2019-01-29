@@ -65,8 +65,8 @@ export default class SmallTwoWayToggle extends React.Component {
         return (
           <View style={{flex: 1, flexDirection: 'row', justifyContent: "space-between", alignItems: 'center'}}>
 
-            <View style={{width: Dimensions.get('window').width*0.3, justifyContent: 'center', alignItems: 'center'}}>
-              <MultiSwitch choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.5 : Dimensions.get('window').width*0.1}
+            <View style={{width: Dimensions.get('window').width*0.3, marginLeft: 5}}>
+              <MultiSwitch choiceSize={Dimensions.get('window').width > 500 && this.props.marginLeft ? Dimensions.get('window').width*0.075 : Dimensions.get('window').width*0.1}
                             activeItemStyle={[{color: 'white'}, {color: 'white'}, {color: 'white'}, ]}
                             layout={{vertical: 0, horizontal: -1}}
                             onActivate={(number) => this.setActiveItem(number)}
