@@ -14,6 +14,7 @@ import VenueForm from './containers/Forms/VenueForm.js';
 import EditUser from './containers/Forms/EditUser.js';
 import RecipeList from './containers/ListViews/RecipeList.js';
 import VenueList from './containers/ListViews/VenueList.js';
+import VenueView from './containers/ItemViews/VenueView.js';
 import AddItemButton from './components/AddItemButton.js';
 import FaveButton from './components/FaveButton.js';
 import NavBar from './components/NavBar.js';
@@ -38,6 +39,7 @@ const navigationVariable = createStackNavigator({
   MediaList: {screen: MediaList},
   BrandList: {screen: BrandList},
   VenueList: {screen: VenueList},
+  VenueView: {screen: VenueView},
   AddItemButton: {screen: AddItemButton},
   FaveButton: {screen: FaveButton}
 

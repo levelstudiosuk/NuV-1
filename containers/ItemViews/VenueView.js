@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View, TouchableOpacity } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
@@ -8,6 +8,9 @@ import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import Map from '../../containers/Global/Map.js';
+import StarRating from 'react-native-star-rating';
 
 export default class VenueView extends React.Component {
   static navigationOptions = {
@@ -17,8 +20,19 @@ export default class VenueView extends React.Component {
  ),
 }
 
-    constructor(props) {
-      super(props);
+  constructor(props) {
+    super(props);
+      this.onStarRatingPress = this.onStarRatingPress.bind(this);
+      }
+      state = {
+      starRating: 3,
+      starCount: 2
+    };
+
+  onStarRatingPress(rating) {
+    this.setState({
+    starCount: rating
+    });
     }
 
     render() {
@@ -32,57 +46,93 @@ export default class VenueView extends React.Component {
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
-
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle/>
+        <FaveButton navigation={this.props.navigation}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm')} />
-        {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 
-      <AutoHeightImage
-          width={70}
-          source={require('../../assets/AppIcons/dining.png')}
-          style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
-      />
 
-      <Text style={{fontSize: 18, textAlign: 'center'}}>
-          [Good morning] [User_name]{"\n"}Search the ethical eateries here:
+      <Text style={venueViewStyle.venuename}>
+          Hendersons Vegan Restaurant
       </Text>
 
-      <View style={{marginTop: Dimensions.get('window').height*0.04}}>
-      </View>
+      <View style={venueViewStyle.mapcontainer}>
+        <MapView style={venueViewStyle.map}
+          scrollEnabled={true}
+          toolbarEnabled={true}
+          zoomEnabled={true}
+          zoomControlEnabled={true}
+          region={{
+            latitude: 55.9497,
+            longitude: -3.178770,
+            latitudeDelta: 0.003,
+            longitudeDelta: 0.003
+          }}
+        >
+      <MapView.Marker
+          coordinate={{
+            latitude: 55.9497,
+            longitude: -3.178770
+            }}
+            title={"Hendersons Vegan Restaurant"}
+            pinColor={'red'}
+            description={"www link here"}
+          />
+      </MapView>
+    </View>
 
-      <View style={venueViewStyle.venueitem}>
-      <TouchableHighlight style={venueViewStyle.venueimage}>
-        <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
-      </TouchableHighlight>
-          <View style={venueViewStyle.venuetextcontainer}>
-            <View>
-              <Text style={venueViewStyle.venuetitle}>
-              Hendersons Vegan Restaurant
-              </Text>
-              <Text style={venueViewStyle.venuetype}>
-              Cafe
-              </Text>
-            </View>
-            <View>
-              <Text style={venueViewStyle.venuedescription}>
-              Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.
-              </Text>
-              <Text style={venueViewStyle.venueaddress}>
-              25c Thistle St, Edinburgh EH2 1DX
-              </Text>
-            </View>
-          </View>
-        </View>
+    <View style={{marginTop: Dimensions.get('window').height*0.04}}>
+    </View>
+  </View>
 
-      <View >
-        <GlobalButton
-          buttonTitle="Home"
-          onPress={() => navigate('Home', {name: 'Home'})}/>
+    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
+    </View>
+
+    <View >
+      <View>
+        <Text style={venueViewStyle.venuereviewtitle}>
+        This venue was described by [username] as:{"\n"}
+        </Text>
+        <Text style={venueViewStyle.venuereviewbody}>
+        Great tasty healthy food for everyone
+        Visited for lunch with Vegan partner and omnivore friends. Hot bowl of super tasty soup and the salad plates are stand out fantastic, these guys really know what they are doing with their veg. Treat yourself, feel a bit good about yourself and eat very well, all at a fair price, we'll be back.
+        </Text>
       </View>
     </View>
+
+    <View style={{alignItems: 'center', width: Dimensions.get('window').width*1}}>
+      <StarRating
+        disabled={false}
+        maxStars={5}
+        rating={this.state.starRating}
+        fullStarColor={'#0DC6B5'}
+        containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
+      />
+    </View>
+
+    <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
+      <Text style={venueViewStyle.vibeHeading}>Rate this venue</Text>
+        <StarRating
+          disabled={false}
+          maxStars={5}
+          rating={this.state.starCount}
+          selectedStar={(rating) => this.onStarRatingPress(rating)}
+          fullStarColor={'#0DC6B5'}
+          containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
+        />
+    </View>
+
+    <View style={venueViewStyle.submitContainer}>
+      <GlobalButton
+         buttonTitle="Rate and go"
+         onPress={() => navigate('Home', {name: 'SignIn'})}/>
+    </View>
+
   </ScrollView>
 </View>
 );
@@ -98,15 +148,13 @@ const venueViewStyle = StyleSheet.create({
   submitContainer: {
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
-    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.1
   },
   header: {
     textAlign: 'center',
     marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
   },
-
-
   venueitem: {
     flex: 1,
     flexDirection: 'row',
@@ -116,26 +164,72 @@ const venueViewStyle = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  venuetitle: {
+  venuename: {
+    color: '#0dc6b5',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  venuereviewtitle: {
     color: '#0dc6b5',
     margin: 4,
     fontSize: 18,
-    fontWeight: 'bold',
   },
-  venuetype: {
-    color: '#92FE9D',
+  venuereviewbody: {
     margin: 4,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 15,
   },
-  venueaddress: {
-    color: '#0dc6b5',
-    margin: 4,
-    fontSize: 12,
-    fontWeight: 'bold',
+    mapcontainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    mapdescriptionContainer: {
+      marginTop: Dimensions.get('window').height*0.065
+    },
+    mapdescriptionText: {
+      paddingLeft: Dimensions.get('window').width*0.115,
+      paddingRight: Dimensions.get('window').width*0.115,
+      textAlign: 'center',
+      fontSize: 14
+    },
+    mapiconsContainer: {
+      width: Dimensions.get('window').width,
+      marginLeft: 0,
+      backgroundColor: 'transparent',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+    map: {
+      borderColor: 'transparent',
+      height: Dimensions.get('window').height*0.20,
+      width: Dimensions.get('window').width,
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      top: 0,
+    },
+    mapDescription: {
+      color: 'white',
+      padding: 5,
+      fontSize: 20,
+      fontFamily: 'PoiretOne-Regular'
+    },
+    profileItem: {
+    padding: Dimensions.get('window').width* 0.025,
+    fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
+    color: 'black'
   },
-  venuedescription: {
-    margin: 4,
-    fontSize: 15
-  }
+  vibeHeading: {
+  fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
+  textAlign: 'center',
+  color: '#0DC6B5',
+  marginTop: Dimensions.get('window').height*0.03
+},
+submitContainer: {
+    alignItems: 'center',
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
+  },
 });
