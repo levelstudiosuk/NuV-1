@@ -47,7 +47,6 @@ export default class RecipeView extends React.Component {
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle/>
         <FaveButton navigation={this.props.navigation}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('RecipeForm')} />
@@ -147,6 +146,7 @@ export default class RecipeView extends React.Component {
 
     <View style={recipeViewStyle.submitContainer}>
       <GlobalButton
+        marginLeft={Dimensions.get('window').width*0.05}
          buttonTitle="Rate and go"
          onPress={() => navigate('Home', {name: 'SignIn'})}/>
     </View>
