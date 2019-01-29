@@ -58,7 +58,6 @@ const navStyle = StyleSheet.create({
   iconsContainer: {
     position: 'absolute',
     bottom: 0,
-    width: Dimensions.get('window').width*1,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
