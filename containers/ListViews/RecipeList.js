@@ -1,13 +1,17 @@
 import React from 'react';
-import { FlatList, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
-import { Constants } from 'expo'
+import { FlatList, TouchableOpacity, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { Constants, Font } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
+import _ from 'lodash';
+const ITEM_HEIGHT = 100;
 import {Permissions} from 'expo'
 const { width, height } = Dimensions.get('window');
 import Pagination from 'react-native-pagination';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
@@ -23,7 +27,8 @@ export default class RecipeList extends React.Component {
 }
 
   state = {
-    items: [{name: 'Spaghetti Marinara', prep_time: '15 minutes'}, {name: 'Iberian Pepper Risotto', prep_time: '20 minutes'}, {name: 'Asparagus and Beetroot Vegetarian Pizza', prep_time: '45 minutes'}]
+    isLoading: false,
+    items: [{key: 0, id: 0, name: 'Spaghetti Marinara', prep_time: '15 minutes'}, {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes'}, {key: 2, id: 2, name: 'Asparagus and Beetroot Vegetarian Pizza', prep_time: '45 minutes'}, {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes'},]
   }
 
   async componentDidMount() {
@@ -42,10 +47,12 @@ export default class RecipeList extends React.Component {
   };
 
   setItemAsActive(activeItem) {
-      if (this._isMounted) {
+
     this.setState({ scrollToItemRef: activeItem });
-  }
-  }
+    this.setState({
+      activeItem: activeItem
+  })
+}
 
   renderItem = (o, i) => {
     return (
@@ -58,31 +65,27 @@ export default class RecipeList extends React.Component {
           alignItems: 'center',
         }}
       >
-
         <TouchableOpacity
           onPress={() => this.setItemAsActive(o)}
           style={[
-            s.renderItem,
+            registerUserStyle.renderItem,
             this.state.activeId === _.get(o, 'item.id', false)
               ? { postcodegroundColor: 'black', borderRadius: 10, marginBottom: 0 }
               : { backgroundColor: 'black', marginBottom: 0 }
           ]}
         >
         <AutoHeightImage width={Dimensions.get('window').width*0.25} source={require('../../assets/AppIcons/book.png')}/>
-
           <Text
             style={[
-              s.name2,
+              registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: 'limegreen', fontSize: 16 }
-                : { color: 'white', fontSize: 16 }
+                ? { color: 'black', fontSize: 16 }
+                : { color: 'black', fontSize: 16 }
             ]}
           >
             {o.item.name ? o.item.name : 'Unknown'}
           </Text>
         </TouchableOpacity>
-
-
       </View>
     );
   };
@@ -120,7 +123,7 @@ export default class RecipeList extends React.Component {
               margin: 10
             }}
           >
-            Nothing is Here!
+        Nothing is Here!
           </Text>
           <Text
             style={{
@@ -152,17 +155,14 @@ export default class RecipeList extends React.Component {
 
          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width, borderWidth: 1, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, borderTopLeftRadius: 20}}>
 
-
          <Image
            style={{width: this.state.addressBookImageWidth, height: this.state.addressBookImageHeight, borderRadius: 10}}
            source={{uri: `${this.state.addressBookImage}`}}
            onLoad={this.onAddressBookImageLoad}
            />
-           <Text onPress={() => this.setState({clickedDinosaur: this.state.activeItem.name}, function(){ this.toggleDinosaurView() })} style={{marginTop: Dimensions.get('window').height*0.02, textAlign: 'center', color: 'white', fontSize: 20, paddingLeft: 0}} >
-            Click image to view
-           </Text>
+
           </View>
-          )}
+
 
         </View>
 
@@ -214,18 +214,12 @@ export default class RecipeList extends React.Component {
       }
         </View>
 
-        <View style={{flexDirection: 'row', position: 'absolute', top: height*0.065}}>
-    <TouchableHighlight
-      onPress={() => {
-        this.props.returnToErasPage();
-      }}>
+    <View style={{flexDirection: 'row', position: 'absolute', top: height*0.065}}>
+    <TouchableHighlight>
     <Image source={require('../../assets/AppIcons/book.png')} style={{height: 25, width: 25, marginBottom: 17, marginRight: Dimensions.get('window').width*0.06}}/>
     </TouchableHighlight>
 
-    <TouchableHighlight
-      onPress={() => {
-        this.props.toggleLayout();
-      }}>
+    <TouchableHighlight>
     <Image source={require('../../assets/AppIcons/book.png')} style={{height: 25, width: 25, marginBottom: 17, marginLeft: Dimensions.get('window').width*0.06}}/>
     </TouchableHighlight>
 
@@ -268,7 +262,7 @@ const registerUserStyle = StyleSheet.create({
     width,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black'
+    backgroundColor: 'white'
   },
   innerContainer: {
     flex: 1.17,
@@ -278,7 +272,7 @@ const registerUserStyle = StyleSheet.create({
     width,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 20,
