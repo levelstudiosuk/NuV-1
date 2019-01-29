@@ -223,11 +223,16 @@ export default class RecipeList extends React.Component {
 
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
+          <TouchableHighlight
+          onPress={() => navigate('RecipeView')}
+          style={underlayColor="white"}
+          >
           <AutoHeightImage
             style={{marginTop: Dimensions.get('window').height*0.05}}
             width={Dimensions.get('window').width*0.5}
             source={this.state.activeItem.item.image}
             />
+          </TouchableHighlight>
 
           <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>

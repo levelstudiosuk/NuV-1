@@ -82,9 +82,6 @@ export default class VenueView extends React.Component {
           />
       </MapView>
     </View>
-
-    <View style={{marginTop: Dimensions.get('window').height*0.04}}>
-    </View>
   </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
