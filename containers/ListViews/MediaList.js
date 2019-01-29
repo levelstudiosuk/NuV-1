@@ -35,7 +35,8 @@ export default class MediaList extends React.Component {
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle/>
-        <AddItemButton navigation={this.props.navigation} />
+        <AddItemButton navigation={this.props.navigation}
+        onPress={() => navigate('MediaForm')} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 

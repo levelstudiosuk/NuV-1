@@ -10,7 +10,7 @@ export default class AddItemButton extends Component {
 
       <TouchableHighlight
         style={addItemButtonStyle.content}
-        onPress={() => navigate('MediaForm')}>
+        onPress={this.props.onPress}>
         {
           <Image
             source={require('../assets/AppIcons/plus.png')}
