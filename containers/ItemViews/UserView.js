@@ -98,7 +98,7 @@ export default class UserView extends React.Component {
 
     </View>
 
-    <View style={userViewStyle.iconsContainer}>
+    <View style={userViewStyle.iconsContainer2}>
 
     <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm')} buttonTitle={"Brands"} />
     <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaForm')} buttonTitle={"Media"} />
@@ -127,6 +127,16 @@ const userViewStyle = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginLeft: 0,
     marginTop: Dimensions.get('window').height*0.035,
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  iconsContainer2: {
+    width: Dimensions.get('window').width,
+    marginLeft: 0,
+    marginTop: Dimensions.get('window').height*0.035,
+    marginBottom: Dimensions.get('window').height*0.25,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',
