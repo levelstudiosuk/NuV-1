@@ -25,9 +25,9 @@ export default class Home extends React.Component {
       makeScrollable={true}
       renderStickyHeader={() => ( <View></View> )}
       renderStickyFooter={() => (
-        <View style={{alignItems: 'center'}}>
+        <TouchableHighlight style={{alignItems: 'center'}}>
           <NavBar navigation={this.props.navigation} />
-        </View>
+        </TouchableHighlight>
       )}
     >
     <View style={homeStyle.buttonContainer}>

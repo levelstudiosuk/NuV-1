@@ -12,6 +12,7 @@ import UserView from './containers/ItemViews/UserView.js';
 import MediaForm from './containers/Forms/MediaForm.js';
 import VenueForm from './containers/Forms/VenueForm.js';
 import EditUser from './containers/Forms/EditUser.js';
+import RecipeList from './containers/ListViews/RecipeList.js';
 import NavBar from './components/NavBar.js';
 import { Constants } from 'expo'
 
@@ -27,7 +28,8 @@ const navigationVariable = createStackNavigator({
   MediaForm: {screen: MediaForm},
   VenueForm: {screen: VenueForm},
   Map: {screen: Map},
-  EditUser: {screen: EditUser}
+  EditUser: {screen: EditUser},
+  RecipeList: {screen: RecipeList}
 });
 
 const App = createAppContainer(navigationVariable)
