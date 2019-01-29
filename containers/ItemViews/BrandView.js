@@ -51,19 +51,19 @@ export default class BrandView extends React.Component {
         </View>
       )}
     >
-    
+
     <View style={userViewStyle.flexRowContainer}>
     <View style={{flexDirection: 'column'}}>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>Name: Dr Martens</Text>
     </View>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>Type: Outfitter</Text>
     </View>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>NüV Status: Hyper-compliant</Text>
     </View>
 
@@ -134,7 +134,9 @@ const userViewStyle = StyleSheet.create({
   profileItem: {
     padding: Dimensions.get('window').width* 0.025,
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
-    color: 'black'
+    color: 'black',
+    flexWrap: 'wrap',
+    flex: 1
   },
   submitContainer: {
     alignItems: 'center',
