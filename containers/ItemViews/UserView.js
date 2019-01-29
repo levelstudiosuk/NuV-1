@@ -64,7 +64,7 @@ export default class UserView extends React.Component {
     <View style={{flexDirection: 'column'}}>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: Wil Cornish </Text>
+      <Text style={userViewStyle.profileItem}>Name: Fenella Rowley-Knight </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
@@ -77,7 +77,7 @@ export default class UserView extends React.Component {
 
     </View>
 
-    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/wil.jpg')}/>
+    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/vegan_woman.jpeg')}/>
 
     </View>
 
@@ -98,7 +98,7 @@ export default class UserView extends React.Component {
 
     </View>
 
-    <View style={userViewStyle.iconsContainer}>
+    <View style={userViewStyle.iconsContainer2}>
 
     <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandForm')} buttonTitle={"Brands"} />
     <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaForm')} buttonTitle={"Media"} />
@@ -132,6 +132,16 @@ const userViewStyle = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  iconsContainer2: {
+    width: Dimensions.get('window').width,
+    marginLeft: 0,
+    marginTop: Dimensions.get('window').height*0.035,
+    marginBottom: Dimensions.get('window').height*0.25,
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   flexRowContainer: {
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -152,5 +162,5 @@ const userViewStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     height: Dimensions.get('window').height*0.03
-      }
+  }
 });

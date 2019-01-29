@@ -229,7 +229,7 @@ export default class RecipeList extends React.Component {
             source={this.state.activeItem.item.image}
             />
 
-          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.04, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
+          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Cooking time: {this.state.activeItem.item.cook_time}</Text>
 
