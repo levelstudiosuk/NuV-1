@@ -23,6 +23,7 @@ export default class BrandList extends React.Component {
 
     render() {
       const {navigate} = this.props.navigation;
+
       return (
 
     <View style={brandListStyle.container}>
