@@ -54,20 +54,20 @@ export default class BrandList extends React.Component {
       </View>
 
       <View style={brandListStyle.branditem}>
-      <TouchableHighlight style={brandListStyle.brandimage}>
+      <TouchableHighlight onPress={() => navigate('BrandView')} style={brandListStyle.brandimage}>
         <Image source={require('../../assets/AppIcons/branddefault.png')} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View style={brandListStyle.brandtextcontainer}>
             <View>
-              <Text style={brandListStyle.brandtitle}>
+              <Text onPress={() => navigate('BrandView')} style={brandListStyle.brandtitle}>
               Dr. Martens
               </Text>
-              <Text style={brandListStyle.brandtype}>
+              <Text onPress={() => navigate('BrandView')} style={brandListStyle.brandtype}>
               Fashion
               </Text>
             </View>
             <View>
-              <Text style={brandListStyle.branddescription}>
+              <Text onPress={() => navigate('BrandView')} style={brandListStyle.branddescription}>
               The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
               </Text>
             </View>
