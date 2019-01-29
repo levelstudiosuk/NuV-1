@@ -8,7 +8,6 @@ import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
 
-
 export default class MediaView extends React.Component {
   static navigationOptions = {
     title: null,
@@ -28,7 +27,6 @@ export default class MediaView extends React.Component {
           starRating: 3,
           starCount: 2
         };
-
 
   onStarRatingPress(rating) {
   this.setState({
@@ -55,15 +53,15 @@ export default class MediaView extends React.Component {
     <View style={userViewStyle.flexRowContainer}>
     <View style={{flexDirection: 'column'}}>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>Name: Papa John’s Vegan Pizza Launching 28.1.19</Text>
     </View>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>Type: Article</Text>
     </View>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
       <Text style={userViewStyle.profileItem}>NüV Status: Hyper-compliant</Text>
     </View>
 
@@ -133,9 +131,11 @@ const userViewStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   profileItem: {
-    padding: Dimensions.get('window').width* 0.025,
+    padding: Dimensions.get('window').width*0.025,
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
-    color: 'black'
+    color: 'black',
+    flexWrap: 'wrap',
+    flex: 1
   },
   submitContainer: {
     alignItems: 'center',
