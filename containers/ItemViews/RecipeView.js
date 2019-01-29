@@ -146,6 +146,7 @@ export default class RecipeView extends React.Component {
 
     <View style={recipeViewStyle.submitContainer}>
       <GlobalButton
+        marginLeft={Dimensions.get('window').width*0.05}
          buttonTitle="Rate and go"
          onPress={() => navigate('Home', {name: 'SignIn'})}/>
     </View>
