@@ -64,7 +64,7 @@ export default class UserView extends React.Component {
     <View style={{flexDirection: 'column'}}>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: Wil Cornish </Text>
+      <Text style={userViewStyle.profileItem}>Name: Fenella Rowley-Knight </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
@@ -77,7 +77,7 @@ export default class UserView extends React.Component {
 
     </View>
 
-    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/wil.jpg')}/>
+    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/vegan_woman.jpeg')}/>
 
     </View>
 

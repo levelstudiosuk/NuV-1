@@ -32,12 +32,12 @@ export default class Home extends React.Component {
     >
     <View style={homeStyle.buttonContainer}>
     <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView')} style={{width: Dimensions.get('window').width*0.5}}>
-    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/wil.jpg')}/>
+    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
     </TouchableHighlight>
     </View>
 
     <View style={homeStyle.greetingContainer}>
-      <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting("Wil Cornish")} </Text>
+      <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting("Fenella")} </Text>
     </View>
 
     <View style={homeStyle.iconsContainer}>
