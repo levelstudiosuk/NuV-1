@@ -5,6 +5,7 @@ import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
+import { Dropdown } from 'react-native-material-dropdown';
 import {Permissions} from 'expo'
 
 export default class RecipeForm extends React.Component {
@@ -134,6 +135,17 @@ onChangedCook(text){
     const {navigate} = this.props.navigation;
     var image = this.state.image
 
+    let typeOptions = [{
+      value: 'Breakfast',
+    },
+     {
+      value: 'Lunch',
+    },
+     {
+      value: 'Dinner',
+    }
+  ];
+
     return (
 
       <View style={registerUserStyle.container}>
@@ -180,6 +192,22 @@ onChangedCook(text){
               onChangeText={(words) => {this.changeWordsText(url)}}
               value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
               underlineColorAndroid='transparent' maxLength={500} multiline={true}
+            />
+
+            <Dropdown
+              containerStyle={{justifyContent: 'center', height: Dimensions.get('window').height*0.04, width: Dimensions.get('window').width*0.5, marginBottom: Dimensions.get('window').height*0.04}}
+              label='Mealtime?'
+              textColor={'black'}
+              baseColor={'black'}
+              dropdownOffset={{ top: 0, left: 0 }}
+              data={typeOptions}
+              itemTextStyle={{textAlign: 'center'}}
+              overlayStyle={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.09}}
+              pickerStyle={{alignItems: 'center', backgroundColor: 'white', width: Dimensions.get('window').width*0.5}}
+              selectedItemColor={'black'}
+              disabledItemColor={'grey'}
+              itemTextStyle={{textAlign: 'center'}}
+              onChangeText={(value) => this.setState({type: value}) }
             />
 
 
