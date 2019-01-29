@@ -162,5 +162,5 @@ const userViewStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     height: Dimensions.get('window').height*0.03
-      }
+  }
 });

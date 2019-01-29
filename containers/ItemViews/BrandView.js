@@ -51,19 +51,20 @@ export default class BrandView extends React.Component {
         </View>
       )}
     >
+    
     <View style={userViewStyle.flexRowContainer}>
     <View style={{flexDirection: 'column'}}>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: Dr Martens </Text>
+      <Text style={userViewStyle.profileItem}>Name: Dr Martens</Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Type: Outfitter </Text>
+      <Text style={userViewStyle.profileItem}>Type: Outfitter</Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>NüV Status: Hyper-compliant </Text>
+      <Text style={userViewStyle.profileItem}>NüV Status: Hyper-compliant</Text>
     </View>
 
     </View>
@@ -96,8 +97,7 @@ export default class BrandView extends React.Component {
       fullStarColor={'#0DC6B5'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
-
-      </View>
+    </View>
 
       <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
       <Text style={userViewStyle.vibeHeading}>Rate this brand</Text>
@@ -109,7 +109,6 @@ export default class BrandView extends React.Component {
         fullStarColor={'#0DC6B5'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
         />
-
         </View>
 
         <View style={userViewStyle.submitContainer}>
@@ -117,7 +116,6 @@ export default class BrandView extends React.Component {
            buttonTitle="Rate and go"
            onPress={() => navigate('Home', {name: 'SignIn'})}/>
         </View>
-
 
     </StickyHeaderFooterScrollView>
 
