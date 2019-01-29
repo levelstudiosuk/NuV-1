@@ -11,6 +11,7 @@ import {Permissions} from 'expo'
 const { width, height } = Dimensions.get('window');
 import Pagination from 'react-native-pagination';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Autocomplete from 'react-native-autocomplete-input';
 
 
 export default class RecipeList extends React.Component {
@@ -33,7 +34,8 @@ export default class RecipeList extends React.Component {
     {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes', image: require('../../assets/recipe_images/pepper_risotto.png')},
     {key: 2, id: 2, name: 'Asparagus and Beetroot Pizza', prep_time: '45 minutes', image: require('../../assets/recipe_images/asparagus.png')},
     {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', image: require('../../assets/recipe_images/basil_baguette.png')}
-    ]
+  ],
+  recipeTyped: ""
   }
 
   async componentDidMount() {
@@ -43,6 +45,10 @@ export default class RecipeList extends React.Component {
    });
 
     this.setState({ fontLoaded: true });
+
+    this.setState({
+      names: this.state.items.map((recipe) => recipe.name)
+    })
 
    }
 
@@ -60,6 +66,40 @@ export default class RecipeList extends React.Component {
   })
 }
 
+  searchBarPlaceholderText(){
+    return `Enter recipe key word`;
+  }
+
+  removeNonAlphanumeric(string){
+    return string.replace(/\W/g, '');
+  }
+
+  findRecipe(query, diet) {
+
+  var sanitizedQuery = this.removeNonAlphanumeric(query);
+
+   if (sanitizedQuery === '') {
+     return [];
+   }
+
+   if (diet){
+     var recipes = this.state.names;
+   }
+   else {
+     var recipes = this.state.names;
+   }
+
+   const regex = new RegExp(`${sanitizedQuery.trim()}`, 'i');
+   return recipes.filter(recipe => recipe.search(regex) >= 0);
+  }
+
+  renderMatches(recipes){
+    return recipes.map((recipe, i) =>
+      <TouchableOpacity>
+      <Text style={{textAlign: 'center', color: 'black', fontSize: 16, paddingTop: 10, paddingBottom: 10}} key={i}>{recipe}</Text>
+      </TouchableOpacity>
+    )
+  }
   renderItem = (o, i) => {
     return (
       <View
@@ -107,6 +147,10 @@ export default class RecipeList extends React.Component {
     this.setState({ viewableItems });
 
   render() {
+
+    const query = this.state.recipeTyped;
+    const recipes = this.findRecipe(query, false);
+    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
     const self = this;
 
@@ -240,14 +284,38 @@ export default class RecipeList extends React.Component {
       }
         </View>
 
-    <View style={{flexDirection: 'row', position: 'absolute', top: height*0.065}}>
-    <TouchableHighlight>
-    <Image source={require('../../assets/AppIcons/star.png')} style={{height: 25, width: 25, marginBottom: 17, marginRight: Dimensions.get('window').width*0.06}}/>
-    </TouchableHighlight>
+    <View style={{flexDirection: 'column', position: 'absolute', top: height*0.065}}>
 
-    <TouchableHighlight>
-    <Image source={require('../../assets/AppIcons/mint.png')} style={{height: 25, width: 25, marginBottom: 17, marginLeft: Dimensions.get('window').width*0.06}}/>
-    </TouchableHighlight>
+    <Autocomplete
+      autoCapitalize="none"
+      autoCorrect={false}
+      containerStyle={{width: Dimensions.get('window').width*0.71}}
+      data={this.state.names === 1 && comp(query, this.state.names[0]) ? [] : recipes}
+      defaultValue={query}
+      inputContainerStyle={{flex: 1}}
+      onChangeText={recipe => this.setState({ recipeTyped: recipe })}
+      placeholder={this.searchBarPlaceholderText()}
+      placeholderTextColor="white"
+
+      renderItem={({ recipe }) => (
+        <TouchableOpacity onPress={() => this.setState({ recipeTyped: this.props`${dinosaur}` })}>
+        </TouchableOpacity>
+      )}
+    />
+
+      {this.findRecipe(query).length > 0 ? (
+        <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black', height: height*0.55}}>
+        <ScrollView style={{flex: 1, flexWrap: 'wrap'}}>
+        {this.renderMatches(recipes)}
+        </ScrollView>
+        </View>
+      ) : (
+        <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black'}}>
+        <ScrollView>
+        {this.renderMatches(recipes)}
+        </ScrollView>
+        </View>
+      )}
 
     </View>
 
