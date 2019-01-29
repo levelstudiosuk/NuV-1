@@ -28,7 +28,12 @@ export default class RecipeList extends React.Component {
 
   state = {
     isLoading: false,
-    items: [{key: 0, id: 0, name: 'Spaghetti Marinara', prep_time: '15 minutes'}, {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes'}, {key: 2, id: 2, name: 'Asparagus and Beetroot Vegetarian Pizza', prep_time: '45 minutes'}, {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes'},]
+    items: [
+    {key: 0, id: 0, name: 'Spaghetti Marinara', prep_time: '15 minutes', image: require('../../assets/recipe_images/marinara.png')},
+    {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes', image: require('../../assets/recipe_images/pepper_risotto.png')},
+    {key: 2, id: 2, name: 'Asparagus and Beetroot Pizza', prep_time: '45 minutes', image: require('../../assets/recipe_images/asparagus.png')},
+    {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', image: require('../../assets/recipe_images/basil_baguette.png')}
+    ]
   }
 
   async componentDidMount() {
@@ -47,9 +52,10 @@ export default class RecipeList extends React.Component {
   };
 
   setItemAsActive(activeItem) {
-
+    console.log("ACTIVE", this.state.activeItem);
     this.setState({ scrollToItemRef: activeItem });
     this.setState({
+      activeId: activeItem.item.id,
       activeItem: activeItem
   })
 }
@@ -70,8 +76,8 @@ export default class RecipeList extends React.Component {
           style={[
             registerUserStyle.renderItem,
             this.state.activeId === _.get(o, 'item.id', false)
-              ? { postcodegroundColor: 'black', borderRadius: 10, marginBottom: 0 }
-              : { backgroundColor: 'black', marginBottom: 0 }
+              ? { postcodegroundColor: 'white', borderRadius: 10, marginBottom: 0 }
+              : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
         <AutoHeightImage width={Dimensions.get('window').width*0.25} source={require('../../assets/AppIcons/book.png')}/>
@@ -79,7 +85,7 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: 'black', fontSize: 16 }
+                ? { color: 'green', fontSize: 16 }
                 : { color: 'black', fontSize: 16 }
             ]}
           >
@@ -150,18 +156,38 @@ export default class RecipeList extends React.Component {
                 flex: 1
               }}
             >
+            <Text
+              style={{
+                textAlignVertical: 'center',
+                color: 'black',
+                textAlign: 'center',
+                fontWeight: '400',
+                fontSize: 21,
+                margin: 30
+              }}
+            >
+              Scroll through the NüV recipe base and check out any that catch your eye!
+            </Text>
             </View>
           )}
 
-         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width, borderWidth: 1, borderTopRightRadius: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, borderTopLeftRadius: 20}}>
+          { this.state.activeItem ? (
 
-         <Image
-           style={{width: this.state.addressBookImageWidth, height: this.state.addressBookImageHeight, borderRadius: 10}}
-           source={{uri: `${this.state.addressBookImage}`}}
-           onLoad={this.onAddressBookImageLoad}
-           />
+          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
-          </View>
+          <AutoHeightImage
+            style={{marginTop: Dimensions.get('window').height*0.05}}
+            width={Dimensions.get('window').width*0.5}
+            source={this.state.activeItem.item.image}
+            />
+
+          <Text style={{marginTop: Dimensions.get('window').height*0.04, fontSize: 30, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>
+
+           </View>
+
+         ) : null
+
+       }
 
 
         </View>
@@ -196,12 +222,12 @@ export default class RecipeList extends React.Component {
             listRef={this.refs}
             endDotIconFamily={'MaterialIcons'}
             dotIconNameActive={'checkbox-blank-circle'}
-            dotIconColorActive={'limegreen'}
+            dotIconColorActive={'black'}
             dotIconNameNotActive={'checkbox-blank-circle-outline'}
-            dotIconColorNotActive={'limegreen'}
+            dotIconColorNotActive={'black'}
             dotIconNameEmpty={'close'}
             dotTextHide={true}
-            dotTextColor={'limegreen'}
+            dotTextColor={'black'}
             dotIconSizeNotActive={15}
             dotIconSizeActive={15}
             dotIconSizeEmpty={15}
@@ -216,11 +242,11 @@ export default class RecipeList extends React.Component {
 
     <View style={{flexDirection: 'row', position: 'absolute', top: height*0.065}}>
     <TouchableHighlight>
-    <Image source={require('../../assets/AppIcons/book.png')} style={{height: 25, width: 25, marginBottom: 17, marginRight: Dimensions.get('window').width*0.06}}/>
+    <Image source={require('../../assets/AppIcons/star.png')} style={{height: 25, width: 25, marginBottom: 17, marginRight: Dimensions.get('window').width*0.06}}/>
     </TouchableHighlight>
 
     <TouchableHighlight>
-    <Image source={require('../../assets/AppIcons/book.png')} style={{height: 25, width: 25, marginBottom: 17, marginLeft: Dimensions.get('window').width*0.06}}/>
+    <Image source={require('../../assets/AppIcons/mint.png')} style={{height: 25, width: 25, marginBottom: 17, marginLeft: Dimensions.get('window').width*0.06}}/>
     </TouchableHighlight>
 
     </View>
@@ -265,9 +291,9 @@ const registerUserStyle = StyleSheet.create({
     backgroundColor: 'white'
   },
   innerContainer: {
-    flex: 1.17,
+    flex: 1,
     position: 'relative',
-    top: height*0.15,
+    top: height*0.10,
     height,
     width,
     justifyContent: 'center',
@@ -283,6 +309,6 @@ const registerUserStyle = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     fontSize: 26,
-    color: 'limegreen',
+    color: 'black',
   },
 });
