@@ -107,9 +107,15 @@ export default class BrandView extends React.Component {
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
         fullStarColor={'#0DC6B5'}
-        containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.14}}
+        containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
         />
 
+        </View>
+
+        <View style={userViewStyle.submitContainer}>
+        <GlobalButton
+           buttonTitle="Rate and go"
+           onPress={() => navigate('Home', {name: 'SignIn'})}/>
         </View>
 
 
@@ -131,6 +137,11 @@ const userViewStyle = StyleSheet.create({
     padding: Dimensions.get('window').width* 0.025,
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
     color: 'black'
+  },
+  submitContainer: {
+    alignItems: 'center',
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
   },
   iconsContainer: {
     width: Dimensions.get('window').width,
