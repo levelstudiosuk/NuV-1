@@ -77,13 +77,10 @@ export default class BrandView extends React.Component {
 
     <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...</Text>
 
-    <View style={{flexDirection: 'row', justifyContent: 'space-between', marginLeft: Dimensions.get('window').width*0.1, marginRight: Dimensions.get('window').width*0.1}}>
-    <Text style={[userViewStyle.profileItem, {marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>Posted by</Text>
-    <AutoHeightImage width={Dimensions.get('window').width*0.09} style={{marginTop: Dimensions.get('window').width*0.045, borderRadius: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
-    <AutoHeightImage width={Dimensions.get('window').width*0.09} style={{marginTop: Dimensions.get('window').width*0.045, borderRadius: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/book.png')}/>
-
-    <Text style={[userViewStyle.profileItem, {marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>Website</Text>
-
+    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
     </View>
 
     <Text style={userViewStyle.vibeHeading}>Verdict</Text>
