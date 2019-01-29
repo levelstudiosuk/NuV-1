@@ -54,23 +54,33 @@ export default class VenueList extends React.Component {
       </View>
 
       <View style={venueListStyle.venueitem}>
-      <TouchableHighlight style={venueListStyle.venueimage}>
+      <TouchableHighlight
+        style={venueListStyle.venueimage}
+        onPress={() => navigate('VenueView')}>
         <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
       </TouchableHighlight>
           <View style={venueListStyle.venuetextcontainer}>
             <View>
-              <Text style={venueListStyle.venuetitle}>
+              <Text
+              style={venueListStyle.venuetitle}
+              onPress={() => navigate('VenueView')}>
               Hendersons Vegan Restaurant
               </Text>
-              <Text style={venueListStyle.venuetype}>
+              <Text
+              style={venueListStyle.venuetype}
+              onPress={() => navigate('VenueView')}>
               Cafe
               </Text>
             </View>
             <View>
-              <Text style={venueListStyle.venuedescription}>
+              <Text
+              style={venueListStyle.venuedescription}
+              onPress={() => navigate('VenueView')}>
               Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.
               </Text>
-              <Text style={venueListStyle.venueaddress}>
+              <Text
+              style={venueListStyle.venueaddress}
+              onPress={() => navigate('VenueView')}>
               25c Thistle St, Edinburgh EH2 1DX
               </Text>
             </View>
