@@ -47,24 +47,24 @@ export default class MediaList extends React.Component {
       />
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
-          [Good morning] [User_name]; here is the news{"\n"}{"\n"}
+          [Good morning] [User_name]{"\n"} Here is the news...
       </Text>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
       <View style={mediaListStyle.mediaitem}>
-      <TouchableHighlight style={mediaListStyle.mediaimage}>
+      <TouchableHighlight onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediaimage}>
         <Image source={require('../../assets/AppIcons/newsdefault.png')} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View style={mediaListStyle.mediatextcontainer}>
             <View>
-              <Text style={mediaListStyle.mediatitle}>
+              <Text onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediatitle}>
               Papa John’s Vegan Pizza Launching 28.1.19
               </Text>
             </View>
             <View>
-              <Text style={mediaListStyle.mediadescription}>
+              <Text onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediadescription}>
               After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.
               </Text>
             </View>

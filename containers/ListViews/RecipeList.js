@@ -33,10 +33,10 @@ export default class RecipeList extends React.Component {
   state = {
     isLoading: false,
     items: [
-    {key: 0, id: 0, name: 'Spaghetti Marinara', prep_time: '15 minutes', image: require('../../assets/recipe_images/marinara.png')},
-    {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes', image: require('../../assets/recipe_images/pepper_risotto.png')},
-    {key: 2, id: 2, name: 'Asparagus and Beetroot Pizza', prep_time: '45 minutes', image: require('../../assets/recipe_images/asparagus.png')},
-    {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', image: require('../../assets/recipe_images/basil_baguette.png')}
+    {key: 0, id: 0, name: 'Spaghetti Marinara', prep_time: '15 minutes', cook_time: '1 hour', image: require('../../assets/recipe_images/marinara.png')},
+    {key: 1, id: 1, name: 'Iberian Pepper Risotto', prep_time: '20 minutes', cook_time: '5 minutes', image: require('../../assets/recipe_images/pepper_risotto.png')},
+    {key: 2, id: 2, name: 'Asparagus and Beetroot Pizza', prep_time: '45 minutes', cook_time: '35 minutes', image: require('../../assets/recipe_images/asparagus.png')},
+    {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', cook_time: '10 minutes', image: require('../../assets/recipe_images/basil_baguette.png')}
   ],
   recipeTyped: ""
   }
@@ -61,7 +61,6 @@ export default class RecipeList extends React.Component {
   };
 
   setItemAsActive(activeItem) {
-    console.log("ACTIVE", this.state.activeItem);
     this.setState({ scrollToItemRef: activeItem });
     this.setState({
       activeId: activeItem.item.id,
@@ -98,8 +97,8 @@ export default class RecipeList extends React.Component {
 
   renderMatches(recipes){
     return recipes.map((recipe, i) =>
-      <TouchableOpacity key={i}>
-      <Text style={{textAlign: 'center', color: 'black', fontSize: 16, paddingTop: 10, paddingBottom: 10}} key={i}>{recipe}</Text>
+      <TouchableOpacity key={i} style={{flexDirection: 'row'}}>
+      <Text style={{flex: 1, flexWrap: 'wrap', textAlign: 'center', color: 'black', fontSize: 16, paddingTop: 10, paddingBottom: 10}} key={i}>{recipe}</Text>
       </TouchableOpacity>
     )
   }
@@ -128,7 +127,7 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: 'green', fontSize: 16 }
+                ? { color: '#0dc6b5', fontSize: 16 }
                 : { color: 'black', fontSize: 16 }
             ]}
           >
@@ -230,7 +229,9 @@ export default class RecipeList extends React.Component {
             source={this.state.activeItem.item.image}
             />
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.04, fontSize: 30, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>
+          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Cooking time: {this.state.activeItem.item.cook_time}</Text>
 
            </View>
 
@@ -301,7 +302,7 @@ export default class RecipeList extends React.Component {
     <Autocomplete
       autoCapitalize="none"
       autoCorrect={false}
-      containerStyle={{width: Dimensions.get('window').width*0.4}}
+      containerStyle={{width: Dimensions.get('window').width*0.43}}
       data={this.state.names === 1 && comp(query, this.state.names[0]) ? [] : recipes}
       defaultValue={query}
       inputContainerStyle={{flex: 1}}
@@ -373,7 +374,7 @@ const registerUserStyle = StyleSheet.create({
   innerContainer: {
     flex: 1,
     position: 'relative',
-    top: height*0.10,
+    top: height*0.04,
     height,
     width,
     justifyContent: 'center',
