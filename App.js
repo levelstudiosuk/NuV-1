@@ -12,6 +12,8 @@ import UserView from './containers/ItemViews/UserView.js';
 import MediaForm from './containers/Forms/MediaForm.js';
 import VenueForm from './containers/Forms/VenueForm.js';
 import EditUser from './containers/Forms/EditUser.js';
+import AddItemButton from './components/AddItemButton.js';
+import FaveButton from './components/FaveButton.js';
 import NavBar from './components/NavBar.js';
 import MediaList from './containers/ListViews/MediaList.js';
 import { Constants } from 'expo'
@@ -30,6 +32,8 @@ const navigationVariable = createStackNavigator({
   Map: {screen: Map},
   EditUser: {screen: EditUser},
   MediaList: {screen: MediaList},
+  AddItemButton: {screen: AddItemButton},
+  FaveButton: {screen: FaveButton}
 });
 
 const App = createAppContainer(navigationVariable)

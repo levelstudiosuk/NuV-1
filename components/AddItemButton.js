@@ -5,11 +5,12 @@ import { StyleSheet, View, TouchableHighlight, Image, Dimensions } from 'react-n
 export default class AddItemButton extends Component {
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
 
       <TouchableHighlight
         style={addItemButtonStyle.content}
-        onPress={this.props.handleButtonClick}>
+        onPress={() => navigate('MediaForm')}>
         {
           <Image
             source={require('../assets/AppIcons/plus.png')}

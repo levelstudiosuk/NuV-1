@@ -22,6 +22,7 @@ export default class MediaList extends React.Component {
     }
 
     render() {
+    
       return (
 
     <View style={mediaListStyle.container}>
@@ -34,8 +35,8 @@ export default class MediaList extends React.Component {
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle/>
-        <AddItemButton/>
-        <FaveButton/>
+        <AddItemButton navigation={this.props.navigation} />
+        <FaveButton navigation={this.props.navigation}/>
       </View>
 
       <AutoHeightImage
@@ -51,12 +52,14 @@ export default class MediaList extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-
+      <View>
+      <Text>Hello world</Text>
+      </View>
 
       <View style={mediaListStyle.submitContainer}>
         <GlobalButton
-          buttonTitle="Submit"
-          onPress={() => navigate('Home', {name: 'SignIn'})}/>
+          buttonTitle="Home"
+          onPress={() => navigate('Home', {name: 'Home'})}/>
       </View>
     </View>
   </ScrollView>
