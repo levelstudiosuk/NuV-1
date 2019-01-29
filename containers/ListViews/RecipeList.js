@@ -95,7 +95,7 @@ export default class RecipeList extends React.Component {
 
   renderMatches(recipes){
     return recipes.map((recipe, i) =>
-      <TouchableOpacity>
+      <TouchableOpacity key={i}>
       <Text style={{textAlign: 'center', color: 'black', fontSize: 16, paddingTop: 10, paddingBottom: 10}} key={i}>{recipe}</Text>
       </TouchableOpacity>
     )
@@ -120,7 +120,7 @@ export default class RecipeList extends React.Component {
               : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
-        <AutoHeightImage width={Dimensions.get('window').width*0.25} source={require('../../assets/AppIcons/book.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.25} source={require('../../assets/AppIcons/recipe.png')}/>
           <Text
             style={[
               registerUserStyle.name2,
@@ -284,18 +284,18 @@ export default class RecipeList extends React.Component {
       }
         </View>
 
-    <View style={{flexDirection: 'column', position: 'absolute', top: height*0.065}}>
+    <View style={{flexDirection: 'column', position: 'absolute', borderRightWidth: 0.5, borderColor: 'black', top: height*0.065}}>
 
     <Autocomplete
       autoCapitalize="none"
       autoCorrect={false}
-      containerStyle={{width: Dimensions.get('window').width*0.71}}
+      containerStyle={{width: Dimensions.get('window').width*0.55}}
       data={this.state.names === 1 && comp(query, this.state.names[0]) ? [] : recipes}
       defaultValue={query}
       inputContainerStyle={{flex: 1}}
       onChangeText={recipe => this.setState({ recipeTyped: recipe })}
       placeholder={this.searchBarPlaceholderText()}
-      placeholderTextColor="white"
+      placeholderTextColor="black"
 
       renderItem={({ recipe }) => (
         <TouchableOpacity onPress={() => this.setState({ recipeTyped: this.props`${dinosaur}` })}>
