@@ -21,6 +21,11 @@ export default class BrandList extends React.Component {
       super(props);
     }
 
+    state = {
+      items: [{title: 'Dr. Martens', description: 'The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
+', type: 'Fashion', image: require('../../assets/AppIcons/branddefault.png')}]
+    }
+
     render() {
       const {navigate} = this.props.navigation;
 
@@ -60,15 +65,15 @@ export default class BrandList extends React.Component {
       </TouchableHighlight>
           <View style={brandListStyle.brandtextcontainer}>
             <View>
-              <Text onPress={() => navigate('BrandView')} style={brandListStyle.brandtitle}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.brandtitle}>
               Dr. Martens
               </Text>
-              <Text onPress={() => navigate('BrandView')} style={brandListStyle.brandtype}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.brandtype}>
               Fashion
               </Text>
             </View>
             <View>
-              <Text onPress={() => navigate('BrandView')} style={brandListStyle.branddescription}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.branddescription}>
               The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
               </Text>
             </View>
