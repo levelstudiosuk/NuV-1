@@ -29,6 +29,93 @@ export default class RecipeView extends React.Component {
       starCount: 2
     };
 
+    checkFavouriteStatus(viewedRecipe) {
+      try {
+        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+          const recips = recipes ? JSON.parse(recipes) : [];
+
+          if (recips.length > 0){
+            var names = recips.map((recipe) => recipe.name);
+
+            if (names.includes(viewedFavourite)){
+              this.setState({viewedRecipeAlreadyFavourite: true}, function(){
+                this.handleSearchBarClick()
+              });
+            }
+            else {
+              this.setState({clickedDinoAlreadyFavourite: false},
+              function(){
+                this.handleSearchBarClick();
+              });
+            }
+          }
+          else {
+            this.setState({clickedDinoAlreadyFavourite: false}, function(){
+              this.handleSearchBarClick();
+            });
+          }
+        }
+      )
+      }
+        catch (error) {
+          console.log(error);
+      }
+      }
+
+    addRecipeToFavourites = async() => {
+
+
+      var self = this;
+
+      var recipe = {name: name}
+
+      try {
+        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+          const recips = recipes ? JSON.parse(recipes) : [];
+          if (recips.length > 0){
+            var names = recips.map((recipe) => recipe.name);
+            if (!names.includes(recipe.name)){
+            recips.push(recipe);
+            AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
+            this.setState({newFavouriteAdded: true}, function(){
+              this.setState({
+                animatedFavouriteOverlayVisible: true
+              }, function(){
+              setTimeout(function(){
+
+                self.setState({
+
+                  animatedFavouriteOverlayVisible: false
+
+                })
+
+              }, 6000)})
+
+            }
+          )
+          }
+          else {
+            Alert.alert(
+                   `${recipe.name} is already in your favourites!`
+                )
+          }
+        }
+          else {
+            recips.push(recipe);
+            AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
+            Alert.alert(
+                   `Successfully added ${recipe.name} to your favourites!`
+                )
+          }
+          console.log("RECIPES AFTER", recips);
+    })}
+      catch (error) {
+        console.log(error);
+      }
+  }
+
+
+
   onStarRatingPress(rating) {
     this.setState({
     starCount: rating
