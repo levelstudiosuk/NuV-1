@@ -44,14 +44,14 @@ export default class RecipeView extends React.Component {
               });
             }
             else {
-              this.setState({clickedDinoAlreadyFavourite: false},
+              this.setState({viewedRecipeAlreadyFavourite: false},
               function(){
                 this.handleSearchBarClick();
               });
             }
           }
           else {
-            this.setState({clickedDinoAlreadyFavourite: false}, function(){
+            this.setState({viewedRecipeAlreadyFavourite: false}, function(){
               this.handleSearchBarClick();
             });
           }
@@ -64,9 +64,6 @@ export default class RecipeView extends React.Component {
       }
 
     addRecipeToFavourites = async() => {
-
-      console.log("RECIPE", JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')));
-
 
       var self = this;
 

@@ -34,6 +34,82 @@ export default class MediaView extends React.Component {
   });
   }
 
+  checkFavouriteStatus(viewedMediaItem) {
+    try {
+      AsyncStorage.getItem('media_item_favourites').then((media) => {
+        const items = media ? JSON.parse(media) : [];
+
+        if (items.length > 0){
+          var names = items.map((item) => items.name);
+
+          if (names.includes(viewedFavourite)){
+            this.setState({viewedItemAlreadyFavourite: true}, function(){
+              this.handleSearchBarClick()
+            });
+          }
+          else {
+            this.setState({viewedItemAlreadyFavourite: false},
+            function(){
+              this.handleSearchBarClick();
+            });
+          }
+        }
+        else {
+          this.setState({viewedItemAlreadyFavourite: false}, function(){
+            this.handleSearchBarClick();
+          });
+        }
+      }
+    )
+    }
+      catch (error) {
+        console.log(error);
+    }
+    }
+
+  addMediaItemToFavourites = async() => {
+
+    console.log("ITEM", JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')));
+
+    var self = this;
+
+    var media_item = {name: JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')), prep_time: JSON.stringify(this.props.navigation.getParam('prep_time', 'Does not exist')), cook_time: JSON.stringify(this.props.navigation.getParam('cook_time', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+
+    try {
+      AsyncStorage.getItem('media_item_favourites').then((media_items) => {
+        const items = media_items ? JSON.parse(media_items) : [];
+        if (items.length > 0){
+          var names = items.map((item) => item.name);
+          if (!names.includes(media_item.name)){
+          recips.push(media_item);
+          AsyncStorage.setItem('media_item_favourites', JSON.stringify(items));
+          this.setState({newFavouriteAdded: true}, function(){
+            Alert.alert(
+                   `${media_item.name} was added to your favourites!`
+                )
+        })
+      }
+        else {
+          Alert.alert(
+                 `${media_item.name} is already in your favourites!`
+              )
+        }
+    }
+        else {
+          recips.push(recipe);
+          AsyncStorage.setItem('media_item_favourites', JSON.stringify(items));
+          Alert.alert(
+                 `${media_item.name} was added to your favourites!`
+              )
+        }
+        console.log("ITEMS AFTER", items);
+  })}
+    catch (error) {
+      console.log(error);
+    }
+
+}
+
   render() {
     const {navigate} = this.props.navigation;
 
