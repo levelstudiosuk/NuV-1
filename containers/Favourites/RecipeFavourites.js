@@ -23,27 +23,27 @@ export default class RecipeFavourites extends Component {
     })
   }
 
-  findDinosaurObject(dinosaurs, name){
-    for (dinosaur of dinosaurs){
-      if (dinosaur.name === name){
-        return dinosaur;
+  findRecipeObject(recipes, name){
+    for (recipe of recipe){
+      if (recipe.name === name){
+        return recipe;
       }
     }
   }
 
-  deleteFavourite(dinoToDelete){
-    AsyncStorage.getItem('dinosaur_favourites').then((dinos) => {
-      var dinos = JSON.parse(dinos);
-      var dinoObjectToDelete = this.findDinosaurObject(dinos, dinoToDelete.name);
-      var index = dinos.indexOf(dinoObjectToDelete);
-      dinos.splice(index, 1)
-      console.log("Dino to delete", dinoObjectToDelete);
-      AsyncStorage.setItem('dinosaur_favourites', JSON.stringify(dinos)).then((dinos) => {
-        AsyncStorage.getItem('dinosaur_favourites').then((dinos) => {
+  deleteFavourite(recipeToDelete){
+    AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+      var recipes = JSON.parse(recipes);
+      var recipeObjectToDelete = this.findRecipeObject(recipes, recipeToDelete.name);
+      var index = recipes.indexOf(recipeObjectToDelete);
+      recipes.splice(index, 1)
+      console.log("Recipe to delete", recipeObjectToDelete);
+      AsyncStorage.setItem('recipe_favourites', JSON.stringify(recipes)).then((recipes) => {
+        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
           this.setState({
-            favourites: dinos
+            favourites: recipes
           }, function(){
-            if (JSON.parse(dinos).length === 0){
+            if (JSON.parse(recipes).length === 0){
               this.setState({
                 favourites: null
               })
@@ -58,7 +58,7 @@ export default class RecipeFavourites extends Component {
        }
       )
         Alert.alert(
-               `${dinoToDelete.name} has been deleted from your favourites`
+               `${recipeToDelete.name} has been deleted from your favourites`
             )
     }).catch((error) => {
       console.log(error)
@@ -90,12 +90,12 @@ export default class RecipeFavourites extends Component {
     var favourites = JSON.parse(this.state.favourites);
 
     return favourites.map((favourite, i) =>
-      <View key={i}>
+      <View key={i} style={{flexDirection: 'row'}}>
       <TouchableOpacity onPress={() => this.setState({clickedFavourite: favourites[i]}, function(){ this.toggleFavouriteModal() })} key={i}>
-        <Text key={i}> {favourite.name} </Text>
+        <Text style={{fontSize: 22, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.name} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>
-      <Image source={require('../../assets/AppIcons/trash.png')} style={{width: 15, height: 15}} />
+      <Image source={require('../../assets/AppIcons/trash.png')} style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02,  marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} />
       </TouchableOpacity>
       </View>
     )
@@ -113,7 +113,7 @@ export default class RecipeFavourites extends Component {
 
           <View>
 
-          <Text>Your Favourite Dinosaurs</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: 30}}>Your Favourite Recipes</Text>
 
             <ScrollView>
 
@@ -121,7 +121,7 @@ export default class RecipeFavourites extends Component {
           {
             this.state.favourites ? (
               self.renderFavourites()
-            ) : <Text>Oh no! Your favourites are currently empty. Find dinosaurs in the app and click the ⭐️ to add them to this list. </Text>
+            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find dinosaurs in the app and click the ⭐️ to add them to this list. </Text>
         }
 
         </ScrollView>

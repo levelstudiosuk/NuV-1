@@ -41,6 +41,18 @@ export default class Favourites extends React.Component {
       ],
     };
 
+  renderTabBar = props => (
+
+    <TabBar
+      {...props}
+      style={{backgroundColor: '#0dc6b5'}}
+      tabStyle={{backgroundColor: '#0dc6b5'}}
+      indicatorStyle={{backgroundColor: '#0dc6b5'}}
+    />
+
+
+  )
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -53,6 +65,7 @@ export default class Favourites extends React.Component {
           third: ThirdRoute,
           fourth: FourthRoute,
         })}
+        renderTabBar={this.renderTabBar}
         onIndexChange={index => this.setState({ index })}
         initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
       />
