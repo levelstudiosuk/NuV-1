@@ -4,9 +4,10 @@ import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+import RecipeFavourites from '../Favourites/RecipeFavourites.js';
 
 const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+  <RecipeFavourites />
 );
 const SecondRoute = () => (
   <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
@@ -28,8 +29,6 @@ export default class Favourites extends React.Component {
 
     constructor(props) {
     super(props);
-
-
     }
 
     state = {
@@ -41,8 +40,6 @@ export default class Favourites extends React.Component {
         { key: 'fourth', title: 'Media ⭐️' },
       ],
     };
-
-
 
   render() {
     const {navigate} = this.props.navigation;
