@@ -224,7 +224,7 @@ export default class RecipeList extends React.Component {
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
           <TouchableHighlight
-          onPress={() => navigate('RecipeView')}
+          onPress={() => navigate('RecipeView', {name: this.state.activeItem.item.name, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
           style={underlayColor="white"}
           >
           <AutoHeightImage
@@ -314,7 +314,6 @@ export default class RecipeList extends React.Component {
       onChangeText={recipe => this.setState({ recipeTyped: recipe })}
       placeholder={this.searchBarPlaceholderText()}
       placeholderTextColor="black"
-
       renderItem={({ recipe }) => (
         <TouchableOpacity onPress={() => this.setState({ recipeTyped: this.props`${dinosaur}` })}>
         </TouchableOpacity>

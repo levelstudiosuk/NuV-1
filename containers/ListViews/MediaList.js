@@ -21,6 +21,10 @@ export default class MediaList extends React.Component {
       super(props);
     }
 
+    state = {
+      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.', image: require('../../assets/AppIcons/newsdefault.png')}]
+    }
+
     render() {
       const {navigate} = this.props.navigation;
       return (
@@ -54,24 +58,24 @@ export default class MediaList extends React.Component {
       </View>
 
       <View style={mediaListStyle.mediaitem}>
-      <TouchableHighlight onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediaimage}>
-        <Image source={require('../../assets/AppIcons/newsdefault.png')} style={{height: 100, width: 100}}/>
+      <TouchableHighlight onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
+        <Image source={this.state.items[0].image} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View style={mediaListStyle.mediatextcontainer}>
             <View>
-              <Text onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediatitle}>
-              Papa John’s Vegan Pizza Launching 28.1.19
+              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+              {this.state.items[0].title}
               </Text>
             </View>
             <View>
-              <Text onPress={() => navigate('MediaItemView')}  style={mediaListStyle.mediadescription}>
-              After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.
+              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}>
+              {this.state.items[0].description}
               </Text>
             </View>
           </View>
         </View>
 
-      <View >
+      <View>
         <GlobalButton
           buttonTitle="Home"
           onPress={() => navigate('Home', {name: 'Home'})}/>

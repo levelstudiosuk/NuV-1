@@ -11,6 +11,7 @@ import {Permissions} from 'expo'
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Map from '../../containers/Global/Map.js';
 import StarRating from 'react-native-star-rating';
+import { AsyncStorage, Alert } from "react-native"
 
 export default class RecipeView extends React.Component {
   static navigationOptions = {
@@ -28,6 +29,80 @@ export default class RecipeView extends React.Component {
       starRating: 3,
       starCount: 2
     };
+
+    checkFavouriteStatus(viewedRecipe) {
+      try {
+        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+          const recips = recipes ? JSON.parse(recipes) : [];
+
+          if (recips.length > 0){
+            var names = recips.map((recipe) => recipe.name);
+
+            if (names.includes(viewedFavourite)){
+              this.setState({viewedRecipeAlreadyFavourite: true}, function(){
+                this.handleSearchBarClick()
+              });
+            }
+            else {
+              this.setState({viewedRecipeAlreadyFavourite: false},
+              function(){
+                this.handleSearchBarClick();
+              });
+            }
+          }
+          else {
+            this.setState({viewedRecipeAlreadyFavourite: false}, function(){
+              this.handleSearchBarClick();
+            });
+          }
+        }
+      )
+      }
+        catch (error) {
+          console.log(error);
+      }
+      }
+
+    addRecipeToFavourites = async() => {
+
+      var self = this;
+
+      var recipe = {name: JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')), prep_time: JSON.stringify(this.props.navigation.getParam('prep_time', 'Does not exist')), cook_time: JSON.stringify(this.props.navigation.getParam('cook_time', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+
+      try {
+        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+          const recips = recipes ? JSON.parse(recipes) : [];
+          if (recips.length > 0){
+            var names = recips.map((recipe) => recipe.name);
+            if (!names.includes(recipe.name)){
+            recips.push(recipe);
+            AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
+            this.setState({newFavouriteAdded: true}, function(){
+              Alert.alert(
+                     `${recipe.name} was added to your favourites!`
+                  )
+          })
+        }
+          else {
+            Alert.alert(
+                   `${recipe.name} is already in your favourites!`
+                )
+          }
+      }
+          else {
+            recips.push(recipe);
+            AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
+            Alert.alert(
+                   `${recipe.name} was added to your favourites!`
+                )
+          }
+          console.log("RECIPES AFTER", recips);
+    })}
+      catch (error) {
+        console.log(error);
+      }
+
+}
 
   onStarRatingPress(rating) {
     this.setState({
@@ -47,7 +122,7 @@ export default class RecipeView extends React.Component {
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <FaveButton navigation={this.props.navigation}/>
+        <FaveButton navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('RecipeForm')} />
       </View>
