@@ -11,6 +11,7 @@ import {Permissions} from 'expo'
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Map from '../../containers/Global/Map.js';
 import StarRating from 'react-native-star-rating';
+import { AsyncStorage, Alert } from "react-native"
 
 export default class VenueView extends React.Component {
   static navigationOptions = {
@@ -35,8 +36,84 @@ export default class VenueView extends React.Component {
     });
     }
 
+
+    checkFavouriteStatus(viewedVenue) {
+      try {
+        AsyncStorage.getItem('venue_favourites').then((venues) => {
+          const venuess = venues ? JSON.parse(venues) : [];
+
+          if (venuess.length > 0){
+            var names = venuess.map((venue) => venue.title);
+
+            if (names.includes(viewedVenue)){
+              this.setState({viewedVenueAlreadyFavourite: true}, function(){
+                console.log("s");
+              });
+            }
+            else {
+              this.setState({viewedVenueAlreadyFavourite: false},
+              function(){
+                console.log("s");
+              });
+            }
+          }
+          else {
+            this.setState({viewedVenueAlreadyFavourite: false}, function(){
+            console.log("s");
+            });
+          }
+        }
+      )
+      }
+        catch (error) {
+          console.log(error);
+      }
+      }
+
+    addVenueToFavourites = async() => {
+
+      console.log("ITEM", JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')));
+
+      var self = this;
+
+      var venue = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), address: JSON.stringify(this.props.navigation.getParam('address', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), type: JSON.stringify(this.props.navigation.getParam('type', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+
+      try {
+        AsyncStorage.getItem('venue_favourites').then((venues) => {
+          const venuess = venues ? JSON.parse(venues) : [];
+          if (venuess.length > 0){
+            var names = venuess.map((venue) => venue.title);
+            if (!names.includes(venue.title)){
+            venuess.push(venue);
+            AsyncStorage.setItem('venue_favourites', JSON.stringify(venuess));
+            this.setState({newVenueAdded: true}, function(){
+              Alert.alert(
+                     `${venue.title} was added to your favourites!`
+                  )
+          })
+        }
+          else {
+            Alert.alert(
+                   `${venue.title} is already in your favourites!`
+                )
+          }
+      }
+          else {
+            venuess.push(venue);
+            AsyncStorage.setItem('venue_favourites', JSON.stringify(venuess));
+            Alert.alert(
+                   `${venue.title} was added to your favourites!`
+                )
+          }
+          console.log("VENUES AFTER", venuess);
+    })}
+      catch (error) {
+        console.log(error);
+      }
+  }
+
     render() {
-      
+
       const {navigate} = this.props.navigation;
       return (
 
@@ -49,7 +126,7 @@ export default class VenueView extends React.Component {
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle/>
-        <FaveButton navigation={this.props.navigation}/>
+        <FaveButton navigation={this.props.navigation} handleButtonClick={this.addVenueToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm')} />
       </View>
