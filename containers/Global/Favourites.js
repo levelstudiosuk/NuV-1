@@ -5,18 +5,21 @@ import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import RecipeFavourites from '../Favourites/RecipeFavourites.js';
+import MediaItemFavourites from '../Favourites/MediaItemFavourites.js';
+import BrandFavourites from '../Favourites/BrandFavourites.js';
+import VenueFavourites from '../Favourites/VenueFavourites.js';
 
 const FirstRoute = () => (
   <RecipeFavourites />
 );
 const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+  <VenueFavourites />
 );
 const ThirdRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+  <BrandFavourites />
 );
 const FourthRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+  <MediaItemFavourites />
 );
 
 export default class Favourites extends React.Component {

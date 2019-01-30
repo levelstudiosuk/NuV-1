@@ -121,7 +121,7 @@ export default class RecipeFavourites extends Component {
           {
             this.state.favourites ? (
               self.renderFavourites()
-            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find dinosaurs in the app and click the ⭐️ to add them to this list. </Text>
+            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find recipes in the app and click the ⭐️ to add them to this list. </Text>
         }
 
         </ScrollView>

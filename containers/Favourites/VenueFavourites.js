@@ -113,7 +113,7 @@ export default class VenueFavourites extends Component {
 
           <View>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: 30}}>Your Favourite Recipes</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: 30}}>Your Favourite Venues</Text>
 
             <ScrollView>
 
@@ -121,7 +121,7 @@ export default class VenueFavourites extends Component {
           {
             this.state.favourites ? (
               self.renderFavourites()
-            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find dinosaurs in the app and click the ⭐️ to add them to this list. </Text>
+            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find venues in the app and click the ⭐️ to add them to this list. </Text>
         }
 
         </ScrollView>
