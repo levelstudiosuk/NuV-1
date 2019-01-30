@@ -24,7 +24,7 @@ export default class RecipeFavourites extends Component {
   }
 
   findRecipeObject(recipes, name){
-    for (recipe of recipe){
+    for (recipe of recipes){
       if (recipe.name === name){
         return recipe;
       }
