@@ -23,27 +23,27 @@ export default class BrandFavourites extends Component {
     })
   }
 
-  findRecipeObject(recipes, name){
-    for (recipe of recipe){
-      if (recipe.name === name){
-        return recipe;
+  findBrandObject(brands, name){
+    for (brand of brands){
+      if (brand.title === name){
+        return brand;
       }
     }
   }
 
-  deleteFavourite(recipeToDelete){
-    AsyncStorage.getItem('recipe_favourites').then((recipes) => {
-      var recipes = JSON.parse(recipes);
-      var recipeObjectToDelete = this.findRecipeObject(recipes, recipeToDelete.name);
-      var index = recipes.indexOf(recipeObjectToDelete);
-      recipes.splice(index, 1)
-      console.log("Recipe to delete", recipeObjectToDelete);
-      AsyncStorage.setItem('recipe_favourites', JSON.stringify(recipes)).then((recipes) => {
-        AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+  deleteFavourite(brandToDelete){
+    AsyncStorage.getItem('brand_favourites').then((brands) => {
+      var brands = JSON.parse(brands);
+      var brandObjectToDelete = this.findBrandObject(brands, brandToDelete.title);
+      var index = brands.indexOf(brandObjectToDelete);
+      brands.splice(index, 1)
+      console.log("Brand to delete", brandObjectToDelete);
+      AsyncStorage.setItem('brand_favourites', JSON.stringify(brands)).then((brands) => {
+        AsyncStorage.getItem('brand_favourites').then((brands) => {
           this.setState({
-            favourites: recipes
+            favourites: brands
           }, function(){
-            if (JSON.parse(recipes).length === 0){
+            if (JSON.parse(brands).length === 0){
               this.setState({
                 favourites: null
               })
@@ -58,7 +58,7 @@ export default class BrandFavourites extends Component {
        }
       )
         Alert.alert(
-               `${recipeToDelete.name} has been deleted from your favourites`
+               `${brandToDelete.title} has been deleted from your favourites`
             )
     }).catch((error) => {
       console.log(error)
@@ -67,12 +67,12 @@ export default class BrandFavourites extends Component {
 }
 
   retrieveFavourites(){
-      AsyncStorage.getItem('recipe_favourites').then((recipes) => {
+      AsyncStorage.getItem('brand_favourites').then((brands) => {
         this.setState({
-          favourites: recipes
+          favourites: brands
         }, function(){
-          if (recipes){
-          if (JSON.parse(recipes).length === 0){
+          if (brands){
+          if (JSON.parse(brands).length === 0){
             this.setState({
               favourites: null
             })
@@ -92,7 +92,7 @@ export default class BrandFavourites extends Component {
     return favourites.map((favourite, i) =>
       <View key={i} style={{flexDirection: 'row'}}>
       <TouchableOpacity onPress={() => this.setState({clickedFavourite: favourites[i]}, function(){ this.toggleFavouriteModal() })} key={i}>
-        <Text style={{fontSize: 22, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.name} </Text>
+        <Text style={{fontSize: 22, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.title} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>
       <Image source={require('../../assets/AppIcons/trash.png')} style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02,  marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} />
