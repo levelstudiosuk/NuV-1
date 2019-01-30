@@ -22,11 +22,11 @@ export default class BrandList extends React.Component {
     }
 
     state = {
-      items: [{title: 'Dr. Martens', description: 'The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
-', type: 'Fashion', image: require('../../assets/AppIcons/branddefault.png')}]
+      items: [{title: "Dr Martens", description: "The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.”", type: "Fashion", image: require('../../assets/AppIcons/branddefault.png')}]
     }
 
     render() {
+      console.log("ITEM", this.state.items[0]);
       const {navigate} = this.props.navigation;
 
       return (
@@ -60,27 +60,26 @@ export default class BrandList extends React.Component {
       </View>
 
       <View style={brandListStyle.branditem}>
-      <TouchableHighlight onPress={() => navigate('BrandView')} style={brandListStyle.brandimage}>
+      <TouchableHighlight onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandimage}>
         <Image source={require('../../assets/AppIcons/branddefault.png')} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View style={brandListStyle.brandtextcontainer}>
             <View>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.brandtitle}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtitle}>
               Dr. Martens
               </Text>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.brandtype}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtype}>
               Fashion
               </Text>
             </View>
             <View>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, title: this.state.items[0].image})} style={brandListStyle.branddescription}>
+              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.branddescription}>
               The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
               </Text>
             </View>
           </View>
         </View>
-
-      <View >
+      <View>
         <GlobalButton
           buttonTitle="Home"
           onPress={() => navigate('Home', {name: 'Home'})}/>

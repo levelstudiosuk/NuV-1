@@ -7,7 +7,9 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
-
+import AddItemButton from '../../components/AddItemButton.js';
+import FaveButton from '../../components/FaveButton.js';
+import { AsyncStorage, Alert } from "react-native"
 
 export default class BrandView extends React.Component {
   static navigationOptions = {
@@ -29,12 +31,86 @@ export default class BrandView extends React.Component {
           starCount: 2
         };
 
-
   onStarRatingPress(rating) {
   this.setState({
     starCount: rating
   });
   }
+
+  checkFavouriteStatus(viewedBrand) {
+    try {
+      AsyncStorage.getItem('brand_favourites').then((brands) => {
+        const brandss = brands ? JSON.parse(brands) : [];
+
+        if (brandss.length > 0){
+          var names = brandss.map((brand) => brand.title);
+
+          if (names.includes(viewedBrand)){
+            this.setState({viewedBrandAlreadyFavourite: true}, function(){
+              this.handleSearchBarClick()
+            });
+          }
+          else {
+            this.setState({viewedBrandAlreadyFavourite: false},
+            function(){
+              this.handleSearchBarClick();
+            });
+          }
+        }
+        else {
+          this.setState({viewedBrandAlreadyFavourite: false}, function(){
+            this.handleSearchBarClick();
+          });
+        }
+      }
+    )
+    }
+      catch (error) {
+        console.log(error);
+    }
+    }
+
+  addBrandToFavourites = async() => {
+
+    console.log("ITEM", JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')));
+
+    var self = this;
+
+    var brand = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), type: JSON.stringify(this.props.navigation.getParam('type', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+
+    try {
+      AsyncStorage.getItem('brand_favourites').then((brands) => {
+        const brandss = brands ? JSON.parse(brands) : [];
+        if (brandss.length > 0){
+          var names = brandss.map((brand) => brand.title);
+          if (!names.includes(brand.title)){
+          brandss.push(brand);
+          AsyncStorage.setItem('brand_favourites', JSON.stringify(brandss));
+          this.setState({newBrandAdded: true}, function(){
+            Alert.alert(
+                   `${brand.title} was added to your favourites!`
+                )
+        })
+      }
+        else {
+          Alert.alert(
+                 `${brand.title} is already in your favourites!`
+              )
+        }
+    }
+        else {
+          brandss.push(brand);
+          AsyncStorage.setItem('brand_favourites', JSON.stringify(brandss));
+          Alert.alert(
+                 `${brand.title} was added to your favourites!`
+              )
+        }
+        console.log("BRANDS AFTER", brandss);
+  })}
+    catch (error) {
+      console.log(error);
+    }
+}
 
   render() {
     const {navigate} = this.props.navigation;
@@ -51,6 +127,12 @@ export default class BrandView extends React.Component {
         </View>
       )}
     >
+
+    <View style={{flex: 1, flexDirection: 'row'}}>
+      <FaveButton navigation={this.props.navigation} handleButtonClick={this.addBrandToFavourites}/>
+      <AddItemButton navigation={this.props.navigation}
+      onPress={() => navigate('RecipeForm')} />
+    </View>
 
     <View style={userViewStyle.flexRowContainer}>
     <View style={{flexDirection: 'column'}}>
