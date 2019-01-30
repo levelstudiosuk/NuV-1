@@ -24,6 +24,9 @@ export default class RecipeView extends React.Component {
   constructor(props) {
     super(props);
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
+      this.addRecipeToFavourites = this.addRecipeToFavourites.bind(this);
+      this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
+
       }
       state = {
       starRating: 3,
@@ -40,19 +43,19 @@ export default class RecipeView extends React.Component {
 
             if (names.includes(viewedFavourite)){
               this.setState({viewedRecipeAlreadyFavourite: true}, function(){
-                this.handleSearchBarClick()
+                console.log("Already favourite");
               });
             }
             else {
               this.setState({viewedRecipeAlreadyFavourite: false},
               function(){
-                this.handleSearchBarClick();
+                console.log("Not already favourite");
               });
             }
           }
           else {
             this.setState({viewedRecipeAlreadyFavourite: false}, function(){
-              this.handleSearchBarClick();
+              console.log("Not already favourite");
             });
           }
         }

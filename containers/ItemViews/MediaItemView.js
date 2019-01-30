@@ -23,7 +23,8 @@ export default class MediaView extends React.Component {
       super(props);
 
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
-
+      this.addMediaItemToFavourites = this.addMediaItemToFavourites.bind(this);
+      this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
       }
 
       state = {
@@ -47,19 +48,19 @@ export default class MediaView extends React.Component {
 
           if (names.includes(viewedFavourite)){
             this.setState({viewedItemAlreadyFavourite: true}, function(){
-              this.handleSearchBarClick()
+              console.log("Already favourite");
             });
           }
           else {
             this.setState({viewedItemAlreadyFavourite: false},
             function(){
-              this.handleSearchBarClick();
+              console.log("Not already favourite");
             });
           }
         }
         else {
           this.setState({viewedItemAlreadyFavourite: false}, function(){
-            this.handleSearchBarClick();
+            console.log("Not already favourite");
           });
         }
       }

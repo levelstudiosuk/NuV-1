@@ -23,7 +23,7 @@ export default class BrandView extends React.Component {
       super(props);
 
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
-
+      this.addBrandToFavourites = this.addBrandToFavourites.bind(this);
       }
 
       state = {
@@ -31,11 +31,11 @@ export default class BrandView extends React.Component {
           starCount: 2
         };
 
-  onStarRatingPress(rating) {
-  this.setState({
-    starCount: rating
-  });
-  }
+      onStarRatingPress(rating) {
+      this.setState({
+        starCount: rating
+      });
+      }
 
   checkFavouriteStatus(viewedBrand) {
     try {
@@ -47,19 +47,19 @@ export default class BrandView extends React.Component {
 
           if (names.includes(viewedBrand)){
             this.setState({viewedBrandAlreadyFavourite: true}, function(){
-              this.handleSearchBarClick()
+              console.log("Already favourite");
             });
           }
           else {
             this.setState({viewedBrandAlreadyFavourite: false},
             function(){
-              this.handleSearchBarClick();
+              console.log("Not already favourite");
             });
           }
         }
         else {
           this.setState({viewedBrandAlreadyFavourite: false}, function(){
-            this.handleSearchBarClick();
+            console.log("NOT favourite");
           });
         }
       }

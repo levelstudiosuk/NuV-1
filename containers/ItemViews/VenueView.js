@@ -24,6 +24,8 @@ export default class VenueView extends React.Component {
   constructor(props) {
     super(props);
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
+      this.addVenueToFavourites = this.addVenueToFavourites.bind(this);
+      this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
       }
       state = {
       starRating: 3,
