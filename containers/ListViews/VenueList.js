@@ -21,6 +21,10 @@ export default class VenueList extends React.Component {
       super(props);
     }
 
+    state = {
+      items: [{title: "Hendersons Vegan Restaurant", address: "25c Thistle St, Edinburgh EH2 1DX", description: "Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.", type: "Cafe", image: require('../../assets/AppIcons/venuedefault.png')}]
+    }
+
     render() {
       const {navigate} = this.props.navigation;
       return (
