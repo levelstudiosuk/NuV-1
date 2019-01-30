@@ -3,6 +3,20 @@ import { StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from '
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+);
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
+const ThirdRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+);
+const FourthRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
 
 export default class Favourites extends React.Component {
   static navigationOptions = {
@@ -12,75 +26,45 @@ export default class Favourites extends React.Component {
  ),
 }
 
-  constructor(props) {
-  super(props);
+    constructor(props) {
+    super(props);
 
-  this.changeEmailText = this.changeEmailText.bind(this);
-  this.changePasswordText = this.changePasswordText.bind(this);
 
-}
+    }
 
-  state = {
-      email: "",
-      password: ""
+    state = {
+      index: 0,
+      routes: [
+        { key: 'first', title: 'Recipes ⭐️' },
+        { key: 'second', title: 'Venues ⭐️' },
+        { key: 'third', title: 'Brands ⭐️' },
+        { key: 'fourth', title: 'Media ⭐️' },
+      ],
     };
 
-    changeEmailText(email){
-      this.setState({
-        email: email
-      })
-    }
 
-    changePasswordText(password){
-      this.setState({
-        password: password
-      })
-    }
 
   render() {
     const {navigate} = this.props.navigation;
 
     return (
-      <View style={signInStyle.container}>
-
-          <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(email) => {this.changeEmailText(email)}}
-            value={this.state.email} placeholder='Email address' placeholderTextColor='black'
-            underlineColorAndroid='transparent' underlineColorIOS="grey"
-          />
-
-
-         <TextInput
-           style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-           onChangeText={(password) => {this.changePasswordText(password)}}
-           value={this.state.password} placeholder='Password' placeholderTextColor='black'
-           underlineColorAndroid='transparent'
-         />
-
-         <View style={signInStyle.submitContainer}>
-         <GlobalButton onPress={() => navigate('Home', {name: 'SignIn'})} buttonTitle={"Sign in"} />
-         </View>
-
-      </View>
+      <TabView
+        navigationState={this.state}
+        renderScene={SceneMap({
+          first: FirstRoute,
+          second: SecondRoute,
+          third: ThirdRoute,
+          fourth: FourthRoute,
+        })}
+        onIndexChange={index => this.setState({ index })}
+        initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
+      />
     );
   }
 }
 
-const signInStyle = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  submitContainer: {
-    alignItems: 'center'
-  },
-  header: {
-    fontSize: 24,
-    color: 'green',
-    textAlign: 'center',
-    marginTop:  Constants.statusBarHeight+10,
-    marginBottom: Dimensions.get('window').height*0.01
+const styles = StyleSheet.create({
+  scene: {
+    flex: 1,
   },
 });
