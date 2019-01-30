@@ -314,7 +314,6 @@ export default class RecipeList extends React.Component {
       onChangeText={recipe => this.setState({ recipeTyped: recipe })}
       placeholder={this.searchBarPlaceholderText()}
       placeholderTextColor="black"
-
       renderItem={({ recipe }) => (
         <TouchableOpacity onPress={() => this.setState({ recipeTyped: this.props`${dinosaur}` })}>
         </TouchableOpacity>
