@@ -11,6 +11,7 @@ import {Permissions} from 'expo'
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Map from '../../containers/Global/Map.js';
 import StarRating from 'react-native-star-rating';
+import { AsyncStorage, Alert } from "react-native"
 
 export default class RecipeView extends React.Component {
   static navigationOptions = {
@@ -64,10 +65,12 @@ export default class RecipeView extends React.Component {
 
     addRecipeToFavourites = async() => {
 
+      console.log("RECIPE", JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')));
+
 
       var self = this;
 
-      var recipe = {name: name}
+      var recipe = {name: JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')), prep_time: JSON.stringify(this.props.navigation.getParam('prep_time', 'Does not exist')), cook_time: JSON.stringify(this.props.navigation.getParam('cook_time', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
 
       try {
         AsyncStorage.getItem('recipe_favourites').then((recipes) => {
@@ -78,33 +81,22 @@ export default class RecipeView extends React.Component {
             recips.push(recipe);
             AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
             this.setState({newFavouriteAdded: true}, function(){
-              this.setState({
-                animatedFavouriteOverlayVisible: true
-              }, function(){
-              setTimeout(function(){
-
-                self.setState({
-
-                  animatedFavouriteOverlayVisible: false
-
-                })
-
-              }, 6000)})
-
-            }
-          )
-          }
+              Alert.alert(
+                     `${recipe.name} was added to your favourites!`
+                  )
+          })
+        }
           else {
             Alert.alert(
                    `${recipe.name} is already in your favourites!`
                 )
           }
-        }
+      }
           else {
             recips.push(recipe);
             AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
             Alert.alert(
-                   `Successfully added ${recipe.name} to your favourites!`
+                   `${recipe.name} was added to your favourites!`
                 )
           }
           console.log("RECIPES AFTER", recips);
@@ -112,9 +104,8 @@ export default class RecipeView extends React.Component {
       catch (error) {
         console.log(error);
       }
-  }
 
-
+}
 
   onStarRatingPress(rating) {
     this.setState({
@@ -134,7 +125,7 @@ export default class RecipeView extends React.Component {
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <FaveButton navigation={this.props.navigation}/>
+        <FaveButton navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('RecipeForm')} />
       </View>
