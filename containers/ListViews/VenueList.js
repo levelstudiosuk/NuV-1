@@ -60,31 +60,31 @@ export default class VenueList extends React.Component {
       <View style={venueListStyle.venueitem}>
       <TouchableHighlight
         style={venueListStyle.venueimage}
-        onPress={() => navigate('VenueView')}>
+        onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
         <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
       </TouchableHighlight>
           <View style={venueListStyle.venuetextcontainer}>
             <View>
               <Text
               style={venueListStyle.venuetitle}
-              onPress={() => navigate('VenueView')}>
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
               Hendersons Vegan Restaurant
               </Text>
               <Text
               style={venueListStyle.venuetype}
-              onPress={() => navigate('VenueView')}>
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
               Cafe
               </Text>
             </View>
             <View>
               <Text
               style={venueListStyle.venuedescription}
-              onPress={() => navigate('VenueView')}>
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
               Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.
               </Text>
               <Text
               style={venueListStyle.venueaddress}
-              onPress={() => navigate('VenueView')}>
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
               25c Thistle St, Edinburgh EH2 1DX
               </Text>
             </View>
