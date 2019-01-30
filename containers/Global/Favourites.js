@@ -37,10 +37,10 @@ export default class Favourites extends React.Component {
     state = {
       index: 0,
       routes: [
-        { key: 'first', title: 'Recipes ⭐️' },
-        { key: 'second', title: 'Venues ⭐️' },
-        { key: 'third', title: 'Brands ⭐️' },
-        { key: 'fourth', title: 'Media ⭐️' },
+        { key: 'first', title: 'Recipes' },
+        { key: 'second', title: 'Venues' },
+        { key: 'third', title: 'Brands' },
+        { key: 'fourth', title: 'Media' },
       ],
     };
 
