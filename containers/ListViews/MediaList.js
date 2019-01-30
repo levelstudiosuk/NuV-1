@@ -58,17 +58,17 @@ export default class MediaList extends React.Component {
       </View>
 
       <View style={mediaListStyle.mediaitem}>
-      <TouchableHighlight onPress={() => navigate('MediaItemView', {media_item: this.state.items[0]})}  style={mediaListStyle.mediadescription})}  style={mediaListStyle.mediaimage}>
+      <TouchableHighlight onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
         <Image source={this.state.items[0].image} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View style={mediaListStyle.mediatextcontainer}>
             <View>
-              <Text onPress={() => navigate('MediaItemView', {media_item: this.state.items[0]})}  style={mediaListStyle.mediadescription})}  style={mediaListStyle.mediatitle}>
+              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
               {this.state.items[0].title}
               </Text>
             </View>
             <View>
-              <Text onPress={() => navigate('MediaItemView', {media_item: this.state.items[0]})}  style={mediaListStyle.mediadescription})}>
+              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}>
               {this.state.items[0].description}
               </Text>
             </View>

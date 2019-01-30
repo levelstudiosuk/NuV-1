@@ -3,10 +3,13 @@ import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Butto
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
+import AddItemButton from '../../components/AddItemButton.js';
+import FaveButton from '../../components/FaveButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
+import { AsyncStorage, Alert } from "react-native"
 
 export default class MediaView extends React.Component {
   static navigationOptions = {
@@ -69,37 +72,37 @@ export default class MediaView extends React.Component {
 
   addMediaItemToFavourites = async() => {
 
-    console.log("ITEM", JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')));
+    console.log("ITEM", JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')));
 
     var self = this;
 
-    var media_item = {name: JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')), prep_time: JSON.stringify(this.props.navigation.getParam('prep_time', 'Does not exist')), cook_time: JSON.stringify(this.props.navigation.getParam('cook_time', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+    var media_item = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
 
     try {
       AsyncStorage.getItem('media_item_favourites').then((media_items) => {
         const items = media_items ? JSON.parse(media_items) : [];
         if (items.length > 0){
-          var names = items.map((item) => item.name);
-          if (!names.includes(media_item.name)){
-          recips.push(media_item);
+          var names = items.map((item) => item.title);
+          if (!names.includes(media_item.title)){
+          items.push(media_item);
           AsyncStorage.setItem('media_item_favourites', JSON.stringify(items));
           this.setState({newFavouriteAdded: true}, function(){
             Alert.alert(
-                   `${media_item.name} was added to your favourites!`
+                   `${media_item.title} was added to your favourites!`
                 )
         })
       }
         else {
           Alert.alert(
-                 `${media_item.name} is already in your favourites!`
+                 `${media_item.title} is already in your favourites!`
               )
         }
     }
         else {
-          recips.push(recipe);
+          items.push(media_item);
           AsyncStorage.setItem('media_item_favourites', JSON.stringify(items));
           Alert.alert(
-                 `${media_item.name} was added to your favourites!`
+                 `${media_item.title} was added to your favourites!`
               )
         }
         console.log("ITEMS AFTER", items);
@@ -125,6 +128,12 @@ export default class MediaView extends React.Component {
         </View>
       )}
     >
+
+    <View style={{flex: 1, flexDirection: 'row'}}>
+      <FaveButton navigation={this.props.navigation} handleButtonClick={this.addMediaItemToFavourites}/>
+      <AddItemButton navigation={this.props.navigation}
+      onPress={() => navigate('RecipeForm')} />
+    </View>
 
     <View style={userViewStyle.flexRowContainer}>
     <View style={{flexDirection: 'column'}}>
