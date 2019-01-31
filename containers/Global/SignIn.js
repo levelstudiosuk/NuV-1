@@ -40,15 +40,18 @@ export default class SignIn extends React.Component {
 
   postData(){
 
-    var session_url = 'http://localhost:3000/this_users/';
+    var session_url = 'http://localhost:3000/login';
     var {navigate} = this.props.navigation;
 
     var self = this;
 
-    axios.post(session_url, {
-        'email': this.state.email,
-        'password':  this.state.password
-      }).then(function(response) {
+    axios.post(session_url, {"user":
+	{
+    "email": this.state.email,
+    "password": this.state.password
+  }
+  }
+).then(function(response) {
       console.log('response:', response);
       console.log('Obtained token. (PROFILE)');
       navigate('Home', {name: 'SignIn'})
@@ -61,27 +64,6 @@ export default class SignIn extends React.Component {
           console.log(response);
         console.log('Authenticated');
         var token = response.data['access']
-      var user = self.state.activation_user['id']
-      var name = self.state.name
-      var bio = self.state.description
-      var looking_for = self.state.looking_for
-      console.log(looking_for);
-      var location = self.state.location
-      var date_of_birth = self.state.date_of_birth
-      var gender = self.state.gender
-      var twitter_handle = self.state.twitter_handle
-      var instagram_handle = self.state.instagram_handle
-      var youtube_handle = self.state.youtube_handle
-      var picture_one = self.state.photo1
-      var picture_two = self.state.photo2
-      var picture_three = self.state.photo3
-      var picture_four = self.state.photo4
-      var picture_five = self.state.photo5
-      var picture_six = self.state.photo6
-      var vegan = self.state.veganChecked
-      var non_smoker = self.state.nonSmokingChecked
-      var prefers_chill_to_gym = self.state.prefersChillToGymChecked
-      var childless = self.state.childlessChecked
       console.log(picture_one);
       var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
 
