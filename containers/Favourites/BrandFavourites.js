@@ -107,8 +107,7 @@ export default class BrandFavourites extends Component {
 
     return (
       <View>
-
-
+      
           <View style={{marginBottom: 20}}>
 
           <View>
