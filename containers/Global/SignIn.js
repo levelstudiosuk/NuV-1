@@ -52,29 +52,12 @@ export default class SignIn extends React.Component {
   }
   }
 ).then(function(response) {
-      console.log('response:', response);
-      console.log('Obtained token. (PROFILE)');
-      navigate('Home', {name: 'SignIn'})
-      var token = response.data['token']
-      axios.post(`http://localhost:8080/social_reach/auth-jwt-verify/`,  {
-          "token": token,
-          'username': self.state.activation_user['username'],
-          'password': self.state.password
-        }).then(function(second_response) {
-          console.log(response);
-        console.log('Authenticated');
-        var token = response.data['access']
-      console.log(picture_one);
-      var create_profile_url = 'http://localhost:8080/social_reach/profiles/'
+      console.log(response);
 
-      const formData = new FormData();
-      formData.append('picture', picture_one);
+      navigate('Home', {name: "<Hardcoded name from sign in because this has not been coded yet>"})
 
-      axios.post(create_profile_url, formData).then(()=>{
-        console.log("Done");
-          self.props.handleLoginFromRegistrationSubmit( self.state.activation_user['username'], self.state.password)
-        })
-      })}).catch(function(e){
+
+      }).catch(function(e){
         console.log(e);
       })
 

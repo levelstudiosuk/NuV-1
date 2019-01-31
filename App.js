@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Home from './containers/Global/Home.js';
-import Register from './containers/Forms/RegisterUser.js';
+import RegisterUser from './containers/Forms/RegisterUser.js';
 import SignIn from './containers/Global/SignIn.js';
 import Landing from './containers/Global/Landing.js';
 import Favourites from './containers/Global/Favourites.js';
@@ -28,7 +28,7 @@ import { Constants } from 'expo'
 
 const navigationVariable = createStackNavigator({
   Landing: {screen: Landing},
-  Register: {screen: Register},
+  RegisterUser: {screen: RegisterUser},
   SignIn: {screen: SignIn},
   Favourites: {screen: Favourites},
   Home: {screen: Home},
