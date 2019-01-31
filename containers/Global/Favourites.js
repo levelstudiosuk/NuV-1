@@ -53,7 +53,6 @@ export default class Favourites extends React.Component {
       indicatorStyle={{backgroundColor: '#0dc6b5'}}
     />
 
-
   )
 
   render() {
