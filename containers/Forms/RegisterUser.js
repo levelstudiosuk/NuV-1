@@ -6,6 +6,7 @@ import VWayToggle from '../../components/VWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import axios from 'axios';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -35,6 +36,12 @@ export default class RegisterUser extends React.Component {
       bio: "",
       image: null
     };
+
+    componentDidMount(){
+      this.setState({
+        navigation: this.props.navigation
+      })
+    }
 
     changeEmailText(email){
       this.setState({
@@ -66,6 +73,57 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    postData(){
+      var session_url = 'http://localhost:3000/signup';
+      var {navigate} = this.props.navigation;
+
+      var self = this;
+
+      axios.post(session_url, {"user":
+  	{
+      "email": this.state.email,
+      "password": this.state.password
+    }
+    }
+  ).then(function(response) {
+        var token = response.data['token'];
+        axios.post(`http://localhost:3000/login`, {"user":
+    	{
+        "email": self.state.email,
+        "password": self.state.password
+      }
+      }).then(function(second_response) {
+        var token = second_response.headers.authorization
+         axios.post('http://localhost:3000/profiles',
+         {"profile": {
+          "name": self.state.name,
+         "bio": self.state.bio,
+         "user_is_vegan": "vegan",
+         "location": self.state.location,
+         "image": "htttp://test.com/avatar"}},
+
+      { headers: { Authorization: `${token}` }})
+
+      .then(function(third_response){
+
+        axios.get('http://localhost:3000/this_users_profile',
+
+       { headers: { Authorization: `${token}` }})
+
+       .then(function(fourth_response){
+
+         var responseForName = JSON.parse(fourth_response.request['_response'])
+
+           navigate('Home', {name: responseForName.name})
+
+          })
+        })
+      })
+    }).catch(function(e){
+          console.log(e);
+        })
+    }
+
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -87,6 +145,7 @@ export default class RegisterUser extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
+
     var image = this.state.image
 
     return (
@@ -124,7 +183,7 @@ export default class RegisterUser extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-            <VWayToggle />
+          <VWayToggle />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
@@ -144,7 +203,7 @@ export default class RegisterUser extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('UserView', {name: 'SignIn'})}/>
+              onPress={() => this.postData()}/>
           </View>
 
           </View>

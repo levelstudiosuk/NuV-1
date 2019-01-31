@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from 'react-native';
+import { Alert, StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
+import axios from 'axios';
 
 export default class SignIn extends React.Component {
   static navigationOptions = {
@@ -37,6 +38,42 @@ export default class SignIn extends React.Component {
       })
     }
 
+  postData(){
+
+    var session_url = 'http://localhost:3000/login';
+    var {navigate} = this.props.navigation;
+
+    var self = this;
+
+    axios.post(session_url, {"user":
+	{
+    "email": this.state.email,
+    "password": this.state.password
+  }
+  }
+  ).then(function(response) {
+
+    var token = response.headers.authorization
+
+      axios.get('http://localhost:3000/this_users_profile',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(second_response){
+
+     var responseForName = JSON.parse(second_response.request['_response'])
+
+       navigate('Home', {name: responseForName.name})
+
+     })}).catch(function(e){
+        Alert.alert(
+               'There was an error logging you in. Make sure to enter valid credentials.'
+            )
+        console.log(e);
+      })
+
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -59,7 +96,7 @@ export default class SignIn extends React.Component {
          />
 
          <View style={signInStyle.submitContainer}>
-         <GlobalButton onPress={() => navigate('Home', {name: 'SignIn'})} buttonTitle={"Sign in"} />
+         <GlobalButton buttonTitle="Sign in" onPress={() => this.postData()} />
          </View>
 
       </View>
