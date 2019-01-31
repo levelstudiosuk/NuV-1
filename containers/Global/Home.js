@@ -21,6 +21,8 @@ export default class Home extends React.Component {
     return (
       <View style={homeStyle.container}>
 
+      { Platform.OS === 'ios' ? (
+
       <StickyHeaderFooterScrollView
       makeScrollable={true}
       renderStickyHeader={() => ( <View></View> )}
@@ -55,6 +57,46 @@ export default class Home extends React.Component {
     </View>
     </StickyHeaderFooterScrollView>
 
+  ) :
+
+  <View style={homeStyle.container}>
+
+  <ScrollView>
+
+  <View style={homeStyle.buttonContainer}>
+  <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView')} style={{width: Dimensions.get('window').width*0.5}}>
+  <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
+  </TouchableHighlight>
+  </View>
+
+  <View style={homeStyle.greetingContainer}>
+    <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting("Fenella")} </Text>
+  </View>
+
+  <View style={homeStyle.iconsContainer}>
+
+  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList')} buttonTitle={"Recipes"} />
+  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList')} buttonTitle={"Eateries"} />
+
+  </View>
+
+  <View style={homeStyle.iconsContainer2}>
+
+  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList')} buttonTitle={"Shopping"} />
+  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList')} buttonTitle={"News"} />
+
+  </View>
+
+
+  </ScrollView>
+
+  <NavBar navigation={this.props.navigation} />
+  </View>
+
+
+
+}
+
       </View>
     );
   }
@@ -71,6 +113,16 @@ const homeStyle = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginLeft: 0,
     marginTop: Dimensions.get('window').height*0.035,
+    backgroundColor: 'transparent',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  iconsContainer2: {
+    width: Dimensions.get('window').width,
+    marginLeft: 0,
+    marginTop: Dimensions.get('window').height*0.035,
+    marginBottom: Dimensions.get('window').height*0.14,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',

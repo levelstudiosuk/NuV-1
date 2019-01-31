@@ -10,10 +10,10 @@ export function getTimeBasedGreeting(user){
   var timeNow = currentTime();
 
   if (timeNow.hours > 22 && timeNow.hours < 5){
-    return `Hello, ${user}, you'\re up awfully late tonight! Not already finished?`
+    return `Hello, ${user}, you're up awfully late tonight! Not already finished?`
   }
   else if (timeNow.hours > 4 && timeNow.hours < 8){
-    return `Good morning, ${user}, you'\re up bright and early today!`
+    return `Good morning, ${user}, you're up bright and early today!`
   }
   else if (timeNow.hours > 7 && timeNow.hours < 13){
     return `Good morning, ${user}!`
