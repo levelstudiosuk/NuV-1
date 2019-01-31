@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from 'react-native';
+import { Alert, StyleSheet, Platform, TextInput, Image, Dimensions, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -51,13 +51,24 @@ export default class SignIn extends React.Component {
     "password": this.state.password
   }
   }
-).then(function(response) {
-      console.log(response);
+  ).then(function(response) {
 
-      navigate('Home', {name: "<Hardcoded name from sign in because this has not been coded yet>"})
+    var token = response.headers.authorization
 
+      axios.get('http://localhost:3000/this_users_profile',
 
-      }).catch(function(e){
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(second_response){
+
+     var responseForName = JSON.parse(second_response.request['_response'])
+
+       navigate('Home', {name: responseForName.name})
+
+     })}).catch(function(e){
+        Alert.alert(
+               'There was an error logging you in. Make sure to enter valid credentials.'
+            )
         console.log(e);
       })
 

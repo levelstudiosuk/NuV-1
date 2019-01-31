@@ -93,10 +93,7 @@ export default class RegisterUser extends React.Component {
         "password": self.state.password
       }
       }).then(function(second_response) {
-            console.log(second_response);
-          console.log('token:', second_response.headers.authorization);
         var token = second_response.headers.authorization
-
          axios.post('http://localhost:3000/profiles',
          {"profile": {
           "name": self.state.name,
@@ -105,18 +102,26 @@ export default class RegisterUser extends React.Component {
          "location": self.state.location,
          "image": "htttp://test.com/avatar"}},
 
-
       { headers: { Authorization: `${token}` }})
 
       .then(function(third_response){
-       console.log("THIRD", third_response);
-          console.log("Done");
-          navigate('Home', {name: self.state.name})
+
+        axios.get('http://localhost:3000/this_users_profile',
+
+       { headers: { Authorization: `${token}` }})
+
+       .then(function(fourth_response){
+
+         var responseForName = JSON.parse(fourth_response.request['_response'])
+
+           navigate('Home', {name: responseForName.name})
+
           })
-        })}).catch(function(e){
+        })
+      })
+    }).catch(function(e){
           console.log(e);
         })
-
     }
 
     pickImage = async () => {
