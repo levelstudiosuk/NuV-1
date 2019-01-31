@@ -76,9 +76,7 @@ export default class RegisterUser extends React.Component {
     postData(){
       var session_url = 'http://localhost:3000/signup';
       var {navigate} = this.props.navigation;
-
       var self = this;
-
       axios.post(session_url, {"user":
   	{
       "email": this.state.email,
@@ -86,7 +84,6 @@ export default class RegisterUser extends React.Component {
     }
     }
   ).then(function(response) {
-        var token = response.data['token'];
         axios.post(`http://localhost:3000/login`, {"user":
     	{
         "email": self.state.email,
@@ -101,21 +98,13 @@ export default class RegisterUser extends React.Component {
          "user_is_vegan": "vegan",
          "location": self.state.location,
          "image": "htttp://test.com/avatar"}},
-
       { headers: { Authorization: `${token}` }})
-
       .then(function(third_response){
-
         axios.get('http://localhost:3000/this_users_profile',
-
        { headers: { Authorization: `${token}` }})
-
        .then(function(fourth_response){
-
          var responseForName = JSON.parse(fourth_response.request['_response'])
-
            navigate('Home', {name: responseForName.name})
-
           })
         })
       })
