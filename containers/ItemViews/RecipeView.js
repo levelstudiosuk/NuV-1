@@ -4,6 +4,7 @@ import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
+import ShareButton from '../../components/ShareButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
@@ -32,6 +33,7 @@ export default class RecipeView extends React.Component {
       starRating: 3,
       starCount: 2
     };
+
 
     checkFavouriteStatus(viewedRecipe) {
       try {
@@ -119,35 +121,40 @@ export default class RecipeView extends React.Component {
 
     <View style={recipeViewStyle.container}>
 
-    <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{width: Dimensions.get('window').width*1}} showsVerticalScrollIndicator={false}>
     <View style={recipeViewStyle.container}>
 
-    <View style={{marginTop: Dimensions.get('window').height*0.02}}>
+  <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <FaveButton navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('RecipeForm')} />
       </View>
-
-      <Text style={recipeViewStyle.recipename}>
-          Spaghetti Marinara
-      </Text>
-
-      <AutoHeightImage width={Dimensions.get('window').width*0.9} style={{marginTop: Dimensions.get('window').width*0.025}} source={require('../../assets/recipe_images/marinara.png')}/>
-
+        <Text style={recipeViewStyle.recipename}>
+            Spaghetti Marinara
+        </Text>
+      <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={require('../../assets/recipe_images/marinara.png')}/>
   </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/vegan_woman.jpeg')}/>
         <Text style={recipeViewStyle.recipetype}>
-        Breakfast
+        Dinner
         </Text>
     </View>
 
-    <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Prep time: 25m </Text>
-    <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Cook time: 30m </Text>
+    <Text style={{marginLeft:Dimensions.get('window').width*0.2,marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}><AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: XX mins <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: XX mins </Text>
 
+    <View style={recipeViewStyle.shareContainer}>
+      <ShareButton
+      marginLeft={Dimensions.get('window').width*0.05}
+      title="Shared from NüV"
+      message="Message to share"
+      url="www.level-apps.co.uk"
+      subject="Hi, a NüV user though you would like to see this..."
+       />
+    </View>
 
     <View >
       <View>
@@ -200,7 +207,7 @@ export default class RecipeView extends React.Component {
 
 
     <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
-    <Text style={recipeViewStyle.vibeHeading}>NüV Rating</Text>
+    <Text style={recipeViewStyle.vibeHeading}>NüV User Rating</Text>
       <StarRating
         disabled={false}
         maxStars={5}
@@ -222,11 +229,21 @@ export default class RecipeView extends React.Component {
         />
     </View>
 
+    <View style={recipeViewStyle.shareContainer}>
+      <ShareButton
+      marginLeft={Dimensions.get('window').width*0.05}
+      title="Shared from NüV"
+      message="Message to share"
+      url="www.level-apps.co.uk"
+      subject="Hi, a NüV user though you would like to see this..."
+       />
+    </View>
+
     <View style={recipeViewStyle.submitContainer}>
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.05}
-         buttonTitle="Rate and go"
-         onPress={() => navigate('Home', {name: 'SignIn'})}/>
+        buttonTitle="Rate and go"
+        onPress={() => navigate('Home', {name: 'SignIn'})}/>
     </View>
 
   </ScrollView>
@@ -266,6 +283,7 @@ const recipeViewStyle = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 20,
+    marginLeft: 15,
   },
   recipetype: {
     color: '#0dc6b5',
@@ -278,20 +296,24 @@ const recipeViewStyle = StyleSheet.create({
     color: '#0dc6b5',
     margin: 4,
     fontSize: 18,
+    marginLeft: 15,
   },
   recipeingredientsbody: {
     margin: 4,
     fontSize: 15,
     marginBottom: 40,
+    marginLeft: 15,
   },
   recipemethod: {
     color: '#0dc6b5',
     margin: 4,
     fontSize: 18,
+    marginLeft: 15,
   },
   recipemethodbody: {
     margin: 4,
     fontSize: 15,
+    marginLeft: 15,
   },
     profileItem: {
     padding: Dimensions.get('window').width* 0.025,
@@ -304,9 +326,15 @@ const recipeViewStyle = StyleSheet.create({
   color: '#0DC6B5',
   marginTop: Dimensions.get('window').height*0.03
 },
-submitContainer: {
+  submitContainer: {
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
   },
+
+  shareContainer: {
+      alignItems: 'center',
+      marginTop: Dimensions.get('window').height*0.03,
+      marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
+    },
 });

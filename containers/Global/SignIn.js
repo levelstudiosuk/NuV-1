@@ -80,6 +80,7 @@ export default class SignIn extends React.Component {
     return (
       <View style={signInStyle.container}>
 
+
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
@@ -111,7 +112,8 @@ const signInStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   submitContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 30,
   },
   header: {
     fontSize: 24,

@@ -85,6 +85,9 @@ export default class Home extends React.Component {
   <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList')} buttonTitle={"Shopping"} />
   <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList')} buttonTitle={"News"} />
 
+  <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
+
+
   </View>
 
 
