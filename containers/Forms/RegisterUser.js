@@ -99,7 +99,7 @@ export default class RegisterUser extends React.Component {
          "bio": self.state.bio,
          "user_is_vegan": self.returnVeganSelectionForPost(),
          "location": self.state.location,
-         "image": "htttp://test.com/avatar"}},
+         "image": self.state.image}},
       { headers: { Authorization: `${token}` }})
       .then(function(third_response){
         axios.get('http://nuv-api.herokuapp.com/this_users_profile',
