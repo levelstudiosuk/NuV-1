@@ -63,7 +63,7 @@ export default class SignIn extends React.Component {
 
      var responseForName = JSON.parse(second_response.request['_response'])
 
-       navigate('Home', {name: responseForName.name})
+       navigate('Home', {name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
 
      })}).catch(function(e){
         Alert.alert(
@@ -79,6 +79,7 @@ export default class SignIn extends React.Component {
 
     return (
       <View style={signInStyle.container}>
+
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
@@ -111,7 +112,8 @@ const signInStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   submitContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 30,
   },
   header: {
     fontSize: 24,

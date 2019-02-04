@@ -29,14 +29,9 @@ export default class Landing extends React.Component {
       <View style={landingStyle.descriptionContainer}>
         <Text style={landingStyle.descriptionText}>
 
-            Hi! Welcome to NüV, the lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
-
-            Our community will help you find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
-
-            To get started simply register using your email address and set up a NüV profile.{"\n"}{"\n"}
-
-            Together, lettuce grow this community.  This is just the veganning…
-
+            The lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
+            Join the community. Find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
+            This is just the veganning…
         </Text>
       </View>
     </View>

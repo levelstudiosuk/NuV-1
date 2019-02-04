@@ -22,15 +22,16 @@ export default class EditUser extends React.Component {
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 
   state = {
       email: "",
       password: "",
-      name: "",
-      location: "",
-      bio: "",
+      name: this.props.navigation.getParam('name', 'NO-ID'),
+      location: this.props.navigation.getParam('location', 'NO-ID'),
+      bio: this.props.navigation.getParam('bio', 'NO-ID'),
       image: null
     };
 
@@ -62,6 +63,24 @@ export default class EditUser extends React.Component {
       this.setState({
         bio: bio
       })
+    }
+
+    returnVToggleSelection(selection){
+      this.setState({
+        vSelection: selection
+      })
+    }
+
+    returnVeganSelectionForPost(){
+      if (this.state.vSelection === "vegan"){
+        return "vegan";
+      }
+      else if (this.state.vSelection === "vegetarian") {
+        return "vegetarian";
+      }
+      else {
+        return null;
+      }
     }
 
     pickImage = async () => {
@@ -114,7 +133,7 @@ export default class EditUser extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-            <VWayToggle />
+            <VWayToggle returnVToggleSelection={this.returnVToggleSelection} editingUser={true} user_is_vegan={this.props.navigation.getParam('user_is_vegan', 'NO-ID')} />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

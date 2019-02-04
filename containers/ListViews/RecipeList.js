@@ -127,8 +127,8 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: '#0dc6b5', fontSize: 16 }
-                : { color: 'black', fontSize: 16 }
+                ? { color: '#0dc6b5', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
             {o.item.name ? o.item.name : 'Unknown'}
@@ -214,9 +214,11 @@ export default class RecipeList extends React.Component {
                 margin: 30
               }}
             >
-              Scroll through the NüV recipe base and check out any that catch your eye!
+              Scroll through our recipes and click on any that catch your eye!
             </Text>
+            <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
             </View>
+
           )}
 
           { this.state.activeItem ? (
@@ -235,8 +237,10 @@ export default class RecipeList extends React.Component {
           </TouchableHighlight>
 
           <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
-          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Preparation time: {this.state.activeItem.item.prep_time}</Text>
-          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}>Cooking time: {this.state.activeItem.item.cook_time}</Text>
+
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.activeItem.item.prep_time}</Text>
+
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.activeItem.item.cook_time}</Text>
 
            </View>
 
@@ -277,12 +281,12 @@ export default class RecipeList extends React.Component {
             listRef={this.refs}
             endDotIconFamily={'MaterialIcons'}
             dotIconNameActive={'checkbox-blank-circle'}
-            dotIconColorActive={'black'}
+            dotIconColorActive={'#0DC6B5'}
             dotIconNameNotActive={'checkbox-blank-circle-outline'}
-            dotIconColorNotActive={'black'}
+            dotIconColorNotActive={'#92FE9D'}
             dotIconNameEmpty={'close'}
             dotTextHide={true}
-            dotTextColor={'black'}
+            dotTextColor={'#92FE9D'}
             dotIconSizeNotActive={15}
             dotIconSizeActive={15}
             dotIconSizeEmpty={15}

@@ -25,6 +25,7 @@ export default class RegisterUser extends React.Component {
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 
@@ -95,7 +96,7 @@ export default class RegisterUser extends React.Component {
          {"profile": {
           "name": self.state.name,
          "bio": self.state.bio,
-         "user_is_vegan": "vegan",
+         "user_is_vegan": self.returnVeganSelectionForPost(),
          "location": self.state.location,
          "image": "htttp://test.com/avatar"}},
       { headers: { Authorization: `${token}` }})
@@ -104,13 +105,31 @@ export default class RegisterUser extends React.Component {
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
-           navigate('Home', {name: responseForName.name})
+           navigate('Home', {name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
         })
       })
     }).catch(function(e){
           console.log(e);
         })
+    }
+
+    returnVToggleSelection(selection){
+      this.setState({
+        vSelection: selection
+      })
+    }
+
+    returnVeganSelectionForPost(){
+      if (this.state.vSelection === "vegan"){
+        return "vegan";
+      }
+      else if (this.state.vSelection === "vegetarian") {
+        return "vegetarian";
+      }
+      else {
+        return null;
+      }
     }
 
     pickImage = async () => {
@@ -172,7 +191,7 @@ export default class RegisterUser extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-          <VWayToggle />
+          <VWayToggle returnVToggleSelection={this.returnVToggleSelection} />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
