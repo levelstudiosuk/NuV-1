@@ -121,7 +121,7 @@ export default class EditUser extends React.Component {
     console.log("RESP", response);
     var updatedProfile = JSON.parse(response.request['_response'])
 
-    navigate('UserView', {name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+    navigate('Home', {name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
   }
   ).catch(function(e){
       console.log(e);
