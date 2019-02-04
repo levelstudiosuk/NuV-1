@@ -14,7 +14,7 @@ export default class FaveButton extends Component {
         >
           <Image
             source={require('../assets/AppIcons/fave.png')}
-            style={{height:50, width:50}}
+            style={{height:50, width:50, marginRight:20}}
           />
 
       </TouchableHighlight>

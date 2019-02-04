@@ -15,7 +15,7 @@ export default class AddItemButton extends Component {
         {
           <Image
             source={require('../assets/AppIcons/plus.png')}
-            style={{height:50, width:50}}
+            style={{height:50, width:50, marginLeft:5}}
           />
         }
       </TouchableHighlight>

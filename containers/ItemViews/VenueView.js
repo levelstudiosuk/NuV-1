@@ -4,10 +4,11 @@ import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
+import ShareButton from '../../components/ShareButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
-import {Permissions} from 'expo'
+import {Permissions} from 'expo';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Map from '../../containers/Global/Map.js';
 import StarRating from 'react-native-star-rating';
@@ -127,11 +128,11 @@ export default class VenueView extends React.Component {
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle/>
         <FaveButton navigation={this.props.navigation} handleButtonClick={this.addVenueToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm')} />
       </View>
+
 
 
       <Text style={venueViewStyle.venuename}>
@@ -168,6 +169,13 @@ export default class VenueView extends React.Component {
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
+        <ShareButton
+        marginLeft={Dimensions.get('window').width*0.07}
+        title="Shared from NüV"
+        message="Message to share"
+        url="www.level-apps.co.uk"
+        subject="Hi, a NüV user though you would like to see this..."
+         />
     </View>
 
     <View >
@@ -182,7 +190,7 @@ export default class VenueView extends React.Component {
       </View>
     </View>
 
-    <View style={{alignItems: 'center', width: Dimensions.get('window').width*1}}>
+    <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}><Text style={venueViewStyle.vibeHeading}>NuV user rating</Text>
       <StarRating
         disabled={false}
         maxStars={5}
