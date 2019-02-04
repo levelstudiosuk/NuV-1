@@ -203,7 +203,7 @@ export default class RegisterUser extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-          <VWayToggle returnVToggleSelection={this.returnVToggleSelection} />
+          <VWayToggle returnVToggleSelection={this.returnVToggleSelection}  />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

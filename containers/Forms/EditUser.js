@@ -104,6 +104,19 @@ export default class EditUser extends React.Component {
      }
    };
 
+   setActiveIndex(){
+       if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+         return 0;
+       }
+       else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian") {
+         return 1;
+       }
+
+       else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null){
+         return 2;
+       }
+   }
+
    postData(){
      var user_profile_end_point = 'http://nuv-api.herokuapp.com/profiles/' + this.state.id
      var token = this.props.navigation.getParam('token', 'NO-ID');
@@ -132,6 +145,7 @@ export default class EditUser extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     var image = this.state.image
+    var active = this.setActiveIndex();
 
     return (
 
@@ -160,7 +174,7 @@ export default class EditUser extends React.Component {
             underlineColorAndroid='transparent'
           />
 
-            <VWayToggle returnVToggleSelection={this.returnVToggleSelection} editingUser={true} user_is_vegan={this.props.navigation.getParam('user_is_vegan', 'NO-ID')} />
+            <VWayToggle returnVToggleSelection={this.returnVToggleSelection} editingUser={true} activeIndex={active} user_is_vegan={this.props.navigation.getParam('user_is_vegan', 'NO-ID')} />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

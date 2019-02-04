@@ -17,31 +17,11 @@ export default class VWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: this.setActiveIndex(),
+        activeIndex: this.props.activeIndex,
         vegan: this.determineWhetherVegan(),
         vegetarian: this.determineWhetherVegetarian(),
         vCurious: this.determineWhetherVCurious()
       };
-
-
-  setActiveIndex(){
-
-    if (this.props.editingUser){
-      if (this.props.user_is_vegan === "vegan"){
-        return 0;
-      }
-      else if (this.props.user_is_vegan === "vegetarian") {
-        return 1;
-      }
-
-      else if (this.props.user_is_vegan === null){
-        return 2;
-      }
-    }
-      else {
-        return 1;
-      }
-  }
 
   determineWhetherVegan(){
     if (this.props.editingUser){
@@ -150,7 +130,7 @@ export default class VWayToggle extends React.Component {
                               justifyContent: 'space-between'
 
                             }))}
-                            active={this.state.activeIndex}>
+                            active={this.props.editingUser === true ? this.props.activeIndex : 1}>
                             <View>
                             <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
                             </View>
@@ -162,6 +142,7 @@ export default class VWayToggle extends React.Component {
                             </View>
               </MultiSwitch>
             </View>
+
           </View>
         )
     }
