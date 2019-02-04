@@ -12,7 +12,8 @@ import {Permissions} from 'expo';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Map from '../../containers/Global/Map.js';
 import StarRating from 'react-native-star-rating';
-import { AsyncStorage, Alert } from "react-native"
+import { AsyncStorage, Alert } from "react-native";
+import FadingSlides from 'react-native-fading-slides';
 
 export default class VenueView extends React.Component {
   static navigationOptions = {
@@ -39,35 +40,32 @@ export default class VenueView extends React.Component {
     });
     }
 
-
-    checkFavouriteStatus(viewedVenue) {
-      try {
-        AsyncStorage.getItem('venue_favourites').then((venues) => {
-          const venuess = venues ? JSON.parse(venues) : [];
-
+  checkFavouriteStatus(viewedVenue) {
+    try {
+      AsyncStorage.getItem('venue_favourites').then((venues) => {
+        const venuess = venues ? JSON.parse(venues) : [];
           if (venuess.length > 0){
             var names = venuess.map((venue) => venue.title);
-
-            if (names.includes(viewedVenue)){
-              this.setState({viewedVenueAlreadyFavourite: true}, function(){
-                console.log("s");
-              });
+          if (names.includes(viewedVenue)){
+            this.setState({viewedVenueAlreadyFavourite: true}, function(){
+              console.log("s");
+             });
             }
-            else {
-              this.setState({viewedVenueAlreadyFavourite: false},
-              function(){
-                console.log("s");
-              });
-            }
-          }
           else {
-            this.setState({viewedVenueAlreadyFavourite: false}, function(){
+            this.setState({viewedVenueAlreadyFavourite: false},
+            function(){
             console.log("s");
-            });
-          }
+           });
+         }
+       }
+         else {
+          this.setState({viewedVenueAlreadyFavourite: false}, function(){
+          console.log("s");
+          });
         }
-      )
       }
+    )
+  }
         catch (error) {
           console.log(error);
       }
@@ -118,6 +116,44 @@ export default class VenueView extends React.Component {
     render() {
 
       const {navigate} = this.props.navigation;
+      slides = [
+    {
+      image: require('../../assets/venue_images/hndrsn1.png'),
+      imageWidth: 250,
+      imageHeight: 250,
+      title: 'Hendersons Vegan Cafe 1',
+      subtitle: 'OOh, what a lovely kale milkshake',
+      titleColor: '#0dc6b5',
+      subtitleColor: '#fff',
+    },
+    {
+      image: require('../../assets/venue_images/hndrsn2.png'),
+      imageWidth: 250,
+      imageHeight: 250,
+      title: 'Hendersons Vegan Cafe 2',
+      subtitle: 'OOh, some carrot lasagne',
+      titleColor: '#0dc6b5',
+      subtitleColor: '#92FE9D',
+    },
+    {
+      image: require('../../assets/venue_images/hndrsn3.png'),
+      imageWidth: 250,
+      imageHeight: 250,
+      title: 'Hendersons Vegan Cafe 3',
+      subtitle: 'OOh, some nice plums',
+      titleColor: '#0dc6b5',
+      subtitleColor: '#92FE9D',
+    },
+    {
+      image: require('../../assets/venue_images/hndrsn4.png'),
+      imageWidth: 250,
+      imageHeight: 250,
+      title: 'Hendersons Vegan Cafe 4',
+      subtitle: 'OOh, beetroot pie',
+      titleColor: '#0dc6b5',
+      subtitleColor: '#92FE9D',
+    },
+  ];
       return (
 
     <View style={venueViewStyle.container}>
@@ -190,6 +226,18 @@ export default class VenueView extends React.Component {
       </View>
     </View>
 
+    <View style={venueViewStyle.carouselcontainer}>
+      <FadingSlides
+        slides={slides}
+        fadeDuration={250}
+        stillDuration={1000}
+        height={300}
+        startAnimation={true}
+        style={{fontSize: 5}}
+      />
+    </View>
+
+
     <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}><Text style={venueViewStyle.vibeHeading}>NuV user rating</Text>
       <StarRating
         disabled={false}
@@ -235,6 +283,11 @@ const venueViewStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.1
+  },
+  carouselcontainer: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   header: {
     textAlign: 'center',
@@ -284,6 +337,13 @@ const venueViewStyle = StyleSheet.create({
       marginLeft: 0,
       backgroundColor: 'transparent',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+    mapcontainer:{
+      width: Dimensions.get('window').width,
+      marginLeft: 0,
+      backgroundColor: 'transparent',
       alignItems: 'center',
       flexDirection: 'column',
     },

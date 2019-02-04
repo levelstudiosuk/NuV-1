@@ -25,7 +25,6 @@ export default class Landing extends React.Component {
   render() {
 
     const {navigate} = this.props.navigation;
-
     return (
       <View style={landingStyle.container}>
       <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}} width={Dimensions.get('window').width*0.77} />
@@ -66,7 +65,6 @@ const landingStyle = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14
   },
-
   iconsContainer: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
