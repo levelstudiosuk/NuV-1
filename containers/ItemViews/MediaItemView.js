@@ -127,7 +127,7 @@ export default class MediaView extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.02}}>
       </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <FaveButton navigation={this.props.navigation} handleButtonClick={this.addMediaToFavourites}/>
+          <FaveButton navigation={this.props.navigation} handleButtonClick={this.addMediaItemToFavourites}/>
           <AddItemButton navigation={this.props.navigation}
           onPress={() => navigate('MediaForm')} />
         </View>
