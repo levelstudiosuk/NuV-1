@@ -100,7 +100,7 @@ export default class RegisterUser extends React.Component {
         const formData = new FormData();
        formData.append('profile[name]', self.state.name);
        formData.append('profile[bio]', self.state.bio);
-       formData.append('profile[user_is_vegan]', self.state.user_is_vegan);
+       formData.append('profile[user_is_vegan]', self.state.vSelection);
        formData.append('profile[location]', self.state.location);
        formData.append('profile[avatar]', {
         uri: self.state.image,
