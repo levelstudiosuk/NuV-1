@@ -25,6 +25,7 @@ export default class RegisterUser extends React.Component {
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 

@@ -17,11 +17,73 @@ export default class VWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: 1,
-        vegan: false,
-        vegetarian: true,
-        vCurious: false
+        activeIndex: this.setActiveIndex(),
+        vegan: this.determineWhetherVegan(),
+        vegetarian: this.determineWhetherVegetarian(),
+        vCurious: this.determineWhetherVCurious()
       };
+
+
+  setActiveIndex(){
+
+    if (this.props.editingUser){
+      if (this.props.user_is_vegan === "vegan"){
+        return 0;
+      }
+      else if (this.props.user_is_vegan === "vegetarian") {
+        return 1;
+      }
+
+      else if (this.props.user_is_vegan === null){
+        return 2;
+      }
+    }
+      else {
+        return 1;
+      }
+  }
+
+  determineWhetherVegan(){
+    if (this.props.editingUser){
+      if (this.props.user_is_vegan === "vegan"){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
+  determineWhetherVegetarian(){
+    if (this.props.editingUser){
+      if (this.props.user_is_vegan === "vegetarian"){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return true;
+    }
+  }
+
+  determineWhetherVCurious(){
+    if (this.props.editingUser){
+      if (this.props.user_is_vegan === null){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
+  }
 
   changeToggleSelection(number){
 
@@ -88,7 +150,7 @@ export default class VWayToggle extends React.Component {
                               justifyContent: 'space-between'
 
                             }))}
-                            active={1}>
+                            active={this.state.activeIndex}>
                             <View>
                             <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
                             </View>
