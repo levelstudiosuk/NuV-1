@@ -5,6 +5,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
+import ShareButton from '../../components/ShareButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
 import AddItemButton from '../../components/AddItemButton.js';
@@ -114,61 +115,57 @@ export default class BrandView extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
-
     return (
-      <View style={userViewStyle.container}>
 
-      <StickyHeaderFooterScrollView
-      makeScrollable={true}
-      renderStickyHeader={() => ( <View></View> )}
-      renderStickyFooter={() => (
-        <View style={{alignItems: 'center'}}>
-          <NavBar navigation={this.props.navigation} />
+      <View style={brandViewStyle.container}>
+
+      <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
+      <View style={brandViewStyle.container}>
+
+      <View style={{marginTop: Dimensions.get('window').height*0.02}}>
+      </View>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <FaveButton navigation={this.props.navigation} handleButtonClick={this.addBrandToFavourites}/>
+          <AddItemButton navigation={this.props.navigation}
+          onPress={() => navigate('BrandForm')} />
         </View>
-      )}
-    >
 
-    <View style={{flex: 1, flexDirection: 'row'}}>
-      <FaveButton navigation={this.props.navigation} handleButtonClick={this.addBrandToFavourites}/>
-      <AddItemButton navigation={this.props.navigation}
-      onPress={() => navigate('RecipeForm')} />
+        <Text style={brandViewStyle.brandname}>
+            Dr Martens
+        </Text>
+
+        <View style={brandViewStyle.mapcontainer}>
+        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={require('../../assets/brand_images/drmartens.jpg')}/>
+        </View>
     </View>
-
-    <View style={userViewStyle.flexRowContainer}>
-    <View style={{flexDirection: 'column'}}>
-
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
-      <Text style={userViewStyle.profileItem}>Name: Dr Martens</Text>
-    </View>
-
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
-      <Text style={userViewStyle.profileItem}>Type: Outfitter</Text>
-    </View>
-
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025, width: Dimensions.get('window').width* 0.75}}>
-      <Text style={userViewStyle.profileItem}>NüV Status: Hyper-compliant</Text>
-    </View>
-
-    </View>
-
-    <AutoHeightImage width={Dimensions.get('window').width*0.3} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/AppIcons/branddefault.png')}/>
-
-    </View>
-
-    <Text style={userViewStyle.vibeHeading}>Vibe</Text>
-
-    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...</Text>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
+        <ShareButton
+        marginLeft={Dimensions.get('window').width*0.07}
+        title="Shared from NüV"
+        message="Message to share"
+        url="www.level-apps.co.uk"
+        subject="Hi, a NüV user though you would like to see this..."
+         />
     </View>
 
-    <Text style={userViewStyle.vibeHeading}>Verdict</Text>
-    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.01, marginBottom: Dimensions.get('window').height*0.01}]}>NüV users awarded this brand the following average rating:</Text>
+    <View >
+      <View>
+        <Text style={brandViewStyle.brandreviewtitle}>
+        This brand was described by [username] as:{"\n"}
+        </Text>
+        <Text style={brandViewStyle.brandreviewbody}>
+        The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
+        </Text>
+      </View>
+    </View>
+
 
     <View style={{alignItems: 'center', width: Dimensions.get('window').width*1}}>
+    <Text style={brandViewStyle.vibeHeading}>NuV user rating</Text>
     <StarRating
       disabled={false}
       maxStars={5}
@@ -179,7 +176,7 @@ export default class BrandView extends React.Component {
     </View>
 
       <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
-      <Text style={userViewStyle.vibeHeading}>Rate this brand</Text>
+      <Text style={brandViewStyle.vibeHeading}>Rate this brand</Text>
       <StarRating
         disabled={false}
         maxStars={5}
@@ -190,72 +187,74 @@ export default class BrandView extends React.Component {
         />
         </View>
 
-        <View style={userViewStyle.submitContainer}>
+        <View style={brandViewStyle.submitContainer}>
         <GlobalButton
            buttonTitle="Rate and go"
            onPress={() => navigate('Home', {name: 'SignIn'})}/>
         </View>
 
-    </StickyHeaderFooterScrollView>
-
+        </ScrollView>
       </View>
-    );
-  }
-}
+      );
+      }
+      }
 
-const userViewStyle = StyleSheet.create({
+const brandViewStyle = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  profileItem: {
+  submitContainer: {
+    alignItems: 'center',
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.1
+  },
+  header: {
+    textAlign: 'center',
+    marginTop:  Constants.statusBarHeight+10,
+    marginBottom: Dimensions.get('window').height*0.01
+  },
+  branditem: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingBottom: 20,
+  },
+  brandtextcontainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  brandname: {
+    color: '#0dc6b5',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  brandreviewtitle: {
+    color: '#0dc6b5',
+    margin: 4,
+    fontSize: 18,
+  },
+  brandreviewbody: {
+    margin: 4,
+    fontSize: 15,
+  },
+
+    profileItem: {
     padding: Dimensions.get('window').width* 0.025,
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
-    color: 'black',
-    flexWrap: 'wrap',
-    flex: 1
+    color: 'black'
+  },
+  vibeHeading: {
+  fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
+  textAlign: 'center',
+  color: '#0DC6B5',
+  marginTop: Dimensions.get('window').height*0.03
   },
   submitContainer: {
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
   },
-  iconsContainer: {
-    width: Dimensions.get('window').width,
-    marginLeft: 0,
-    marginTop: Dimensions.get('window').height*0.035,
-    backgroundColor: 'transparent',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  flexRowContainer: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  editButtonContainer: {
-    alignItems: 'center'
-  },
-  vibeHeading: {
-    fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
-    textAlign: 'center',
-    color: '#0DC6B5',
-    marginTop: Dimensions.get('window').height*0.03
-  },
-  buttonContainer: {
-    marginBottom: Dimensions.get('window').height*0.01,
-    marginTop: Dimensions.get('window').height*0.05,
-    alignItems: 'center',
-  },
-  greetingContainer: {
-    marginBottom: Dimensions.get('window').height*0.01,
-    marginTop: Dimensions.get('window').height*0.02,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    height: Dimensions.get('window').height*0.03
-      }
-});
+  });
