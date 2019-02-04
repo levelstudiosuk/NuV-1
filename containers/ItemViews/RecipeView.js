@@ -335,6 +335,6 @@ const recipeViewStyle = StyleSheet.create({
   shareContainer: {
       alignItems: 'center',
       marginTop: Dimensions.get('window').height*0.03,
-      marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.15 : Dimensions.get('window').height*0.15
+      marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
     },
 });
