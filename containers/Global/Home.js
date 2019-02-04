@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
+import { BallIndicator, BarIndicator, DotIndicator, MaterialIndicator, PacmanIndicator, PulseIndicator, SkypeIndicator, UIActivityIndicator, WaveIndicator } from 'react-native-indicators';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -14,6 +15,32 @@ export default class Home extends React.Component {
       <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
  ),
 }
+
+  constructor(props) {
+  super(props);
+
+  this.setAvatarAsLoaded = this.setAvatarAsLoaded.bind(this);
+
+  }
+
+  state = {
+      avatarLoading: true
+    };
+
+    componentDidMount() {
+      var uri = "http://nuv-api.herokuapp.com" + this.props.navigation.getParam('avatar', 'NO-ID')
+      this.setState({imageSource: uri });
+  }
+
+  profileAvatarUri(){
+    return this.state.imageSource;
+  }
+
+  setAvatarAsLoaded(){
+    this.setState({
+      avatarLoading: false
+    })
+  }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -32,10 +59,27 @@ export default class Home extends React.Component {
         </TouchableHighlight>
       )}
     >
+
     <View style={homeStyle.buttonContainer}>
     <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
-    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
+    <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.profileAvatarUri()}}/>
     </TouchableHighlight>
+    {
+      this.state.avatarLoading === false ? (
+        null
+  ) :
+    < BallIndicator size={50} color={'black'}/>
+
+  }
+
+    {
+      this.state.avatarLoading === false ? (
+        null
+    ) :
+    <Text style={{marginTop: Dimensions.get('window').height*0.05, textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 22 : 16}}>Loading profile picture...</Text>
+
+    }
+
     </View>
 
     <View style={homeStyle.greetingContainer}>
