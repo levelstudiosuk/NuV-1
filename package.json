@@ -14,6 +14,7 @@
     ]
   },
   "dependencies": {
+    "@nlabs/react-native-image-gallery": "^1.1.0",
     "axios": "^0.18.0",
     "expo": "^31.0.2",
     "lodash": "^4.17.11",
@@ -24,6 +25,7 @@
     "react-native-autocomplete-input": "^3.6.0",
     "react-native-dropdown": "0.0.6",
     "react-native-elements": "^0.19.1",
+    "react-native-indicators": "^0.13.0",
     "react-native-maps": "^0.23.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-multi-switch": "^1.2.0",

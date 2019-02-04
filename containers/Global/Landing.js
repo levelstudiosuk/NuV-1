@@ -13,7 +13,7 @@ export default class Landing extends React.Component {
   };
 
   componentDidMount(){
-    this.nudgeHeroku('http://nuv-api.herokuapp.com/profiles');
+    this.nudgeHeroku('http://nuv-api.herokuapp.com/login');
   }
 
   nudgeHeroku(url){
