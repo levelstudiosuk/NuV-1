@@ -26,6 +26,18 @@ export default class UserView extends React.Component {
           image: null
         };
 
+      returnStatus(){
+        if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+          return "Vegan";
+        }
+        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
+          return "Vegetarian";
+        }
+        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null){
+          return "V-curious";
+        }
+      }
+
 
       pickImage = async () => {
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -64,15 +76,15 @@ export default class UserView extends React.Component {
     <View style={{flexDirection: 'column'}}>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: Fenella Rowley-Knight </Text>
+      <Text style={userViewStyle.profileItem}>Name: {this.props.navigation.getParam('name', 'NO-ID')} </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Hometown: Hastings </Text>
+      <Text style={userViewStyle.profileItem}>Hometown: {this.props.navigation.getParam('location', 'NO-ID')} </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>NüV Status: V-curious </Text>
+      <Text style={userViewStyle.profileItem}>NüV Status: {this.returnStatus()} </Text>
     </View>
 
     </View>
