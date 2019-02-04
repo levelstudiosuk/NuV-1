@@ -124,7 +124,6 @@ export default class BrandForm extends React.Component {
 
             <TwoWayToggle />
 
-
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(name) => {this.changeNameText(name)}}

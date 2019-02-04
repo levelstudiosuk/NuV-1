@@ -105,7 +105,7 @@ export default class EditUser extends React.Component {
    };
 
    postData(){
-     var user_profile_end_point = 'http://localhost:3000/profiles/' + this.state.id
+     var user_profile_end_point = 'http://nuv-api.herokuapp.com/profiles/' + this.state.id
      var token = this.props.navigation.getParam('token', 'NO-ID');
      const {navigate} = this.props.navigation;
      var self = this;

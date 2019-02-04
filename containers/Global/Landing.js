@@ -4,13 +4,24 @@ import { Constants } from 'expo'
 import NavBar from '../../components/NavBar.js';
 import GlobalButton from '../../components/GlobalButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
-
+import axios from 'axios';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
       header: null,
 
   };
+
+  componentDidMount(){
+    this.nudgeHeroku('http://nuv-api.herokuapp.com/profiles');
+  }
+
+  nudgeHeroku(url){
+    return axios.get(url)
+      .then((response) => console.log(`${url} response: `, response.data)
+    ).catch(err => { console.log('caught', err.message); });
+  }
+
   render() {
 
     const {navigate} = this.props.navigation;

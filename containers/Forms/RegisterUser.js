@@ -76,7 +76,7 @@ export default class RegisterUser extends React.Component {
     }
 
     postData(){
-      var session_url = 'http://localhost:3000/signup';
+      var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
       axios.post(session_url, {"user":
@@ -86,14 +86,14 @@ export default class RegisterUser extends React.Component {
     }
     }
   ).then(function(response) {
-        axios.post(`http://localhost:3000/login`, {"user":
+        axios.post(`http://nuv-api.herokuapp.com/login`, {"user":
     	{
         "email": self.state.email,
         "password": self.state.password
       }
       }).then(function(second_response) {
         var token = second_response.headers.authorization
-         axios.post('http://localhost:3000/profiles',
+         axios.post('http://nuv-api.herokuapp.com/profiles',
          {"profile": {
           "name": self.state.name,
          "bio": self.state.bio,
@@ -102,7 +102,7 @@ export default class RegisterUser extends React.Component {
          "image": "htttp://test.com/avatar"}},
       { headers: { Authorization: `${token}` }})
       .then(function(third_response){
-        axios.get('http://localhost:3000/this_users_profile',
+        axios.get('http://nuv-api.herokuapp.com/this_users_profile',
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
