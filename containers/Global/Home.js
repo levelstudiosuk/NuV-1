@@ -33,7 +33,7 @@ export default class Home extends React.Component {
       )}
     >
     <View style={homeStyle.buttonContainer}>
-    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
+    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
     <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
     </TouchableHighlight>
     </View>
@@ -64,7 +64,7 @@ export default class Home extends React.Component {
   <ScrollView>
 
   <View style={homeStyle.buttonContainer}>
-  <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
+  <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
   <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
   </TouchableHighlight>
   </View>

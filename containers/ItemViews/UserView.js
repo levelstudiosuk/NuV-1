@@ -85,7 +85,7 @@ export default class UserView extends React.Component {
 
     <View style={userViewStyle.editButtonContainer}>
 
-    <GlobalButton onPress={() => navigate('EditUser', {name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Edit profile"} />
+    <GlobalButton onPress={() => navigate('EditUser', {id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Edit profile"} />
 
     </View>
 

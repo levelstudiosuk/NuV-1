@@ -29,6 +29,7 @@ export default class EditUser extends React.Component {
   state = {
       email: "",
       password: "",
+      id: this.props.navigation.getParam('id', 'NO-ID'),
       name: this.props.navigation.getParam('name', 'NO-ID'),
       location: this.props.navigation.getParam('location', 'NO-ID'),
       bio: this.props.navigation.getParam('bio', 'NO-ID'),

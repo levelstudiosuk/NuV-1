@@ -63,7 +63,7 @@ export default class SignIn extends React.Component {
 
      var responseForName = JSON.parse(second_response.request['_response'])
 
-       navigate('Home', {name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+       navigate('Home', {id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
 
      })}).catch(function(e){
         Alert.alert(
