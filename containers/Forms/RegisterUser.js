@@ -105,7 +105,7 @@ export default class RegisterUser extends React.Component {
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
-           navigate('Home', {id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+           navigate('Home', {token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
         })
       })
