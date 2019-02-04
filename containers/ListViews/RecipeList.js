@@ -127,8 +127,8 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: '#0dc6b5', fontSize: 16 }
-                : { color: 'black', fontSize: 16 }
+                ? { color: '#0dc6b5', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
             {o.item.name ? o.item.name : 'Unknown'}
