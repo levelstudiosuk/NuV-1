@@ -35,7 +35,8 @@ export default class RegisterUser extends React.Component {
       name: "",
       location: "",
       bio: "",
-      image: null
+      image: null,
+      vSelection: "vegetarian"
     };
 
     componentDidMount(){
