@@ -127,8 +127,10 @@ export default class RecipeView extends React.Component {
   <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <FaveButton navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
-        <AddItemButton navigation={this.props.navigation}
+        <FaveButton
+        navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
+        <AddItemButton
+        navigation={this.props.navigation}
         onPress={() => navigate('RecipeForm')} />
       </View>
         <Text style={recipeViewStyle.recipename}>
@@ -139,22 +141,22 @@ export default class RecipeView extends React.Component {
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/vegan_woman.jpeg')}/>
-        <Text style={recipeViewStyle.recipetype}>
-        Dinner
-        </Text>
+          <Text style={recipeViewStyle.recipetype}>
+            Dinner
+          </Text>
+        <ShareButton
+        marginLeft={Dimensions.get('window').width*0.07}
+        title="Shared from NüV"
+        message="Message to share"
+        url="www.level-apps.co.uk"
+        subject="Hi, a NüV user though you would like to see this..."
+         />
     </View>
 
+    <View>
     <Text style={{marginLeft:Dimensions.get('window').width*0.2,marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}><AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: XX mins <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: XX mins </Text>
-
-    <View style={recipeViewStyle.shareContainer}>
-      <ShareButton
-      marginLeft={Dimensions.get('window').width*0.05}
-      title="Shared from NüV"
-      message="Message to share"
-      url="www.level-apps.co.uk"
-      subject="Hi, a NüV user though you would like to see this..."
-       />
     </View>
+
 
     <View >
       <View>

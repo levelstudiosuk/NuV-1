@@ -122,7 +122,7 @@ export default class RecipeList extends React.Component {
               : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
-        <AutoHeightImage width={Dimensions.get('window').width*0.25} source={require('../../assets/AppIcons/recipe.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/plate.png')}/>
           <Text
             style={[
               registerUserStyle.name2,
