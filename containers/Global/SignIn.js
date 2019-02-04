@@ -40,7 +40,7 @@ export default class SignIn extends React.Component {
 
   postData(){
 
-    var session_url = 'http://localhost:3000/login';
+    var session_url = 'http://nuv-api.herokuapp.com/login';
     var {navigate} = this.props.navigation;
 
     var self = this;
@@ -55,7 +55,7 @@ export default class SignIn extends React.Component {
 
     var token = response.headers.authorization
 
-      axios.get('http://localhost:3000/this_users_profile',
+      axios.get('http://nuv-api.herokuapp.com/this_users_profile',
 
    { headers: { Authorization: `${token}` }})
 
