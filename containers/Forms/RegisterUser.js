@@ -79,6 +79,10 @@ export default class RegisterUser extends React.Component {
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
+      var uriParts = this.state.image.split('.');
+      var fileType = uriParts[uriParts.length - 1];
+
+      console.log("IMAGE", self.state.image);
       axios.post(session_url, {"user":
   	{
       "email": this.state.email,
@@ -92,21 +96,28 @@ export default class RegisterUser extends React.Component {
         "password": self.state.password
       }
       }).then(function(second_response) {
-        var token = second_response.headers.authorization
+        var token = second_response.headers.authorization;
+        const formData = new FormData();
+       formData.append('profile[name]', self.state.name);
+       formData.append('profile[bio]', self.state.bio);
+       formData.append('profile[user_is_vegan]', self.state.user_is_vegan);
+       formData.append('profile[location]', self.state.location);
+       formData.append('profile[avatar]', {
+        uri: self.state.image,
+       name: `${self.state.image.substring(0, 10)}.${fileType}`,
+       type: `image/${fileType}`,
+      });
+
          axios.post('http://nuv-api.herokuapp.com/profiles',
-         {"profile": {
-          "name": self.state.name,
-         "bio": self.state.bio,
-         "user_is_vegan": self.returnVeganSelectionForPost(),
-         "location": self.state.location,
-         "image": self.state.image}},
-      { headers: { Authorization: `${token}` }})
+        formData,
+      { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
       .then(function(third_response){
         axios.get('http://nuv-api.herokuapp.com/this_users_profile',
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
-           navigate('Home', {token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+         console.log("RESP", responseForName);
+           navigate('Home', {avatar: responseForName.avatar.url, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
         })
       })
@@ -147,7 +158,7 @@ export default class RegisterUser extends React.Component {
      console.log(result);
 
      if (!result.cancelled) {
-       this.setState({ image: result.uri });
+       this.setState({ image: result.uri});
      }
    };
 

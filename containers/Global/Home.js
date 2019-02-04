@@ -15,7 +15,14 @@ export default class Home extends React.Component {
  ),
 }
 
+  profileAvatarUri(){
+    var uri = "http://nuv-api.herokuapp.com" + this.props.navigation.getParam('avatar', 'NO-ID')
+    console.log("URI", uri);
+    return uri;
+  }
+
   render() {
+    console.log("AVATAR", this.props.navigation.getParam('avatar', 'NO-ID'));
     const {navigate} = this.props.navigation;
 
     return (
@@ -32,9 +39,10 @@ export default class Home extends React.Component {
         </TouchableHighlight>
       )}
     >
+
     <View style={homeStyle.buttonContainer}>
     <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
-    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.25 }} source={require('../../assets/vegan_woman.jpeg')}/>
+    <AutoHeightImage width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.profileAvatarUri()}}/>
     </TouchableHighlight>
     </View>
 
