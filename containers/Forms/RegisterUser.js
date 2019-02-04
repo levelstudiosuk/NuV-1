@@ -233,7 +233,7 @@ const registerUserStyle = StyleSheet.create({
   submitContainer: {
     alignItems: 'center',
     marginTop: Dimensions.get('window').height*0.03,
-    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
+    marginBottom: Platform.OS === 'ios' ? Dimensions.get('window').height*0.3 : Dimensions.get('window').height*0.3
   },
   header: {
     fontSize: 24,
