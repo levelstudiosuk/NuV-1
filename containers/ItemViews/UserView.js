@@ -38,6 +38,18 @@ export default class UserView extends React.Component {
         }
       }
 
+      getLocation(){
+        if (Dimensions.get('window').width < 500 && this.props.navigation.getParam('location', 'NO-ID').length > 14){
+          return this.props.navigation.getParam('location', 'NO-ID').substring(0, 14) + '...'
+        }
+        else if (Dimensions.get('window').width > 750 && this.props.navigation.getParam('location', 'NO-ID').length > 23){
+          return this.props.navigation.getParam('location', 'NO-ID').substring(0, 23) + '...'
+        }
+        else {
+          return this.props.navigation.getParam('location', 'NO-ID');
+        }
+      }
+
 
       pickImage = async () => {
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -80,7 +92,7 @@ export default class UserView extends React.Component {
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Hometown: {this.props.navigation.getParam('location', 'NO-ID')} </Text>
+      <Text style={userViewStyle.profileItem}>Hometown: {this.getLocation()} </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
@@ -93,7 +105,7 @@ export default class UserView extends React.Component {
 
     </View>
 
-    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</Text>
+    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>{this.props.navigation.getParam('bio', 'NO-ID')}</Text>
 
     <View style={userViewStyle.editButtonContainer}>
 
