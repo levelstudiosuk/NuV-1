@@ -96,8 +96,6 @@ export default class Home extends React.Component {
   <NavBar navigation={this.props.navigation} />
   </View>
 
-
-
 }
 
       </View>

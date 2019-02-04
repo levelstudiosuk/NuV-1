@@ -30,6 +30,8 @@ export default class VWayToggle extends React.Component {
         vegan: true,
         vegetarian: false,
         vCurious: false
+      }, function(){
+        this.props.returnVToggleSelection("vegan")
       })
     }
 
@@ -38,6 +40,8 @@ export default class VWayToggle extends React.Component {
         vegan: false,
         vegetarian: true,
         vCurious: false
+      }, function(){
+        this.props.returnVToggleSelection("vegetarian")
       })
     }
 
@@ -46,6 +50,8 @@ export default class VWayToggle extends React.Component {
         vegan: false,
         vegetarian: false,
         vCurious: true
+      }, function(){
+        this.props.returnVToggleSelection("vCurious")
       })
     }
 
