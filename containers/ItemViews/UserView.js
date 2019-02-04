@@ -26,6 +26,18 @@ export default class UserView extends React.Component {
           image: null
         };
 
+      returnStatus(){
+        if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+          return "Vegan";
+        }
+        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
+          return "Vegetarian";
+        }
+        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null){
+          return "V-curious";
+        }
+      }
+
 
       pickImage = async () => {
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -64,15 +76,15 @@ export default class UserView extends React.Component {
     <View style={{flexDirection: 'column'}}>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: Fenella Rowley-Knight </Text>
+      <Text style={userViewStyle.profileItem}>Name: {this.props.navigation.getParam('name', 'NO-ID')} </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Hometown: Hastings </Text>
+      <Text style={userViewStyle.profileItem}>Hometown: {this.props.navigation.getParam('location', 'NO-ID')} </Text>
     </View>
 
     <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>NüV Status: V-curious </Text>
+      <Text style={userViewStyle.profileItem}>NüV Status: {this.returnStatus()} </Text>
     </View>
 
     </View>
@@ -85,7 +97,7 @@ export default class UserView extends React.Component {
 
     <View style={userViewStyle.editButtonContainer}>
 
-    <GlobalButton onPress={() => navigate('EditUser', {name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Edit profile"} />
+    <GlobalButton onPress={() => navigate('EditUser', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Edit profile"} />
 
     </View>
 

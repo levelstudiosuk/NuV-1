@@ -6,6 +6,7 @@ import VWayToggle from '../../components/VWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import axios from 'axios';
 
 export default class EditUser extends React.Component {
   static navigationOptions = {
@@ -29,10 +30,12 @@ export default class EditUser extends React.Component {
   state = {
       email: "",
       password: "",
+      id: this.props.navigation.getParam('id', 'NO-ID'),
       name: this.props.navigation.getParam('name', 'NO-ID'),
       location: this.props.navigation.getParam('location', 'NO-ID'),
       bio: this.props.navigation.getParam('bio', 'NO-ID'),
-      image: null
+      image: null,
+      vSelection: this.props.navigation.getParam('user_is_vegan', 'NO-ID')
     };
 
     changeEmailText(email){
@@ -101,6 +104,30 @@ export default class EditUser extends React.Component {
      }
    };
 
+   postData(){
+     var user_profile_end_point = 'http://localhost:3000/profiles/' + this.state.id
+     var token = this.props.navigation.getParam('token', 'NO-ID');
+     const {navigate} = this.props.navigation;
+     var self = this;
+
+     axios.patch(user_profile_end_point,
+     {"profile": {
+      "name": self.state.name,
+     "bio": self.state.bio,
+     "user_is_vegan": self.returnVeganSelectionForPost(),
+     "location": self.state.location,
+     "image": "htttp://test.com/avatar"}},
+  { headers: { Authorization: `${token}` }}).then(function(response){
+    console.log("RESP", response);
+    var updatedProfile = JSON.parse(response.request['_response'])
+
+    navigate('Home', {name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+  }
+  ).catch(function(e){
+      console.log(e);
+    })
+   }
+
 
   render() {
     const {navigate} = this.props.navigation;
@@ -153,7 +180,7 @@ export default class EditUser extends React.Component {
           <View style={editUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('UserView', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
           </View>
