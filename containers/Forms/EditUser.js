@@ -112,7 +112,7 @@ export default class EditUser extends React.Component {
          return 1;
        }
 
-       else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null){
+       else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null || this.props.navigation.getParam('user_is_vegan', 'NO-ID') === 'vCurious') {
          return 2;
        }
    }
