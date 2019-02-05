@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Share, Text, TouchableOpacity, Image} from 'react-native';
+import {Share, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
 
 const shareOptions = {
   title: 'Title',
@@ -17,7 +17,7 @@ export default class ShareExample extends React.Component {
       <TouchableOpacity onPress={this.onSharePress} >
       <Image
         source={require('../assets/AppIcons/share.png')}
-        style={{height:30, width:30, marginLeft: 10, marginTop: 15}}
+        style={{height:Dimensions.get('window').width*0.1, width:Dimensions.get('window').width*0.1, marginLeft: 10, marginTop: 15}}
       />
       </TouchableOpacity>
     );
