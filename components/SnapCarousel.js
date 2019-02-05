@@ -2,81 +2,81 @@ import  Carousel     from 'react-native-snap-carousel';
 import { View,
          StyleSheet,
          Text,
-         Image}      from 'react-native';
+         Image,
+         Dimensions} from 'react-native';
 import   React,
        { Component } from 'react';
 
 export default class SnapCarousel extends React.Component {
 
-
-
     _renderItem ({item, index}) {
         return (
           <View style={snapCarouselStyle.slide}>
-            <Text style={snapCarouselStyle.title}>
-                <Image
-                  source={item.image}
-                  style={{width: 400, height: 350}}
-                />
-              {item.title}{"\n"}{item.description}
-            </Text>
+            <Text style={snapCarouselStyle.caption}>
+              <Image
+                source={item.image}
+                style={{
+                        width: Dimensions.get('window').width*0.7,
+                        height: Dimensions.get('window').height*0.4
+                        }}
+              />
+                {item.title}
+              </Text>
           </View>
         );
       }
 
     render () {
 
-      var slides = [
+      var images = [
       {
         image: require('../assets/venue_images/hndrsn1.png'),
-        title: 'Cafe Interior',
-        description: 'OOh, what a lovely kale milkshake',
+        caption: 'Cafe Interior',
       },
       {
         image: require('../assets/venue_images/hndrsn2.png'),
-        title: 'Some Food',
-        description: 'OOh, some carrot lasagne',
+        caption: 'Some Food',
       },
       {
         image: require('../assets/venue_images/hndrsn3.png'),
-        title: 'A table shot',
-        description: 'OOh, some nice plums',
+        caption: 'A table shot',
       },
       {
         image: require('../assets/venue_images/hndrsn4.png'),
-        title: 'Hendersons Vegan Cafe 4',
-        description: 'External Shot',
+        caption : 'External Shot',
       },
     ];
 
-        return (
-            <Carousel
-              ref={(c) => { this._carousel = c; }}
-              data={slides}
-              renderItem={this._renderItem}
-              sliderWidth={400}
-              sliderHeight={400}
-              itemWidth={300}
-              itemHeight={300}
-              layout={'default'}
-              layoutCardOffset={9}
-              vertical={false}
-
-              activeSlideAlignment={'center'}
-            />
-          );
-        }
-      }
+    return (
+      <Carousel
+        ref                   = {(c) => { this._carousel = c; }}
+        data                  = {images}
+        renderItem            = {this._renderItem}
+        sliderWidth           = {Dimensions.get('window').width*1}
+        sliderHeight          = {Dimensions.get('window').height*0.4}
+        itemWidth             = {Dimensions.get('window').width*0.7}
+        itemHeight            = {Dimensions.get('window').height*0.7}
+        layout                = {'default'}
+        layoutCardOffset      = {19}
+        vertical              = {false}
+        activeSlideAlignment  = {'center'}
+        useScrollView         = {true}
+        loop                  = {true}
+      />
+      );
+    }
+  }
 
 const snapCarouselStyle = StyleSheet.create({
-
-slide:          {
-  justifyContent:    'center',
-  alignItems:        'center',
-  },
-title:          {
-  color:            'black',
-  fontSize:          18,
-  textAlign:         'center',
-  },
-});
+  slide:          {
+    marginTop:        10,
+    marginBottom:     10,
+    justifyContent:   'center',
+    alignItems:       'center',
+    },
+  caption:          {
+    justifyContent:   'center',
+    alignItems:       'center',
+    color:            'black',
+    },
+  });

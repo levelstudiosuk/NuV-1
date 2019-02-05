@@ -1,6 +1,11 @@
-import React, { Component } from 'react'
+import   React,
+       { Component } from 'react'
 import { Button } from 'react-native-elements';
-import { StyleSheet, View, TouchableHighlight, Image, Dimensions } from 'react-native';
+import { StyleSheet,
+         View,
+        TouchableHighlight,
+        Image,
+        Dimensions } from 'react-native';
 
 export default class AddItemButton extends Component {
 
@@ -26,9 +31,9 @@ export default class AddItemButton extends Component {
 
 const addItemButtonStyle = StyleSheet.create({
   content: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+  width:          50,
+  height:         50,
+  justifyContent: 'center',
+  alignItems:     'center',
   },
 });

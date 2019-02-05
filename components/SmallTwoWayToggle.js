@@ -1,9 +1,12 @@
-import React from 'react'
-import { View, Text, Platform, Image, TouchableHighlight, Dimensions } from 'react-native'
-
-import MultiSwitch from "./MultiSwitch.js";
+import   React from 'react'
+import { View,
+         Text,
+         Platform,
+         Image,
+         TouchableHighlight,
+         Dimensions } from 'react-native'
+import   MultiSwitch from "./MultiSwitch.js";
 import { Icon } from "native-base"
-
 import _ from 'lodash';
 
 export default class SmallTwoWayToggle extends React.Component {
