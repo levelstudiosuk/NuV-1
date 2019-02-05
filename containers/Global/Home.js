@@ -112,7 +112,15 @@ export default class Home extends React.Component {
 
   ) :
 
-  <View style={homeStyle.container}>
+  <View style={homeStyle.container2}>
+
+    {
+      this.state.avatarLoading === false ? (
+        null
+  ) :
+    < BallIndicator style={{position: 'absolute', top: Dimensions.get('window').width*0.55}} size={Dimensions.get('window').width*0.12} color={'#0dc6b5'}/>
+
+  }
 
   <ScrollView>
 
@@ -120,45 +128,51 @@ export default class Home extends React.Component {
   <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
   <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={this.state.avatarLoading === false ? Dimensions.get('window').width*0.5 : 0.001} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}/>
   </TouchableHighlight>
-  {
-    this.state.avatarLoading === false ? (
-      null
-) :
-  < BallIndicator size={50} color={'black'}/>
 
-}
+  </View>
 
   {
     this.state.avatarLoading === false ? (
-      null
+      <View style={homeStyle.greetingContainer}>
+        <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting(JSON.stringify(this.props.navigation.getParam('name', 'NO-ID')))} </Text>
+      </View>
   ) :
-  <Text style={{marginTop: Dimensions.get('window').height*0.05, textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 22 : 16}}>Loading profile picture...</Text>
-
+    null
   }
 
-  </View>
+  {
+    this.state.avatarLoading === false ? (
+      <View style={homeStyle.iconsContainer}>
 
-  <View style={homeStyle.greetingContainer}>
-    <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting(JSON.stringify(this.props.navigation.getParam('name', 'NO-ID')))} </Text>
-  </View>
+      <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Recipes"} />
+      <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Eateries"} />
 
-  <View style={homeStyle.iconsContainer}>
+      </View>
+  ) :
+    null
+  }
 
-  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Recipes"} />
-  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Eateries"} />
+  {
+    this.state.avatarLoading === false ? (
+      <View style={homeStyle.iconsContainer2}>
 
-  </View>
+      <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Shopping"} />
+      <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"News"} />
 
-  <View style={homeStyle.iconsContainer2}>
-
-  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Shopping"} />
-  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"News"} />
-
-  </View>
+      </View>
+  ) :
+    null
+  }
 
   </ScrollView>
 
-  <NavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
+  {
+    this.state.avatarLoading === false ? (
+      <NavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
+
+  ) :
+    null
+  }
   </View>
 
 }
@@ -171,6 +185,12 @@ const homeStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container2: {
+    flex: 1,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
