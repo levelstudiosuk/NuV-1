@@ -82,7 +82,7 @@ export default class EditUser extends React.Component {
         return "vegetarian";
       }
       else {
-        return null;
+        return "vCurious";
       }
     }
 
@@ -112,7 +112,7 @@ export default class EditUser extends React.Component {
          return 1;
        }
 
-       else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null || this.props.navigation.getParam('user_is_vegan', 'NO-ID') === 'vCurious') {
+       else {
          return 2;
        }
    }
@@ -122,19 +122,30 @@ export default class EditUser extends React.Component {
      var token = this.props.navigation.getParam('token', 'NO-ID');
      const {navigate} = this.props.navigation;
      var self = this;
+     var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
+     var fileType = uriParts[uriParts.length - 1];
 
+     const formData = new FormData();
+      formData.append('profile[name]', self.state.name);
+      formData.append('profile[bio]', self.state.bio);
+      formData.append('profile[user_is_vegan]', self.returnVeganSelectionForPost());
+      formData.append('profile[location]', self.state.location);
+
+    if (self.state.image){
+    formData.append('profile[avatar]', {
+       uri: self.state.image,
+      name: `${Date.now()}.${fileType}`,
+      type: `image/${fileType}`,
+     });
+   }
      axios.patch(user_profile_end_point,
-     {"profile": {
-      "name": self.state.name,
-     "bio": self.state.bio,
-     "user_is_vegan": self.returnVeganSelectionForPost(),
-     "location": self.state.location,
-     "image": "htttp://test.com/avatar"}},
+     formData,
   { headers: { Authorization: `${token}` }}).then(function(response){
     console.log("RESP", response);
     var updatedProfile = JSON.parse(response.request['_response'])
+    var uri =  "http://nuv-api.herokuapp.com" + updatedProfile.avatar.url
 
-    navigate('Home', {name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+    navigate('Home', {name: updatedProfile.name, avatar: uri, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
   }
   ).catch(function(e){
       console.log(e);
@@ -186,7 +197,6 @@ export default class EditUser extends React.Component {
           <GlobalButton
              buttonTitle="Profile pic"
              onPress={() => this.pickImage()}/>
-
 
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}

@@ -105,7 +105,7 @@ export default class RegisterUser extends React.Component {
        formData.append('profile[location]', self.state.location);
        formData.append('profile[avatar]', {
         uri: self.state.image ? self.state.image : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg',
-       name: self.state.image ? `${self.state.image.substring(0, 10)}.${fileType}` : pathh,
+       name: self.state.image ? `${Date.now()}.${fileType}` : pathh,
        type: `image/${fileType}`,
       });
 
@@ -118,7 +118,9 @@ export default class RegisterUser extends React.Component {
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
          console.log("RESP", responseForName);
-           navigate('Home', {avatar: responseForName.avatar.url, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+         var uri = "http://nuv-api.herokuapp.com" + responseForName.avatar.url
+
+           navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
         })
       })
