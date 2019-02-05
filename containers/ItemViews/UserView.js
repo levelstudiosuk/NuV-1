@@ -50,7 +50,6 @@ export default class UserView extends React.Component {
         }
       }
 
-
       pickImage = async () => {
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
