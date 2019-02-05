@@ -68,7 +68,7 @@ export default class Home extends React.Component {
       this.state.avatarLoading === false ? (
         null
   ) :
-    < BallIndicator style={{position: 'absolute', top: Dimensions.get('window').width*0.55}} size={Dimensions.get('window').width*0.12} color={'#0dc6b5'}/>
+    < BallIndicator style={{position: 'absolute', top: Dimensions.get('window').height*0.31}} size={Dimensions.get('window').height*0.06} color={'#0dc6b5'}/>
 
   }
 

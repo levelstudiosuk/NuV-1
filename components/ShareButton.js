@@ -8,10 +8,10 @@ import {Share,
 
 
 const shareOptions = {
-  title:    'Title',
-  message:  'Message to share',
-  url:      'www.example.com',
-  subject:  'Subject'
+  title:    'Check out the cool content I saw on NüV!',
+  message:  'Look what I found on NüV! https://www.level-apps.co.uk',
+  url:      'www.level-apps.co.uk',
+  subject:  'Check out the cool content I saw on NüV!'
   // NB documentation specifies either "message" or "url" fields is required
 };
 
