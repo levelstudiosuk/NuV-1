@@ -7,6 +7,8 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
+import StarRating from 'react-native-star-rating';
+import axios from 'axios';
 
 export default class BrandForm extends React.Component {
   static navigationOptions = {
@@ -24,6 +26,7 @@ export default class BrandForm extends React.Component {
   this.changeLocationText = this.changeLocationText.bind(this);
   this.changeUrlText = this.changeUrlText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.onStarRatingPress = this.onStarRatingPress.bind(this);
 
 }
 
@@ -33,8 +36,15 @@ export default class BrandForm extends React.Component {
       location: "",
       url: "",
       image: null,
-      type: ""
+      type: "",
+      starCount: 3
     };
+
+    onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating
+    });
+  }
 
     changeNameText(name){
       this.setState({
@@ -77,6 +87,42 @@ export default class BrandForm extends React.Component {
        this.setState({ image: result.uri });
      }
    };
+
+   postData(){
+
+    var {navigate} = this.props.navigation;
+    var self = this;
+    var token = this.props.navigation.getParam('token', 'NO-ID');
+    var uriParts = this.state.image.split('.')
+    var fileType = uriParts[uriParts.length - 1];
+    const formData = new FormData();
+    formData.append('brand[title]', self.state.name);
+    formData.append('brand[description]', self.state.description);
+    formData.append('brand[content_is_vegan]', true);
+    formData.append('brand[brand_type]', self.state.type);
+    formData.append('brand[URL]', self.state.url);
+    formData.append('brand[brand_main_image]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
+    formData.append('brand[rating]', self.state.starCount);
+
+      axios.post('http://nuv-api.herokuapp.com/brands',
+     formData,
+   { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+   .then(function(response){
+     console.log("RESP", response);
+     var {navigate} = self.props.navigation;
+     navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+   })
+   .catch(function(error){
+     console.log(error);
+   })
+
+   }
 
 
   render() {
@@ -161,6 +207,15 @@ export default class BrandForm extends React.Component {
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
 
+          <StarRating
+        disabled={false}
+        maxStars={5}
+        rating={this.state.starCount}
+        selectedStar={(rating) => this.onStarRatingPress(rating)}
+        fullStarColor={'#0DC6B5'}
+        containerStyle={{marginTop: Dimensions.get('window').height*0.01, marginBottom: Dimensions.get('window').height*0.04}}
+      />
+
           <GlobalButton
              buttonTitle="Brand logo"
              onPress={() => this.pickImage()}/>
@@ -169,10 +224,11 @@ export default class BrandForm extends React.Component {
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
+
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('Home', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
           </View>

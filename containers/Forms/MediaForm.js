@@ -6,6 +6,7 @@ import TwoWayToggle from '../../components/TwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import axios from 'axios';
 
 export default class MediaForm extends React.Component {
   static navigationOptions = {
@@ -32,7 +33,7 @@ export default class MediaForm extends React.Component {
       location: "",
       url: "",
       image: null,
-      type: ""
+      words: ""
     };
 
     changeNameText(name){
@@ -74,6 +75,47 @@ export default class MediaForm extends React.Component {
        this.setState({ image: result.uri });
      }
    };
+
+   postData(){
+
+    var {navigate} = this.props.navigation;
+    var self = this;
+    var token = this.props.navigation.getParam('token', 'NO-ID');
+    var uriParts = this.state.image.split('.')
+    var fileType = uriParts[uriParts.length - 1];
+    var wordsArray = this.state.words.split(",");
+    
+    const formData = new FormData();
+    formData.append('medium[title]', self.state.name);
+    formData.append('medium[description]', self.state.description);
+    formData.append('medium[content_is_vegan]', true);
+
+    for (word of wordsArray){
+      formData.append('medium[keywords][]', word);
+    }
+
+    formData.append('medium[url]', self.state.url);
+    formData.append('medium[medium_image_data][]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
+
+      axios.post('http://nuv-api.herokuapp.com/media',
+     formData,
+   { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+   .then(function(response){
+     console.log("RESP", response);
+     var {navigate} = self.props.navigation;
+     navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+   })
+   .catch(function(error){
+     console.log(error);
+   })
+
+   }
 
 
   render() {
@@ -123,7 +165,7 @@ export default class MediaForm extends React.Component {
 
           <TextInput
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(words) => {this.changeWordsText(url)}}
+            onChangeText={(words) => {this.changeWordsText(words)}}
             value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
@@ -145,7 +187,7 @@ export default class MediaForm extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('Home', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
           </View>
