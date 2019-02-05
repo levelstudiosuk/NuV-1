@@ -78,6 +78,28 @@ export default class BrandForm extends React.Component {
      }
    };
 
+   postData(){
+     const formData = new FormData();
+    formData.append('brand[title]', self.state.name);
+    formData.append('brand[description]', self.state.bio);
+    formData.append('brand[content_is_vegan]', self.state.vSelection);
+    formData.append('brand[brand_type]', self.state.location);
+    formData.append('brand[rating]', self.state.rating);
+    formData.append('brand[brand_main_image]', {
+     uri: self.state.image ? self.state.image : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg',
+    name: self.state.image ? `${Date.now()}.${fileType}` : pathh,
+    type: `image/${fileType}`,
+   });
+
+      axios.post('http://nuv-api.herokuapp.com/profiles',
+     formData,
+   { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+
+
+     navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+   }
+
 
   render() {
     const {navigate} = this.props.navigation;
@@ -172,7 +194,7 @@ export default class BrandForm extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('Home', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
           </View>
