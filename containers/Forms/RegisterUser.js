@@ -82,8 +82,7 @@ export default class RegisterUser extends React.Component {
       var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
       var fileType = uriParts[uriParts.length - 1];
       const avatar = 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg';
-      var path = `${avatar}.${fileType}`;
-      console.log("PATH", path);
+      var pathh = `${avatar}.${fileType}`;
 
       axios.post(session_url, {"user":
   	{
@@ -106,7 +105,7 @@ export default class RegisterUser extends React.Component {
        formData.append('profile[location]', self.state.location);
        formData.append('profile[avatar]', {
         uri: self.state.image ? self.state.image : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg',
-       name: self.state.image ? `${self.state.image.substring(0, 10)}.${fileType}` : path,
+       name: self.state.image ? `${self.state.image.substring(0, 10)}.${fileType}` : pathh,
        type: `image/${fileType}`,
       });
 
