@@ -136,7 +136,7 @@ export default class Home extends React.Component {
 
   </ScrollView>
 
-  <NavBar navigation={this.props.navigation} />
+  <NavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
   </View>
 
 }
