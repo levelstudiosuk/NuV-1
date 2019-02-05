@@ -197,7 +197,7 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      This venue was described by [username] as:{"\n"}
+      [VENUE NAME] was described by [USERNAME] as:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
       Great tasty healthy food for everyone

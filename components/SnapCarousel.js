@@ -80,3 +80,5 @@ const snapCarouselStyle = StyleSheet.create({
     color:            'black',
     },
   });
+
+// NB: Imported from: https://github.com/archriss/react-native-snap-carousel/blob/master/README.md#layouts-and-custom-interpolations
