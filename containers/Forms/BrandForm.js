@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
+import axios from 'axios';
 
 export default class BrandForm extends React.Component {
   static navigationOptions = {
@@ -89,27 +90,38 @@ export default class BrandForm extends React.Component {
 
    postData(){
 
+    var {navigate} = this.props.navigation;
     var self = this;
     var token = this.props.navigation.getParam('token', 'NO-ID');
+    var uriParts = this.state.image.split('.')
+    var fileType = uriParts[uriParts.length - 1];
     const formData = new FormData();
     formData.append('brand[title]', self.state.name);
-    formData.append('brand[description]', self.state.bio);
-    formData.append('brand[content_is_vegan]', self.state.vSelection);
-    formData.append('brand[brand_type]', self.state.location);
-    formData.append('brand[rating]', self.state.rating);
+    formData.append('brand[description]', self.state.description);
+    formData.append('brand[content_is_vegan]', true);
+    formData.append('brand[brand_type]', self.state.type);
+    formData.append('brand[URL]', self.state.url);
     formData.append('brand[brand_main_image]', {
      uri: self.state.image,
-    name: `${Date.now()}.${fileType}`,
-    type: `image/${fileType}`,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
    });
+    formData.append('brand[rating]', self.state.starCount);
 
       axios.post('http://nuv-api.herokuapp.com/brands',
      formData,
    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
 
+   .then(function(response){
+     console.log("RESP", response);
+     var {navigate} = self.props.navigation;
+     navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
 
+   })
+   .catch(function(error){
+     console.log(error);
+   })
 
-     navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
    }
 
 
