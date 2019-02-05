@@ -79,10 +79,11 @@ export default class RegisterUser extends React.Component {
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
-      var uriParts = this.state.image.split('.');
+      var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
       var fileType = uriParts[uriParts.length - 1];
+      const avatar = 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg';
+      var pathh = `${avatar}.${fileType}`;
 
-      console.log("IMAGE", self.state.image);
       axios.post(session_url, {"user":
   	{
       "email": this.state.email,
@@ -103,8 +104,8 @@ export default class RegisterUser extends React.Component {
        formData.append('profile[user_is_vegan]', self.state.vSelection);
        formData.append('profile[location]', self.state.location);
        formData.append('profile[avatar]', {
-        uri: self.state.image,
-       name: `${self.state.image.substring(0, 10)}.${fileType}`,
+        uri: self.state.image ? self.state.image : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg',
+       name: self.state.image ? `${self.state.image.substring(0, 10)}.${fileType}` : pathh,
        type: `image/${fileType}`,
       });
 

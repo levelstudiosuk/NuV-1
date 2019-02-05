@@ -17,7 +17,7 @@ export default class VWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: this.props.activeIndex,
+        activeIndex: this.props.editingUser === true ? this.props.activeIndex : 1,
         vegan: this.determineWhetherVegan(),
         vegetarian: this.determineWhetherVegetarian(),
         vCurious: this.determineWhetherVCurious()
