@@ -62,6 +62,7 @@ export default class SignIn extends React.Component {
    .then(function(second_response){
 
      var responseForName = JSON.parse(second_response.request['_response'])
+     console.log("URL",responseForName.avatar.url);
      var uri = "http://nuv-api.herokuapp.com" + responseForName.avatar.url
 
       navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
@@ -80,14 +81,12 @@ export default class SignIn extends React.Component {
     return (
       <View style={signInStyle.container}>
 
-
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.15, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
             value={this.state.email} placeholder='Email address' placeholderTextColor='black'
             underlineColorAndroid='transparent' underlineColorIOS="grey"
           />
-
 
          <TextInput
            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
