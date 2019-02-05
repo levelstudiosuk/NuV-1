@@ -33,7 +33,7 @@ export default class UserView extends React.Component {
         else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
           return "Vegetarian";
         }
-        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === null){
+        else {
           return "V-curious";
         }
       }

@@ -131,7 +131,7 @@ export default class RecipeView extends React.Component {
         navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
         <AddItemButton
         navigation={this.props.navigation}
-        onPress={() => navigate('RecipeForm')} />
+        onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} />
       </View>
         <Text style={recipeViewStyle.recipename}>
             Vegan Potato Curry
@@ -232,7 +232,7 @@ export default class RecipeView extends React.Component {
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.05}
         buttonTitle="Rate and go"
-        onPress={() => navigate('Home', {name: 'SignIn'})}/>
+        onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))}/>
     </View>
 
   </ScrollView>

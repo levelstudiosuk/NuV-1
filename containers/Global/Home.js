@@ -27,11 +27,6 @@ export default class Home extends React.Component {
       avatarLoading: true
     };
 
-    componentDidMount() {
-      var uri = "http://nuv-api.herokuapp.com" + this.props.navigation.getParam('avatar', 'NO-ID')
-      this.setState({imageSource: uri });
-  }
-
   profileAvatarUri(){
     return this.state.imageSource;
   }
@@ -61,8 +56,8 @@ export default class Home extends React.Component {
     >
 
     <View style={homeStyle.buttonContainer}>
-    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
-    <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.profileAvatarUri()}}/>
+    <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
+    <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}/>
     </TouchableHighlight>
     {
       this.state.avatarLoading === false ? (
@@ -88,15 +83,15 @@ export default class Home extends React.Component {
 
     <View style={homeStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList')} buttonTitle={"Recipes"} />
+    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"Recipes"} />
     <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList')} buttonTitle={"Eateries"} />
 
     </View>
 
     <View style={homeStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList')} buttonTitle={"Shopping"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList')} buttonTitle={"News"} />
+    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"Shopping"} />
+    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"News"} />
 
     </View>
     </StickyHeaderFooterScrollView>
@@ -119,24 +114,21 @@ export default class Home extends React.Component {
 
   <View style={homeStyle.iconsContainer}>
 
-  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList')} buttonTitle={"Recipes"} />
-  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList')} buttonTitle={"Eateries"} />
+  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"Recipes"} />
+  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"Eateries"} />
 
   </View>
 
   <View style={homeStyle.iconsContainer2}>
 
-  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList')} buttonTitle={"Shopping"} />
-  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList')} buttonTitle={"News"} />
-
-
+  <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"Shopping"} />
+  <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'))} buttonTitle={"News"} />
 
   </View>
 
-
   </ScrollView>
 
-  <NavBar navigation={this.props.navigation} />
+  <NavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
   </View>
 
 }
