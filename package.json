@@ -27,6 +27,9 @@
     "react-native-autocomplete-input": "^3.6.0",
     "react-native-dropdown": "0.0.6",
     "react-native-elements": "^0.19.1",
+
+    "react-native-indicators": "^0.13.0",
+
     "react-native-fading-slides": "^0.3.1",
     "react-native-fs": "^2.13.3",
     "react-native-indicators": "^0.13.0",
