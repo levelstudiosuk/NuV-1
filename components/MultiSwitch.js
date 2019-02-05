@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React,
+     { Component } from 'react';
 import {
-    View,
-    FlatList,
-    TouchableOpacity
+       View,
+       FlatList,
+       TouchableOpacity
 } from 'react-native';
 
 
@@ -17,25 +18,25 @@ export default class MultiSwitch extends Component {
 
   getLayout(){
     let layout = {...this.props.layout};
-    if(layout.horizontal === -1){
-      layout.horizontal = this.props.children.length;
-      layout.vertical = 1;
-    }else if(layout.vertical === -1 ){
-      layout.vertical = this.props.children.length;
-      layout.horizontal = 1;
+      if(layout.horizontal === -1){
+        layout.horizontal = this.props.children.length;
+        layout.vertical = 1;
+    } else if(layout.vertical === -1 ){
+        layout.vertical = this.props.children.length;
+        layout.horizontal = 1;
     }
-    return layout;
-  }
+      return layout;
+    }
 
   getContainerWidth(){
     let layout = this.getLayout();
-    return this.props.choiceSize * layout.horizontal;
-  }
+      return this.props.choiceSize * layout.horizontal;
+    }
 
   getContainerHeight(){
     let layout = this.getLayout();
-    return this.props.choiceSize * layout.vertical;
-  }
+      return this.props.choiceSize * layout.vertical;
+    }
 
   getHeight(){
     return this.props.choiceSize;
