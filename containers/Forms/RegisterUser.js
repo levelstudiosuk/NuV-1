@@ -82,7 +82,8 @@ export default class RegisterUser extends React.Component {
       var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
       var fileType = uriParts[uriParts.length - 1];
       const avatar = 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg';
-      var path = avatar.substring(0, 10) + fileType;
+      var path = `${avatar}.${fileType}`;
+      console.log("PATH", path);
 
       axios.post(session_url, {"user":
   	{
