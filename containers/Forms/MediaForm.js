@@ -81,10 +81,13 @@ export default class MediaForm extends React.Component {
     var {navigate} = this.props.navigation;
     var self = this;
     var token = this.props.navigation.getParam('token', 'NO-ID');
+    if (this.state.image){
     var uriParts = this.state.image.split('.')
     var fileType = uriParts[uriParts.length - 1];
+
+  }
     var wordsArray = this.state.words.split(",");
-    
+
     const formData = new FormData();
     formData.append('medium[title]', self.state.name);
     formData.append('medium[description]', self.state.description);
@@ -95,11 +98,14 @@ export default class MediaForm extends React.Component {
     }
 
     formData.append('medium[url]', self.state.url);
+
+    if (this.state.image){
     formData.append('medium[medium_image_data][]', {
      uri: self.state.image,
      name: `${self.state.image}.${fileType}`,
      type: `image/${fileType}`,
    });
+ }
 
       axios.post('http://nuv-api.herokuapp.com/media',
      formData,

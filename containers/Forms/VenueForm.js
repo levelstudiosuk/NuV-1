@@ -35,6 +35,7 @@ export default class VenueForm extends React.Component {
       name: "",
       postcode: "",
       location: "",
+      description: "",
       url: "",
       image: null,
       type: "",
@@ -99,8 +100,11 @@ export default class VenueForm extends React.Component {
      var {navigate} = this.props.navigation;
      var self = this;
      var token = this.props.navigation.getParam('token', 'NO-ID');
+     if (this.state.image){
      var uriParts = this.state.image.split('.')
      var fileType = uriParts[uriParts.length - 1];
+
+   }
 
      const formData = new FormData();
      formData.append('venue[title]', self.state.name);
@@ -110,6 +114,8 @@ export default class VenueForm extends React.Component {
      formData.append('venue[url]', self.state.url);
      formData.append('venue[postcode]', self.state.postcode);
      formData.append('venue[rating]', self.state.starCount);
+
+     if (this.state.image){
      formData.append('venue[venue_image_data][]', {
       uri: self.state.image,
       name: `${self.state.image}.${fileType}`,
@@ -120,6 +126,7 @@ export default class VenueForm extends React.Component {
      name: `${self.state.image}.${fileType}`,
      type: `image/${fileType}`,
    });
+ }
 
        axios.post('http://nuv-api.herokuapp.com/venues',
       formData,
