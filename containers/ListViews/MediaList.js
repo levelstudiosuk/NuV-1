@@ -8,6 +8,8 @@ import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import axios from 'axios';
+import moment from 'moment';
 
 export default class MediaList extends React.Component {
   static navigationOptions = {
@@ -22,7 +24,62 @@ export default class MediaList extends React.Component {
     }
 
     state = {
-      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.', image: require('../../assets/AppIcons/newsdefault.png')}]
+      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.'}]
+    }
+
+    componentDidMount(){
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/media',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var mediaItems = JSON.parse(response.request['_response'])
+
+     self.setState({
+       mediaItems: mediaItems
+     },
+     function(){
+       console.log("Media items", self.state.mediaItems);
+     }
+   )
+ }).catch(function(error){
+   console.log("Error: ", error);
+ })
+    }
+
+
+    mapMediaItems(){
+      const {navigate} = this.props.navigation;
+
+      return this.state.mediaItems.map((item, i) =>
+
+        <View style={mediaListStyle.mediaitem}   key={i}>
+        <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
+          <Image source={require('../../assets/AppIcons/newsdefault.png')} style={{height: 100, width: 100}}/>
+        </TouchableHighlight>
+            <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
+              <View  key={i+1}>
+                <Text  key={i+3} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                {item.title}
+                </Text>
+              </View>
+              <View  key={i+4}>
+                <Text  key={i+5} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}>
+                {item.description}
+                </Text>
+              </View>
+              <View  key={i+7}>
+                <Text  key={i+8} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').calendar()}
+                </Text>
+              </View>
+            </View>
+          </View>
+      )
     }
 
     render() {
@@ -57,23 +114,14 @@ export default class MediaList extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      <View style={mediaListStyle.mediaitem}>
-      <TouchableHighlight onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
-        <Image source={this.state.items[0].image} style={{height: 100, width: 100}}/>
-      </TouchableHighlight>
-          <View style={mediaListStyle.mediatextcontainer}>
-            <View>
-              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
-              {this.state.items[0].title}
-              </Text>
-            </View>
-            <View>
-              <Text onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}>
-              {this.state.items[0].description}
-              </Text>
-            </View>
-          </View>
-        </View>
+      {
+        this.state.mediaItems ? (
+
+      this.mapMediaItems()
+
+    ) : null
+
+  }
 
       <View>
         <GlobalButton
