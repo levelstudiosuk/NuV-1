@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window');
 import Pagination from 'react-native-pagination';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Autocomplete from 'react-native-autocomplete-input';
-
+import axios from 'axios';
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
@@ -50,9 +50,33 @@ export default class RecipeList extends React.Component {
 
     this.setState({ fontLoaded: true });
 
-    this.setState({
-      names: this.state.items.map((recipe) => recipe.name)
-    })
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/recipes',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var recipeItems = JSON.parse(response.request['_response'])
+     recipeItems.forEach((recipe, index) => {
+       recipe['key'] = recipe.id
+     })
+
+     self.setState({
+       recipeItems: recipeItems
+     },
+     function(){
+       console.log("Recipe items", self.state.recipeItems);
+       self.setState({
+         names: self.state.recipeItems.map((recipe) => recipe.title)
+       })
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
 
    }
 
@@ -132,7 +156,7 @@ export default class RecipeList extends React.Component {
                 : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
-            {o.item.name ? o.item.name : 'Unknown'}
+            {o.item.title ? o.item.title : 'Unknown'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -227,21 +251,21 @@ export default class RecipeList extends React.Component {
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
           <TouchableHighlight
-          onPress={() => navigate('RecipeView', {name: this.state.activeItem.item.name, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
+          onPress={() => navigate('RecipeView', {name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
           style={underlayColor="white"}
           >
           <AutoHeightImage
             style={{marginTop: Dimensions.get('window').height*0.05}}
             width={Dimensions.get('window').width*0.5}
-            source={this.state.activeItem.item.image}
+            source={{uri: this.state.activeItem.item.recipe_main_image.url}}
             />
           </TouchableHighlight>
 
-          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.name}</Text>
+          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.title}</Text>
 
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.activeItem.item.prep_time}</Text>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.activeItem.item.cook_time}</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.activeItem.item.cooking_time}</Text>
 
            </View>
 
@@ -252,7 +276,10 @@ export default class RecipeList extends React.Component {
 
         </View>
 
+
         <View style={{ flex: 1, height: height, width}}>
+
+        {this.state.recipeItems ? (
           <FlatList
           style={{marginBottom: -(height*0.08)}}
             ListEmptyComponent={ListEmptyComponent}
@@ -268,11 +295,14 @@ export default class RecipeList extends React.Component {
             refreshing={this.state.isLoading}
             onEndReached={o => this.onEndReached}
             keyExtractor={(o, i) => o.key.toString()}
-            data={this.state.items}
+            data={this.state.recipeItems}
             scrollRenderAheadDistance={width * 2}
             renderItem={this.renderItem}
             onViewableItemsChanged={this.onViewableItemsChanged}
           />
+
+        ) : null
+      }
 
         {
           this.state.items ? (
@@ -327,13 +357,13 @@ export default class RecipeList extends React.Component {
 
       {this.findRecipe(query).length > 0 ? (
         <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black', height: height*0.55}}>
-        <ScrollView style={{flex: 1, flexWrap: 'wrap'}}>
+        <ScrollView style={{flex: 1, flexWrap: 'wrap', backgroundColor: 'white'}}>
         {this.renderMatches(recipes)}
         </ScrollView>
         </View>
       ) : (
         <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black'}}>
-        <ScrollView>
+        <ScrollView style={{backgroundColor: 'white'}}>
         {this.renderMatches(recipes)}
         </ScrollView>
         </View>

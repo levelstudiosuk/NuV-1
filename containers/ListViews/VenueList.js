@@ -7,7 +7,9 @@ import FaveButton from '../../components/FaveButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
-import {Permissions} from 'expo'
+import {Permissions} from 'expo';
+import axios from 'axios';
+import moment from 'moment';
 
 export default class VenueList extends React.Component {
   static navigationOptions = {
@@ -23,6 +25,78 @@ export default class VenueList extends React.Component {
 
     state = {
       items: [{title: "Hendersons Vegan Restaurant", address: "25c Thistle St, Edinburgh EH2 1DX", description: "Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.", type: "Cafe", image: require('../../assets/AppIcons/venuedefault.png')}]
+    }
+
+    componentDidMount(){
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/venues',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var venueItems = JSON.parse(response.request['_response'])
+
+     self.setState({
+       venueItems: venueItems
+     },
+     function(){
+       console.log("Venue items", self.state.venueItems);
+     }
+   )
+ }).catch(function(error){
+   console.log("Error: ", error);
+ })
+    }
+
+    mapVenueItems(){
+      const {navigate} = this.props.navigation;
+
+      return this.state.venueItems.map((item, i) =>
+
+      <View key={i} style={venueListStyle.venueitem}>
+      <TouchableHighlight
+        key={i+1}
+        style={venueListStyle.venueimage}
+        onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+        <Image key={i+2} source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
+      </TouchableHighlight>
+          <View key={i+3} style={venueListStyle.venuetextcontainer}>
+            <View key={i+4}>
+              <Text
+              key={i+5}
+              style={venueListStyle.venuetitle}
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              {item.title}
+              </Text>
+              <Text
+              key={i+6}
+              style={venueListStyle.venuetype}
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              {item.venue_type}
+              </Text>
+            </View>
+            <View key={i+7}>
+              <Text
+              key={i+8}
+              style={venueListStyle.venuedescription}
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              {item.description}
+              </Text>
+              <Text
+              key={i+9}
+              style={venueListStyle.venueaddress}
+              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              {item.postcode}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+      )
+
     }
 
     render() {
@@ -57,39 +131,10 @@ export default class VenueList extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      <View style={venueListStyle.venueitem}>
-      <TouchableHighlight
-        style={venueListStyle.venueimage}
-        onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
-        <Image source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
-      </TouchableHighlight>
-          <View style={venueListStyle.venuetextcontainer}>
-            <View>
-              <Text
-              style={venueListStyle.venuetitle}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
-              Hendersons Vegan Restaurant
-              </Text>
-              <Text
-              style={venueListStyle.venuetype}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
-              Cafe
-              </Text>
-            </View>
-            <View>
-              <Text
-              style={venueListStyle.venuedescription}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
-              Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.
-              </Text>
-              <Text
-              style={venueListStyle.venueaddress}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
-              25c Thistle St, Edinburgh EH2 1DX
-              </Text>
-            </View>
-          </View>
-        </View>
+      {this.state.venueItems ? (
+        this.mapVenueItems()
+      ): null
+    }
 
       <View >
         <GlobalButton
