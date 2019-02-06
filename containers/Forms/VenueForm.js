@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
+import axios from 'axios';
 
 export default class VenueForm extends React.Component {
   static navigationOptions = {
@@ -93,6 +94,49 @@ export default class VenueForm extends React.Component {
        this.setState({ image: result.uri });
      }
    };
+
+   postData(){
+     var {navigate} = this.props.navigation;
+     var self = this;
+     var token = this.props.navigation.getParam('token', 'NO-ID');
+     var uriParts = this.state.image.split('.')
+     var fileType = uriParts[uriParts.length - 1];
+
+     const formData = new FormData();
+     formData.append('venue[title]', self.state.name);
+     formData.append('venue[description]', self.state.description);
+     formData.append('venue[content_is_vegan]', true);
+     formData.append('venue[venue_type]', self.state.type);
+     formData.append('venue[url]', self.state.url);
+     formData.append('venue[postcode]', self.state.postcode);
+     formData.append('venue[rating]', self.state.starCount);
+     formData.append('venue[venue_image_data][]', {
+      uri: self.state.image,
+      name: `${self.state.image}.${fileType}`,
+      type: `image/${fileType}`,
+    });
+    formData.append('venue[venue_main_image]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
+
+       axios.post('http://nuv-api.herokuapp.com/venues',
+      formData,
+    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+    .then(function(response){
+      console.log("RESP", response);
+      var {navigate} = self.props.navigation;
+      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+
+
+   }
 
 
   render() {
@@ -194,10 +238,18 @@ export default class VenueForm extends React.Component {
         containerStyle={{marginBottom: Dimensions.get('window').height*0.04}}
       />
 
+      <GlobalButton
+         buttonTitle="Add Image"
+         onPress={() => this.pickImage()}
+      />
+
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('Home', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
 
