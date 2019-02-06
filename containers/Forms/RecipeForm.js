@@ -7,6 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import { Dropdown } from 'react-native-material-dropdown';
 import {Permissions} from 'expo'
+import axios from 'axios';
 
 export default class RecipeForm extends React.Component {
   static navigationOptions = {
@@ -38,7 +39,7 @@ export default class RecipeForm extends React.Component {
       image: null,
       type: "",
       prep: "",
-      ingredient: "",
+      ingredients: "",
       method: "",
       cook: "",
       words: ""
@@ -69,15 +70,15 @@ export default class RecipeForm extends React.Component {
       })
     }
 
-    changeIngredientText(bio){
+    changeIngredientText(ingredients){
       this.setState({
-        ingredient: ingredient
+        ingredients: ingredients
       })
     }
 
-    changeMethodText(bio){
+    changeMethodText(method){
       this.setState({
-        ingredient: ingredient
+        method: method
       })
     }
 
@@ -112,7 +113,7 @@ export default class RecipeForm extends React.Component {
             alert("please enter numbers only");
         }
     }
-    this.setState({ prepTime: newText});
+    this.setState({ prep: newText});
 }
 
   onChangedCook(text){
@@ -128,7 +129,7 @@ export default class RecipeForm extends React.Component {
            alert("please enter numbers only");
        }
    }
-   this.setState({ cookTime: newText});
+   this.setState({ cook: newText});
   }
 
   postData(){
@@ -145,20 +146,30 @@ export default class RecipeForm extends React.Component {
     formData.append('recipe[content_is_vegan]', true);
     formData.append('recipe[venue_type]', self.state.type);
 
-    formData.append('recipe[prep_time]', self.state.postcode);
-    formData.append('recipe[cooking_time]', self.state.starCount);
-    formData.append('recipe[ingredients]', self.state.starCount);
-    formData.append('recipe[method]', self.state.starCount);
+    formData.append('recipe[prep_time]', self.state.prep);
+    formData.append('recipe[cooking_time]', self.state.cook);
+    formData.append('recipe[ingredients]', self.state.ingredients);
+    formData.append('recipe[method]', self.state.method);
     for (word of wordsArray){
       formData.append('recipe[keywords][]', word);
     }
-   formData.append('recipe[recipe_]', {
+    formData.append('recipe[recipe_main_image]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
+   formData.append('recipe[recipe_image_data][]', {
     uri: self.state.image,
     name: `${self.state.image}.${fileType}`,
     type: `image/${fileType}`,
   });
+    formData.append('recipe[recipe_image_data][]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
 
-      axios.post('http://nuv-api.herokuapp.com/venues',
+      axios.post('http://nuv-api.herokuapp.com/recipes',
      formData,
    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
 
@@ -234,7 +245,7 @@ export default class RecipeForm extends React.Component {
 
             <TextInput
               style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-              onChangeText={(words) => {this.changeWordsText(url)}}
+              onChangeText={(words) => {this.changeWordsText(words)}}
               value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
               underlineColorAndroid='transparent' maxLength={500} multiline={true}
             />
@@ -255,23 +266,13 @@ export default class RecipeForm extends React.Component {
               onChangeText={(value) => this.setState({type: value}) }
             />
 
-
-            <GlobalButton
-               buttonTitle="Add Image"
-               onPress={() => this.pickImage()}
-            />
-
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
-
-
           <TextInput
            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
            placeholder='Preperation Time (mins)'
            placeholderTextColor='black'
            keyboardType='numeric'
            onChangeText={(text)=> this.onChangedPrep(text)}
-           value={this.state.prepTime}
+           value={this.state.prep}
            maxLength={10}  //setting limit of input
           />
 
@@ -281,7 +282,7 @@ export default class RecipeForm extends React.Component {
            placeholderTextColor='black'
            keyboardType='numeric'
            onChangeText={(text)=> this.onChangedCook(text)}
-           value={this.state.cookTime}
+           value={this.state.cook}
            maxLength={10}  //setting limit of input
           />
 
@@ -299,6 +300,15 @@ export default class RecipeForm extends React.Component {
             value={this.state.method} placeholder='Method' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={10000} multiline={true}
           />
+
+          <GlobalButton
+             buttonTitle="Add Image"
+             onPress={() => this.pickImage()}
+          />
+
+      {image &&
+        <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
 
 
           <View style={registerUserStyle.submitContainer}>
