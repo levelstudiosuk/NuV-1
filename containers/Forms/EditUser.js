@@ -143,7 +143,7 @@ export default class EditUser extends React.Component {
   { headers: { Authorization: `${token}` }}).then(function(response){
     console.log("RESP", response);
     var updatedProfile = JSON.parse(response.request['_response'])
-    var uri =  "http://nuv-api.herokuapp.com" + updatedProfile.avatar.url
+    var uri = updatedProfile.avatar.url
 
     navigate('Home', {name: updatedProfile.name, avatar: uri, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
   }

@@ -118,7 +118,7 @@ export default class RegisterUser extends React.Component {
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
          console.log("RESP", responseForName);
-         var uri = "http://nuv-api.herokuapp.com" + responseForName.avatar.url
+         var uri = responseForName.avatar.url
 
            navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
