@@ -63,7 +63,7 @@ export default class SignIn extends React.Component {
 
      var responseForName = JSON.parse(second_response.request['_response'])
      console.log("URL",responseForName.avatar.url);
-     var uri = "http://nuv-api.herokuapp.com" + responseForName.avatar.url
+     var uri = responseForName.avatar.url
 
       navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
 

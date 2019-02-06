@@ -8,6 +8,8 @@ import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
+import axios from 'axios';
+import moment from 'moment';
 
 export default class BrandList extends React.Component {
   static navigationOptions = {
@@ -23,6 +25,59 @@ export default class BrandList extends React.Component {
 
     state = {
       items: [{title: "Dr Martens", description: "The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.”", type: "Fashion", image: require('../../assets/AppIcons/branddefault.png')}]
+    }
+
+    componentDidMount(){
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/brands',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var brandItems = JSON.parse(response.request['_response'])
+
+     self.setState({
+       brandItems: brandItems
+     },
+     function(){
+       console.log("Brand items", self.state.brandItems);
+     }
+   )
+ }).catch(function(error){
+   console.log("Error: ", error);
+ })
+    }
+
+    mapBrandItems(){
+      const {navigate} = this.props.navigation;
+
+      return this.state.brandItems.map((item, i) =>
+
+      <View key={i} style={brandListStyle.branditem}>
+      <TouchableHighlight key={i+1} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandimage}>
+        <Image key={i+2} source={require('../../assets/AppIcons/branddefault.png')} style={{height: 100, width: 100}}/>
+      </TouchableHighlight>
+          <View key={i+3} style={brandListStyle.brandtextcontainer}>
+            <View key={i+4}>
+              <Text key={i+5} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtitle}>
+              {item.title}
+              </Text>
+              <Text key={i+6} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtype}>
+              {item.brand_type}
+              </Text>
+            </View>
+            <View key={i+7}>
+              <Text key={i+8} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.branddescription}>
+              {item.description}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+    )
     }
 
     render() {
@@ -59,26 +114,12 @@ export default class BrandList extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      <View style={brandListStyle.branditem}>
-      <TouchableHighlight onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandimage}>
-        <Image source={require('../../assets/AppIcons/branddefault.png')} style={{height: 100, width: 100}}/>
-      </TouchableHighlight>
-          <View style={brandListStyle.brandtextcontainer}>
-            <View>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtitle}>
-              Dr. Martens
-              </Text>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtype}>
-              Fashion
-              </Text>
-            </View>
-            <View>
-              <Text onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.branddescription}>
-              The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
-              </Text>
-            </View>
-          </View>
-        </View>
+      {this.state.brandItems ? (
+
+        this.mapBrandItems()
+      )
+      : null
+    }
       <View>
         <GlobalButton
           buttonTitle="Home"
