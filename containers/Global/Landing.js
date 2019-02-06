@@ -46,7 +46,7 @@ export default class Landing extends React.Component {
       </View>
 
       <AutoHeightImage
-        source={require('../../assets/spud.gif')}
+        source={require('../../assets/celery.gif')}
         style={{
           marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.00}} width={Dimensions.get('window').width*0.77
        }/>
