@@ -99,7 +99,6 @@ export default class MediaForm extends React.Component {
     if (this.state.image){
     var uriParts = this.state.image.split('.')
     var fileType = uriParts[uriParts.length - 1];
-
   }
     var wordsArray = this.state.words.split(",");
 
