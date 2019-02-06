@@ -62,8 +62,8 @@ render() {
               longitude: -3.1811
               }}
               title={"Default location"}
-              pinColor={'#0dc6b5'}
-              description={"See venue details"}
+              pinColor={'red'}
+              description={"Click HERE for venue details"}
               onCalloutPress={() => {
               this.setState({ isFlipped: !this.state.isFlipped })}}
             />
@@ -80,7 +80,8 @@ render() {
         </View>
         <View style={mapStyle.iconsContainer}>
           <GlobalButton
-          onPress={() => navigate('Home')} buttonTitle={"close"}
+          onPress={() => navigate('Home')}
+          buttonTitle={"close"}
            />
         </View>
       </View>
@@ -94,12 +95,14 @@ render() {
 
         {
           this.state.isFlipped === true ? (
+            <View style={mapStyle.flipbutton}>
             <GlobalButton
+              buttonTitle="flip"
               onPress={() => {
                 this.setState({ isFlipped: !this.state.isFlipped })
-              }}
-                title="Flip"
+              }} 
               />
+            </View>
           ) : null
         }
       </ScrollView>
@@ -128,6 +131,15 @@ const mapStyle = StyleSheet.create({
     width:              Dimensions.get('window').width,
     marginLeft:         0,
     marginTop:          Dimensions.get('window').height*0.78,
+    backgroundColor:    'transparent',
+    justifyContent:     'space-between',
+    alignItems:         'center',
+    flexDirection:      'column',
+  },
+  flipbutton: {
+    width:              Dimensions.get('window').width,
+    marginLeft:         0,
+    marginTop:          Dimensions.get('window').height*0.5,
     backgroundColor:    'transparent',
     justifyContent:     'space-between',
     alignItems:         'center',
