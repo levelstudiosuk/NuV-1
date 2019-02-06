@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
+import * as Animatable from 'react-native-animatable';
 import { BallIndicator, BarIndicator, DotIndicator, MaterialIndicator, PacmanIndicator, PulseIndicator, SkypeIndicator, UIActivityIndicator, WaveIndicator } from 'react-native-indicators';
 
 export default class Home extends React.Component {
@@ -62,7 +63,9 @@ export default class Home extends React.Component {
 
     <View style={homeStyle.buttonContainer}>
     <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
+    <Animatable.View animation="tada" iterationDelay={5000} iterationCount="infinite" direction="alternate">
     <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={Dimensions.get('window').width*0.5} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}/>
+    </Animatable.View>
     </TouchableHighlight>
     {
       this.state.avatarLoading === false ? (
@@ -126,7 +129,9 @@ export default class Home extends React.Component {
 
   <View style={homeStyle.buttonContainer}>
   <TouchableHighlight underlayColor="white" onPress={() => navigate('UserView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} style={{width: Dimensions.get('window').width*0.5}}>
-  <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={this.state.avatarLoading === false ? Dimensions.get('window').width*0.5 : 0.001} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}/>
+  <Animatable.View animation="tada" iterationDelay={5000} iterationCount="infinite" direction="alternate">
+  <AutoHeightImage onLoad={this.setAvatarAsLoaded} width={this.state.avatarLoading === false ? Dimensions.get('window').width*0.5 : 1} style={{borderRadius: Dimensions.get('window').width*0.01}} source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}/>
+  </Animatable.View>
   </TouchableHighlight>
 
   </View>
