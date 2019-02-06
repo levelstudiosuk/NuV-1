@@ -136,8 +136,11 @@ export default class RecipeForm extends React.Component {
     var {navigate} = this.props.navigation;
     var self = this;
     var token = this.props.navigation.getParam('token', 'NO-ID');
+    if (this.state.image){
     var uriParts = this.state.image.split('.')
     var fileType = uriParts[uriParts.length - 1];
+
+  };
     var wordsArray = this.state.words.split(",");
 
     const formData = new FormData();
@@ -153,6 +156,8 @@ export default class RecipeForm extends React.Component {
     for (word of wordsArray){
       formData.append('recipe[keywords][]', word);
     }
+
+    if (this.state.image){
     formData.append('recipe[recipe_main_image]', {
      uri: self.state.image,
      name: `${self.state.image}.${fileType}`,
@@ -168,6 +173,7 @@ export default class RecipeForm extends React.Component {
      name: `${self.state.image}.${fileType}`,
      type: `image/${fileType}`,
    });
+ }
 
       axios.post('http://nuv-api.herokuapp.com/recipes',
      formData,
