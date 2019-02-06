@@ -3,6 +3,7 @@ import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Butto
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
+import AnimatedNavBar from '../../components/AnimatedNavBar.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
@@ -52,7 +53,7 @@ export default class Home extends React.Component {
       renderStickyFooter={() => (
         <TouchableHighlight style={{alignItems: 'center'}}>
         { this.state.avatarLoading === false ? (
-          <NavBar navigation={this.props.navigation} />
+          <AnimatedNavBar navigation={this.props.navigation} />
 
         ) : <View></View>
       }
@@ -168,7 +169,7 @@ export default class Home extends React.Component {
 
   {
     this.state.avatarLoading === false ? (
-      <NavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
+      <AnimatedNavBar navigation={this.props.navigation} attributes={{token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
 
   ) :
     null

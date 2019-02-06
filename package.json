@@ -34,6 +34,7 @@
     "react-native-indicators": "^0.13.0",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-maps": "^0.23.0",
+    "react-native-material-bottom-navigation": "^1.0.2",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-multi-switch": "^1.2.0",
     "react-native-pagination": "^1.5.5",
