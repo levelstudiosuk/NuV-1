@@ -100,7 +100,7 @@ render() {
               buttonTitle="flip"
               onPress={() => {
                 this.setState({ isFlipped: !this.state.isFlipped })
-              }} 
+              }}
               />
             </View>
           ) : null
@@ -132,7 +132,6 @@ const mapStyle = StyleSheet.create({
     marginLeft:         0,
     marginTop:          Dimensions.get('window').height*0.78,
     backgroundColor:    'transparent',
-    justifyContent:     'space-between',
     alignItems:         'center',
     flexDirection:      'column',
   },

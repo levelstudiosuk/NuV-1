@@ -31,22 +31,22 @@ export default class NavBar extends React.Component {
 
       <TouchableHighlight underlayColor="white"
         onPress={() => navigate('Home', this.props.attributes)}>
-          <Image source={require('../assets/AppIcons/home.png')} style={{height: 32, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/home.png')} style={{height: 40, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
       onPress={() => navigate('Map', this.props.attributes)}>
-          <Image source={require('../assets/AppIcons/map.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/map.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
       onPress={() => navigate('Favourites', this.props.attributes)}>
-          <Image source={require('../assets/AppIcons/star.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/fave.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
         onPress={() => navigate('Landing', this.props.attributes)}>
-          <Image source={require('../assets/AppIcons/settings.png')} style={{height: 32, marginRight: Dimensions.get('window').width*0.11, width: 32, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/settings.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
       </TouchableHighlight>
     </View>
     );
