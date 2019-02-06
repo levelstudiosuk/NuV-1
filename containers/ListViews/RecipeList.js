@@ -50,9 +50,30 @@ export default class RecipeList extends React.Component {
 
     this.setState({ fontLoaded: true });
 
-    this.setState({
-      names: this.state.items.map((recipe) => recipe.name)
-    })
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/recipes',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var recipeItems = JSON.parse(response.request['_response'])
+
+     self.setState({
+       recipeItems: recipeItems
+     },
+     function(){
+       console.log("Recipe items", self.state.recipeItems);
+       self.setState({
+         names: self.state.items.map((recipe) => recipe.name)
+       })
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
 
    }
 
