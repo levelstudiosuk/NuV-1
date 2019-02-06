@@ -134,7 +134,7 @@ export default class Home extends React.Component {
   {
     this.state.avatarLoading === false ? (
       <View style={homeStyle.greetingContainer}>
-        <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting(JSON.stringify(this.props.navigation.getParam('name', 'NO-ID')))} </Text>
+        <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))} </Text>
       </View>
   ) :
     null
