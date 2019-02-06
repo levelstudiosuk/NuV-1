@@ -51,7 +51,6 @@ export default class MediaList extends React.Component {
  })
     }
 
-
     mapMediaItems(){
       const {navigate} = this.props.navigation;
 
