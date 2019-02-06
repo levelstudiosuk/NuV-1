@@ -423,9 +423,6 @@ export default class RecipeForm extends React.Component {
           {image_six &&
           <Image source={{ uri: image_six }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
-
-
-
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"

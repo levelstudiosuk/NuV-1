@@ -93,6 +93,27 @@ export default class VenueForm extends React.Component {
       })
     }
 
+    getButtonTitle(){
+      if (!this.state.image){
+        return "Add image"
+      }
+      else if (!this.state.image_two){
+        return "Add image 2"
+      }
+      else if (!this.state.image_three){
+        return "Add image 3"
+      }
+      else if (!this.state.image_four){
+        return "Add image 4"
+      }
+      else if (!this.state.image_five){
+        return "Add image 5"
+      }
+      else if (!this.state.image_six){
+        return "Add image 6"
+      }
+    }
+
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -106,8 +127,23 @@ export default class VenueForm extends React.Component {
 
      console.log(result);
 
-     if (!result.cancelled) {
+     if (!result.cancelled && !this.state.image) {
        this.setState({ image: result.uri });
+     }
+     else if (!result.cancelled && !this.state.image_two) {
+       this.setState({ image_two: result.uri });
+     }
+     else if (!result.cancelled && !this.state.image_three) {
+       this.setState({ image_three: result.uri });
+     }
+     else if (!result.cancelled && !this.state.image_four) {
+       this.setState({ image_four: result.uri });
+     }
+     else if (!result.cancelled && !this.state.image_five) {
+       this.setState({ image_five: result.uri });
+     }
+     else if (!result.cancelled && !this.state.image_six) {
+       this.setState({ image_six: result.uri });
      }
    };
 
@@ -131,17 +167,52 @@ export default class VenueForm extends React.Component {
      formData.append('venue[rating]', self.state.starCount);
 
      if (this.state.image){
-     formData.append('venue[venue_image_data][]', {
+     formData.append('venue[venue_main_image]', {
       uri: self.state.image,
       name: `${self.state.image}.${fileType}`,
       type: `image/${fileType}`,
     });
-    formData.append('venue[venue_main_image]', {
-     uri: self.state.image,
-     name: `${self.state.image}.${fileType}`,
-     type: `image/${fileType}`,
-   });
- }
+    }
+
+      if (this.state.image_two){
+      formData.append('venue[venue_image_data][]', {
+       uri: self.state.image_two,
+       name: `${self.state.image_two}.${fileType}`,
+       type: `image/${fileType}`,
+     });
+    }
+
+     if (this.state.image_three){
+     formData.append('venue[venue_image_data][]', {
+      uri: self.state.image_three,
+      name: `${self.state.image_three}.${fileType}`,
+      type: `image/${fileType}`,
+     });
+     }
+
+     if (this.state.image_four){
+     formData.append('venue[venue_image_data][]', {
+      uri: self.state.image_four,
+      name: `${self.state.image_four}.${fileType}`,
+      type: `image/${fileType}`,
+     });
+     }
+
+     if (this.state.image_five){
+     formData.append('venue[venue_image_data][]', {
+      uri: self.state.image_five,
+      name: `${self.state.image_five}.${fileType}`,
+      type: `image/${fileType}`,
+     });
+     }
+
+     if (this.state.image_six){
+     formData.append('venue[venue_image_data][]', {
+      uri: self.state.image_six,
+      name: `${self.state.image_six}.${fileType}`,
+      type: `image/${fileType}`,
+     });
+     }
 
        axios.post('http://nuv-api.herokuapp.com/venues',
       formData,
@@ -164,6 +235,11 @@ export default class VenueForm extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     var image = this.state.image
+    var image_two = this.state.image_two
+    var image_three = this.state.image_three
+    var image_four = this.state.image_four
+    var image_five = this.state.image_five
+    var image_six = this.state.image_six
 
     let typeOptions = [{
       value: 'Restaurant',
@@ -259,13 +335,34 @@ export default class VenueForm extends React.Component {
         containerStyle={{marginBottom: Dimensions.get('window').height*0.04}}
       />
 
+      { !this.state.image_six ? (
+
       <GlobalButton
-         buttonTitle="Add Image"
+         buttonTitle={this.getButtonTitle()}
          onPress={() => this.pickImage()}
       />
 
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+    ) : null
+
+  }
+
+      {image &&
+      <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+      {image_two &&
+      <Image source={{ uri: image_two }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+      {image_three &&
+      <Image source={{ uri: image_three }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+      {image_four &&
+      <Image source={{ uri: image_four }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+      {image_five &&
+      <Image source={{ uri: image_five }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+      {image_six &&
+      <Image source={{ uri: image_six }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
