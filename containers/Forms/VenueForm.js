@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
+import axios from 'axios';
 
 export default class VenueForm extends React.Component {
   static navigationOptions = {
@@ -107,7 +108,8 @@ export default class VenueForm extends React.Component {
      formData.append('venue[content_is_vegan]', true);
      formData.append('venue[venue_type]', self.state.type);
      formData.append('venue[url]', self.state.url);
-     formData.append('venue[postcode]', self.state.url);
+     formData.append('venue[postcode]', self.state.postcode);
+     formData.append('venue[rating]', self.state.starCount);
      formData.append('medium[venue_main_image]', {
       uri: self.state.image,
       name: `${self.state.image}.${fileType}`,
@@ -230,6 +232,14 @@ export default class VenueForm extends React.Component {
         fullStarColor={'#0DC6B5'}
         containerStyle={{marginBottom: Dimensions.get('window').height*0.04}}
       />
+
+      <GlobalButton
+         buttonTitle="Add Image"
+         onPress={() => this.pickImage()}
+      />
+
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
