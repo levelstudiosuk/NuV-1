@@ -94,6 +94,43 @@ export default class VenueForm extends React.Component {
      }
    };
 
+   postData(){
+     var {navigate} = this.props.navigation;
+     var self = this;
+     var token = this.props.navigation.getParam('token', 'NO-ID');
+     var uriParts = this.state.image.split('.')
+     var fileType = uriParts[uriParts.length - 1];
+
+     const formData = new FormData();
+     formData.append('venue[title]', self.state.name);
+     formData.append('venue[description]', self.state.description);
+     formData.append('venue[content_is_vegan]', true);
+     formData.append('venue[venue_type]', self.state.type);
+     formData.append('venue[url]', self.state.url);
+     formData.append('venue[postcode]', self.state.url);
+     formData.append('medium[venue_main_image]', {
+      uri: self.state.image,
+      name: `${self.state.image}.${fileType}`,
+      type: `image/${fileType}`,
+    });
+
+       axios.post('http://nuv-api.herokuapp.com/venues',
+      formData,
+    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+    .then(function(response){
+      console.log("RESP", response);
+      var {navigate} = self.props.navigation;
+      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+
+
+   }
+
 
   render() {
     const {navigate} = this.props.navigation;
@@ -197,7 +234,7 @@ export default class VenueForm extends React.Component {
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => navigate('Home', {name: 'SignIn'})}/>
+             onPress={() => this.postData()}/>
           </View>
 
 
