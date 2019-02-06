@@ -28,6 +28,7 @@ export default class VenueForm extends React.Component {
   this.changePostcodeText = this.changePostcodeText.bind(this);
   this.pickImage = this.pickImage.bind(this);
   this.onStarRatingPress = this.onStarRatingPress.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 
@@ -39,13 +40,27 @@ export default class VenueForm extends React.Component {
       url: "",
       image: null,
       type: "",
-      starCount: 3
+      starCount: 3,
+      vegan: true
     };
 
     onStarRatingPress(rating) {
     this.setState({
       starCount: rating
     });
+  }
+
+  returnVToggleSelection(selection){
+    if (selection === "Vegan"){
+      this.setState({
+        vegan: true
+      })
+    }
+    else {
+      this.setState({
+        vegan: false
+      })
+    }
   }
 
     changeNameText(name){
@@ -109,7 +124,7 @@ export default class VenueForm extends React.Component {
      const formData = new FormData();
      formData.append('venue[title]', self.state.name);
      formData.append('venue[description]', self.state.description);
-     formData.append('venue[content_is_vegan]', true);
+     formData.append('venue[content_is_vegan]', self.state.vegan);
      formData.append('venue[venue_type]', self.state.type);
      formData.append('venue[url]', self.state.url);
      formData.append('venue[postcode]', self.state.postcode);
@@ -189,7 +204,7 @@ export default class VenueForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
             </View>
 
-            <TwoWayToggle />
+            <TwoWayToggle returnVToggleSelection={this.returnVToggleSelection} />
 
 
           <TextInput
