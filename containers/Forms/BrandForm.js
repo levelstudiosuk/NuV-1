@@ -27,6 +27,7 @@ export default class BrandForm extends React.Component {
   this.changeUrlText = this.changeUrlText.bind(this);
   this.pickImage = this.pickImage.bind(this);
   this.onStarRatingPress = this.onStarRatingPress.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 
@@ -37,7 +38,8 @@ export default class BrandForm extends React.Component {
       url: "",
       image: null,
       type: "",
-      starCount: 3
+      starCount: 3,
+      vegan: true
     };
 
     onStarRatingPress(rating) {
@@ -50,6 +52,19 @@ export default class BrandForm extends React.Component {
       this.setState({
         name: name
       })
+    }
+
+    returnVToggleSelection(selection){
+      if (selection === "Vegan"){
+        this.setState({
+          vegan: true
+        })
+      }
+      else {
+        this.setState({
+          vegan: false
+        })
+      }
     }
 
     changeLocationText(location){
@@ -98,7 +113,7 @@ export default class BrandForm extends React.Component {
     const formData = new FormData();
     formData.append('brand[title]', self.state.name);
     formData.append('brand[description]', self.state.description);
-    formData.append('brand[content_is_vegan]', true);
+    formData.append('brand[content_is_vegan]', self.state.vegan);
     formData.append('brand[brand_type]', self.state.type);
     formData.append('brand[URL]', self.state.url);
     formData.append('brand[brand_main_image]', {
@@ -168,7 +183,7 @@ export default class BrandForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
             </View>
 
-            <TwoWayToggle />
+            <TwoWayToggle returnVToggleSelection={this.returnVToggleSelection} />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

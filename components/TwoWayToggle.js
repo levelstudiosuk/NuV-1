@@ -30,21 +30,27 @@ export default class TwoWayToggle extends React.Component {
       this.setState({
         vegan: true,
         vegetarian: false
-        })
+      },
+      function(){ this.props.returnVToggleSelection("Vegan")}
+    )
       }
 
       else if (number === 1){
       this.setState({
         vegan: false,
         vegetarian: true
-        })
+        },
+        function(){ this.props.returnVToggleSelection("Vegetarian")}
+      )
       }
 
       else {
       this.setState({
         vegan: false,
         vegetarian: false
-        })
+        },
+        function(){ this.props.returnVToggleSelection("Vegan")}
+      )
       }
     }
 
