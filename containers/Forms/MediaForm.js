@@ -24,6 +24,7 @@ export default class MediaForm extends React.Component {
   this.changeWordsText = this.changeWordsText.bind(this);
   this.changeUrlText = this.changeUrlText.bind(this);
   this.pickImage = this.pickImage.bind(this);
+  this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
 
 }
 
@@ -33,7 +34,8 @@ export default class MediaForm extends React.Component {
       location: "",
       url: "",
       image: null,
-      words: ""
+      words: "",
+      vegan: true
     };
 
     changeNameText(name){
@@ -58,6 +60,19 @@ export default class MediaForm extends React.Component {
       this.setState({
         url: url
       })
+    }
+
+    returnVToggleSelection(selection){
+      if (selection === "Vegan"){
+        this.setState({
+          vegan: true
+        })
+      }
+      else {
+        this.setState({
+          vegan: false
+        })
+      }
     }
 
     pickImage = async () => {
@@ -91,7 +106,7 @@ export default class MediaForm extends React.Component {
     const formData = new FormData();
     formData.append('medium[title]', self.state.name);
     formData.append('medium[description]', self.state.description);
-    formData.append('medium[content_is_vegan]', true);
+    formData.append('medium[content_is_vegan]', self.state.vegan);
 
     for (word of wordsArray){
       formData.append('medium[keywords][]', word);
@@ -153,7 +168,7 @@ export default class MediaForm extends React.Component {
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
             </View>
 
-            <TwoWayToggle />
+            <TwoWayToggle returnVToggleSelection={this.returnVToggleSelection} />
 
           <TextInput
             style={{marginTop: Dimensions.get('window').height*0.02, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.05, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
