@@ -1,9 +1,12 @@
-import React from 'react'
-import { View, Text, Platform, Image, TouchableHighlight, Dimensions } from 'react-native'
-
-import MultiSwitch from "./MultiSwitch.js";
-import { Icon } from "native-base"
-
+import    React from 'react'
+import {  View,
+          Text,
+          Platform,
+          Image,
+          TouchableHighlight,
+          Dimensions } from 'react-native'
+import    MultiSwitch from "./MultiSwitch.js";
+import {  Icon } from "native-base"
 import _ from 'lodash';
 
 export default class TwoWayToggle extends React.Component {
@@ -13,7 +16,6 @@ export default class TwoWayToggle extends React.Component {
 
     this.setActiveItem = this.setActiveItem.bind(this);
     this.changeToggleSelection = this.changeToggleSelection.bind(this);
-
   }
 
     state = {
@@ -28,66 +30,69 @@ export default class TwoWayToggle extends React.Component {
       this.setState({
         vegan: true,
         vegetarian: false
-      })
-    }
+        })
+      }
 
       else if (number === 1){
       this.setState({
         vegan: false,
         vegetarian: true
-      })
-    }
+        })
+      }
 
-    else {
+      else {
       this.setState({
         vegan: false,
         vegetarian: false
-      })
+        })
+      }
     }
-
-  }
 
   setActiveItem(number){
 
     this.setState({
       activeIndex: number
     }, function(){
-
       this.changeToggleSelection(number)
-
-    }
-  )
-
+      }
+    )
   }
 
-    render() {
+  render() {
 
-        return (
-          <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-between", alignItems: 'center'}}>
+    return (
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-between", alignItems: 'center'}}>
 
-            <View style={{width: Dimensions.get('window').width*0.3, justifyContent: 'center', alignItems: 'center'}}>
-              <MultiSwitch choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.10 : Dimensions.get('window').width*0.2}
-                            activeItemStyle={[{color: 'white'}, {color: 'white'}, {color: 'white'}, ]}
-                            layout={{vertical: 0, horizontal: -1}}
-                            onActivate={(number) => this.setActiveItem(number)}
-                            containerStyles={_.times(3, () => ({
-                              backgroundColor: '#0dc6b5',
-                              borderRadius: 40,
-                              borderWidth: 1,
-                              borderColor: "white",
-                              justifyContent: 'space-between'
+        <View style={{width: Dimensions.get('window').width*0.3, justifyContent: 'center', alignItems: 'center'}}>
 
-                            }))}
-                            active={0}>
-                            <View>
-                            <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vegan</Text>
-                            </View>
-                            <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vegetarian</Text>
-                            </View>
-              </MultiSwitch>
+          <MultiSwitch
+            choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.10 : Dimensions.get('window').width*0.2}
+            activeItemStyle={[{color: 'white'}, {color: 'white'}, {color: 'white'}, ]}
+            layout={{vertical: 0, horizontal: -1}}
+            onActivate={(number) => this.setActiveItem(number)}
+            containerStyles={_.times(3, () => ({
+                backgroundColor: '#0dc6b5',
+                borderRadius: 40,
+                borderWidth: 1,
+                borderColor: "white",
+                justifyContent: 'space-between'
+                }))}
+            active={0}>
+
+            <View>
+              <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>
+                Vegan
+              </Text>
             </View>
-          </View>
-        )
-    }
+
+            <View>
+              <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>
+                Vegetarian
+              </Text>
+            </View>
+          </MultiSwitch>
+        </View>
+      </View>
+    )
+  }
 }

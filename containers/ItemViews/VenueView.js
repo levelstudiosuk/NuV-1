@@ -143,7 +143,7 @@ render() {
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
-      <View style={{flex: 1, flexDirection: 'row'}}>
+      <View style={{flex: 1, flexDirection: 'row', marginTop: this.props.fromMap === true ? Dimensions.get('window').height*0.02 : 0}}>
         <FaveButton navigation={this.props.navigation} handleButtonClick={this.addVenueToFavourites}/>
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
@@ -197,7 +197,7 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      This venue was described by [username] as:{"\n"}
+      [VENUE NAME] was described by [USERNAME] as:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
       Great tasty healthy food for everyone
@@ -239,7 +239,7 @@ render() {
   <View style={venueViewStyle.submitContainer}>
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.03}
-      buttonTitle="Rate and go"
+      buttonTitle="rate & home"
       onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
     </View>
   </ScrollView>

@@ -3,9 +3,9 @@ import   React,
 import { Button } from 'react-native-elements';
 import { StyleSheet,
          View,
-        TouchableHighlight,
-        Image,
-        Dimensions } from 'react-native';
+         TouchableHighlight,
+         Image,
+         Dimensions } from 'react-native';
 
 export default class AddItemButton extends Component {
 

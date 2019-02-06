@@ -1,4 +1,4 @@
-import  Carousel     from 'react-native-snap-carousel';
+import   Carousel     from 'react-native-snap-carousel';
 import { View,
          StyleSheet,
          Text,
@@ -31,7 +31,7 @@ export default class SnapCarousel extends React.Component {
       var images = [
       {
         image: require('../assets/venue_images/hndrsn1.png'),
-        caption: 'Cafe Interior',
+        caption: 'Cafe Interior',   
       },
       {
         image: require('../assets/venue_images/hndrsn2.png'),
@@ -80,3 +80,5 @@ const snapCarouselStyle = StyleSheet.create({
     color:            'black',
     },
   });
+
+// NB: Imported from: https://github.com/archriss/react-native-snap-carousel/blob/master/README.md#layouts-and-custom-interpolations
