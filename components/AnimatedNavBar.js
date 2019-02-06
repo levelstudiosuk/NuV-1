@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import   Icon from 'react-native-vector-icons/FontAwesome';
 import   BottomNavigation,{
          FullTab,
+         IconTab,
          Shifting,
          Badge } from 'react-native-material-bottom-navigation';
 import { StyleSheet,
@@ -16,67 +17,69 @@ import { StyleSheet,
 
 export default class AnimatedNavBar extends React.Component {
 
+  state = {
+    activeTab: 'home'
+  }
+
   tabs = [
-    {
-      key: 'home',
-      icon: 'home',
-      label: 'Home',
-      barColor: '#0dc6b5',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
-      key: 'map',
-      icon: 'map',
-      label: 'Map',
-      barColor: '#0dc6b5',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
-      key: 'favourite',
-      icon: 'star',
-      label: 'Favourite',
-      barColor: '#0dc6b5',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
-      key: 'settings',
-      icon: 'cogs',
-      label: 'Settings',
-      barColor: '#0dc6b5',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-  ]
+      {
+        key: 'home',
+        icon: 'home',
+        label: 'Home',
+        barColor: 'renderBadge',
+        pressColor: 'red'
+      },
+      {
+        key: 'map',
+        icon: 'map',
+        label: 'Map',
+        barColor: 'blue',
+        pressColor: 'yellow'
+      },
+      {
+        key: 'star',
+        icon: 'star',
+        label: 'Favourites',
+        barColor: 'yellow',
+        pressColor: 'blue'
+      },
+      {
+        key: 'cogs',
+        icon: 'cogs',
+        label: 'Settings',
+        barColor: 'pink',
+        pressColor: 'red'
+      }
+    ]
+
+  state = {
+    activeTab: this.tabs[0].key
+  }
 
   renderIcon = icon => ({ isActive }) => (
     <Icon size={30} color="#0dc6b5" name={icon} />
   )
 
   renderTab = ({ tab, isActive }) => (
-    <FullTab
+    <IconTab
       isActive={isActive}
+      showBadge={tab.key === 'map'}
+      renderBadge={() => <Badge>:)</Badge>}
       key={tab.key}
       label={tab.label}
       renderIcon={this.renderIcon(tab.icon)}
-
     />
   )
 
-render() {
-
-  const {navigate} = this.props.navigation;
-
-  return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        {/* Your screen contents depending on current tab. */}
-      </View>
+  render() {
+    return (
         <BottomNavigation
+          tabs={this.tabs}
+          activeTab={this.state.activeTab}
           onTabPress={newTab => this.setState({ activeTab: newTab.key })}
           renderTab={this.renderTab}
-          tabs={this.tabs}
           useLayoutAnimation
         />
-      </View>
     )
   }
 }
