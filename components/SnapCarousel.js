@@ -31,7 +31,7 @@ export default class SnapCarousel extends React.Component {
       var images = [
       {
         image: require('../assets/venue_images/hndrsn1.png'),
-        caption: 'Cafe Interior',
+        caption: 'Cafe Interior',   
       },
       {
         image: require('../assets/venue_images/hndrsn2.png'),
