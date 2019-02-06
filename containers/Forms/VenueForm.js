@@ -110,11 +110,16 @@ export default class VenueForm extends React.Component {
      formData.append('venue[url]', self.state.url);
      formData.append('venue[postcode]', self.state.postcode);
      formData.append('venue[rating]', self.state.starCount);
-     formData.append('medium[venue_main_image]', {
+     formData.append('medium[venue_images][]', {
       uri: self.state.image,
       name: `${self.state.image}.${fileType}`,
       type: `image/${fileType}`,
     });
+    formData.append('medium[venue_main_image]', {
+     uri: self.state.image,
+     name: `${self.state.image}.${fileType}`,
+     type: `image/${fileType}`,
+   });
 
        axios.post('http://nuv-api.herokuapp.com/venues',
       formData,
