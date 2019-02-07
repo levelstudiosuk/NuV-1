@@ -109,7 +109,6 @@ export default class RecipeList extends React.Component {
    if (sanitizedQuery === '') {
      return [];
    }
-
    if (diet){
      var recipes = this.state.names;
    }
@@ -128,6 +127,7 @@ export default class RecipeList extends React.Component {
       </TouchableOpacity>
     )
   }
+  
   renderItem = (o, i) => {
     return (
       <View

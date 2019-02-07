@@ -164,7 +164,6 @@ render() {
     }
   }
 
-
     return (
 
     <View style={recipeViewStyle.container}>

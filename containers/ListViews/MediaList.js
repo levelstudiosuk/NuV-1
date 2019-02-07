@@ -40,8 +40,11 @@ export default class MediaList extends React.Component {
 
      var mediaItems = JSON.parse(response.request['_response'])
 
+     console.log("USER", self.props.navigation.getParam('user', 'NO-ID'));
+     console.log("ID", self.props.navigation.getParam('id', 'NO-ID'));
+
      self.setState({
-       mediaItems: mediaItems
+       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : mediaItems
      },
      function(){
        console.log("Media items", self.state.mediaItems);
@@ -50,6 +53,15 @@ export default class MediaList extends React.Component {
  }).catch(function(error){
    console.log("Error: ", error);
  })
+    }
+
+    returnMessage(){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+        return `Here are your media contributions.`
+      }
+      else {
+        return "Here is the news."
+      }
     }
 
     mapMediaItems(){
@@ -108,18 +120,18 @@ export default class MediaList extends React.Component {
       />
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
-          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"} Here is the news...
+          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"} {this.returnMessage()}
       </Text>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
       {
-        this.state.mediaItems ? (
+        this.state.mediaItems && this.state.mediaItems.length > 0 ? (
 
       this.mapMediaItems()
 
-    ) : null
+    ) :   <Text> You have not uploaded any media items yet. </Text>
 
   }
 
@@ -130,8 +142,11 @@ export default class MediaList extends React.Component {
       </View>
     </View>
   </ScrollView>
+
 </View>
-);
+
+)
+
 }
 }
 
