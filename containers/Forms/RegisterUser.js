@@ -26,6 +26,7 @@ export default class RegisterUser extends React.Component {
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
+  this.emailFeedback = this.emailFeedback.bind(this);
 
 }
 
@@ -57,10 +58,30 @@ export default class RegisterUser extends React.Component {
       formFeedback.push(this.validateImage())
     }
 
+    validateEmail(){
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(this.state.email.toLowerCase());
+    }
+
+    emailFeedback(){
+      if (this.validateEmail() === true){
+        this.setState({
+          emailTextColor: 'green'
+        })
+      }
+      else {
+        this.setState({
+          emailTextColor: 'red'
+        })
+      }
+    }
+
     changeEmailText(email){
       this.setState({
         email: email
-      })
+      },
+    function(){ this.emailFeedback()}
+  )
     }
 
     changeNameText(name){
@@ -191,7 +212,7 @@ export default class RegisterUser extends React.Component {
       <View style={registerUserStyle.container}>
 
           <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{color: this.state.emailTextColor, marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
             value={this.state.email} placeholder='Email address' placeholderTextColor='black'
             underlineColorAndroid='transparent'
