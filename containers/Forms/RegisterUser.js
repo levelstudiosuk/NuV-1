@@ -49,6 +49,54 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    fieldCompletionCheck(){
+      if (this.state.email === ""){
+        Alert.alert(
+              "Please enter an email address"
+            )
+            return;
+      }
+      if (this.state.password === ""){
+        Alert.alert(
+              "Please enter a password"
+            )
+            return;
+      }
+      if (this.state.password2 === ""){
+        Alert.alert(
+              "Please fill in both password fields"
+            )
+            return;
+      }
+      if (this.state.password != this.state.password2){
+        Alert.alert(
+              "Your passwords need to match"
+            )
+            return;
+      }
+      if (this.state.name === ""){
+        Alert.alert(
+              "Please enter a username"
+            )
+           return;
+      }
+      if (this.state.location === ""){
+        Alert.alert(
+              "Please enter a hometown"
+            )
+          return;
+      }
+      if (this.state.bio === ""){
+        Alert.alert(
+              "Please enter a bio"
+            )
+          return;
+      }
+      else {
+        return "Complete"
+      }
+    }
+
     validateEmail(){
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(this.state.email.toLowerCase());
@@ -75,7 +123,8 @@ export default class RegisterUser extends React.Component {
     passwordFeedback(){
       if (this.validatePassword() === true){
         this.setState({
-          passwordTextColor: '#0dc6b5'
+          passwordTextColor: '#0dc6b5',
+          firstPasswordError: false
         })
       }
       else {
@@ -141,6 +190,10 @@ export default class RegisterUser extends React.Component {
     }
 
     postData(){
+      if (this.fieldCompletionCheck() != "Complete"){
+        return;
+      }
+
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
