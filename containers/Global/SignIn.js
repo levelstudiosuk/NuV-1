@@ -47,8 +47,8 @@ export default class SignIn extends React.Component {
 
     axios.post(session_url, {"user":
 	{
-    "email": this.state.email,
-    "password": this.state.password
+    "email": this.state.email.trim(),
+    "password": this.state.password.trim()
   }
   }
   ).then(function(response) {
