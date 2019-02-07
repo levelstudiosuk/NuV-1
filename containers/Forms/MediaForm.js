@@ -112,7 +112,7 @@ export default class MediaForm extends React.Component {
       formData.append('medium[keywords][]', word);
     }
 
-    formData.append('medium[url]', self.state.url);
+    formData.append('medium[url]', self.state.url.toLowerCase());
 
     if (this.state.image){
     formData.append('medium[medium_image_data][]', {
