@@ -147,7 +147,6 @@ export default class MediaView extends React.Component {
     const {navigate} = this.props.navigation;
     if (this.state.mediaItem){
       var url = this.state.mediaItem.url
-      console.log("URL", url);
     }
     return (
 
