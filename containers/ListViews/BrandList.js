@@ -128,7 +128,7 @@ export default class BrandList extends React.Component {
 
         this.mapBrandItems()
       )
-      : <Text> You have not made any brand contributions yet. </Text>
+      : <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> You have not made any brand contributions yet. </Text>
     }
       <View>
         <GlobalButton

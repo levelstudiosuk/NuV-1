@@ -40,9 +40,6 @@ export default class MediaList extends React.Component {
 
      var mediaItems = JSON.parse(response.request['_response'])
 
-     console.log("USER", self.props.navigation.getParam('user', 'NO-ID'));
-     console.log("ID", self.props.navigation.getParam('id', 'NO-ID'));
-
      self.setState({
        mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : mediaItems
      },
@@ -131,7 +128,7 @@ export default class MediaList extends React.Component {
 
       this.mapMediaItems()
 
-    ) :   <Text> You have not uploaded any media items yet. </Text>
+    ) :   <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> You have not uploaded any media items yet. </Text>
 
   }
 

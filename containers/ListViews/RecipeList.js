@@ -85,6 +85,20 @@ export default class RecipeList extends React.Component {
      return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
    }
 
+   returnExtraMessage(){
+     if (this.state.recipeItems && this.state.recipeItems.length > 0) {
+       return null;
+   }
+    else {
+      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> You have not added any recipes to NüV yet. </Text>
+   }
+    else {
+      return null;
+    }
+   }
+ }
+
   getFlatListItems = () => {
     this.setState({ isLoading: true });
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
@@ -247,6 +261,7 @@ export default class RecipeList extends React.Component {
             {this.returnMessage()}
             </Text>
             <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
+            {this.returnExtraMessage()}
             </View>
 
           )}
