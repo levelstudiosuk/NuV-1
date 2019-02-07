@@ -228,10 +228,7 @@ export default class VenueForm extends React.Component {
     .catch(function(error){
       console.log(error);
     })
-
-
    }
-
 
   render() {
     const {navigate} = this.props.navigation;

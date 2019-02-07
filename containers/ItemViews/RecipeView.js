@@ -42,10 +42,17 @@ export default class RecipeView extends React.Component {
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
       this.addRecipeToFavourites = this.addRecipeToFavourites.bind(this);
       this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
+      this.uploaderPhotoLoaded = this.uploaderPhotoLoaded.bind(this);
+      this.updateCarouselLoadingState = this.updateCarouselLoadingState.bind(this);
+      this.mainRecipeImageLoaded = this.mainRecipeImageLoaded.bind(this);
+
       }
       state = {
       starRating: 3,
-      starCount: 2
+      starCount: 2,
+      mainImageLoading: true,
+      carouselImagesLoaded: 0,
+      uploaderPhotoLoading: true
     };
 
     componentDidMount(){
@@ -74,6 +81,28 @@ export default class RecipeView extends React.Component {
    })
 
     }
+
+
+  updateCarouselLoadingState(){
+    this.setState({
+      carouselImagesLoaded: carouselImagesLoaded + 1
+    },
+  function(){
+    console.log("Images loaded: ", this.state.carouselImagesLoaded);
+  })
+  }
+
+  uploaderPhotoLoaded(){
+    this.setState({
+      uploaderPhotoLoading: false
+    })
+  }
+
+  mainRecipeImageLoaded(){
+    this.setState({
+      mainImageLoading: false
+    })
+  }
 
 
   checkFavouriteStatus(viewedRecipe) {
@@ -235,7 +264,7 @@ render() {
         </View>
 
         <View>
-        <SnapCarousel images={images}/>
+        <SnapCarousel updateCarouselLoadingState={this.updateCarouselLoadingState} images={images}/>
         </View>
 
 

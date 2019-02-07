@@ -15,6 +15,7 @@ export default class SnapCarousel extends React.Component {
           <View style={snapCarouselStyle.slide}>
             <Text style={snapCarouselStyle.caption}>
               <Image
+                onLoad={this.props.updateCarouselLoadingState ? this.props.updateCarouselLoadingState : console.log("another image loaded")}
                 source={{uri: item}}
                 style={{
                         width: Dimensions.get('window').width*0.7,
