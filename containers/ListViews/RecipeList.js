@@ -66,7 +66,7 @@ export default class RecipeList extends React.Component {
      })
 
      self.setState({
-       recipeItems: recipeItems
+       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : recipeItems
      },
      function(){
        console.log("Recipe items", self.state.recipeItems);
@@ -80,6 +80,24 @@ export default class RecipeList extends React.Component {
    })
 
    }
+
+   returnMessage(){
+     return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
+   }
+
+   returnExtraMessage(){
+     if (this.state.recipeItems && this.state.recipeItems.length > 0) {
+       return null;
+   }
+    else {
+      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> You have not added any recipes to NüV yet. </Text>
+   }
+    else {
+      return null;
+    }
+   }
+ }
 
   getFlatListItems = () => {
     this.setState({ isLoading: true });
@@ -109,7 +127,6 @@ export default class RecipeList extends React.Component {
    if (sanitizedQuery === '') {
      return [];
    }
-
    if (diet){
      var recipes = this.state.names;
    }
@@ -128,6 +145,7 @@ export default class RecipeList extends React.Component {
       </TouchableOpacity>
     )
   }
+
   renderItem = (o, i) => {
     return (
       <View
@@ -240,9 +258,10 @@ export default class RecipeList extends React.Component {
                 margin: 30
               }}
             >
-              Scroll through our recipes and click on any that catch your eye!
+            {this.returnMessage()}
             </Text>
             <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
+            {this.returnExtraMessage()}
             </View>
 
           )}

@@ -41,7 +41,7 @@ export default class VenueList extends React.Component {
      var venueItems = JSON.parse(response.request['_response'])
 
      self.setState({
-       venueItems: venueItems
+       venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : venueItems
      },
      function(){
        console.log("Venue items", self.state.venueItems);
@@ -50,6 +50,15 @@ export default class VenueList extends React.Component {
  }).catch(function(error){
    console.log("Error: ", error);
  })
+    }
+
+    returnMessage(){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+        return `Here are your venue contributions.`
+      }
+      else {
+        return "Search the ethical eateries here"
+      }
     }
 
     mapVenueItems(){
@@ -132,9 +141,9 @@ export default class VenueList extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      {this.state.venueItems ? (
+      {this.state.venueItems && this.state.venueItems.length > 0 ? (
         this.mapVenueItems()
-      ): null
+      ): <Text> You have not added any venues to NüV yet. </Text>
     }
 
       <View >
