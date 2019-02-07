@@ -66,7 +66,7 @@ export default class RecipeList extends React.Component {
      })
 
      self.setState({
-       recipeItems: recipeItems
+       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : recipeItems
      },
      function(){
        console.log("Recipe items", self.state.recipeItems);
@@ -79,6 +79,10 @@ export default class RecipeList extends React.Component {
      console.log("Error: ", error);
    })
 
+   }
+
+   returnMessage(){
+     return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
    }
 
   getFlatListItems = () => {
@@ -127,7 +131,7 @@ export default class RecipeList extends React.Component {
       </TouchableOpacity>
     )
   }
-  
+
   renderItem = (o, i) => {
     return (
       <View
@@ -240,7 +244,7 @@ export default class RecipeList extends React.Component {
                 margin: 30
               }}
             >
-              Scroll through our recipes and click on any that catch your eye!
+            {this.returnMessage()}
             </Text>
             <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
             </View>

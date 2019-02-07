@@ -41,7 +41,7 @@ export default class BrandList extends React.Component {
      var brandItems = JSON.parse(response.request['_response'])
 
      self.setState({
-       brandItems: brandItems
+       brandItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? brandItems.filter(brandItem => brandItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : brandItems
      },
      function(){
        console.log("Brand items", self.state.brandItems);
@@ -50,6 +50,15 @@ export default class BrandList extends React.Component {
  }).catch(function(error){
    console.log("Error: ", error);
  })
+    }
+
+    returnMessage(){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+        return `Here are your brand contributions. Click for info.`
+      }
+      else {
+        return "Click a brand for info."
+      }
     }
 
     mapBrandItems(){
@@ -109,17 +118,17 @@ export default class BrandList extends React.Component {
       />
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
-          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}click a brand for info{"\n"}{"\n"}
+          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
       </Text>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      {this.state.brandItems ? (
+      {this.state.brandItems && this.state.brandItems.length > 0 ? (
 
         this.mapBrandItems()
       )
-      : null
+      : <Text> You have not made any brand contributions yet. </Text>
     }
       <View>
         <GlobalButton
