@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import VWayToggle from '../../components/VWayToggle.js';
@@ -26,12 +26,16 @@ export default class RegisterUser extends React.Component {
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
+  this.emailFeedback = this.emailFeedback.bind(this);
+  this.passwordFeedback = this.passwordFeedback.bind(this);
+  this.passwordMatchChecker = this.passwordMatchChecker.bind(this);
 
 }
 
   state = {
       email: "",
       password: "",
+      password2: "",
       name: "",
       location: "",
       bio: "",
@@ -43,6 +47,110 @@ export default class RegisterUser extends React.Component {
       this.setState({
         navigation: this.props.navigation
       })
+    }
+
+    fieldCompletionCheck(){
+      if (this.state.email === ""){
+        Alert.alert(
+              "Please enter an email address"
+            )
+            return;
+      }
+      if (this.state.password === ""){
+        Alert.alert(
+              "Please enter a password"
+            )
+            return;
+      }
+      if (this.state.password2 === ""){
+        Alert.alert(
+              "Please fill in both password fields"
+            )
+            return;
+      }
+      if (this.state.password != this.state.password2){
+        Alert.alert(
+              "Your passwords need to match"
+            )
+            return;
+      }
+      if (this.state.name === ""){
+        Alert.alert(
+              "Please enter a username"
+            )
+           return;
+      }
+      if (this.state.location === ""){
+        Alert.alert(
+              "Please enter a hometown"
+            )
+          return;
+      }
+      if (this.state.bio === ""){
+        Alert.alert(
+              "Please enter a bio"
+            )
+          return;
+      }
+      else {
+        return "Complete"
+      }
+    }
+
+    validateEmail(){
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(this.state.email.toLowerCase());
+    }
+
+    emailFeedback(){
+      if (this.validateEmail() === true){
+        this.setState({
+          emailTextColor: '#0dc6b5'
+        })
+      }
+      else {
+        this.setState({
+          emailTextColor: 'crimson'
+        })
+      }
+    }
+
+    validatePassword(){
+      var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
+      return re.test(this.state.password);
+    }
+
+    passwordFeedback(){
+      if (this.validatePassword() === true){
+        this.setState({
+          passwordTextColor: '#0dc6b5',
+          firstPasswordError: false
+        })
+      }
+      else {
+        this.setState({
+          passwordTextColor: 'crimson',
+          firstPasswordError: true
+        })
+      }
+    }
+
+    passwordMatchChecker(){
+      if (this.state.password != this.state.password2){
+            this.setState({
+              passwordTextColor: 'crimson',
+              password2TextColor: 'crimson',
+              passwordMismatch: true
+            })
+      }
+      else {
+        this.setState({
+          password2TextColor: '#0dc6b5',
+          passwordTextColor: '#0dc6b5',
+          firstPasswordError: false,
+          passwordMismatch: false
+        })
+      }
     }
 
     changeEmailText(email){
@@ -69,6 +177,12 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    changePassword2Text(password){
+      this.setState({
+        password2: password
+      })
+    }
+
     changeBioText(bio){
       this.setState({
         bio: bio
@@ -76,6 +190,10 @@ export default class RegisterUser extends React.Component {
     }
 
     postData(){
+      if (this.fieldCompletionCheck() != "Complete"){
+        return;
+      }
+
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
@@ -86,15 +204,15 @@ export default class RegisterUser extends React.Component {
 
       axios.post(session_url, {"user":
   	{
-      "email": this.state.email,
-      "password": this.state.password
+      "email": this.state.email.trim(),
+      "password": this.state.password.trim()
     }
     }
   ).then(function(response) {
         axios.post(`http://nuv-api.herokuapp.com/login`, {"user":
     	{
-        "email": self.state.email,
-        "password": self.state.password
+        "email": self.state.email.trim(),
+        "password": self.state.password.trim()
       }
       }).then(function(second_response) {
         var token = second_response.headers.authorization;
@@ -153,8 +271,8 @@ export default class RegisterUser extends React.Component {
      let result = await ImagePicker.launchImageLibraryAsync({
        allowsEditing: true,
        mediaTypes: ImagePicker.MediaTypeOptions.All,
-       quality: 1,
-       exif: true,
+       quality: 0.5, //NB: Set at 0.5 to reduce file size for DB
+       exif: false,  //NB: Set to false to reduce file sive for DB
        aspect: [4, 4]
      });
 
@@ -179,18 +297,41 @@ export default class RegisterUser extends React.Component {
       <View style={registerUserStyle.container}>
 
           <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{color: this.state.emailTextColor, marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
             value={this.state.email} placeholder='Email address' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            underlineColorAndroid='transparent' onEndEditing={this.emailFeedback}
           />
 
           <TextInput
-            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{color: this.state.passwordTextColor, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(password) => {this.changePasswordText(password)}}
             value={this.state.password} placeholder='Password' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            underlineColorAndroid='transparent' onEndEditing={this.passwordFeedback}
           />
+
+          {
+            this.state.firstPasswordError ? (
+
+          <Text style={{fontSize: 15, textAlign: 'center', padding: 20, flexWrap: 'wrap' }}>Your password must be more than 7 characters long, should contain at least one upper case letter, lower case letter and at least one number.</Text>
+
+        ) : null
+      }
+
+          <TextInput
+            style={{color: this.state.password2TextColor, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            onChangeText={(password) => {this.changePassword2Text(password)}}
+            value={this.state.password2} placeholder='Confirm password' placeholderTextColor='black'
+            underlineColorAndroid='transparent' onEndEditing={this.passwordMatchChecker}
+          />
+
+          {
+            this.state.passwordMismatch ? (
+
+          <Text style={{fontSize: 15, textAlign: 'center', padding: 20, flexWrap: 'wrap' }}>Your passwords need to match. Please review fields.</Text>
+
+        ) : null
+      }
 
           <TextInput
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}

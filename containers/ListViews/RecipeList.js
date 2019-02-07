@@ -16,6 +16,7 @@ import Pagination from 'react-native-pagination';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
@@ -251,7 +252,7 @@ export default class RecipeList extends React.Component {
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
           <TouchableHighlight
-          onPress={() => navigate('RecipeView', {name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
+          onPress={() => navigate('RecipeView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
           style={underlayColor="white"}
           >
           <AutoHeightImage

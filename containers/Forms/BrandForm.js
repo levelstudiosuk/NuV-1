@@ -9,6 +9,7 @@ import {Permissions} from 'expo'
 import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class BrandForm extends React.Component {
   static navigationOptions = {
@@ -91,8 +92,8 @@ export default class BrandForm extends React.Component {
      let result = await ImagePicker.launchImageLibraryAsync({
        allowsEditing: true,
        mediaTypes: ImagePicker.MediaTypeOptions.All,
-       quality: 1,
-       exif: true,
+       quality: 0.5, //NB: Set at 0.5 to reduce file size for DB
+       exif: false,  //NB: Set to false to reduce file sive for DB
        aspect: [4, 4]
      });
 
@@ -177,7 +178,7 @@ export default class BrandForm extends React.Component {
             <Text style={{fontSize: 18, textAlign: 'center'}}>
             You are adding a BRAND or SHOP{"\n"}{"\n"}
             Please share your favourite ethical brands and shops here, our community will thank you. All we ask is you ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            PS. Thanks [USER_NAME]; you are a star!
+            PS. Thanks {this.props.navigation.getParam('name', 'NO-ID')} - you are a star!
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>

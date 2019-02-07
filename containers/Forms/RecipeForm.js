@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import { Dropdown } from 'react-native-material-dropdown';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class RecipeForm extends React.Component {
   static navigationOptions = {
@@ -104,8 +105,8 @@ export default class RecipeForm extends React.Component {
      let result = await ImagePicker.launchImageLibraryAsync({
        allowsEditing: true,
        mediaTypes: ImagePicker.MediaTypeOptions.All,
-       quality: 1,
-       exif: true,
+       quality: 0.5, //NB: Set at 0.5 to reduce file size for DB
+       exif: false,  //NB: Set to false to reduce file sive for DB
        aspect: [4, 4]
      });
 
@@ -178,7 +179,7 @@ export default class RecipeForm extends React.Component {
     formData.append('recipe[title]', self.state.name);
     formData.append('recipe[description]', self.state.description);
     formData.append('recipe[content_is_vegan]', self.state.vegan);
-    formData.append('recipe[venue_type]', self.state.type);
+    formData.append('recipe[category]', self.state.type);
 
     formData.append('recipe[prep_time]', self.state.prep);
     formData.append('recipe[cooking_time]', self.state.cook);
@@ -314,7 +315,7 @@ export default class RecipeForm extends React.Component {
             <Text style={{fontSize: 18, textAlign: 'center'}}>
             You are adding a RECIPE{"\n"}{"\n"}
             Please be as accurate as possible and complete all fields, it will make it easier to follow your instructions{"\n"}{"\n"}
-            PS: Thanks [user name], you are a star :)
+            PS: Thanks {this.props.navigation.getParam('name', 'NO-ID')} - you are a star :)
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
