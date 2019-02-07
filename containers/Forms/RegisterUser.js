@@ -271,8 +271,8 @@ export default class RegisterUser extends React.Component {
      let result = await ImagePicker.launchImageLibraryAsync({
        allowsEditing: true,
        mediaTypes: ImagePicker.MediaTypeOptions.All,
-       quality: 1,
-       exif: true,
+       quality: 0.5, //NB: Set at 0.5 to reduce file size for DB
+       exif: false,  //NB: Set to false to reduce file sive for DB
        aspect: [4, 4]
      });
 
