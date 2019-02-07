@@ -45,11 +45,6 @@ export default class Landing extends React.Component {
         </Text>
       </View>
 
-      <AutoHeightImage
-        source={require('../../assets/spud.gif')}
-        style={{
-          marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.00}} width={Dimensions.get('window').width*0.77
-       }/>
     </View>
     );
   }

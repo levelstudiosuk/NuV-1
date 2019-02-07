@@ -57,22 +57,22 @@ export default class MediaList extends React.Component {
       return this.state.mediaItems.map((item, i) =>
 
         <View style={mediaListStyle.mediaitem}   key={i}>
-        <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
+        <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
           <Image source={require('../../assets/AppIcons/newsdefault.png')} style={{height: 100, width: 100}}/>
         </TouchableHighlight>
             <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
               <View  key={i+1}>
-                <Text  key={i+3} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                <Text  key={i+3} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {item.title}
                 </Text>
               </View>
               <View  key={i+4}>
-                <Text  key={i+5} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}>
+                <Text  key={i+5} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}>
                 {item.description}
                 </Text>
               </View>
               <View  key={i+7}>
-                <Text  key={i+8} onPress={() => navigate('MediaItemView', {title: this.state.items[0].title, description: this.state.items[0].description, image: this.state.items[0].image})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').calendar()}
                 </Text>
               </View>

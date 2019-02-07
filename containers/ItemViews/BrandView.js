@@ -28,7 +28,7 @@ export default class BrandView extends React.Component {
       }
 
       state = {
-          starRating: 3,
+          starRating: parseInt(this.props.navigation.getParam('rating', 'NO-ID')),
           starCount: 2
         };
 
@@ -131,7 +131,7 @@ export default class BrandView extends React.Component {
         </View>
 
         <Text style={brandViewStyle.brandname}>
-            Dr Martens
+            {this.props.navigation.getParam('title', 'NO-ID')} / Type: {this.props.navigation.getParam('type', 'NO-ID')} / {this.props.navigation.getParam('url', 'NO-ID')}
         </Text>
 
         <View style={brandViewStyle.mapcontainer}>
@@ -158,7 +158,7 @@ export default class BrandView extends React.Component {
         This brand was described by [username] as:{"\n"}
         </Text>
         <Text style={brandViewStyle.brandreviewbody}>
-        The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.” ...
+        {this.props.navigation.getParam('description', 'NO-ID')}
         </Text>
       </View>
     </View>

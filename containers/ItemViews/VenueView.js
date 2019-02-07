@@ -30,6 +30,7 @@ import {
        Text,
        View,
        TouchableOpacity}  from 'react-native';
+import axios from 'axios';
 
 
 export default class VenueView extends React.Component {
@@ -50,6 +51,34 @@ constructor(props) {
     starRating: 3,
     starCount: 2
     };
+
+
+    componentDidMount(){
+
+      var id = this.props.navigation.getParam('id', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/venues/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var venueItem = JSON.parse(response.request['_response'])
+
+     self.setState({
+       venueItem: venueItem
+     },
+     function(){
+       console.log("Venue item", self.state.venueItem);
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
+
+    }
 
 onStarRatingPress(rating) {
   this.setState({
@@ -134,9 +163,20 @@ render() {
 
   const {navigate} = this.props.navigation;
 
+  if (this.state.venueItem){
+    var images = [];
+    images.push(this.state.venueItem.venue_main_image);
+    for (image of this.state.venueItem.venue_images){
+      images.push(image.venue_image.url)
+    }
+    var url = this.state.venueItem.url
+  }
+
   return (
 
   <View style={venueViewStyle.container}>
+
+  {this.state.venueItem ? (
 
   <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
     <View style={venueViewStyle.container}>
@@ -150,7 +190,7 @@ render() {
       </View>
 
       <Text style={venueViewStyle.venuename}>
-          Hendersons Vegan Restaurant
+          {this.state.venueItem.title} / {this.state.venueItem.postcode} / {this.state.venueItem.url}
       </Text>
 
       <View style={venueViewStyle.mapcontainer}>
@@ -180,9 +220,10 @@ render() {
   </View>
 
   <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
-
-    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
+  <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
+  <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
+  </TouchableHighlight>
+    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
 
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
 
@@ -197,16 +238,15 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      [VENUE NAME] was described by [USERNAME] as:{"\n"}
+      {this.state.venueItem.title} was described by {this.state.venueItem.user} as:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
-      Great tasty healthy food for everyone
-      Visited for lunch with Vegan partner and omnivore friends. Hot bowl of super tasty soup and the salad plates are stand out fantastic, these guys really know what they are doing with their veg. Treat yourself, feel a bit good about yourself and eat very well, all at a fair price, we'll be back.
+      {this.state.venueItem.description}
     </Text>
   </View>
 
   <View>
-  <SnapCarousel/>
+  <SnapCarousel images={images}/>
   </View>
 
   <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
@@ -216,7 +256,7 @@ render() {
     <StarRating
       disabled={false}
       maxStars={5}
-      rating={this.state.starRating}
+      rating={this.state.venueItem.rating}
       fullStarColor={'#0DC6B5'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
@@ -243,6 +283,14 @@ render() {
       onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
     </View>
   </ScrollView>
+
+) : <AutoHeightImage
+  source={require('../../assets/celery.gif')}
+  style={{
+    backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
+ />
+
+}
 </View>
   );
 }

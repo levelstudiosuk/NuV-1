@@ -60,7 +60,7 @@ export default class VenueList extends React.Component {
       <TouchableHighlight
         key={i+1}
         style={venueListStyle.venueimage}
-        onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+        onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
         <Image key={i+2} source={require('../../assets/AppIcons/venuedefault.png')} style={{height: 75, width: 75}}/>
       </TouchableHighlight>
           <View key={i+3} style={venueListStyle.venuetextcontainer}>
@@ -68,13 +68,13 @@ export default class VenueList extends React.Component {
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
               {item.title}
               </Text>
               <Text
               key={i+6}
               style={venueListStyle.venuetype}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
               {item.venue_type}
               </Text>
             </View>
@@ -82,13 +82,13 @@ export default class VenueList extends React.Component {
               <Text
               key={i+8}
               style={venueListStyle.venuedescription}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
               {item.description}
               </Text>
               <Text
               key={i+9}
               style={venueListStyle.venueaddress}
-              onPress={() => navigate('VenueView', {title: this.state.items[0].title, address: this.state.items[0].address, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})}>
+              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
               {item.postcode}
               </Text>
             </View>

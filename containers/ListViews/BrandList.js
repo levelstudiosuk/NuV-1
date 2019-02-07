@@ -57,20 +57,20 @@ export default class BrandList extends React.Component {
       return this.state.brandItems.map((item, i) =>
 
       <View key={i} style={brandListStyle.branditem}>
-      <TouchableHighlight key={i+1} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandimage}>
+      <TouchableHighlight key={i+1} onPress={() => navigate('BrandView', {title: item.title, description: item.description, type: item.brand_type, image: item.brand_main_image, rating: item.rating, url: item.URL})} style={brandListStyle.brandimage}>
         <Image key={i+2} source={require('../../assets/AppIcons/branddefault.png')} style={{height: 100, width: 100}}/>
       </TouchableHighlight>
           <View key={i+3} style={brandListStyle.brandtextcontainer}>
             <View key={i+4}>
-              <Text key={i+5} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtitle}>
+              <Text key={i+5} onPress={() => navigate('BrandView', {title: item.title, description: item.description, type: item.brand_type, image: item.brand_main_image, rating: item.rating, url: item.URL})} style={brandListStyle.brandtitle}>
               {item.title}
               </Text>
-              <Text key={i+6} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.brandtype}>
+              <Text key={i+6} onPress={() => navigate('BrandView', {title: item.title, description: item.description, type: item.brand_type, image: item.brand_main_image, rating: item.rating, url: item.URL})} style={brandListStyle.brandtype}>
               {item.brand_type}
               </Text>
             </View>
             <View key={i+7}>
-              <Text key={i+8} onPress={() => navigate('BrandView', {title: this.state.items[0].title, description: this.state.items[0].description, type: this.state.items[0].type, image: this.state.items[0].image})} style={brandListStyle.branddescription}>
+              <Text key={i+8} onPress={() => navigate('BrandView', {title: item.title, description: item.description, type: item.brand_type, image: item.brand_main_image, rating: item.rating, url: item.URL})} style={brandListStyle.branddescription}>
               {item.description}
               </Text>
             </View>

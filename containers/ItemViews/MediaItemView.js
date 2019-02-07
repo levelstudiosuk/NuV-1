@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Linking, Platform, TouchableHighlight, ScrollView, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
@@ -11,6 +11,7 @@ import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
 import { AsyncStorage, Alert } from "react-native"
+import axios from 'axios';
 
 export default class MediaView extends React.Component {
   static navigationOptions = {
@@ -32,6 +33,33 @@ export default class MediaView extends React.Component {
           starRating: 3,
           starCount: 2
         };
+
+    componentDidMount(){
+
+      var id = this.props.navigation.getParam('id', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/media/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var mediaItem = JSON.parse(response.request['_response'])
+
+     self.setState({
+       mediaItem: mediaItem
+     },
+     function(){
+       console.log("Media item", self.state.mediaItem);
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
+
+    }
 
   onStarRatingPress(rating) {
   this.setState({
@@ -117,9 +145,14 @@ export default class MediaView extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
+    if (this.state.mediaItem){
+      var url = this.state.mediaItem.url
+    }
     return (
 
       <View style={mediaViewStyle.container}>
+
+      {this.state.mediaItem ? (
 
       <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
       <View style={mediaViewStyle.container}>
@@ -133,17 +166,19 @@ export default class MediaView extends React.Component {
         </View>
 
         <Text style={mediaViewStyle.medianame}>
-            Papa John’s Vegan Pizza Launching 28.1.19
+           {this.state.mediaItem.title} / {this.state.mediaItem.url}
         </Text>
 
         <View style={mediaViewStyle.mapcontainer}>
-        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={require('../../assets/media_images/ppjhn.jpg')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={{uri: this.state.mediaItem.medium_images[0].medium_image.url}}/>
         </View>
     </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
+        </TouchableHighlight>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.mediaItem.user_image}}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
         <ShareButton
         marginLeft={Dimensions.get('window').width*0.07}
@@ -160,7 +195,7 @@ export default class MediaView extends React.Component {
         This article was described by [username] as:{"\n"}
         </Text>
         <Text style={mediaViewStyle.mediareviewbody}>
-        After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu. ...
+          {this.state.mediaItem.description}
         </Text>
       </View>
     </View>
@@ -197,6 +232,12 @@ export default class MediaView extends React.Component {
         </View>
 
         </ScrollView>
+      ) : <AutoHeightImage
+        source={require('../../assets/celery.gif')}
+        style={{
+          backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
+       />
+    }
       </View>
       );
       }

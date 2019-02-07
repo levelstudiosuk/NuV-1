@@ -9,12 +9,13 @@ import   React,
 
 export default class SnapCarousel extends React.Component {
 
+
     _renderItem ({item, index}) {
         return (
           <View style={snapCarouselStyle.slide}>
             <Text style={snapCarouselStyle.caption}>
               <Image
-                source={item.image}
+                source={{uri: item}}
                 style={{
                         width: Dimensions.get('window').width*0.7,
                         height: Dimensions.get('window').height*0.4
@@ -28,24 +29,8 @@ export default class SnapCarousel extends React.Component {
 
     render () {
 
-      var images = [
-      {
-        image: require('../assets/venue_images/hndrsn1.png'),
-        caption: 'Cafe Interior',   
-      },
-      {
-        image: require('../assets/venue_images/hndrsn2.png'),
-        caption: 'Some Food',
-      },
-      {
-        image: require('../assets/venue_images/hndrsn3.png'),
-        caption: 'A table shot',
-      },
-      {
-        image: require('../assets/venue_images/hndrsn4.png'),
-        caption : 'External Shot',
-      },
-    ];
+      var images = this.props.images
+
 
     return (
       <Carousel
