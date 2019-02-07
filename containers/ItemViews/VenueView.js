@@ -51,6 +51,34 @@ constructor(props) {
     starCount: 2
     };
 
+
+    componentDidMount(){
+
+      var id = this.props.navigation.getParam('id', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/venues/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var venueItem = JSON.parse(response.request['_response'])
+
+     self.setState({
+       venueItem: venueItem
+     },
+     function(){
+       console.log("Venue item", self.state.venueItem);
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
+
+    }
+
 onStarRatingPress(rating) {
   this.setState({
   starCount: rating
