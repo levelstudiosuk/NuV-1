@@ -16,6 +16,7 @@ import Pagination from 'react-native-pagination';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {

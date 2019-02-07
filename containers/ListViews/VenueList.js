@@ -10,6 +10,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo';
 import axios from 'axios';
 import moment from 'moment';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class VenueList extends React.Component {
   static navigationOptions = {
@@ -125,7 +126,7 @@ export default class VenueList extends React.Component {
       />
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
-          [Good morning] [User_name]{"\n"}Search the ethical eateries here:
+          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}Search the ethical eateries here:
       </Text>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>

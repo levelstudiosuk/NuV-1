@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import { Dropdown } from 'react-native-material-dropdown';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class RecipeForm extends React.Component {
   static navigationOptions = {
@@ -314,7 +315,7 @@ export default class RecipeForm extends React.Component {
             <Text style={{fontSize: 18, textAlign: 'center'}}>
             You are adding a RECIPE{"\n"}{"\n"}
             Please be as accurate as possible and complete all fields, it will make it easier to follow your instructions{"\n"}{"\n"}
-            PS: Thanks [user name], you are a star :)
+            PS: Thanks {this.props.navigation.getParam('name', 'NO-ID')} - you are a star :)
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>

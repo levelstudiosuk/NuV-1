@@ -7,6 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 
 export default class MediaForm extends React.Component {
   static navigationOptions = {
@@ -161,7 +162,7 @@ export default class MediaForm extends React.Component {
             <Text style={{fontSize: 18, textAlign: 'center'}}>
             You are adding a media ARTICLE.{"\n"}{"\n"}
             Found an interesting blog, newspost or podcast? Share it here. Please ensure information is as accurate as possible and complete all fields.{"\n"}{"\n"}
-            PS: Thanks [USER_NAME]; you are a star!
+            PS: Thanks {this.props.navigation.getParam('name', 'NO-ID')} - you are a star!
             </Text>
 
             <View style={{marginTop: Dimensions.get('window').height*0.04}}>
