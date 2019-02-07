@@ -21,7 +21,6 @@ export default class SnapCarousel extends React.Component {
                         height: Dimensions.get('window').height*0.4
                         }}
               />
-                {item.title}
               </Text>
           </View>
         );
