@@ -45,6 +45,18 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    validateRegistrationForm(){
+      var formFeedback = [];
+
+      formFeedback.push(this.validateEmail())
+      formFeedback.push(this.validatePassword())
+      formFeedback.push(this.validateName())
+      formFeedback.push(this.validateHometown())
+      formFeedback.push(this.validateVSelection())
+      formFeedback.push(this.validateBio())
+      formFeedback.push(this.validateImage())
+    }
+
     changeEmailText(email){
       this.setState({
         email: email
@@ -86,15 +98,15 @@ export default class RegisterUser extends React.Component {
 
       axios.post(session_url, {"user":
   	{
-      "email": this.state.email,
-      "password": this.state.password
+      "email": this.state.email.trim(),
+      "password": this.state.password.trim()
     }
     }
   ).then(function(response) {
         axios.post(`http://nuv-api.herokuapp.com/login`, {"user":
     	{
-        "email": self.state.email,
-        "password": self.state.password
+        "email": self.state.email.trim(),
+        "password": self.state.password.trim()
       }
       }).then(function(second_response) {
         var token = second_response.headers.authorization;
