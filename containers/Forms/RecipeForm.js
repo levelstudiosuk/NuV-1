@@ -179,7 +179,7 @@ export default class RecipeForm extends React.Component {
     formData.append('recipe[title]', self.state.name);
     formData.append('recipe[description]', self.state.description);
     formData.append('recipe[content_is_vegan]', self.state.vegan);
-    formData.append('recipe[venue_type]', self.state.type);
+    formData.append('recipe[category]', self.state.type);
 
     formData.append('recipe[prep_time]', self.state.prep);
     formData.append('recipe[cooking_time]', self.state.cook);

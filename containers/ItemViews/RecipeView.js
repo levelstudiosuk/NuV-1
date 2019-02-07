@@ -26,7 +26,8 @@ import   MapView, {
 import   Map from '../../containers/Global/Map.js';
 import   StarRating from 'react-native-star-rating';
 import { AsyncStorage, Alert } from "react-native"
-
+import axios from 'axios';
+import moment from 'moment';
 
 export default class RecipeView extends React.Component {
   static navigationOptions = {
@@ -46,6 +47,34 @@ export default class RecipeView extends React.Component {
       starRating: 3,
       starCount: 2
     };
+
+    componentDidMount(){
+
+      var id = this.props.navigation.getParam('id', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/recipes/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var recipeItem = JSON.parse(response.request['_response'])
+
+     self.setState({
+       recipeItem: recipeItem
+     },
+     function(){
+       console.log("Recipe item", self.state.recipeItem);
+     }
+   )
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
+
+    }
+
 
   checkFavouriteStatus(viewedRecipe) {
     try {
@@ -127,9 +156,20 @@ export default class RecipeView extends React.Component {
 
 render() {
   const {navigate} = this.props.navigation;
+
+  if (this.state.recipeItem){
+    var images = [];
+    for (image of this.state.recipeItem.recipe_images){
+      images.push(image.recipe_image.url)
+    }
+  }
+
+
     return (
 
     <View style={recipeViewStyle.container}>
+
+    { this.state.recipeItem ? (
 
     <ScrollView style={{width: Dimensions.get('window').width*1}} showsVerticalScrollIndicator={false}>
       <View style={recipeViewStyle.container}>
@@ -143,15 +183,15 @@ render() {
               onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
             </View>
               <Text style={recipeViewStyle.recipename}>
-                  Vegan Potato Curry
+                  {this.state.recipeItem.title} - {this.state.recipeItem.description}
               </Text>
-            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={require('../../assets/recipe_images/spudcurry.png')}/>
+            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.recipe_main_image_location}}/>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/vegan_woman.jpeg')}/>
+            <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
               <Text style={recipeViewStyle.recipetype}>
-                Dinner
+                {this.state.recipeItem.category}
               </Text>
             <ShareButton
             marginLeft={Dimensions.get('window').width*0.07}
@@ -162,11 +202,16 @@ render() {
              />
         </View>
 
-        <View>
-          <Text style={{marginLeft:Dimensions.get('window').width*0.2,marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
-            <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: 15 mins <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: 45 mins </Text>
+        <View style={{alignItems: 'center'}}>
+          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
+            <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
         </View>
 
+        <View style={{alignItems: 'center'}}>
+        <Text style={recipeViewStyle.recipetype}>
+          Uploaded {moment(new Date(this.state.recipeItem.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()} by {this.state.recipeItem.user}
+        </Text>
+        </View>
 
         <View >
           <View>
@@ -174,24 +219,7 @@ render() {
             Ingredients:{"\n"}
             </Text>
             <Text style={recipeViewStyle.recipeingredientsbody}>
-            3 Tbsp Olive Oil{"\n"}
-            1 Onion (Chopped){"\n"}
-            1 Tbsp Crushed Garlic{"\n"}
-            1 Tbsp Minced Ginger{"\n"}
-            4 tsp Garam Masala (or Curry Powder){"\n"}
-            1 tsp Paprika{"\n"}
-            1/2 tsp Cayenne Pepper{"\n"}
-            1 tsp Cumin{"\n"}
-            1/2 tsp Coriander Powder{"\n"}
-            1 tsp Turmeric{"\n"}
-            6 Medium Potatoes (Peeled and Chopped, about 1kg/2.2lb){"\n"}
-            1 15oz (425g) Can Chickpeas (Drained){"\n"}
-            1 14oz (400g) Can Chopped Tomatoes{"\n"}
-            1 cup (240ml) Vegetable Stock{"\n"}
-            1 14oz (400ml) Can Coconut Milk (Full Fat){"\n"}
-            2 Tbsp Coconut Sugar (or Brown Sugar){"\n"}
-            Sea Salt and Black Pepper (To Taste){"\n"}
-            1/2 cup Cilantro (Chopped, For Serving){"\n"}
+          {this.state.recipeItem.ingredients}
             </Text>
           </View>
         </View>
@@ -202,14 +230,7 @@ render() {
             Method:{"\n"}
             </Text>
             <Text style={recipeViewStyle.recipemethodbody}>
-            Add the olive oil to a pot with the chopped onion, crushed garlic, minced ginger, garam masala, paprika, cayenne pepper, cumin, coriander powder and turmeric and sauté until the onions are slightly softened.
-            Add the chopped potatoes and chickpeas and toss in the spices until well mixed.{"\n"}{"\n"}
-            Add the chopped tomatoes, vegetable stock and coconut milk and stir in.
-            Bring to the boil and then reduce heat, cover the pot and simmer until the potatoes are cooked. Test if they’re ready by bringing out a piece of potato and sticking a fork into it to test if it’s fork tender.{"\n"}{"\n"}
-            Add coconut sugar, sea salt and black pepper (to taste).{"\n"}{"\n"}
-            Serve with chopped cilantro on top and with basmati rice and/or vegan naan bread.{"\n"}{"\n"}
-            NOTES{"\n"}
-            *Leftovers are delicious reheated the next day, so don’t worry if this is a bigger amount than you need for one meal, it’s even more delicious the next day!
+            {this.state.recipeItem.method}
             </Text>
           </View>
         </View>
@@ -249,6 +270,16 @@ render() {
             onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
       </ScrollView>
+
+    ) :
+
+    <AutoHeightImage
+      source={require('../../assets/celery.gif')}
+      style={{
+        backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
+     />
+
+  }
     </View>
   );
  }
