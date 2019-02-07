@@ -11,7 +11,7 @@ import {  Constants } from 'expo'
 import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
-import {  Button } from 'react-native-elements';
+import {  Tile  } from 'react-native-elements';
 
 
 export default class SignIn extends React.Component {
@@ -65,7 +65,14 @@ export default class SignIn extends React.Component {
      var responseForName = JSON.parse(second_response.request['_response'])
       console.log("URL",responseForName.avatar.url);
      var uri = responseForName.avatar.url
-      navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      navigate('Home', {
+            avatar:        uri,
+            token:         token,
+            id:            responseForName.id,
+            name:          responseForName.name,
+            bio:           responseForName.bio,
+            user_is_vegan: responseForName.user_is_vegan,
+            location:      responseForName.location})
 
     })}).catch(function(e){
       Alert.alert(
@@ -101,9 +108,8 @@ render() {
             onPress={() => this.postData()}
           />
          </View>
-
       </View>
-    );
+    )
   }
 }
 
@@ -116,13 +122,6 @@ const signInStyle = StyleSheet.create({
   submitContainer: {
     alignItems:         'center',
     marginTop:          30,
-  },
-  header: {
-    fontSize:           24,
-    color:            'green',
-    textAlign:        'center',
-    marginTop:        Constants.statusBarHeight+10,
-    marginBottom:     Dimensions.get('window').height*0.01
   },
   button: {
     borderBottomColor:  'grey',
