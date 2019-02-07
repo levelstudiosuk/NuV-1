@@ -28,6 +28,7 @@ import   StarRating from 'react-native-star-rating';
 import { AsyncStorage, Alert } from "react-native"
 import axios from 'axios';
 import moment from 'moment';
+import   Carousel     from 'react-native-snap-carousel';
 
 export default class RecipeView extends React.Component {
   static navigationOptions = {
@@ -45,6 +46,7 @@ export default class RecipeView extends React.Component {
       this.uploaderPhotoLoaded = this.uploaderPhotoLoaded.bind(this);
       this.updateCarouselLoadingState = this.updateCarouselLoadingState.bind(this);
       this.mainRecipeImageLoaded = this.mainRecipeImageLoaded.bind(this);
+      this.renderItem = this.renderItem.bind(this);
 
       }
       state = {
@@ -82,10 +84,30 @@ export default class RecipeView extends React.Component {
 
     }
 
+    renderItem ({item, index}) {
+      var self = this;
+      var itemIndex = index;
+
+        return (
+          <View style={snapCarouselStyle.slide}>
+            <Text style={snapCarouselStyle.caption}>
+              <Image
+                onLoad={() => {this.updateCarouselLoadingState()}}
+                source={{uri: item}}
+                style={{
+                        width: this.state.recipeItem && this.state.uploaderPhotoLoading === false ? Dimensions.get('window').width*0.7 : 1,
+                        height: this.state.recipeItem && this.state.uploaderPhotoLoading === false ? Dimensions.get('window').width*0.4 : 1
+                        }}
+              />
+              </Text>
+          </View>
+        )
+
+      }
 
   updateCarouselLoadingState(){
     this.setState({
-      carouselImagesLoaded: carouselImagesLoaded + 1
+      carouselImagesLoaded: this.state.carouselImagesLoaded + 1
     },
   function(){
     console.log("Images loaded: ", this.state.carouselImagesLoaded);
@@ -197,30 +219,62 @@ render() {
 
     <View style={recipeViewStyle.container}>
 
-    { this.state.recipeItem ? (
-
     <ScrollView style={{width: Dimensions.get('window').width*1}} showsVerticalScrollIndicator={false}>
+
       <View style={recipeViewStyle.container}>
         <View style={{marginTop: Dimensions.get('window').height*0.02}}>
           </View>
+
             <View style={{flex: 1, flexDirection: 'row'}}>
+            { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
               <FaveButton
               navigation={this.props.navigation} handleButtonClick={this.addRecipeToFavourites}/>
+
+            ) : null}
+            { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
               <AddItemButton
               navigation={this.props.navigation}
               onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+
+            ) : null}
             </View>
+
+            { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
               <Text style={recipeViewStyle.recipename}>
                   {this.state.recipeItem.title} - {this.state.recipeItem.description}
               </Text>
-            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.recipe_main_image_location}}/>
+
+            ) : null}
+
+            {this.state.recipeItem && this.state.carouselImagesLoaded >= 1 && this.state.uploaderPhotoLoading === false ? (
+
+
+            <AutoHeightImage onLoad={() => {this.mainRecipeImageLoaded()}} width={ this.state.recipeItem && this.state.mainImageLoading === false && this.state.carouselImagesLoaded >= 1 && this.state.uploaderPhotoLoading === false ? Dimensions.get('window').width*1 : 1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.recipe_main_image_location}}/>
+
+          ) : null}
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
+
+        {this.state.recipeItem ? (
+
+            <AutoHeightImage onLoad={() => {this.uploaderPhotoLoaded()}} width={this.state.recipeItem && this.state.mainImageLoading === false && this.state.carouselImagesLoaded >= 1 && this.state.uploaderPhotoLoading === false ? Dimensions.get('window').width*0.1 : 1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
+
+          ) : null}
+
+            { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
               <Text style={recipeViewStyle.recipetype}>
                 {this.state.recipeItem.category}
               </Text>
+
+            ) : null}
+
+            { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
             <ShareButton
             marginLeft={Dimensions.get('window').width*0.07}
             title="Shared from NüV"
@@ -228,18 +282,32 @@ render() {
             url="www.level-apps.co.uk"
             subject="Hi, a NüV user though you would like to see this..."
              />
+
+           ) : null }
         </View>
+
+        { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
 
         <View style={{alignItems: 'center'}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
             <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
         </View>
 
+      ) : null}
+
+          { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
         <View style={{alignItems: 'center'}}>
         <Text style={recipeViewStyle.recipetype}>
           Uploaded {moment(new Date(this.state.recipeItem.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()} by {this.state.recipeItem.user}
         </Text>
         </View>
+
+              ) : null}
+
+
+          { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
 
         <View >
           <View>
@@ -252,6 +320,11 @@ render() {
           </View>
         </View>
 
+        ) : null}
+
+        { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
+
         <View >
           <View>
             <Text style={recipeViewStyle.recipemethod}>
@@ -263,10 +336,32 @@ render() {
           </View>
         </View>
 
-        <View>
-        <SnapCarousel updateCarouselLoadingState={this.updateCarouselLoadingState} images={images}/>
+          ) : null}
+
+          {this.state.recipeItem && this.state.uploaderPhotoLoading === false ? (
+
+        <View style={{height: this.state.recipeItem && this.mainImageLoading === false && this.state.carouselImagesLoaded >=1 && this.state.uploaderPhotoLoading === false ? 500: 0}}>
+        <Carousel
+          ref                   = {(c) => { this._carousel = c; }}
+          data                  = {images}
+          renderItem            = {this.renderItem}
+          sliderWidth           = {Dimensions.get('window').width*1}
+          sliderHeight          = {Dimensions.get('window').height*0.4}
+          itemWidth             = {Dimensions.get('window').width*0.7}
+          itemHeight            = {Dimensions.get('window').height*0.7}
+          layout                = {'default'}
+          layoutCardOffset      = {19}
+          vertical              = {false}
+          activeSlideAlignment  = {'center'}
+          useScrollView         = {true}
+          loop                  = {true}
+        />
         </View>
 
+      ) : null
+    }
+
+          { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
 
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
         <Text style={recipeViewStyle.vibeHeading}>NüV User Rating</Text>
@@ -278,6 +373,12 @@ render() {
             containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
           />
         </View>
+
+      ) : null}
+
+
+        { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
 
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
           <Text style={recipeViewStyle.vibeHeading}>Rate this recipe</Text>
@@ -291,23 +392,25 @@ render() {
             />
         </View>
 
+      ) : null}
+
+      { this.state.recipeItem && this.state.mainImageLoading === false && this.state.uploaderPhotoLoading === false ? (
+
         <View style={recipeViewStyle.submitContainer}>
           <GlobalButton
             marginLeft={Dimensions.get('window').width*0.05}
             buttonTitle="Rate and go"
             onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
+
+      ) :
+
+      null
+
+    }
+
+
       </ScrollView>
-
-    ) :
-
-    <AutoHeightImage
-      source={require('../../assets/celery.gif')}
-      style={{
-        backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
-     />
-
-  }
     </View>
   );
  }
@@ -399,3 +502,17 @@ const recipeViewStyle = StyleSheet.create({
       marginBottom:   Platform.OS === 'ios' ? Dimensions.get('window').height*0.05 : Dimensions.get('window').height*0.05
     },
 });
+
+const snapCarouselStyle = StyleSheet.create({
+  slide:          {
+    marginTop:        10,
+    marginBottom:     10,
+    justifyContent:   'center',
+    alignItems:       'center',
+    },
+  caption:          {
+    justifyContent:   'center',
+    alignItems:       'center',
+    color:            'black',
+    },
+  });
