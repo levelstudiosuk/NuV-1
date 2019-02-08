@@ -192,7 +192,7 @@ export default class MediaView extends React.Component {
     <View >
       <View>
         <Text style={mediaViewStyle.mediareviewtitle}>
-        This article was described by [username] as:{"\n"}
+        This article was described by {this.state.mediaItem.user} as:{"\n"}
         </Text>
         <Text style={mediaViewStyle.mediareviewbody}>
           {this.state.mediaItem.description}

@@ -91,8 +91,9 @@ render() {
 
 
       <Animatable.View
-        animation="tada"
-        iterationDelay={5000}
+        animation="pulse"
+        iterationDelay={2000}
+        duration={1000}
         iterationCount="infinite"
         direction="alternate">
           <AutoHeightImage
@@ -225,8 +226,9 @@ render() {
           style={{width: Dimensions.get('window').width*0.5}}>
 
           <Animatable.View
-            animation="tada"
-            iterationDelay={5000}
+            animation="pulse"
+            iterationDelay={2000}
+            duration={1000}
             iterationCount="infinite"
             direction="alternate">
 

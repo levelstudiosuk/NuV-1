@@ -53,7 +53,7 @@ export default class MediaList extends React.Component {
     }
 
     returnMessage(){
-      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true ){
         return `Here are your media contributions.`
       }
       else {
@@ -128,9 +128,18 @@ export default class MediaList extends React.Component {
 
       this.mapMediaItems()
 
-    ) :   <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> You have not uploaded any media items yet. </Text>
-
+    ) :   null
   }
+
+  {
+    this.state.mediaItems && this.state.mediaItems.length === 0 && this.props.navigation.getParam('user', 'NO-ID') === true ? (
+
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> You have not uploaded any media items yet. </Text>
+
+
+) :   null
+}
+
 
       <View>
         <GlobalButton

@@ -82,6 +82,7 @@ export default class BrandList extends React.Component {
       <TouchableHighlight
       key={i+1}
       onPress={() => navigate('BrandView', {
+        id: item.id,
         title: item.title,
         description: item.description,
         type: item.brand_type,
@@ -99,6 +100,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+5}
                 onPress={() => navigate('BrandView', {
+                  id: item.id,
                   title: item.title,
                   description: item.description,
                   type: item.brand_type,
@@ -111,6 +113,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+6}
                 onPress={() => navigate('BrandView', {
+                  id: item.id,
                   title: item.title,
                   description: item.description,
                   type: item.brand_type,
@@ -125,6 +128,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+8}
                 onPress={() => navigate('BrandView', {
+                  id: item.id,
                   title: item.title,
                   description: item.description,
                   type: item.brand_type,

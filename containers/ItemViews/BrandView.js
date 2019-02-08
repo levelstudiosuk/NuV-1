@@ -11,6 +11,8 @@ import StarRating from 'react-native-star-rating';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
 import { AsyncStorage, Alert } from "react-native"
+import moment from 'moment';
+import axios from 'axios';
 
 export default class BrandView extends React.Component {
   static navigationOptions = {
@@ -36,6 +38,33 @@ export default class BrandView extends React.Component {
       this.setState({
         starCount: rating
       });
+      }
+
+      componentDidMount(){
+
+        var id = this.props.navigation.getParam('id', 'NO-ID');
+        var token = this.props.navigation.getParam('token', 'NO-ID');
+        var self = this;
+
+        axios.get(`http://nuv-api.herokuapp.com/brands/${id}`,
+
+     { headers: { Authorization: `${token}` }})
+
+     .then(function(response){
+
+       var brandItem = JSON.parse(response.request['_response'])
+
+       self.setState({
+         brandItem: brandItem
+       },
+       function(){
+         console.log("Brand item", self.state.brandItem);
+       }
+     )
+     }).catch(function(error){
+       console.log("Error: ", error);
+     })
+
       }
 
   checkFavouriteStatus(viewedBrand) {
@@ -119,6 +148,8 @@ export default class BrandView extends React.Component {
 
       <View style={brandViewStyle.container}>
 
+      { this.state.brandItem ? (
+
       <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
       <View style={brandViewStyle.container}>
 
@@ -131,17 +162,17 @@ export default class BrandView extends React.Component {
         </View>
 
         <Text style={brandViewStyle.brandname}>
-            {this.props.navigation.getParam('title', 'NO-ID')} / Type: {this.props.navigation.getParam('type', 'NO-ID')} / {this.props.navigation.getParam('url', 'NO-ID')}
+            {this.state.brandItem.title} / Type: {this.state.brandItem.brand_type} / {this.state.brandItem.URL}
         </Text>
 
         <View style={brandViewStyle.mapcontainer}>
-        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={require('../../assets/brand_images/drmartens.jpg')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={{uri: this.state.brandItem.brand_main_image_location}}/>
         </View>
     </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/wil.jpg')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.brandItem.user_image}}/>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
         <ShareButton
         marginLeft={Dimensions.get('window').width*0.07}
@@ -152,13 +183,20 @@ export default class BrandView extends React.Component {
          />
     </View>
 
+    <View style={{alignItems: 'center'}}>
+    <Text style={brandViewStyle.brandreviewbody}>
+    Uploaded {moment(new Date(this.state.brandItem.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()} by {this.state.brandItem.user_name}
+
+    </Text>
+    </View>
+
     <View >
       <View>
         <Text style={brandViewStyle.brandreviewtitle}>
-        This brand was described by [username] as:{"\n"}
+        This brand was described by {this.state.brandItem.user_name} as:{"\n"}
         </Text>
         <Text style={brandViewStyle.brandreviewbody}>
-        {this.props.navigation.getParam('description', 'NO-ID')}
+        {this.state.brandItem.description}
         </Text>
       </View>
     </View>
@@ -169,7 +207,7 @@ export default class BrandView extends React.Component {
     <StarRating
       disabled={false}
       maxStars={5}
-      rating={this.state.starRating}
+      rating={this.state.brandItem.rating}
       fullStarColor={'#0DC6B5'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
@@ -194,6 +232,11 @@ export default class BrandView extends React.Component {
         </View>
 
         </ScrollView>
+
+      ) : null
+
+    }
+
       </View>
       );
       }

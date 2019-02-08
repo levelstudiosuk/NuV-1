@@ -163,7 +163,7 @@ export default class VenueForm extends React.Component {
      formData.append('venue[description]', self.state.description);
      formData.append('venue[content_is_vegan]', self.state.vegan);
      formData.append('venue[venue_type]', self.state.type);
-     formData.append('venue[url]', self.state.url);
+     formData.append('venue[url]', self.state.url.toLowerCase());
      formData.append('venue[postcode]', self.state.postcode);
      formData.append('venue[rating]', self.state.starCount);
 

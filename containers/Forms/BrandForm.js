@@ -116,7 +116,7 @@ export default class BrandForm extends React.Component {
     formData.append('brand[description]', self.state.description);
     formData.append('brand[content_is_vegan]', self.state.vegan);
     formData.append('brand[brand_type]', self.state.type);
-    formData.append('brand[URL]', self.state.url);
+    formData.append('brand[URL]', self.state.url.toLowerCase());
     formData.append('brand[brand_main_image]', {
      uri: self.state.image,
      name: `${self.state.image}.${fileType}`,
