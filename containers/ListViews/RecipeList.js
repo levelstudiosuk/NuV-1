@@ -146,8 +146,8 @@ export default class RecipeList extends React.Component {
    if (sanitizedQuery === '') {
      return [];
    }
-   if (diet){
-     var recipes = this.state.names;
+   if (this.state.seeOnlyVegan){
+     var recipes = this.state.recipeItems.filter(recipe => recipe.content_is_vegan === true).map(recipe => recipe.title);
    }
    else {
      var recipes = this.state.names;
@@ -335,7 +335,7 @@ export default class RecipeList extends React.Component {
             refreshing={this.state.isLoading}
             onEndReached={o => this.onEndReached}
             keyExtractor={(o, i) => o.key.toString()}
-            data={this.state.recipeItems}
+            data={this.state.seeOnlyVegan === true ? this.state.recipeItems.filter(recipe => recipe.content_is_vegan === true) : this.state.recipeItems}
             scrollRenderAheadDistance={width * 2}
             renderItem={this.renderItem}
             onViewableItemsChanged={this.onViewableItemsChanged}

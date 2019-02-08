@@ -32,7 +32,7 @@ export default class SmallTwoWayToggle extends React.Component {
         vegan: true,
         vegetarian: false
       }, function(){
-        this.props.changeToggleSelection(true)
+        this.props.changeToggleSelection ? this.props.changeToggleSelection(true) : console.log("Not in RecipeList.js");
       })
     }
 
@@ -41,7 +41,7 @@ export default class SmallTwoWayToggle extends React.Component {
         vegan: false,
         vegetarian: true
       }, function(){
-        this.props.changeToggleSelection(false)
+        this.props.changeToggleSelection ? this.props.changeToggleSelection(false) : console.log("Not in RecipeList.js");
       })
     }
 
@@ -50,7 +50,7 @@ export default class SmallTwoWayToggle extends React.Component {
         vegan: false,
         vegetarian: false
       }, function(){
-        this.props.changeToggleSelection(false)
+        this.props.changeToggleSelection ? this.props.changeToggleSelection(false) : console.log("Not in RecipeList.js");
       })
     }
 
