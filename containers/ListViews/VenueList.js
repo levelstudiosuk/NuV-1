@@ -143,8 +143,14 @@ export default class VenueList extends React.Component {
 
       {this.state.venueItems && this.state.venueItems.length > 0 ? (
         this.mapVenueItems()
-      ): <Text> You have not added any venues to NüV yet. </Text>
+      ): null
     }
+
+    {this.state.venueItems && this.state.venueItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true ? (
+      <Text> You have not added any venues to NüV yet. </Text>
+
+    ): null
+  }
 
       <View >
         <GlobalButton
