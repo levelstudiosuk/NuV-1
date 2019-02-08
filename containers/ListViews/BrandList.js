@@ -21,6 +21,7 @@ import {  Permissions} from 'expo'
 import axios from 'axios';
 import moment from 'moment';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 
 export default class BrandList extends React.Component {
   static navigationOptions = {
@@ -50,7 +51,8 @@ export default class BrandList extends React.Component {
       { headers: { Authorization: `${token}` }})
 
    .then(function(response){
-     var brandItems = JSON.parse(response.request['_response'])
+     var responseItems = JSON.parse(response.request['_response'])
+     var brandItems = ReverseArray.reverseArray(responseItems);
 
      self.setState({
        brandItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? brandItems.filter(brandItem => brandItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : brandItems

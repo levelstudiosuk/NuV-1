@@ -362,7 +362,7 @@ export default class RecipeForm extends React.Component {
 
           <TextInput
            style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-           placeholder='Preperation Time (mins)'
+           placeholder='Preparation Time (mins)'
            placeholderTextColor='black'
            keyboardType='numeric'
            onChangeText={(text)=> this.onChangedPrep(text)}

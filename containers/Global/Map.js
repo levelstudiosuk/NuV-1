@@ -87,9 +87,8 @@ render() {
       </View>
           }
 
-
         backView={
-          <VenueView fromMap={true} navigation={this.props.navigation}/>
+          <VenueView fromMap={true} id={this.props.navigation.getParam('id', 'NO-ID')} token={this.props.navigation.getParam('token', 'NO-ID')} navigation={this.props.navigation}/>
           }
           />
 

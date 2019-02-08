@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
@@ -60,7 +61,8 @@ export default class RecipeList extends React.Component {
 
    .then(function(response){
 
-     var recipeItems = JSON.parse(response.request['_response'])
+     var responseItems = JSON.parse(response.request['_response'])
+     var recipeItems = ReverseArray.reverseArray(responseItems);
      recipeItems.forEach((recipe, index) => {
        recipe['key'] = recipe.id
      })
@@ -271,6 +273,7 @@ export default class RecipeList extends React.Component {
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
 
           <TouchableHighlight
+          underlayColor="white"
           onPress={() => navigate('RecipeView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
           style={underlayColor="white"}
           >

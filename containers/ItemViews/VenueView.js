@@ -55,8 +55,18 @@ constructor(props) {
 
     componentDidMount(){
 
-      var id = this.props.navigation.getParam('id', 'NO-ID');
-      var token = this.props.navigation.getParam('token', 'NO-ID');
+      if (this.props.fromMap === true){
+        var id = 12;
+        var token = this.props.token;
+      }
+      else {
+        var id = this.props.navigation.getParam('id', 'NO-ID');
+        var token = this.props.navigation.getParam('token', 'NO-ID');
+      }
+
+      console.log("Token: ", token);
+      console.log("ID: ", id);
+
       var self = this;
 
       axios.get(`http://nuv-api.herokuapp.com/venues/${id}`,

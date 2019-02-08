@@ -75,7 +75,6 @@ export default class RecipeView extends React.Component {
 
     }
 
-
   checkFavouriteStatus(viewedRecipe) {
     try {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {
@@ -313,9 +312,10 @@ const recipeViewStyle = StyleSheet.create({
     color:            '#0dc6b5',
     fontSize:         20,
     fontWeight:       'bold',
-    marginTop:        20,
-    marginBottom:     20,
-    marginLeft:       15,
+    marginTop:        Dimensions.get('window').height*0.025,
+    marginBottom:     Dimensions.get('window').height*0.025,
+    marginLeft:       Dimensions.get('window').width*0.02,
+    marginRight:      Dimensions.get('window').width*0.02
   },
   recipetype: {
     color:            '#0dc6b5',
