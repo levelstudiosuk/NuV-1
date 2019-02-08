@@ -250,7 +250,7 @@ export default class RegisterUser extends React.Component {
          console.log("RESP", responseForName);
          var uri = responseForName.avatar.url
 
-           navigate('Home', {avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+           navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
           })
         })
       })

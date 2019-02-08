@@ -23,10 +23,13 @@ export default class MediaList extends React.Component {
 
     constructor(props) {
       super(props);
+
+      this.changeToggleSelection = this.changeToggleSelection.bind(this);
     }
 
     state = {
-      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.'}]
+      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.'}],
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
     }
 
     componentDidMount(){
@@ -43,7 +46,7 @@ export default class MediaList extends React.Component {
      var mediaItems = ReverseArray.reverseArray(responseItems);
 
      self.setState({
-       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : mediaItems
+       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
      },
      function(){
        console.log("Media items", self.state.mediaItems);
@@ -52,6 +55,20 @@ export default class MediaList extends React.Component {
  }).catch(function(error){
    console.log("Error: ", error);
  })
+    }
+
+    getActiveToggleIndex(){
+      return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+    }
+
+    changeToggleSelection(selection){
+
+      this.setState({
+        seeOnlyVegan: selection
+      }, function(){
+        console.log("See only vegan: ", this.state.seeOnlyVegan);
+      })
+
     }
 
     returnMessage(){
@@ -66,7 +83,9 @@ export default class MediaList extends React.Component {
     mapMediaItems(){
       const {navigate} = this.props.navigation;
 
-      return this.state.mediaItems.map((item, i) =>
+      var mediaItems = this.state.seeOnlyVegan === true ? this.state.mediaItems.filter(mediaItem => mediaItem.content_is_vegan === true) : this.state.mediaItems
+
+      return mediaItems.map((item, i) =>
 
         <View style={mediaListStyle.mediaitem}   key={i}>
         <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
@@ -106,7 +125,7 @@ export default class MediaList extends React.Component {
     </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle/>
+        <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('MediaForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}

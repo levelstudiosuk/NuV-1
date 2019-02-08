@@ -30,6 +30,7 @@ export default class RecipeList extends React.Component {
   constructor(props) {
   super(props);
 
+  this.changeToggleSelection = this.changeToggleSelection.bind(this);
 }
 
   state = {
@@ -41,7 +42,13 @@ export default class RecipeList extends React.Component {
     {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', cook_time: '10 minutes', image: require('../../assets/recipe_images/basil_baguette.png')},
     {key: 4, id: 4, name: 'Vegan Potato Curry', prep_time: '15 minutes', cook_time: '40 minutes', image: require('../../assets/recipe_images/spudcurry.png')}
   ],
-  recipeTyped: ""
+  recipeTyped: "",
+  seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+  }
+
+  getActiveToggleIndex(){
+    console.log("Active index: ", this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1);
+    return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
   }
 
   async componentDidMount() {
@@ -68,7 +75,7 @@ export default class RecipeList extends React.Component {
      })
 
      self.setState({
-       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : recipeItems
+       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : recipeItems
      },
      function(){
        console.log("Recipe items", self.state.recipeItems);
@@ -87,18 +94,23 @@ export default class RecipeList extends React.Component {
      return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
    }
 
-   returnExtraMessage(){
-     if (this.state.recipeItems && this.state.recipeItems.length > 0) {
-       return null;
+   changeToggleSelection(selection){
+
+     this.setState({
+       seeOnlyVegan: selection
+     }, function(){
+       console.log("See only vegan: ", this.state.seeOnlyVegan);
+     })
+
    }
-    else {
-      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+
+   returnExtraMessage(){
+      if (this.state.recipeItems && this.state.recipeItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true){
       return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> You have not added any recipes to NüV yet. </Text>
    }
     else {
       return null;
     }
-   }
  }
 
   getFlatListItems = () => {
@@ -129,8 +141,8 @@ export default class RecipeList extends React.Component {
    if (sanitizedQuery === '') {
      return [];
    }
-   if (diet){
-     var recipes = this.state.names;
+   if (this.state.seeOnlyVegan){
+     var recipes = this.state.recipeItems.filter(recipe => recipe.content_is_vegan === true).map(recipe => recipe.title);
    }
    else {
      var recipes = this.state.names;
@@ -318,7 +330,7 @@ export default class RecipeList extends React.Component {
             refreshing={this.state.isLoading}
             onEndReached={o => this.onEndReached}
             keyExtractor={(o, i) => o.key.toString()}
-            data={this.state.recipeItems}
+            data={this.state.seeOnlyVegan === true ? this.state.recipeItems.filter(recipe => recipe.content_is_vegan === true) : this.state.recipeItems}
             scrollRenderAheadDistance={width * 2}
             renderItem={this.renderItem}
             onViewableItemsChanged={this.onViewableItemsChanged}
@@ -354,7 +366,7 @@ export default class RecipeList extends React.Component {
         </View>
 
         <View style={{flex: 1, flexDirection: 'row', position: 'absolute', top: height*0.012}}>
-          <SmallTwoWayToggle marginLeft={5}/>
+          <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} marginLeft={5}/>
           <AddItemButton navigation={this.props.navigation}
           onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
           {/*<FaveButton navigation={this.props.navigation}/>*/}
