@@ -20,7 +20,7 @@ export default class SmallTwoWayToggle extends React.Component {
   }
 
     state = {
-        activeIndex: 0,
+        activeIndex: this.props.activeIndex ? this.props.activeIndex : 0,
         vegan: false,
         vegetarian: true
       };
@@ -31,6 +31,8 @@ export default class SmallTwoWayToggle extends React.Component {
       this.setState({
         vegan: true,
         vegetarian: false
+      }, function(){
+        this.props.changeToggleSelection(true)
       })
     }
 
@@ -38,6 +40,8 @@ export default class SmallTwoWayToggle extends React.Component {
       this.setState({
         vegan: false,
         vegetarian: true
+      }, function(){
+        this.props.changeToggleSelection(false)
       })
     }
 
@@ -45,6 +49,8 @@ export default class SmallTwoWayToggle extends React.Component {
       this.setState({
         vegan: false,
         vegetarian: false
+      }, function(){
+        this.props.changeToggleSelection(false)
       })
     }
 
@@ -81,7 +87,7 @@ export default class SmallTwoWayToggle extends React.Component {
                               justifyContent: 'space-between'
 
                             }))}
-                            active={0}>
+                            active={this.props.activeIndex ? this.props.activeIndex : 0}>
                             <View>
                             <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vgn</Text>
                             </View>

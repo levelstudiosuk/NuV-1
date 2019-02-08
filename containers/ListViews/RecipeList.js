@@ -30,6 +30,7 @@ export default class RecipeList extends React.Component {
   constructor(props) {
   super(props);
 
+  this.changeToggleSelection = this.changeToggleSelection.bind(this);
 }
 
   state = {
@@ -41,7 +42,13 @@ export default class RecipeList extends React.Component {
     {key: 3, id: 3, name: 'Basil and Pesto Baguette', prep_time: '15 minutes', cook_time: '10 minutes', image: require('../../assets/recipe_images/basil_baguette.png')},
     {key: 4, id: 4, name: 'Vegan Potato Curry', prep_time: '15 minutes', cook_time: '40 minutes', image: require('../../assets/recipe_images/spudcurry.png')}
   ],
-  recipeTyped: ""
+  recipeTyped: "",
+  seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+  }
+
+  getActiveToggleIndex(){
+    console.log("Active index: ", this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1);
+    return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
   }
 
   async componentDidMount() {
@@ -85,6 +92,16 @@ export default class RecipeList extends React.Component {
 
    returnMessage(){
      return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
+   }
+
+   changeToggleSelection(selection){
+
+     this.setState({
+       seeOnlyVegan: selection
+     }, function(){
+       console.log("See only vegan: ", this.state.seeOnlyVegan);
+     })
+
    }
 
    returnExtraMessage(){
@@ -354,7 +371,7 @@ export default class RecipeList extends React.Component {
         </View>
 
         <View style={{flex: 1, flexDirection: 'row', position: 'absolute', top: height*0.012}}>
-          <SmallTwoWayToggle marginLeft={5}/>
+          <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} marginLeft={5}/>
           <AddItemButton navigation={this.props.navigation}
           onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
           {/*<FaveButton navigation={this.props.navigation}/>*/}
