@@ -23,10 +23,13 @@ export default class VenueList extends React.Component {
 
     constructor(props) {
       super(props);
+
+      this.changeToggleSelection = this.changeToggleSelection.bind(this);
     }
 
     state = {
-      items: [{title: "Hendersons Vegan Restaurant", address: "25c Thistle St, Edinburgh EH2 1DX", description: "Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.", type: "Cafe", image: require('../../assets/AppIcons/venuedefault.png')}]
+      items: [{title: "Hendersons Vegan Restaurant", address: "25c Thistle St, Edinburgh EH2 1DX", description: "Long-running vegetarian deli/eatery showcasing local and organic produce, plus regular live music.", type: "Cafe", image: require('../../assets/AppIcons/venuedefault.png')}],
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
     }
 
     componentDidMount(){
@@ -54,6 +57,20 @@ export default class VenueList extends React.Component {
  })
     }
 
+    getActiveToggleIndex(){
+      return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+    }
+
+    changeToggleSelection(selection){
+
+      this.setState({
+        seeOnlyVegan: selection
+      }, function(){
+        console.log("See only vegan: ", this.state.seeOnlyVegan);
+      })
+
+    }
+
     returnMessage(){
       if (this.props.navigation.getParam('user', 'NO-ID') === true){
         return `Here are your venue contributions.`
@@ -66,7 +83,9 @@ export default class VenueList extends React.Component {
     mapVenueItems(){
       const {navigate} = this.props.navigation;
 
-      return this.state.venueItems.map((item, i) =>
+      var venueItems = this.state.seeOnlyVegan === true ? this.state.venueItems.filter(venueItem => venueItem.content_is_vegan === true) : this.state.venueItems
+
+      return venueItems.map((item, i) =>
 
       <View key={i} style={venueListStyle.venueitem}>
       <TouchableHighlight
@@ -124,7 +143,7 @@ export default class VenueList extends React.Component {
     </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle/>
+        <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
