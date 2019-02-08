@@ -29,6 +29,7 @@ export default class RegisterUser extends React.Component {
   this.emailFeedback = this.emailFeedback.bind(this);
   this.passwordFeedback = this.passwordFeedback.bind(this);
   this.passwordMatchChecker = this.passwordMatchChecker.bind(this);
+  this.fieldCompletionCheck = this.fieldCompletionCheck.bind(this);
 
 }
 
@@ -40,7 +41,8 @@ export default class RegisterUser extends React.Component {
       location: "",
       bio: "",
       image: null,
-      vSelection: "vegetarian"
+      vSelection: "vegetarian",
+      sentPhotoWarning: false
     };
 
     componentDidMount(){
@@ -104,6 +106,15 @@ export default class RegisterUser extends React.Component {
             )
           return;
       }
+      if (this.state.sentPhotoWarning === false){
+      if (!this.state.image){
+        Alert.alert(
+              "You have not uploaded a profile picture. Add one or tap 'Submit' to proceed without one"
+            )
+            this.setState({ sentPhotoWarning: true })
+          return;
+      }
+    }
       else {
         return "Complete"
       }
