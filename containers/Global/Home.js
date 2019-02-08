@@ -88,6 +88,7 @@ render() {
       <TouchableHighlight
         underlayColor="white"
         onPress={() => navigate('UserView', {
+          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
           avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
           token: this.props.navigation.getParam('token', 'NO-ID'),
           id: this.props.navigation.getParam('id', 'NO-ID'),
@@ -225,6 +226,7 @@ render() {
       <TouchableHighlight
         underlayColor="white"
           onPress={() => navigate('UserView', {
+            user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
             avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
             token: this.props.navigation.getParam('token', 'NO-ID'),
             id: this.props.navigation.getParam('id', 'NO-ID'),

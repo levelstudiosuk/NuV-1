@@ -56,14 +56,12 @@ export default class SignIn extends React.Component {
   }
   }
   ).then(function(response) {
-
     var token = response.headers.authorization
       axios.get('http://nuv-api.herokuapp.com/this_users_profile',
         { headers: { Authorization: `${token}` }})
 
    .then(function(second_response){
      var responseForName = JSON.parse(second_response.request['_response'])
-      console.log("URL",responseForName.avatar.url);
      var uri = responseForName.avatar.url
       navigate('Home', {
             avatar:        uri,
@@ -72,6 +70,7 @@ export default class SignIn extends React.Component {
             name:          responseForName.name,
             bio:           responseForName.bio,
             user_is_vegan: responseForName.user_is_vegan,
+            user_id: responseForName.user_id,
             location:      responseForName.location})
 
     })}).catch(function(e){

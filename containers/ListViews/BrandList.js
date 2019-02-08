@@ -58,7 +58,7 @@ export default class BrandList extends React.Component {
      var brandItems = ReverseArray.reverseArray(responseItems);
 
      self.setState({
-       brandItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? brandItems.filter(brandItem => brandItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : brandItems
+       brandItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? brandItems.filter(brandItem => brandItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : brandItems
      },
      function(){
        console.log("Brand items", self.state.brandItems);

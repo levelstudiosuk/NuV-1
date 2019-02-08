@@ -75,7 +75,7 @@ export default class RecipeList extends React.Component {
      })
 
      self.setState({
-       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : recipeItems
+       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : recipeItems
      },
      function(){
        console.log("Recipe items", self.state.recipeItems);
@@ -105,17 +105,12 @@ export default class RecipeList extends React.Component {
    }
 
    returnExtraMessage(){
-     if (this.state.recipeItems && this.state.recipeItems.length > 0) {
-       return null;
-   }
-    else {
-      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      if (this.state.recipeItems && this.state.recipeItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true){
       return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> You have not added any recipes to NüV yet. </Text>
    }
     else {
       return null;
     }
-   }
  }
 
   getFlatListItems = () => {

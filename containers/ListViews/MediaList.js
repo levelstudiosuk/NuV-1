@@ -46,7 +46,7 @@ export default class MediaList extends React.Component {
      var mediaItems = ReverseArray.reverseArray(responseItems);
 
      self.setState({
-       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('id', 'NO-ID')) : mediaItems
+       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
      },
      function(){
        console.log("Media items", self.state.mediaItems);
