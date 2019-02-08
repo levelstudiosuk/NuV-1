@@ -59,16 +59,20 @@ export default class UserView extends React.Component {
       })
     }
 
-    closeOverlay(){
+    closeOverlay(loggingOut){
       this.setState({
         overlayVisible: false
+      }, function(){
+        if (loggingOut === true){
+          const {navigate} = this.props.navigation;
+
+          navigate('Landing', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+        }
       })
     }
 
     handleLogOut(){
-      const {navigate} = this.props.navigation;
-
-      navigate('Landing', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+      this.closeOverlay(true)
     }
 
   render() {
