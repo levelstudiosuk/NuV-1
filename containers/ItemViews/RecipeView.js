@@ -75,7 +75,6 @@ export default class RecipeView extends React.Component {
 
     }
 
-
   checkFavouriteStatus(viewedRecipe) {
     try {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {
