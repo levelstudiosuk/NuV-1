@@ -5,7 +5,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
-import Overlay from 'react-native-modal-overlay'
+import LogOut from '../../components/LogOut.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 
 export default class UserView extends React.Component {
@@ -59,16 +59,20 @@ export default class UserView extends React.Component {
       })
     }
 
-    closeOverlay(){
+    closeOverlay(loggingOut){
       this.setState({
         overlayVisible: false
+      }, function(){
+        if (loggingOut === true){
+          const {navigate} = this.props.navigation;
+
+          navigate('Landing', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+        }
       })
     }
 
     handleLogOut(){
-      const {navigate} = this.props.navigation;
-
-      navigate('Landing', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+      this.closeOverlay(true)
     }
 
   render() {
@@ -117,31 +121,7 @@ export default class UserView extends React.Component {
 
     { this.props.navigation.getParam('settings', 'NO-ID') && this.props.navigation.getParam('settings', 'NO-ID') === true ? (
 
-    <View style={{  alignItems: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
-
-    <Overlay visible={this.state.overlayVisible} onClose={this.closeOverlay} closeOnTouchOutside
-    animationType="fadeInUp" containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-    childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
-    animationDuration={500}>
-    {
-      (hideModal, overlayState) => (
-        <Fragment>
-        <Text style={{marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>Are you sure you want to log out?</Text>
-
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <GlobalButton onPress={() => this.handleLogOut()} buttonTitle={"Yes"} />
-          <GlobalButton onPress={() => this.closeOverlay()} buttonTitle={"No"} />
-          </View>
-
-        </Fragment>
-      )
-    }
-  </Overlay>
-
-
-    <GlobalButton onPress={() => this.openOverlay()} buttonTitle={"Log out"} />
-
-        </View>
+      <LogOut openOverlay={this.openOverlay} handleLogOut={this.handleLogOut} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
 
   ) : null }
 

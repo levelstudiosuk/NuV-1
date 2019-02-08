@@ -9,8 +9,8 @@ export function currentTime(){
 export function getTimeBasedGreeting(user){
   var timeNow = currentTime();
 
-  if (timeNow.hours > 22 && timeNow.hours < 5){
-    return `Hello, ${user}, you're up awfully late tonight! Not already finished?`
+  if (timeNow.hours > 22 || timeNow.hours < 5){
+    return `Hello, ${user}, you're up late!`
   }
   else if (timeNow.hours > 4 && timeNow.hours < 8){
     return `Good morning, ${user}, you're up bright and early today!`
