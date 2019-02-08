@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
@@ -60,7 +61,8 @@ export default class RecipeList extends React.Component {
 
    .then(function(response){
 
-     var recipeItems = JSON.parse(response.request['_response'])
+     var responseItems = JSON.parse(response.request['_response'])
+     var recipeItems = ReverseArray.reverseArray(responseItems);
      recipeItems.forEach((recipe, index) => {
        recipe['key'] = recipe.id
      })
