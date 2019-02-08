@@ -229,7 +229,7 @@ export default class RegisterUser extends React.Component {
       }).then(function(second_response) {
         var token = second_response.headers.authorization;
         const formData = new FormData();
-       formData.append('profile[name]', self.state.name);
+       formData.append('profile[name]', self.state.name.trim());
        formData.append('profile[bio]', self.state.bio);
        formData.append('profile[user_is_vegan]', self.state.vSelection);
        formData.append('profile[location]', self.state.location);
