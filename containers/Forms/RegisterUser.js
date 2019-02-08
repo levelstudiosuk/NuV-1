@@ -56,6 +56,12 @@ export default class RegisterUser extends React.Component {
             )
             return;
       }
+      if (this.validateEmail() === false) {
+        Alert.alert(
+              "Please enter a valid email address"
+            )
+            return;
+      }
       if (this.state.password === ""){
         Alert.alert(
               "Please enter a password"
@@ -65,6 +71,12 @@ export default class RegisterUser extends React.Component {
       if (this.state.password2 === ""){
         Alert.alert(
               "Please fill in both password fields"
+            )
+            return;
+      }
+      if (this.validatePassword() === false) {
+        Alert.alert(
+              "Please enter a valid password"
             )
             return;
       }
@@ -313,7 +325,7 @@ export default class RegisterUser extends React.Component {
           {
             this.state.firstPasswordError ? (
 
-          <Text style={{fontSize: 15, textAlign: 'center', padding: 20, flexWrap: 'wrap' }}>Your password must be more than 7 characters long, should contain at least one upper case letter, lower case letter and at least one number.</Text>
+          <Text style={{fontSize: 15, textAlign: 'center', padding: 20, flexWrap: 'wrap' }}>Your password must be more than 8 characters long and should contain at least one upper case letter, one lower case letter and at least one number.</Text>
 
         ) : null
       }

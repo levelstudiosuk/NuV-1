@@ -28,9 +28,7 @@
     },
     "android": {
      "package": "com.weather2.weather2wed",
-     "infoPlist": {
-     "NSPhotoLibraryUsageDescription": "NüV needs to access your photo library to save a photo which shows you at your best."
-   },
+    
    }
   }
 }
