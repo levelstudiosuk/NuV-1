@@ -32,6 +32,8 @@ export default class BrandList extends React.Component {
 }
     constructor(props) {
       super(props);
+
+      this.changeToggleSelection = this.changeToggleSelection.bind(this);
      }
 
     state = {
@@ -39,7 +41,8 @@ export default class BrandList extends React.Component {
         title: "Dr Martens",
         description: "The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.”",
         type: "Fashion",
-        image: require('../../assets/AppIcons/branddefault.png')}]
+        image: require('../../assets/AppIcons/branddefault.png')}],
+        seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
       }
 
     componentDidMount(){
@@ -66,6 +69,20 @@ export default class BrandList extends React.Component {
  })
     }
 
+    getActiveToggleIndex(){
+      return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+    }
+
+    changeToggleSelection(selection){
+
+      this.setState({
+        seeOnlyVegan: selection
+      }, function(){
+        console.log("See only vegan: ", this.state.seeOnlyVegan);
+      })
+
+    }
+
     returnMessage(){
       if (this.props.navigation.getParam('user', 'NO-ID') === true){
         return `Here are your brand contributions. Click for info.`
@@ -78,7 +95,9 @@ export default class BrandList extends React.Component {
   mapBrandItems(){
     const {navigate} = this.props.navigation;
 
-    return this.state.brandItems.map((item, i) =>
+    var brandItems = this.state.seeOnlyVegan === true ? this.state.brandItems.filter(brandItem => brandItem.content_is_vegan === true) : this.state.brandItems
+
+    return brandItems.map((item, i) =>
 
     <View key={i} style={brandListStyle.branditem}>
       <TouchableHighlight
@@ -160,7 +179,7 @@ export default class BrandList extends React.Component {
     </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle/>
+        <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
         <AddItemButton navigation={this.props.navigation}
            onPress={() => navigate('BrandForm', {
               avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
