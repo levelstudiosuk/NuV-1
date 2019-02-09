@@ -19,12 +19,13 @@ export default class App extends Component {
   };
 
   _handleBarCodeRead = data => {
-    console.log("BarCode Data:", data);
+    console.log("Product/BarCode Data:", data);
     Alert.alert(
       'Scan successful!',
       JSON.stringify(data),
     );
   };
+
 
   render() {
     return (
@@ -49,6 +50,6 @@ const barCodeStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'white',
   }
 });
