@@ -64,6 +64,7 @@ render() {
 
       <StickyHeaderFooterScrollView
       makeScrollable={true}
+      showsVerticalScrollIndicator={false}
       renderStickyHeader={() => ( <View></View> )}
       renderStickyFooter={() => (
         <TouchableHighlight style={{alignItems: 'center'}}>
@@ -220,7 +221,7 @@ render() {
    />
   }
 
-  <ScrollView>
+  <ScrollView showsVerticalScrollIndicator={false}>
 
     <View style={homeStyle.buttonContainer}>
       <TouchableHighlight
