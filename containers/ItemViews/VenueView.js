@@ -248,7 +248,7 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      {this.state.venueItem.title} was described by {this.state.venueItem.user} as:{"\n"}
+      {this.state.venueItem.title} was described by {this.state.venueItem.user.name} as:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
       {this.state.venueItem.description}
