@@ -82,7 +82,7 @@ export default class RecipeList extends React.Component {
    }
 
    returnMessage(){
-     return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through our recipes and click on any that catch your eye!" : "Here are your NüV recipe contributions!"
+     return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through the NüV community recipes. Tap one to see its details" : "Here are your NüV recipe contributions!"
    }
 
    returnExtraMessage(){
@@ -254,13 +254,13 @@ export default class RecipeList extends React.Component {
                 color: 'black',
                 textAlign: 'center',
                 fontWeight: '400',
-                fontSize: 21,
+                fontSize: 16,
                 margin: 30
               }}
             >
             {this.returnMessage()}
             </Text>
-            <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} width={Dimensions.get('window').width*0.5} />
+
             {this.returnExtraMessage()}
             </View>
 

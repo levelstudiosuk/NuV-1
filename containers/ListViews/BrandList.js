@@ -69,7 +69,7 @@ export default class BrandList extends React.Component {
         return `Here are your brand contributions. Click for info.`
       }
       else {
-        return "Click a brand for info."
+        return "Scroll and click a brand for info; or scan a (foodstuffs) barcode for info"
       }
     }
 
