@@ -30,6 +30,7 @@ export default class RegisterUser extends React.Component {
   this.passwordFeedback = this.passwordFeedback.bind(this);
   this.passwordMatchChecker = this.passwordMatchChecker.bind(this);
   this.fieldCompletionCheck = this.fieldCompletionCheck.bind(this);
+  this.processRegistration = this.processRegistration.bind(this);
 
 }
 
@@ -212,6 +213,24 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    processRegistration(){
+      this.setState({
+        processingRegistration: true
+      },
+    function(){
+      this.postData();
+    })
+    }
+
+    getButtonMessage(){
+      if (this.state.processingRegistration === true){
+        return "Processing..."
+      }
+      else {
+        return "Submit"
+      }
+    }
+
     postData(){
       if (this.fieldCompletionCheck() != "Complete"){
         return;
@@ -389,8 +408,8 @@ export default class RegisterUser extends React.Component {
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
-             buttonTitle="Submit"
-              onPress={() => this.postData()}/>
+             buttonTitle={this.getButtonMessage()}
+              onPress={() => this.processRegistration()}/>
           </View>
 
           </View>
