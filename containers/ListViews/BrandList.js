@@ -179,6 +179,11 @@ export default class BrandList extends React.Component {
       </Text>
 
       <BarCodeScanner/>
+      <AutoHeightImage
+        width={150}
+        source={require('../../assets/brand_images/tesco.png')}
+        style={{marginBottom: Dimensions.get('window').height*0.03, marginTop: 2}}
+       />
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
