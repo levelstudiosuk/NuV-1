@@ -45,6 +45,18 @@ export default class VenueForm extends React.Component {
       vegan: true
     };
 
+    componentDidMount(){
+      navigator.geolocation.getCurrentPosition(
+  position => {
+    const venueLocation = JSON.stringify(position);
+
+    this.setState({ venueLocation }, function(){ console.log("Venue location", this.state.venueLocation)});
+  },
+  error => Alert.alert(error.message),
+  { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+);
+    }
+
     onStarRatingPress(rating) {
     this.setState({
       starCount: rating
