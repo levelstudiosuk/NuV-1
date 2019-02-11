@@ -129,11 +129,10 @@ checkFavouriteStatus(viewedVenue) {
 
   addVenueToFavourites = async() => {
 
-  console.log("ITEM", JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')));
 
     var self = this;
 
-    var venue = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), address: JSON.stringify(this.props.navigation.getParam('address', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), type: JSON.stringify(this.props.navigation.getParam('type', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+    var venue = {title: JSON.stringify(this.state.venueItem.title), address: JSON.stringify(this.state.venueItem.postcode), description: JSON.stringify(this.state.venueItem.description), type: JSON.stringify(this.state.venueItem.venue_type), image: JSON.stringify(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')}
 
     try {
       AsyncStorage.getItem('venue_favourites').then((venues) => {
