@@ -112,6 +112,7 @@ render() {
 
 const mapStyle = StyleSheet.create({
   container: {
+    height: Dimensions.get('window').height,
     flexDirection:    'column',
     backgroundColor:  'white',
     alignItems:       'center',

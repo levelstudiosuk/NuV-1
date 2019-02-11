@@ -115,10 +115,15 @@ export default class RegisterUser extends React.Component {
             this.setState({ sentPhotoWarning: true })
           return;
       }
-    }
       else {
+        console.log("Form completed.");
         return "Complete"
       }
+    }
+    else {
+      console.log("Form completed.");
+      return "Complete"
+    }
     }
 
     validateEmail(){
@@ -214,13 +219,17 @@ export default class RegisterUser extends React.Component {
     }
 
     processRegistration(){
+      console.log("Processing reg");
+      if (this.fieldCompletionCheck() === "Complete"){
       this.setState({
         processingRegistration: true
       },
     function(){
+      console.log("Complete fields");
       this.postData();
     })
     }
+  }
 
     getButtonMessage(){
       if (this.state.processingRegistration === true){

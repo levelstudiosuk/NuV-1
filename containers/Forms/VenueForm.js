@@ -167,6 +167,8 @@ export default class VenueForm extends React.Component {
      if (this.state.image){
      var uriParts = this.state.image.split('.')
      var fileType = uriParts[uriParts.length - 1];
+     var longitude = this.state.venueLocation.longitude;
+     var latitude = this.state.venueLocation.latitude;
 
    }
 
