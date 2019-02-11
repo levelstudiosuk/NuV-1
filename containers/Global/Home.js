@@ -20,7 +20,6 @@ import {  BallIndicator,
           DotIndicator,
           WaveIndicator } from 'react-native-indicators';
 
-
 export default class Home extends React.Component {
   static navigationOptions = {
     title: null,
@@ -39,7 +38,7 @@ export default class Home extends React.Component {
      }
 
   state = {
-    avatarLoading: true
+    avatarLoading: false
   };
 
   profileAvatarUri(){
