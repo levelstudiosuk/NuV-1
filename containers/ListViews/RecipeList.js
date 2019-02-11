@@ -81,6 +81,8 @@ export default class RecipeList extends React.Component {
        console.log("Recipe items", self.state.recipeItems);
        self.setState({
          names: self.state.recipeItems.map((recipe) => recipe.title)
+       }, function(){
+         this.populateRecipes()
        })
      }
    )
@@ -88,6 +90,56 @@ export default class RecipeList extends React.Component {
      console.log("Error: ", error);
    })
 
+   }
+
+   populateRecipes(){
+     var self = this;
+     axios.get('https://api.edamam.com/search?q=breakfast&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=50&health=vegan')
+
+  .then(function(response){
+
+    console.log("REC", response.data.hits);
+
+    var recipesArray = []
+
+    response.data.hits.forEach((recipe) => {
+      recipe = {
+        name: recipe.recipe.label,
+        url: recipe.recipe.url,
+        totalTime: recipe.recipe.totalTime,
+        ingredients: recipe.recipe.ingredientLines,
+        image: recipe.recipe.image
+      }
+      recipesArray.push(recipe)
+    })
+
+      console.log("recipes", recipesArray);
+      var token = self.props.navigation.getParam('token', 'NO-ID');
+      for (recipe of recipesArray) {
+      const formData = new FormData();
+      formData.append('recipe[title]', recipe.name);
+      formData.append('recipe[description]', recipe.image);
+      formData.append('recipe[content_is_vegan]', true);
+      formData.append('recipe[category]', "Breakfast");
+
+      var ingredients = ""
+      for (ingredient of recipe.ingredients){
+        ingredients += ingredient
+      }
+      formData.append('recipe[cooking_time]', recipe.totalTime);
+      formData.append('recipe[ingredients]', ingredients);
+
+      axios.post('http://nuv-api.herokuapp.com/recipes',
+     formData,
+   { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+
+   .then(function(response){
+     console.log("RESP", response);
+   }).catch(function(error){ console.log(error)})
+ }
+  }).catch(function(error){
+    console.log("Error: ", error);
+  })
    }
 
    returnMessage(){
