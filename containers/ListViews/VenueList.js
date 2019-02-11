@@ -49,7 +49,7 @@ export default class VenueList extends React.Component {
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
      },
      function(){
-       console.log("Venue items", self.state.venueItems);
+       console.log("Venue items here");
      }
    )
  }).catch(function(error){

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Platform, Alert, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
@@ -30,6 +30,7 @@ export default class VenueForm extends React.Component {
   this.pickImage = this.pickImage.bind(this);
   this.onStarRatingPress = this.onStarRatingPress.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
+  this.validatePostcode = this.validatePostcode.bind(this);
 
 }
 
@@ -42,19 +43,19 @@ export default class VenueForm extends React.Component {
       image: null,
       type: "",
       starCount: 3,
-      vegan: true
+      vegan: true,
     };
 
     componentDidMount(){
       navigator.geolocation.getCurrentPosition(
-  position => {
-    const venueLocation = JSON.stringify(position);
+      position => {
+        const venueLocation = JSON.stringify(position);
 
-    this.setState({ venueLocation }, function(){ console.log("Venue location", this.state.venueLocation)});
-  },
-  error => Alert.alert(error.message),
-  { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-);
+        this.setState({ venueLocation }, function(){ console.log("Venue location", this.state.venueLocation)});
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+    );
     }
 
     onStarRatingPress(rating) {
@@ -127,6 +128,26 @@ export default class VenueForm extends React.Component {
       }
     }
 
+    validatePostcode(){
+      var self = this;
+
+      fetch( `http://api.postcodes.io/postcodes/${this.state.postcode}`)
+      .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' + response.status);
+        self.setState({ validPostcode: false }, function(){
+          console.log("Postcode valid: ", self.state.validPostcode);
+        })
+      }
+      else {
+        console.log("Response status: ", response.status);
+        self.setState({ validPostcode: true }, function(){
+          console.log("Postcode valid: ", self.state.validPostcode);
+        })
+      };
+    })}
+
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -161,6 +182,9 @@ export default class VenueForm extends React.Component {
    };
 
    postData(){
+
+     if (this.state.validPostcode === true){
+
      var {navigate} = this.props.navigation;
      var self = this;
      var token = this.props.navigation.getParam('token', 'NO-ID');
@@ -234,7 +258,6 @@ export default class VenueForm extends React.Component {
     { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
 
     .then(function(response){
-      console.log("RESP", response);
       var {navigate} = self.props.navigation;
       navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
 
@@ -242,6 +265,13 @@ export default class VenueForm extends React.Component {
     .catch(function(error){
       console.log(error);
     })
+
+  }
+  else {
+    Alert.alert(
+          "Please enter a valid UK postcode"
+        )
+  }
 
 
    }
@@ -308,7 +338,7 @@ export default class VenueForm extends React.Component {
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(postcode) => {this.changePostcodeText(postcode)}}
             value={this.state.postcode} placeholder='Venue postcode' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            underlineColorAndroid='transparent' onEndEditing={()=> this.validatePostcode()}
           />
 
           <TextInput
