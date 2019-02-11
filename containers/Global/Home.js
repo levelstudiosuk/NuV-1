@@ -38,7 +38,7 @@ export default class Home extends React.Component {
      }
 
   state = {
-    avatarLoading: false
+    avatarLoading: true
   };
 
   profileAvatarUri(){

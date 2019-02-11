@@ -214,6 +214,7 @@ export default class RegisterUser extends React.Component {
     }
 
     processRegistration(){
+      if (this.fieldCompletionCheck() == "Complete"){
       this.setState({
         processingRegistration: true
       },
@@ -221,6 +222,7 @@ export default class RegisterUser extends React.Component {
       this.postData();
     })
     }
+  }
 
     getButtonMessage(){
       if (this.state.processingRegistration === true){
