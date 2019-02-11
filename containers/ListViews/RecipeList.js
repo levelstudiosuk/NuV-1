@@ -82,7 +82,8 @@ export default class RecipeList extends React.Component {
        self.setState({
          names: self.state.recipeItems.map((recipe) => recipe.title)
        }, function(){
-         this.populateRecipes()
+         console.log("Currently not calling populateRecipes()");
+         // this.populateRecipes()
        })
      }
    )
