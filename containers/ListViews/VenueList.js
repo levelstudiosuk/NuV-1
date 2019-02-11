@@ -159,7 +159,7 @@ export default class VenueList extends React.Component {
       </View>
       </ScrollView>
 
-    <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
     <View style={venueListStyle.container}>
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
