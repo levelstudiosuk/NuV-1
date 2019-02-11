@@ -139,6 +139,7 @@ export default class VenueList extends React.Component {
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
     <View style={venueListStyle.container}>
 
+
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
 
@@ -154,6 +155,12 @@ export default class VenueList extends React.Component {
           source={require('../../assets/AppIcons/dining.png')}
           style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
       />
+
+      </View>
+      </ScrollView>
+
+    <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
+    <View style={venueListStyle.container}>
 
       <Text style={{fontSize: 18, textAlign: 'center'}}>
           {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}Search the ethical eateries here:

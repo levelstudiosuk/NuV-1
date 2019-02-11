@@ -247,7 +247,7 @@ render() {
               onLoad={this.setAvatarAsLoaded}
               width={this.state.avatarLoading === false ? Dimensions.get('window').width*0.5 : 1}
               style={{borderRadius: Dimensions.get('window').width*0.01}}
-              source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') != 'NO-ID' ? this.props.navigation.getParam('avatar', 'NO-ID') : 'https://www.viawater.nl/files/default-user.png'}}
+              source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'https://www.viawater.nl/files/default-user.png'}}
             />
           </Animatable.View>
         </TouchableHighlight>
