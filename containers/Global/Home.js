@@ -97,7 +97,7 @@ render() {
           location: this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
           }
-        style={{width: Dimensions.get('window').width*0.5}}>
+        style={{width: Dimensions.get('window').width}}>
 
 
       <Animatable.View
@@ -108,7 +108,7 @@ render() {
         direction="alternate">
           <AutoHeightImage
           onLoad={this.setAvatarAsLoaded}
-          width={Dimensions.get('window').width*0.5}
+          width={Dimensions.get('window').width}
           style={{borderRadius: Dimensions.get('window').width*0.01}}
           source={{uri: this.props.navigation.getParam('avatar', 'NO-ID')}}
           />

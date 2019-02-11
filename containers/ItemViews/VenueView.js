@@ -175,11 +175,12 @@ render() {
 
   if (this.state.venueItem){
     var images = [];
-    images.push(this.state.venueItem.venue_main_image);
+    images.push(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png');
     for (image of this.state.venueItem.venue_images){
-      images.push(image.venue_image.url)
+      images.push(image.venue_image.url ? image.venue_image.url : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')
     }
     var url = this.state.venueItem.url
+    console.log("IMAGES", images);
   }
 
   return (
@@ -256,7 +257,7 @@ render() {
   </View>
 
   <View>
-  <SnapCarousel images={images}/>
+  <SnapCarousel venueItem={this.state.venueItem} images={images}/>
   </View>
 
   <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
