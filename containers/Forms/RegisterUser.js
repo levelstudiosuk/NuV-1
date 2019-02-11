@@ -248,10 +248,11 @@ export default class RegisterUser extends React.Component {
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
-      var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
+
+      if (this.state.image != null){
+      var uriParts = this.state.image.split('.');
       var fileType = uriParts[uriParts.length - 1];
-      const avatar = 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg';
-      var pathh = `${avatar}.${fileType}`;
+    }
 
       axios.post(session_url, {"user":
   	{
@@ -272,11 +273,15 @@ export default class RegisterUser extends React.Component {
        formData.append('profile[bio]', self.state.bio);
        formData.append('profile[user_is_vegan]', self.state.vSelection);
        formData.append('profile[location]', self.state.location);
+       if (self.state.image != null){
        formData.append('profile[avatar]', {
-        uri: self.state.image ? self.state.image : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg',
-       name: self.state.image ? `${Date.now()}.${fileType}` : pathh,
+        uri: self.state.image,
+       name: `${Date.now()}.${fileType}`,
        type: `image/${fileType}`,
-      });
+      })
+    };
+
+    console.log("form data", formData);
 
          axios.post('http://nuv-api.herokuapp.com/profiles',
         formData,
