@@ -15,6 +15,7 @@ import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    LoadingCelery from '../../components/LoadingCelery.js';
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
+import    VenueSettingsOverlay from '../../components/VenueSettingsOverlay.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import {  BallIndicator,
@@ -40,11 +41,15 @@ export default class Home extends React.Component {
       this.openOverlay = this.openOverlay.bind(this);
       this.closeOverlay = this.closeOverlay.bind(this);
       this.launchMap = this.launchMap.bind(this);
+      this.openVenueOverlay = this.openVenueOverlay.bind(this);
+      this.closeVenueOverlay = this.closeVenueOverlay.bind(this);
+      this.launchVenueSearch = this.launchVenueSearch.bind(this);
      }
 
   state = {
     avatarLoading: true,
-    overlayVisible: false
+    overlayVisible: false,
+    venueOverlayVisible: false
   };
 
   openOverlay(){
@@ -56,6 +61,18 @@ export default class Home extends React.Component {
   closeOverlay(){
     this.setState({
       overlayVisible: false
+    })
+  }
+
+  openVenueOverlay(){
+    this.setState({
+      venueOverlayVisible: true
+    })
+  }
+
+  closeVenueOverlay(){
+    this.setState({
+      venueOverlayVisible: false
     })
   }
 
@@ -77,6 +94,33 @@ export default class Home extends React.Component {
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID')})
+
+    }
+  )
+  }
+
+  launchVenueSearch(navigation, distance){
+    var self = this;
+    const {navigate} = navigation
+
+    var distance = distance;
+
+    this.setState({
+      venueOverlayVisible: false
+    }, function(){
+
+      navigate('VenueList', {
+        user_id: navigation.getParam('user_id', 'NO-ID'),
+        settings: true,
+        avatar: navigation.getParam('avatar', 'NO-ID'),
+        token: navigation.getParam('token', 'NO-ID'),
+        id: navigation.getParam('id', 'NO-ID'),
+        name: navigation.getParam('name', 'NO-ID'),
+        bio: navigation.getParam('bio', 'NO-ID'),
+        location: navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
+        distance: navigation.getParam('distance', 'NO-ID')
+      })
 
     }
   )
@@ -157,6 +201,7 @@ render() {
     </TouchableHighlight>
 
     <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+    <VenueSettingsOverlay navigation={this.props.navigation} launchVenueSearch={this.launchVenueSearch} openOverlay={this.openVenueOverlay} closeOverlay={this.closeVenueOverlay} overlayVisible={this.state.venueOverlayVisible} />
 
     {
       this.state.avatarLoading === false ? (
@@ -195,14 +240,7 @@ render() {
         />
         <GlobalButton
           marginRight={Dimensions.get('window').width*0.12}
-          onPress={() => navigate('VenueList', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          onPress={() => this.openVenueOverlay()}
           buttonTitle={"Eateries"} />
         </View>
     ) :
@@ -283,6 +321,7 @@ render() {
           </Animatable.View>
         </TouchableHighlight>
         <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+        <VenueSettingsOverlay navigation={this.props.navigation} launchVenueSearch={this.launchVenueSearch} openOverlay={this.openVenueOverlay} closeOverlay={this.closeVenueOverlay} overlayVisible={this.state.venueOverlayVisible} />
 
       </View>
 
@@ -313,14 +352,7 @@ render() {
         />
       <GlobalButton
         marginRight={Dimensions.get('window').width*0.12}
-        onPress={() => navigate('VenueList', {
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
-          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+        onPress={() => this.openVenueOverlay() }
         buttonTitle={"Eateries"} />
       </View>
   ) :
