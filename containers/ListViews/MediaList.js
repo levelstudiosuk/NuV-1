@@ -28,7 +28,6 @@ export default class MediaList extends React.Component {
     }
 
     state = {
-      items: [{title: 'Papa John’s Vegan Pizza Launching 28.1.19', description: 'After PETA’s successful online petition, which gained over 29,000 signatures requesting a vegan option, Papa John’s have announced that they are adding Sheese to its nationwide menu.'}],
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
     }
 

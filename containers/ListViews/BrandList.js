@@ -37,11 +37,6 @@ export default class BrandList extends React.Component {
      }
 
     state = {
-      items: [{
-        title: "Dr Martens",
-        description: "The Dr. Martens website is extremely searchable for the vegan boot. Called “Vegan 1460” and marked with a bright green “V,” drmartenscanada.ca claims that the boot is “made with synthetic leather, 100% vegan friendly.”",
-        type: "Fashion",
-        image: require('../../assets/AppIcons/branddefault.png')}],
         seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
       }
 
@@ -167,7 +162,6 @@ export default class BrandList extends React.Component {
     }
 
     render() {
-      console.log("ITEM", this.state.items[0]);
       const {navigate} = this.props.navigation;
 
       return (
