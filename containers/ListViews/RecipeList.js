@@ -78,7 +78,7 @@ export default class RecipeList extends React.Component {
          names: self.state.recipeItems.map((recipe) => recipe.title)
        }, function(){
          console.log("Currently not calling populateRecipes()");
-         this.setState({
+         self.setState({
            recipesLoading: false
          }, function(){
            // this.populateRecipes()
@@ -484,7 +484,7 @@ export default class RecipeList extends React.Component {
 
     return (
 
-      <View style={[registerUserStyle.firstContainer]}>
+      <View style={[registerUserStyle.celeryContainer]}>
       <LoadingCelery />
       </View>
 
@@ -514,6 +514,15 @@ const registerUserStyle = StyleSheet.create({
   },
   firstContainer: {
     flex: 1,
+    height,
+    width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
+  celeryContainer: {
+    flex: 1,
+    backgroundColor: '#FBFEFC',
     height,
     width,
     justifyContent: 'center',

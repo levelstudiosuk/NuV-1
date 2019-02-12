@@ -5,6 +5,7 @@ import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo';
@@ -28,7 +29,8 @@ export default class VenueList extends React.Component {
     }
 
     state = {
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      venuesLoading: true
     }
 
     componentDidMount(){
@@ -49,6 +51,9 @@ export default class VenueList extends React.Component {
      },
      function(){
        console.log("Venue items here");
+       self.setState({
+         venuesLoading: false
+       })
      }
    )
  }).catch(function(error){
@@ -131,6 +136,8 @@ export default class VenueList extends React.Component {
 
     render() {
       const {navigate} = this.props.navigation;
+
+      if (this.state.venuesLoading === false){
       return (
 
     <View style={venueListStyle.container}>
@@ -187,7 +194,17 @@ export default class VenueList extends React.Component {
     </View>
   </ScrollView>
 </View>
-);
+)
+}
+  else {
+    return (
+
+      <View style={{backgroundColor: '#FBFEFC'}}>
+      <LoadingCelery />
+      </View>
+
+    )
+  }
 }
 }
 

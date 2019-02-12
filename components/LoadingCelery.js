@@ -13,13 +13,13 @@ export default class LoadingCelery extends Component {
   render() {
     return (
 
-    <View style={{flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{flex: 1, backgroundColor: '#FBFEFC', alignItems: 'center', justifyContent: 'center'}}>
     <AutoHeightImage
       source={require('../assets/celery.gif')}
       style={{
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: Dimensions.get('window').height*0.13}}
+        top: Dimensions.get('window').height*0.3}}
         width={Dimensions.get('window').width*0.385}
     />
     </View>
