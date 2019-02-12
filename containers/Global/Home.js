@@ -278,7 +278,7 @@ render() {
             bio: this.props.navigation.getParam('bio', 'NO-ID'),
             location: this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-          style={{width: Dimensions.get('window').width*0.5}}>
+          style={{width: Dimensions.get('window').width}}>
 
           <Animatable.View
             animation="pulse"
@@ -295,7 +295,7 @@ render() {
             />
           </Animatable.View>
         </TouchableHighlight>
-        <MapSettingsOverlay launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+        <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
 
       </View>
 
