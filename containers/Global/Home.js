@@ -13,6 +13,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
+import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import {  BallIndicator,
@@ -35,11 +36,50 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
       this.setAvatarAsLoaded = this.setAvatarAsLoaded.bind(this);
+      this.openOverlay = this.openOverlay.bind(this);
+      this.closeOverlay = this.closeOverlay.bind(this);
+      this.launchMap = this.launchMap.bind(this);
      }
 
   state = {
-    avatarLoading: true
+    avatarLoading: true,
+    overlayVisible: false
   };
+
+  openOverlay(){
+    this.setState({
+      overlayVisible: true
+    })
+  }
+
+  closeOverlay(){
+    this.setState({
+      overlayVisible: false
+    })
+  }
+
+  launchMap(navigation){
+    var self = this;
+    const {navigate} = navigation
+
+    this.setState({
+      overlayVisible: false
+    }, function(){
+
+      navigate('Map', {
+        user_id: navigation.getParam('user_id', 'NO-ID'),
+        settings: true,
+        avatar: navigation.getParam('avatar', 'NO-ID'),
+        token: navigation.getParam('token', 'NO-ID'),
+        id: navigation.getParam('id', 'NO-ID'),
+        name: navigation.getParam('name', 'NO-ID'),
+        bio: navigation.getParam('bio', 'NO-ID'),
+        location: navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID')})
+
+    }
+  )
+  }
 
   profileAvatarUri(){
     return this.state.imageSource;
@@ -70,6 +110,7 @@ render() {
         { this.state.avatarLoading === false ? (
           <NavBar
           navigation={this.props.navigation}
+          openOverlay={this.openOverlay}
           attributes={{
             token: this.props.navigation.getParam('token', 'NO-ID'),
             id: this.props.navigation.getParam('id', 'NO-ID'),
@@ -114,6 +155,9 @@ render() {
           />
         </Animatable.View>
     </TouchableHighlight>
+
+    <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+
     {
       this.state.avatarLoading === false ? (
         null
@@ -251,6 +295,8 @@ render() {
             />
           </Animatable.View>
         </TouchableHighlight>
+        <MapSettingsOverlay launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+
       </View>
 
   {
@@ -331,6 +377,7 @@ render() {
     this.state.avatarLoading === false ? (
       <NavBar
         navigation={this.props.navigation}
+        openOverlay={this.openOverlay}
         attributes={{
           token: this.props.navigation.getParam('token', 'NO-ID'),
           id: this.props.navigation.getParam('id', 'NO-ID'),

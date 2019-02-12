@@ -70,8 +70,9 @@ export default class SignIn extends React.Component {
             name:          responseForName.name,
             bio:           responseForName.bio,
             user_is_vegan: responseForName.user_is_vegan,
-            user_id: responseForName.user_id,
-            location:      responseForName.location})
+            user_id:       responseForName.user_id,
+            location:      responseForName.location
+          })
 
     })}).catch(function(e){
       Alert.alert(

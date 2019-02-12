@@ -23,7 +23,7 @@ render() {
         <Text style={{marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>Show me venues within X kilometres:</Text>
 
           <View style={{alignItems: 'center'}}>
-          <GlobalButton onPress={() => this.props.handleLogOut()} buttonTitle={"Go"} />
+          <GlobalButton onPress={() => this.props.launchMap(this.props.navigation)} buttonTitle={"Take me"} />
           </View>
 
         </Fragment>
