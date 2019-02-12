@@ -188,7 +188,7 @@ render() {
               onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
             </View>
               <Text style={recipeViewStyle.recipename}>
-                  {this.state.recipeItem.title} - {this.state.recipeItem.description}
+                  {this.state.recipeItem.title}
               </Text>
             <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>
@@ -316,7 +316,8 @@ const recipeViewStyle = StyleSheet.create({
     marginTop:        Dimensions.get('window').height*0.025,
     marginBottom:     Dimensions.get('window').height*0.025,
     marginLeft:       Dimensions.get('window').width*0.02,
-    marginRight:      Dimensions.get('window').width*0.02
+    marginRight:      Dimensions.get('window').width*0.02,
+    textAlign: 'center'
   },
   recipetype: {
     color:            '#0dc6b5',

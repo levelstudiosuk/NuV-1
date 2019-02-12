@@ -92,7 +92,7 @@ export default class RecipeFavourites extends Component {
     return favourites.map((favourite, i) =>
       <View key={i} style={{flexDirection: 'row'}}>
       <TouchableOpacity onPress={() => this.setState({clickedFavourite: favourites[i]}, function(){ this.toggleFavouriteModal() })} key={i}>
-        <Text style={{fontSize: 22, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.name} </Text>
+        <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 14, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.name} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>
       <Image source={require('../../assets/AppIcons/trash.png')} style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02,  marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} />
@@ -113,7 +113,7 @@ export default class RecipeFavourites extends Component {
 
           <View>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: 30}}>Your Favourite Recipes</Text>
+          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 26 : 18}}>Your Favourite Recipes</Text>
 
             <ScrollView>
 
@@ -121,7 +121,7 @@ export default class RecipeFavourites extends Component {
           {
             this.state.favourites ? (
               self.renderFavourites()
-            ) : <Text style={{fontSize: 24, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find recipes in the app and click the ⭐️ to add them to this list. </Text>
+            ) : <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 16, textAlign: 'center', marginTop: Dimensions.get('window').height*0.04}}>Oh no! Your favourites are currently empty. Find recipes in the app and click the ⭐️ to add them to this list. </Text>
         }
 
         </ScrollView>
