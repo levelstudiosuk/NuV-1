@@ -372,9 +372,7 @@ export default class RecipeList extends React.Component {
 
        }
 
-
         </View>
-
 
         <View style={{ flex: 1, height: height, width}}>
 
