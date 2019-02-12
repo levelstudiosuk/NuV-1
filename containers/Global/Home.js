@@ -58,7 +58,8 @@ export default class Home extends React.Component {
     position => {
       const myLocation = JSON.stringify(position);
 
-      this.setState({ myLocation }, function(){ console.log("My location", this.state.myLocation)});
+      this.setState({ latitude: position.coords.latitude,
+                    longitude: position.coords.longitude }, function(){ console.log("My position", this.state.latitude, this.state.longitude)});
     },
     error => Alert.alert(error.message),
     { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
@@ -132,7 +133,9 @@ export default class Home extends React.Component {
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
-        distance: navigation.getParam('distance', 'NO-ID')
+        distance: distance,
+        latitude: this.state.latitude,
+        longitude: this.state.longitude
       })
 
     }

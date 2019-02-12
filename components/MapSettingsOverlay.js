@@ -60,7 +60,7 @@ render() {
           value={this.state.distance}
           style={{width: Dimensions.get('window').width*0.70}}
           thumbStyle={buttonContainerStyle.thumb}
-          onValueChange={(distance) => this.setState({distance})} />
+          onValueChange={(distance) => this.props.changeMapDistanceState(distance)} />
           </View>
 
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.04}}>
