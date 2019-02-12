@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import _ from 'lodash';
 const ITEM_HEIGHT = 100;
 import {Permissions} from 'expo'
@@ -36,7 +37,8 @@ export default class RecipeList extends React.Component {
   state = {
     isLoading: false,
     recipeTyped: "",
-    seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+    seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+    recipesLoading: true
   }
 
   getActiveToggleIndex(){
@@ -76,7 +78,11 @@ export default class RecipeList extends React.Component {
          names: self.state.recipeItems.map((recipe) => recipe.title)
        }, function(){
          console.log("Currently not calling populateRecipes()");
-         // this.populateRecipes()
+         this.setState({
+           recipesLoading: false
+         }, function(){
+           // this.populateRecipes()
+         })
        })
      }
    )
@@ -306,6 +312,8 @@ export default class RecipeList extends React.Component {
         </TouchableOpacity>
       </View>
     );
+
+    if (this.state.recipesLoading === false){
     return (
       <View style={[registerUserStyle.firstContainer]}>
 
@@ -469,7 +477,19 @@ export default class RecipeList extends React.Component {
 }
 
     </View>
-)
+  )
+}
+
+  else {
+
+    return (
+
+      <View style={[registerUserStyle.firstContainer]}>
+      <LoadingCelery />
+      </View>
+
+    )
+  }
 
 }
 }
