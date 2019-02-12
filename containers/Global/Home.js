@@ -13,6 +13,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
+import    LoadingCelery from '../../components/LoadingCelery.js';
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import * as Animatable from 'react-native-animatable';
@@ -86,7 +87,6 @@ export default class Home extends React.Component {
   }
 
   setAvatarAsLoaded(){
-   console.log("LOADED");
     this.setState({
       avatarLoading: false
     })
@@ -162,14 +162,7 @@ render() {
       this.state.avatarLoading === false ? (
         null
   ) :
-      <AutoHeightImage
-        source={require('../../assets/celery.gif')}
-        style={{
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          top: Dimensions.get('window').height*0.26}}
-        width={Dimensions.get('window').width*0.77}
-      />
+    <LoadingCelery/>
     }
     </View>
 
@@ -254,14 +247,8 @@ render() {
       this.state.avatarLoading === false ? (
         null
       ) :
-      <AutoHeightImage
-        source={require('../../assets/celery.gif')}
-        style={{
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          top: Dimensions.get('window').height*0.26}}
-        width={Dimensions.get('window').width*0.77}
-   />
+
+      <LoadingCelery />
   }
 
   <ScrollView showsVerticalScrollIndicator={false}>
