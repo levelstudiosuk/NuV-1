@@ -189,6 +189,15 @@ export default class RecipeList extends React.Component {
   })
 }
 
+  handleLongRecipeNames(name){
+    if (name.length > 29){
+     return name.substring(0, 29) + '...'
+   }
+   else {
+     return name
+   }
+  }
+
   searchBarPlaceholderText(){
     return `Enter recipe key word`;
   }
@@ -252,7 +261,7 @@ export default class RecipeList extends React.Component {
                 : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
-            {o.item.title ? o.item.title : 'Unknown'}
+            {o.item.title ? this.handleLongRecipeNames(o.item.title) : 'Unknown'}
           </Text>
         </TouchableOpacity>
       </View>

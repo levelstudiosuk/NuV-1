@@ -13,6 +13,7 @@ import { StyleSheet,
 import { Constants } from 'expo'
 import   GlobalButton from '../../components/GlobalButton.js';
 import   SnapCarousel       from '../../components/SnapCarousel.js';
+import   LoadingCelery       from '../../components/LoadingCelery.js';
 import   AddItemButton from '../../components/AddItemButton.js';
 import   FaveButton from '../../components/FaveButton.js';
 import   ShareButton from '../../components/ShareButton.js';
@@ -51,6 +52,7 @@ export default class RecipeView extends React.Component {
     componentDidMount(){
 
       var id = this.props.navigation.getParam('id', 'NO-ID');
+      console.log("ID", id);
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
 
@@ -274,11 +276,7 @@ render() {
 
     ) :
 
-    <AutoHeightImage
-      source={require('../../assets/celery.gif')}
-      style={{
-        backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
-     />
+    <LoadingCelery />
 
   }
     </View>
