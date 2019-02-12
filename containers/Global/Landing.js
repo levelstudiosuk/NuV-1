@@ -27,7 +27,7 @@ export default class Landing extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={landingStyle.container}>
-      <AutoHeightImage source={require('../../assets/AppIcons/transparentlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}} width={Dimensions.get('window').width*0.77} />
+      <AutoHeightImage source={require('../../assets/greenlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}} width={Dimensions.get('window').width*0.77} />
 
       <View style={landingStyle.iconsContainer}>
 
