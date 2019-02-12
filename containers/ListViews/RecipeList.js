@@ -95,7 +95,7 @@ export default class RecipeList extends React.Component {
 
    populateRecipes(){
      var self = this;
-     axios.get('https://api.edamam.com/search?q=breakfast&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=50&health=vegan')
+     axios.get('https://api.edamam.com/search?q=breakfast&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=500&health=vegan')
 
   .then(function(response){
 
@@ -109,7 +109,8 @@ export default class RecipeList extends React.Component {
         url: recipe.recipe.url,
         totalTime: recipe.recipe.totalTime,
         ingredients: recipe.recipe.ingredientLines,
-        image: recipe.recipe.image
+        image: recipe.recipe.image,
+        healthLabels: recipe.recipe.healthLabels
       }
       recipesArray.push(recipe)
     })
@@ -117,16 +118,26 @@ export default class RecipeList extends React.Component {
       console.log("recipes", recipesArray);
       var token = self.props.navigation.getParam('token', 'NO-ID');
       for (recipe of recipesArray) {
+
+      if (recipe.healthLabels.includes("Vegan")){
+
       const formData = new FormData();
-      formData.append('recipe[title]', recipe.name);
-      formData.append('recipe[description]', recipe.image);
+      formData.append('recipe[title]', recipe.name.includes("Dinner Tonight:") ? recipe.name.replace('Dinner Tonight: ', "") : recipe.name);
+      formData.append('recipe[method]', recipe.image);
       formData.append('recipe[content_is_vegan]', true);
       formData.append('recipe[category]', "Breakfast");
 
       var ingredients = ""
-      for (ingredient of recipe.ingredients){
-        ingredients += ingredient
+      for (var i = 0; i < recipe.ingredients.length; i++){
+        if (i != recipe.ingredients.length - 1){
+        ingredients += `${recipe.ingredients[i]}, `
       }
+        else {
+          ingredients += recipe.ingredients[i]
+        }
+      }
+
+      var ingredientsList = recipe.ingredients
       formData.append('recipe[cooking_time]', recipe.totalTime);
       formData.append('recipe[ingredients]', ingredients);
 
@@ -137,7 +148,7 @@ export default class RecipeList extends React.Component {
    .then(function(response){
      console.log("RESP", response);
    }).catch(function(error){ console.log(error)})
- }
+ }}
   }).catch(function(error){
     console.log("Error: ", error);
   })
@@ -345,7 +356,7 @@ export default class RecipeList extends React.Component {
           <AutoHeightImage
             style={{marginTop: Dimensions.get('window').height*0.05}}
             width={Dimensions.get('window').width*0.5}
-            source={{uri: this.state.activeItem.item.recipe_main_image.url}}
+            source={{uri: this.state.activeItem.item.method}}
             />
           </TouchableHighlight>
 
