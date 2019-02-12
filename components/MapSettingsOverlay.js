@@ -7,22 +7,37 @@ import GradientButton from './GradientButton.js';
 import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
 import Slider from 'react-native-slider';
+import MapSettingsTwoWayToggle from './MapSettingsTwoWayToggle.js';
 
 export default class MapSettingsOverlay extends Component {
 
   constructor(props) {
   super(props);
 
+    this.changeToggleSelection = this.changeToggleSelection.bind(this);
   }
 
   state = {
-      distance: 10
+      distance: 10,
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
     };
 
+
+    getActiveToggleIndex(){
+      return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+    }
+
+    changeToggleSelection(selection){
+
+      this.setState({
+        seeOnlyVegan: selection
+      })
+
+    }
+
 render() {
-  console.log("dist", this.state.distance);
   return (
-    <View style={{  alignItems: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
+    <View style={{  alignItems: 'center', justifyContent: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
 
     <Overlay visible={this.props.overlayVisible} onClose={this.props.closeOverlay} closeOnTouchOutside
     animationType="fadeInUp" containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
@@ -31,7 +46,7 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Search radius</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Eatery search radius</Text>
 
           <View style={buttonContainerStyle.container}>
           <Slider
@@ -49,11 +64,12 @@ render() {
           </View>
 
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.04}}>
-          <Text style={{marginTop: Dimensions.get('window').width*0.02, color: 'black', fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km</Text>
+          <Text style={{marginBottom: Dimensions.get('window').width*0.135, marginTop: Dimensions.get('window').width*0.02, color: 'black', fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km</Text>
           </View>
 
+          <MapSettingsTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.05}}>
+          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.1}}>
           <GlobalButton onPress={() => this.props.launchMap(this.props.navigation)} buttonTitle={"Go"} />
           </View>
 
