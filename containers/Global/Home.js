@@ -7,6 +7,7 @@ import {  StyleSheet,
           Button,
           Text,
           View,
+          Alert,
           Image } from 'react-native';
 import {  Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
@@ -51,6 +52,18 @@ export default class Home extends React.Component {
     overlayVisible: false,
     venueOverlayVisible: false
   };
+
+  componentDidMount(){
+    navigator.geolocation.getCurrentPosition(
+    position => {
+      const myLocation = JSON.stringify(position);
+
+      this.setState({ myLocation }, function(){ console.log("My location", this.state.myLocation)});
+    },
+    error => Alert.alert(error.message),
+    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+  );
+  }
 
   openOverlay(){
     this.setState({
