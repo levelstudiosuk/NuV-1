@@ -159,7 +159,12 @@ render() {
   if (this.state.recipeItem){
     var images = [];
     for (image of this.state.recipeItem.recipe_images){
+      if (image){
       images.push(image.recipe_image.url)
+    }
+    else {
+      images.push(image.method)
+    }
     }
   }
 
@@ -183,7 +188,7 @@ render() {
               <Text style={recipeViewStyle.recipename}>
                   {this.state.recipeItem.title} - {this.state.recipeItem.description}
               </Text>
-            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.recipe_main_image_location}}/>
+            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -228,14 +233,12 @@ render() {
             Method:{"\n"}
             </Text>
             <Text style={recipeViewStyle.recipemethodbody}>
-            {this.state.recipeItem.method}
+            {this.state.recipeItem.category}
             </Text>
           </View>
         </View>
 
-        <View>
-        <SnapCarousel images={images}/>
-        </View>
+
 
 
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>

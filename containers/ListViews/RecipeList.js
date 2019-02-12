@@ -350,7 +350,7 @@ export default class RecipeList extends React.Component {
 
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => navigate('RecipeView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.image})}
+          onPress={() => navigate('RecipeView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.method})}
           style={underlayColor="white"}
           >
           <AutoHeightImage
