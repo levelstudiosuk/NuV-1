@@ -114,7 +114,7 @@ export default class RecipeView extends React.Component {
 
     var self = this;
 
-    var recipe = {name: JSON.stringify(this.props.navigation.getParam('name', 'Does not exist')), prep_time: JSON.stringify(this.props.navigation.getParam('prep_time', 'Does not exist')), cook_time: JSON.stringify(this.props.navigation.getParam('cook_time', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+    var recipe = {name: this.state.recipeItem.title, cook_time: this.state.recipeItem.cooking_time}
 
     try {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {

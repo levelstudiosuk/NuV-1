@@ -132,7 +132,7 @@ checkFavouriteStatus(viewedVenue) {
 
     var self = this;
 
-    var venue = {title: JSON.stringify(this.state.venueItem.title), address: JSON.stringify(this.state.venueItem.postcode), description: JSON.stringify(this.state.venueItem.description), type: JSON.stringify(this.state.venueItem.venue_type), image: JSON.stringify(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')}
+    var venue = {title: this.state.venueItem.title, image: JSON.stringify(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')}
 
     try {
       AsyncStorage.getItem('venue_favourites').then((venues) => {
