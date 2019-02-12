@@ -84,7 +84,7 @@ render() {
       )}
     >
 
-    <View style={homeStyle.buttonContainer}>
+    <View style={homeStyle.button2Container}>
       <TouchableHighlight
         underlayColor="white"
         onPress={() => navigate('UserView', {
@@ -222,7 +222,7 @@ render() {
 
   <ScrollView showsVerticalScrollIndicator={false}>
 
-    <View style={homeStyle.buttonContainer}>
+    <View style={homeStyle.button2Container}>
       <TouchableHighlight
         underlayColor="white"
           onPress={() => navigate('UserView', {
@@ -245,7 +245,7 @@ render() {
 
             <AutoHeightImage
               onLoad={this.setAvatarAsLoaded}
-              width={this.state.avatarLoading === false ? Dimensions.get('window').width*0.5 : 1}
+              width={this.state.avatarLoading === false ? Dimensions.get('window').width*1 : 1}
               style={{borderRadius: Dimensions.get('window').width*0.01}}
               source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'https://www.viawater.nl/files/default-user.png'}}
             />
@@ -383,6 +383,10 @@ const homeStyle = StyleSheet.create({
   buttonContainer: {
     marginBottom:     Dimensions.get('window').height*0.01,
     marginTop:        Dimensions.get('window').height*0.05,
+    alignItems:       'center',
+  },
+  button2Container: {
+    marginBottom:     Dimensions.get('window').height*0.01,
     alignItems:       'center',
   },
   greetingContainer: {
