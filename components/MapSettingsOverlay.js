@@ -113,7 +113,7 @@ render() {
             marginTop: Dimensions.get('window').height*0.1}}
             >
             <GlobalButton
-              onPress={() => this.props.launchMap(this.props.navigation)}
+              onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
               buttonTitle={"Go"}
             />
 

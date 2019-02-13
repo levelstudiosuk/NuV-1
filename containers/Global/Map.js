@@ -232,7 +232,7 @@ render() {
           this.state.isFlipped === true ? (
             <View style={mapStyle.flipbutton}>
             <GlobalButton
-              buttonTitle="flip"
+              buttonTitle="Flip"
               onPress={() => {
                 this.resetFlipped()
               }}
