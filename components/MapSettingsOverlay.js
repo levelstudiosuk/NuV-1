@@ -70,7 +70,7 @@ render() {
           <MapSettingsTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
 
           <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.1}}>
-          <GlobalButton onPress={() => this.props.launchMap(this.props.navigation)} buttonTitle={"Go"} />
+          <GlobalButton onPress={() => this.props.launchMap(this.props.navigation, this.state.distance)} buttonTitle={"Go"} />
           </View>
 
         </Fragment>
