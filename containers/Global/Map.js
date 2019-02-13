@@ -86,7 +86,29 @@ export default class Map extends React.Component {
 
     }
 
-    venueResultsMarkers(){
+    plotVeganRestaurants(){
+
+      return this.state.venueItems.filter(venue => venue.content_is_vegan === true).map( (venue, i) =>
+
+          <MapView.Marker
+
+                            key={i}
+                            coordinate={{
+                              latitude: parseFloat(venue.latitude),
+                              longitude: parseFloat(venue.longitude)
+                            }}
+                            title={`${venue.title}`}
+                            pinColor={'green'}
+                            description={"Click to view"}
+                            onCalloutPress={() => this.processMarkerClick(venue.id)}
+                            >
+
+                            </MapView.Marker>
+        )
+    }
+
+    plotVeganAndVegetarianRestaurants(){
+
       return this.state.venueItems.map( (venue, i) =>
 
           <MapView.Marker
@@ -99,11 +121,30 @@ export default class Map extends React.Component {
                             title={`${venue.title}`}
                             pinColor={'green'}
                             description={"Click to view"}
-                            onCalloutPress={() => this.setState({ isFlipped: !this.state.isFlipped })}
+                            onCalloutPress={() => this.processMarkerClick(venue.id)}
                             >
 
                             </MapView.Marker>
-        )
+                          )
+
+    }
+
+    venueResultsMarkers(){
+      if (this.props.navigation.getParam('see_only_vegan', 'NO-ID') === true){
+        return this.plotVeganRestaurants()
+      }
+      else {
+        return this.plotVeganAndVegetarianRestaurants()
+      }
+    }
+
+    processMarkerClick(venueId){
+      console.log("Clicked venue ID", venueId);
+      this.setState({
+        clickedVenue: venue
+      }, function(){
+        this.setState({ isFlipped: !this.state.isFlipped })
+      })
     }
 
 render() {
@@ -141,8 +182,6 @@ render() {
               title={"Default location"}
               pinColor={'red'}
               description={"Click HERE for venue details"}
-              onCalloutPress={() => {
-              this.setState({ isFlipped: !this.state.isFlipped })}}
             />
           {this.venueResultsMarkers()}
         </MapView>
@@ -166,7 +205,8 @@ render() {
           }
 
         backView={
-          <VenueView fromMap={true} id={this.props.navigation.getParam('id', 'NO-ID')} token={this.props.navigation.getParam('token', 'NO-ID')} navigation={this.props.navigation}/>
+
+          <VenueView fromMap={true} venue={this.state.clickedVenue ? this.state.clickedVenue : 12} id={this.props.navigation.getParam('id', 'NO-ID')} token={this.props.navigation.getParam('token', 'NO-ID')} navigation={this.props.navigation}/>
           }
           />
 

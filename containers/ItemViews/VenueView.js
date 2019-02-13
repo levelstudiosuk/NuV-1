@@ -56,7 +56,7 @@ constructor(props) {
     componentDidMount(){
 
       if (this.props.fromMap === true){
-        var id = 12;
+        var id = this.props.venue;
         var token = this.props.token;
       }
       else {

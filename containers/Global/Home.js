@@ -90,7 +90,7 @@ export default class Home extends React.Component {
     })
   }
 
-  launchMap(navigation, distance){
+  launchMap(navigation, distance, vegan){
     var self = this;
     const {navigate} = navigation
 
@@ -110,7 +110,8 @@ export default class Home extends React.Component {
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
         distance: distance,
         latitude: this.state.latitude,
-        longitude: this.state.longitude
+        longitude: this.state.longitude,
+        see_only_vegan: vegan
     }
   )
   }
