@@ -37,40 +37,86 @@ export default class MapSettingsOverlay extends Component {
 
 render() {
   return (
-    <View style={{  alignItems: 'center', justifyContent: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
+    <View style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: Dimensions.get('window').height*0.025
+      }}>
 
-    <Overlay visible={this.props.overlayVisible} onClose={this.props.closeOverlay} closeOnTouchOutside
-    animationType="fadeInUp" containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-    childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
-    animationDuration={500}>
+    <Overlay
+      visible={this.props.overlayVisible}
+      onClose={this.props.closeOverlay}
+      closeOnTouchOutside
+      animationType="fadeInUp"
+      containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+      childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
+      animationDuration={500}
+    >
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Eatery search radius</Text>
+          <Text style={{
+            textAlign: 'center',
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+            marginBottom: Dimensions.get('window').height*0.05,
+            marginTop: Dimensions.get('window').height*0.03 }}>
+              Search for eats within:
+          </Text>
 
           <View style={buttonContainerStyle.container}>
-          <Slider
-          animateTransitions={true}
-          minimumValue={5}
-          maximumValue={25}
-          step={5}
-          minimumTrackTintColor={'#0DC6B5'}
-          maximumTrackTintColor={'#92FE9D'}
-          thumbTintColor={'grey'}
-          value={this.state.distance}
-          style={{width: Dimensions.get('window').width*0.70}}
-          thumbStyle={buttonContainerStyle.thumb}
-          onValueChange={(distance) => this.setState({distance})} />
+            <Slider
+              animateTransitions={true}
+              minimumValue={5}
+              maximumValue={25}
+              step={5}
+              minimumTrackTintColor={'#a2e444'}
+              maximumTrackTintColor={'#2e8302'}
+              thumbTintColor={'grey'}
+              value={this.state.distance}
+              style={{width: Dimensions.get('window').width*0.70}}
+              thumbStyle={buttonContainerStyle.thumb}
+              onValueChange={(distance) => this.setState({distance})}
+            />
           </View>
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.04}}>
-          <Text style={{marginBottom: Dimensions.get('window').width*0.135, marginTop: Dimensions.get('window').width*0.02, color: 'black', fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km</Text>
+          <View style={{
+            alignItems: 'center',
+            marginTop: Dimensions.get('window').height*0.04}}
+          >
+            <Text style={{
+              marginBottom: Dimensions.get('window').width*0.135,
+              marginTop: Dimensions.get('window').width*0.02,
+              color: 'black',
+              fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
+            </Text>
           </View>
 
-          <MapSettingsTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.1}}>
-          <GlobalButton onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)} buttonTitle={"Go"} />
+
+          <Text style={{
+            textAlign: 'center',
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+            marginBottom: Dimensions.get('window').height*0.04,
+            marginTop: Dimensions.get('window').height*0.01 }}>
+              Type of venue:
+          </Text>
+
+            <MapSettingsTwoWayToggle
+              changeToggleSelection={this.changeToggleSelection}
+              activeIndex={this.getActiveToggleIndex()}
+            />
+
+
+
+          <View style={{
+            alignItems: 'center',
+            marginTop: Dimensions.get('window').height*0.1}}
+            >
+            <GlobalButton
+              onPress={() => this.props.launchMap(this.props.navigation)}
+              buttonTitle={"Go"}
+            />
+
           </View>
 
         </Fragment>
@@ -93,20 +139,20 @@ const buttonContainerStyle = StyleSheet.create({
     alignItems:      'center',
   },
   container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: Dimensions.get('window').width*0.4
+    flex:            1,
+    marginLeft:      10,
+    marginRight:     10,
+    alignItems:      'center',
+    justifyContent:  'center',
+    width:           Dimensions.get('window').width*0.4
   },
   thumb: {
-   width: Dimensions.get('window').width*0.05,
-   height: Dimensions.get('window').width*0.05,
-   shadowColor: '#92FE9D',
-   shadowOffset: {width: 0, height: 1},
-   shadowOpacity: 0.5,
-   shadowRadius: 1,
+   width:            Dimensions.get('window').width*0.05,
+   height:           Dimensions.get('window').width*0.05,
+   shadowColor:      '#2e8302',
+   shadowOffset:     {width: 0, height: 1},
+   shadowOpacity:    0.5,
+   shadowRadius:     1,
 
  }
 });

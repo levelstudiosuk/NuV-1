@@ -130,7 +130,7 @@ render() {
         layout={{vertical: 0, horizontal: -1}}
         onActivate={(number) => this.setActiveItem(number)}
         containerStyles={_.times(3, () => ({
-            backgroundColor: '#0dc6b5',
+            backgroundColor: '#2e8302',
             borderRadius: 40,
             borderWidth: 1,
             borderColor: "white",

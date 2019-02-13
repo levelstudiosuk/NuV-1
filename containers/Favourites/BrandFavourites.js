@@ -112,7 +112,14 @@ export default class BrandFavourites extends Component {
 
           <View>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.05, color: '#0dc6b5', textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 26 : 18}}>Your Favourite Brands</Text>
+          <Text style={{
+            marginTop: Dimensions.get('window').height*0.05,
+            color: '#2e8302',
+            textAlign: 'center',
+            fontSize: Dimensions.get('window').width > 750 ? 26 : 18
+            }}>
+            Your Favourite Brands
+          </Text>
 
             <ScrollView>
 

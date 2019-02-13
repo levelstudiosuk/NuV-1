@@ -37,7 +37,7 @@ export default class VenueView extends React.Component {
   static navigationOptions = {
     title: null,
       headerTitle:(
-        <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
+        <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
         ),
       }
 
