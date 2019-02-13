@@ -92,7 +92,7 @@ export default class TwoWayToggle extends React.Component {
             layout={{vertical: 0, horizontal: -1}}
             onActivate={(number) => this.setActiveItem(number)}
             containerStyles={_.times(3, () => ({
-                backgroundColor: '#a2e444',
+                backgroundColor: '#2e8302',
                 borderRadius: 40,
                 borderWidth: 1,
                 borderColor: "white",
