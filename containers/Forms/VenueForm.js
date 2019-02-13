@@ -49,9 +49,10 @@ export default class VenueForm extends React.Component {
     componentDidMount(){
       navigator.geolocation.getCurrentPosition(
       position => {
-        const venueLocation = JSON.stringify(position);
+        const myLocation = JSON.stringify(position);
 
-        this.setState({ venueLocation }, function(){ console.log("Venue location", this.state.venueLocation)});
+        this.setState({ latitude: position.coords.latitude,
+                      longitude: position.coords.longitude }, function(){ console.log("My position", this.state.latitude, this.state.longitude)});
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
