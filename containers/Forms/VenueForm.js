@@ -187,8 +187,9 @@ export default class VenueForm extends React.Component {
         latitude: response.result.latitude,
         longitude: response.result.longitude
       })
-
     }
+  )
+  }
 
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
