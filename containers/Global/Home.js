@@ -107,13 +107,15 @@ export default class Home extends React.Component {
         name: navigation.getParam('name', 'NO-ID'),
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID')}),
+        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
         distance: distance,
         latitude: this.state.latitude,
         longitude: this.state.longitude
     }
   )
   }
+)
+}
 
   launchVenueSearch(navigation, distance){
     var self = this;

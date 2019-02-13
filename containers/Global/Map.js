@@ -14,11 +14,13 @@ import { StyleSheet,
 import { Constants } from 'expo'
 import   NavBar from '../../components/NavBar.js';
 import   GlobalButton from '../../components/GlobalButton.js';
+import   LoadingCelery from '../../components/LoadingCelery.js';
 import   AutoHeightImage from 'react-native-auto-height-image';
 import   MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import   FlipComponent from 'react-native-flip-component';
 import   VenueView from '../ItemViews/VenueView.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
+import axios from 'axios';
 
 export default class Map extends React.Component {
   static navigationOptions = {
@@ -46,13 +48,12 @@ export default class Map extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
-     var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, self.props.navigation.getParam('latitude', 'NO-ID'), self.props.navigation.getParam('longitude', 'NO-ID')) <= self.props.navigation.getParam('distance', 'NO-ID'));
+     var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, 55.9497, -3.1811) <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
      },
      function(){
-       console.log("Venue items here");
        self.setState({
          venuesLoading: false
        })
@@ -85,6 +86,26 @@ export default class Map extends React.Component {
 
     }
 
+    venueResultsMarkers(){
+      return this.state.venueItems.map( (venue, i) =>
+
+          <MapView.Marker
+
+                            key={i}
+                            coordinate={{
+                              latitude: parseFloat(venue.latitude),
+                              longitude: parseFloat(venue.longitude)
+                            }}
+                            title={`${venue.title}`}
+                            pinColor={'green'}
+                            description={"Click to view"}
+                            onCalloutPress={() => this.setState({ isFlipped: !this.state.isFlipped })}
+                            >
+
+                            </MapView.Marker>
+        )
+    }
+
 render() {
 
   const {navigate} = this.props.navigation;
@@ -92,6 +113,7 @@ render() {
   return (
 
   <View>
+  { this.state.venueItems ? (
     <ScrollView>
     <FlipComponent
         isFlipped={this.state.isFlipped}
@@ -107,8 +129,8 @@ render() {
             region={{
               latitude: 55.9497,
               longitude: -3.1811,
-              latitudeDelta: 0.003,
-              longitudeDelta: 0.003
+              latitudeDelta: 0.03,
+              longitudeDelta: 0.03
             }}
           >
         <MapView.Marker
@@ -122,6 +144,7 @@ render() {
               onCalloutPress={() => {
               this.setState({ isFlipped: !this.state.isFlipped })}}
             />
+          {this.venueResultsMarkers()}
         </MapView>
         <View style={{
           height: Dimensions.get('window').height * 0.125,
@@ -160,6 +183,11 @@ render() {
           ) : null
         }
       </ScrollView>
+
+    ) :
+      <LoadingCelery />
+
+  }
     </View>
   )}
 };
