@@ -158,6 +158,10 @@ export default class Home extends React.Component {
     })
   }
 
+  getPortraitSize(){
+    return Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.8 : Dimensions.get('window').width*0.55
+  }
+
 render() {
   const {navigate} = this.props.navigation;
 
@@ -218,7 +222,7 @@ render() {
       >
           <AutoHeightImage
             onLoad={this.setAvatarAsLoaded}
-            width={Dimensions.get('window').width*0.8}
+            width={this.state.avatarLoading === false ? this.getPortraitSize() : 1}
             style={{
               borderRadius: 4,
               borderWidth: 3,
@@ -262,7 +266,7 @@ render() {
               color: 'black',
               marginLeft:30,
               marginRight:30,
-              adjustsFontSizeToFit: true
+              flex: 1
             }}>
             {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}
           </Text>
@@ -352,7 +356,7 @@ render() {
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-          style={{width: Dimensions.get('window').width}}>
+          style={{width: this.state.avatarLoading === false ? this.getPortraitSize() : 1}}>
 
           <Animatable.View
             animation      = "pulse"
@@ -362,12 +366,18 @@ render() {
             direction      = "alternate"
           >
 
-            <AutoHeightImage
-              onLoad={this.setAvatarAsLoaded}
-              width={this.state.avatarLoading === false ? Dimensions.get('window').width*1 : 1}
-              style={{borderRadius: Dimensions.get('window').width*0.01}}
-              source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
-            />
+          <AutoHeightImage
+            onLoad={this.setAvatarAsLoaded}
+            width={this.state.avatarLoading === false ? this.getPortraitSize() : 1}
+            style={{
+              borderRadius: 4,
+              borderWidth: 3,
+              borderColor: '#a2e444',
+              borderRadius: Dimensions.get('window').width*0.4,
+              marginTop: Dimensions.get('window').height*0.02
+              }}
+            source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+          />
           </Animatable.View>
         </TouchableHighlight>
          <MapSettingsOverlay
@@ -392,7 +402,9 @@ render() {
         <Text
           style={{
             fontSize: 20,
-            color:'black'
+            color:'black',
+            textAlign: 'center',
+            marginBottom: Dimensions.get('window').height*0.04
           }}>
           {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}
         </Text>
@@ -525,8 +537,9 @@ const homeStyle = StyleSheet.create({
     alignItems:       'center',
   },
   greetingContainer: {
-    marginBottom:     Dimensions.get('window').height*0.01,
-    marginTop:        Dimensions.get('window').height*0.015,
+    flex: 1,
+    marginBottom:     Platform.OS === 'ios' ? Dimensions.get('window').height*0.015 : Dimensions.get('window').height*0.045,
+    marginTop:        Dimensions.get('window').height*0.005,
     alignItems:       'center',
     backgroundColor:  'white',
     height:           Dimensions.get('window').height*0.03

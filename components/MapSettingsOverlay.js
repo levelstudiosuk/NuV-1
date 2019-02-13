@@ -40,7 +40,7 @@ render() {
     <View style={{
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: Dimensions.get('window').height*0.025
+        marginTop: this.props.overlayVisible === true ? Dimensions.get('window').height*0.025 : Dimensions.get('window').height*0.0001
       }}>
 
     <Overlay

@@ -125,10 +125,12 @@ export default class UserView extends React.Component {
           {this.getLocation()}
         </Text>
       </View>
+      <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
         <Image
           style={{width: 90, height: 90}}
           source= {Badges.getDietBadge (this.returnStatus())}
         />
+        </View>
     </View>
 
     <AutoHeightImage
@@ -183,7 +185,7 @@ export default class UserView extends React.Component {
       marginTop: Dimensions.get('window').height*0.03,
       marginBottom: Dimensions.get('window').height*0.015}}
     >
-      Your NüV Contributions from
+      Your NüV Contributions
     </Text>
 
     <View style={userViewStyle.iconsContainer}>
