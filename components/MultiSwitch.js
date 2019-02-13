@@ -96,7 +96,8 @@ export default class MultiSwitch extends Component {
       <View style={[{width: this.getContainerWidth() + 2, height: this.getContainerHeight()+2}, this.getStyle(this.state.active, this.props.containerStyles)]}>
         <FlatList data={this.props.children}
                   keyExtractor={(item, nb) => { return nb.toString() }}
-                  renderItem={this.renderItem.bind(this)} numColumns={this.getLayout().horizontal} style={{flex: 1}}
+                  renderItem={this.renderItem.bind(this)} numColumns={this.getLayout().horizontal}
+                  style={{flex: 1}}
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}/>
 

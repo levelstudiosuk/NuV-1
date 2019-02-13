@@ -55,8 +55,8 @@ render() {
           minimumValue={5}
           maximumValue={25}
           step={5}
-          minimumTrackTintColor={'#0DC6B5'}
-          maximumTrackTintColor={'#92FE9D'}
+          minimumTrackTintColor={'#2e8302'}
+          maximumTrackTintColor={'#a2e444'}
           thumbTintColor={'grey'}
           value={this.state.distance}
           style={{width: Dimensions.get('window').width*0.70}}
