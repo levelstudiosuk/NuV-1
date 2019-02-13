@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, Platform, Alert, TouchableHighlight, Image, Tex
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
+import VenueFormOverlay from '../../components/VenueFormOverlay.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
@@ -78,6 +79,8 @@ export default class VenueForm extends React.Component {
     userInVenueStateUpdate(status){
       this.setState({
         userInVenue: status
+      }, function(){
+        this.closeOverlay();
       })
     }
 
@@ -295,10 +298,7 @@ export default class VenueForm extends React.Component {
           "Please enter a valid UK postcode"
         )
   }
-
-
    }
-
 
   render() {
     const {navigate} = this.props.navigation;
@@ -332,6 +332,8 @@ export default class VenueForm extends React.Component {
 
             <View style={{marginTop: Dimensions.get('window').height*0.07}}>
             </View>
+
+            <VenueFormOverlay overlayVisible={this.state.overlayVisible} closeOverlay={this.closeOverlay} userInVenueStateUpdate={this.userInVenueStateUpdate} />
 
             <AutoHeightImage
               width={70}

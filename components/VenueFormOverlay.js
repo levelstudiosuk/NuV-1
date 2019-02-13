@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from 'react'
 import { Button }    from 'react-native-elements';
 import { View,
@@ -10,23 +9,20 @@ import Overlay from 'react-native-modal-overlay'
 import Slider from 'react-native-slider';
 import MapSettingsTwoWayToggle from './MapSettingsTwoWayToggle.js';
 
-export default class MapSettingsOverlay extends Component {
+export default class VenueFormOverlay extends Component {
 
   constructor(props) {
   super(props);
 
-    this.changeToggleSelection = this.changeToggleSelection.bind(this);
   }
 
   state = {
-      distance: 10,
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
     };
 
 
 render() {
   return (
-    <View style={{  alignItems: 'center', justifyContent: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
+    <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: Dimensions.get('window').height*0.005 }}>
 
     <Overlay visible={this.props.overlayVisible} onClose={this.props.closeOverlay} closeOnTouchOutside
     animationType="fadeInUp" containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
@@ -35,17 +31,12 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Are you currently at this venue?</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Are you currently at this venue?</Text>
 
-          <View style={buttonContainerStyle.container}>
-
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.02}}>
-          <GlobalButton onPress={() => this.props.launchVenueSearch(this.props.navigation, this.state.distance)} buttonTitle={"Yes"} />
-          </View>
-
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.02}}>
-          <GlobalButton onPress={() => this.props.launchVenueSearch(this.props.navigation, this.state.distance)} buttonTitle={"No"} />
-          </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <GlobalButton onPress={() => this.props.userInVenueStateUpdate(true) } buttonTitle={"Yes"} />
+          <GlobalButton onPress={() => this.props.userInVenueStateUpdate(false) } buttonTitle={"No"} />
+        </View>
 
         </Fragment>
       )
@@ -73,7 +64,7 @@ const buttonContainerStyle = StyleSheet.create({
     marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('window').width*0.4
+    width: Dimensions.get('window').width*0.4,
   },
   thumb: {
    width: Dimensions.get('window').width*0.05,
