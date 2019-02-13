@@ -57,6 +57,7 @@ constructor(props) {
 
       if (this.props.fromMap === true){
         var id = this.props.venue;
+        console.log("ID", id);
         var token = this.props.token;
       }
       else {
