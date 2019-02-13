@@ -18,6 +18,7 @@ import   AutoHeightImage from 'react-native-auto-height-image';
 import   MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import   FlipComponent from 'react-native-flip-component';
 import   VenueView from '../ItemViews/VenueView.js';
+import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 
 export default class Map extends React.Component {
   static navigationOptions = {
@@ -28,7 +29,61 @@ export default class Map extends React.Component {
     super(props);
     this.state = {
       isFlipped: false,
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      venuesLoading: true
     }};
+
+
+    componentDidMount(){
+      const {navigate} = this.props.navigation;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get('http://nuv-api.herokuapp.com/venues',
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var responseItems = JSON.parse(response.request['_response']);
+     var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, self.props.navigation.getParam('latitude', 'NO-ID'), self.props.navigation.getParam('longitude', 'NO-ID')) <= self.props.navigation.getParam('distance', 'NO-ID'));
+
+     self.setState({
+       venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
+     },
+     function(){
+       console.log("Venue items here");
+       self.setState({
+         venuesLoading: false
+       })
+     }
+   )
+  }).catch(function(error){
+   console.log("Error: ", error);
+  })
+    }
+
+    approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
+
+      var R = 6371.0
+
+      var lat1_rad = lat1 * (Math.PI / 180)
+      var long1_rad = long1 * (Math.PI / 180)
+      var lat2_rad = lat2 * (Math.PI / 180)
+      var long2_rad = long2 * (Math.PI / 180)
+
+      var dlong = long2_rad - long1_rad
+      var dlat = lat2_rad - lat1_rad
+
+      var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+      var distance = R * c
+      console.log("Distance between me and this venue: ", distance);
+
+      return distance
+
+    }
 
 render() {
 
