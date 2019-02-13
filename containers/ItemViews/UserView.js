@@ -16,6 +16,7 @@ import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    LogOut from '../../components/LogOut.js';
+import * as Badges from '../../helper_functions/Badges.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 
 export default class UserView extends React.Component {
@@ -51,7 +52,7 @@ export default class UserView extends React.Component {
        return "Vegetarian";
       }
       else {
-       return "V-curious";
+       return "vCurious";
         }
       }
 
@@ -124,18 +125,10 @@ export default class UserView extends React.Component {
           {this.getLocation()}
         </Text>
       </View>
-
-      <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-        <Text style={userViewStyle.profileItemBadge}>
-          {this.returnStatus()}
-        </Text>
-      </View>
-      <View>
         <Image
           style={{width: 90, height: 90}}
-          source={require('../../assets/badges/Vcurious.png')}
+          source= {Badges.getDietBadge (this.returnStatus())}
         />
-      </View>
     </View>
 
     <AutoHeightImage
@@ -270,12 +263,11 @@ const userViewStyle = StyleSheet.create({
   profileItemName: {
     fontSize: Dimensions.get('window').width>750 ? 28 : 20 ,
     color: '#696969',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   profileItemHomeTown: {
     fontSize: Dimensions.get('window').width>750 ? 28 : 20 ,
-    color: '#a2e444',
-    fontWeight: 'bold'
+    color: '#696969'
   },
   profileItemBadge: {
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
