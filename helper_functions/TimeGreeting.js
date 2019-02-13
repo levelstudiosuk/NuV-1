@@ -22,6 +22,6 @@ export function getTimeBasedGreeting(user){
     return `Good afternoon ${user}! What are you looking for?`
   }
   else if (timeNow.hours > 17 && timeNow.hours < 23){
-    return `Good evening ${user}! Enjoy browsing NüV 😃`
+    return `Good evening ${user}!`
   }
 }

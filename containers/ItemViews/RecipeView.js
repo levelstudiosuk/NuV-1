@@ -209,7 +209,7 @@ render() {
 
         <View style={{alignItems: 'center'}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
-            <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
+            <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: N/A <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} mins</Text>
         </View>
 
         <View style={{alignItems: 'center'}}>

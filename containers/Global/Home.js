@@ -224,10 +224,9 @@ render() {
             onLoad={this.setAvatarAsLoaded}
             width={this.state.avatarLoading === false ? this.getPortraitSize() : 1}
             style={{
-              borderRadius: 4,
               borderWidth: 3,
               borderColor: '#a2e444',
-              borderRadius: Dimensions.get('window').width*0.4,
+              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.275,
               marginTop: Dimensions.get('window').height*0.05
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
@@ -373,7 +372,7 @@ render() {
               borderRadius: 4,
               borderWidth: 3,
               borderColor: '#a2e444',
-              borderRadius: Dimensions.get('window').width*0.4,
+              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.275,
               marginTop: Dimensions.get('window').height*0.02
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
