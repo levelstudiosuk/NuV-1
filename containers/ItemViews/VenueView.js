@@ -97,6 +97,28 @@ onStarRatingPress(rating) {
   });
   }
 
+  approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
+
+    var R = 6371.0
+
+    var lat1_rad = lat1 * (Math.PI / 180)
+    var long1_rad = long1 * (Math.PI / 180)
+    var lat2_rad = lat2 * (Math.PI / 180)
+    var long2_rad = long2 * (Math.PI / 180)
+
+    var dlong = long2_rad - long1_rad
+    var dlat = lat2_rad - lat1_rad
+
+    var a = Math.sin(dlat / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlong / 2)**2
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    var distance = R * c
+    console.log("Distance between me and this venue: ", distance);
+
+    return distance
+
+  }
+
 checkFavouriteStatus(viewedVenue) {
   try {
     AsyncStorage.getItem('venue_favourites').then((venues) => {
@@ -169,6 +191,10 @@ checkFavouriteStatus(viewedVenue) {
         }
       }
 
+      returnRestaurantName(){
+        return this.state.venueItem.title
+      }
+
 render() {
 
   const {navigate} = this.props.navigation;
@@ -211,18 +237,18 @@ render() {
           zoomEnabled={true}
           zoomControlEnabled={true}
           region={{
-            latitude: 55.9497,
-            longitude: -3.178770,
+            latitude: parseFloat(this.state.venueItem.latitude),
+            longitude: parseFloat(this.state.venueItem.longitude),
             latitudeDelta: 0.003,
             longitudeDelta: 0.003
           }}
         >
       <MapView.Marker
           coordinate={{
-            latitude: 55.9497,
-            longitude: -3.178770
+            latitude: parseFloat(this.state.venueItem.latitude),
+            longitude: parseFloat(this.state.venueItem.longitude)
             }}
-            title={"Hendersons Vegan Restaurant"}
+            title={`${this.returnRestaurantName()} (${parseFloat(this.approxDistanceBetweenTwoPoints(this.state.venueItem.latitude, this.state.venueItem.longitude, 55.9497, -3.1811)).toFixed(2)} km from you)`}
             pinColor={'red'}
             description={"www link here"}
           />

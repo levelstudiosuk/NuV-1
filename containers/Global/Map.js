@@ -57,6 +57,7 @@ export default class Map extends React.Component {
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
      },
      function(){
+
        self.setState({
          venuesLoading: false
        })
@@ -101,7 +102,7 @@ export default class Map extends React.Component {
                               longitude: parseFloat(venue.longitude)
                             }}
                             onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
-                            title={`${venue.title}`}
+                            title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
                             pinColor={'green'}
                             description={"Click to view"}
                             onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}
@@ -123,7 +124,7 @@ export default class Map extends React.Component {
                               longitude: parseFloat(venue.longitude)
                             }}
                             onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
-                            title={`${venue.title}`}
+                            title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
                             pinColor={'green'}
                             description={"Click to view"}
                             onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}
@@ -187,9 +188,9 @@ render() {
               latitude: 55.9497,
               longitude: -3.1811
               }}
-              title={"Default location"}
+              title={"Your location"}
               pinColor={'red'}
-              description={"Click HERE for venue details"}
+              description={"Your current location"}
             />
           {this.venueResultsMarkers()}
         </MapView>
