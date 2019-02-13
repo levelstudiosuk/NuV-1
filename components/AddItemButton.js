@@ -19,7 +19,7 @@ export default class AddItemButton extends Component {
         underlayColor="white">
         {
           <Image
-            source={require('../assets/AppIcons/plus.png')}
+            source={require('../assets/AppIcons/greenAdd.png')}
             style={{height:50, width:50, marginRight: Dimensions.get('window').width*0.01}}
           />
         }

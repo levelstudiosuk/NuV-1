@@ -26,7 +26,7 @@ export default class Favourites extends React.Component {
   static navigationOptions = {
     title: null,
     headerTitle: (
-     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
+     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
  ),
 }
 
@@ -37,10 +37,10 @@ export default class Favourites extends React.Component {
     state = {
       index: 0,
       routes: [
-        { key: 'first', title: 'Recipes' },
-        { key: 'second', title: 'Venues' },
-        { key: 'third', title: 'Brands' },
-        { key: 'fourth', title: 'Media' },
+        { key: 'first',   title: 'Recipes' },
+        { key: 'second',  title: 'Venues' },
+        { key: 'third',   title: 'Brands' },
+        { key: 'fourth',  title: 'Media' },
       ],
     };
 
@@ -48,9 +48,9 @@ export default class Favourites extends React.Component {
 
     <TabBar
       {...props}
-      style={{backgroundColor: '#0dc6b5'}}
-      tabStyle={{backgroundColor: '#0dc6b5'}}
-      indicatorStyle={{backgroundColor: '#0dc6b5'}}
+      style          = {{backgroundColor: '#a2e444'}}
+      tabStyle       = {{backgroundColor: '#2e8302'}}
+      indicatorStyle = {{backgroundColor: '#a2e444'}}
     />
 
   )
@@ -62,14 +62,17 @@ export default class Favourites extends React.Component {
       <TabView
         navigationState={this.state}
         renderScene={SceneMap({
-          first: FirstRoute,
+          first:  FirstRoute,
           second: SecondRoute,
-          third: ThirdRoute,
+          third:  ThirdRoute,
           fourth: FourthRoute,
         })}
-        renderTabBar={this.renderTabBar}
-        onIndexChange={index => this.setState({ index })}
-        initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
+        renderTabBar  ={this.renderTabBar}
+        onIndexChange ={index => this.setState({ index })}
+        initialLayout ={{
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height
+            }}
       />
     );
   }
@@ -77,6 +80,6 @@ export default class Favourites extends React.Component {
 
 const styles = StyleSheet.create({
   scene: {
-    flex: 1,
+  flex: 1,
   },
 });

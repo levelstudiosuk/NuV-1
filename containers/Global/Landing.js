@@ -1,15 +1,22 @@
-import React from 'react';
-import { StyleSheet, Image, Alert, Dimensions, Text, View, TextStyle, ViewStyle } from 'react-native';
-import { Constants } from 'expo'
-import NavBar from '../../components/NavBar.js';
-import GlobalButton from '../../components/GlobalButton.js';
-import AutoHeightImage from 'react-native-auto-height-image';
-import axios from 'axios';
+import    React from 'react';
+import {  ImageBackground,
+          StyleSheet,
+          Image,
+          Alert,
+          Dimensions,
+          Text,
+          View,
+          TextStyle,
+          ViewStyle } from 'react-native';
+import {  Constants } from 'expo'
+import    NavBar from '../../components/NavBar.js';
+import    GlobalButton from '../../components/GlobalButton.js';
+import    AutoHeightImage from 'react-native-auto-height-image';
+import    axios from 'axios';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
       header: null,
-
   };
 
   componentDidMount(){
@@ -22,29 +29,41 @@ export default class Landing extends React.Component {
     ).catch(err => { console.log('caught', err.message); });
   }
 
-  render() {
-
-    const {navigate} = this.props.navigation;
+render() {
+  const {navigate} = this.props.navigation;
     return (
       <View style={landingStyle.container}>
-      <AutoHeightImage source={require('../../assets/greenlogo.png')} style={{marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}} width={Dimensions.get('window').width*0.77} />
+        <AutoHeightImage
+          source={require('../../assets/greenlogo.png')}
+            style={{
+              marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}}
+            width={Dimensions.get('window').width*0.77} />
 
       <View style={landingStyle.iconsContainer}>
-
-      <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('SignIn', {name: 'Home'})} buttonTitle={"Sign in"} />
-      <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('RegisterUser', {name: 'Home'})} buttonTitle={"Register"} />
-
+        <GlobalButton
+          marginLeft={Dimensions.get('window').width*0.16}
+          onPress={() => navigate('SignIn', {name: 'Home'})}
+          buttonTitle={"Sign in"}
+        />
+        <GlobalButton
+          marginRight={Dimensions.get('window').width*0.16}
+          onPress={() => navigate('RegisterUser', {name: 'Home'})} buttonTitle={"Register"}
+        />
       </View>
 
       <View style={landingStyle.descriptionContainer}>
-        <Text style={landingStyle.descriptionText}>
-
-            The lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
-            Join the community. Find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
-            This is just the veganning…
-        </Text>
+        <ImageBackground
+          source={require('../../assets/leaves.png')}
+          style={
+            Dimensions.get('window').width*1.0,
+            Dimensions.get('window').height*1.0}>
+          <Text style={landingStyle.descriptionText}>
+              The lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
+              Join the community. Find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
+              This is just the veganning…
+          </Text>
+        </ImageBackground>
       </View>
-
     </View>
     );
   }
@@ -58,13 +77,25 @@ const landingStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   descriptionContainer: {
-    marginTop: Dimensions.get('window').height*0.065
-  },
-  descriptionText: {
+    marginTop: Dimensions.get('window').height*0.05,
     paddingLeft: Dimensions.get('window').width*0.115,
     paddingRight: Dimensions.get('window').width*0.115,
+    shadowOffset:{  width: 10,  height: 10,  },
+    shadowColor: 'grey',
+    shadowOpacity: 1.0,
+
+  },
+  descriptionText: {
+    marginTop: Dimensions.get('window').height*0.05,
+    marginBottom: Dimensions.get('window').height*0.05,
+    paddingLeft: Dimensions.get('window').width*0.08,
+    paddingRight: Dimensions.get('window').width*0.08,
     textAlign: 'center',
-    fontSize: 14
+    fontSize: 18,
+    color: 'white',
+    shadowOffset:{
+              width: 10,  height: 10,},
+    shadowColor: 'black',
   },
   iconsContainer: {
     width: Dimensions.get('window').width,

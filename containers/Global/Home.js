@@ -31,7 +31,7 @@ export default class Home extends React.Component {
       <AutoHeightImage
         width  = {75}
         style  = {{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }}
-        source = {require('../../assets/AppIcons/transparentlogo.png')}
+        source={require('../../assets/greenlogo.png')}
       />
       ),
     }
@@ -39,18 +39,18 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
       this.setAvatarAsLoaded = this.setAvatarAsLoaded.bind(this);
-      this.openOverlay = this.openOverlay.bind(this);
-      this.closeOverlay = this.closeOverlay.bind(this);
-      this.launchMap = this.launchMap.bind(this);
-      this.openVenueOverlay = this.openVenueOverlay.bind(this);
+      this.openOverlay       = this.openOverlay.bind(this);
+      this.closeOverlay      = this.closeOverlay.bind(this);
+      this.launchMap         = this.launchMap.bind(this);
+      this.openVenueOverlay  = this.openVenueOverlay.bind(this);
       this.closeVenueOverlay = this.closeVenueOverlay.bind(this);
       this.launchVenueSearch = this.launchVenueSearch.bind(this);
      }
 
   state = {
-    avatarLoading: true,
-    overlayVisible: false,
-    venueOverlayVisible: false
+    avatarLoading       : true,
+    overlayVisible      : false,
+    venueOverlayVisible : false,
   };
 
   componentDidMount(){
@@ -58,13 +58,16 @@ export default class Home extends React.Component {
     position => {
       const myLocation = JSON.stringify(position);
 
-      this.setState({ latitude: position.coords.latitude,
-                    longitude: position.coords.longitude }, function(){ console.log("My position", this.state.latitude, this.state.longitude)});
-    },
-    error => Alert.alert(error.message),
-    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-  );
-  }
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+        }, function(){
+          console.log("My position", this.state.latitude, this.state.longitude)});
+        },
+          error => Alert.alert(error.message),
+          { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+        );
+      }
 
   openOverlay(){
     this.setState({
@@ -119,31 +122,30 @@ export default class Home extends React.Component {
 }
 
   launchVenueSearch(navigation, distance){
-    var self = this;
+    var self         = this;
     const {navigate} = navigation
-
-    var distance = distance;
+    var distance     = distance;
 
     this.setState({
       venueOverlayVisible: false
     }, function(){
 
       navigate('VenueList', {
-        user_id: navigation.getParam('user_id', 'NO-ID'),
-        settings: true,
-        avatar: navigation.getParam('avatar', 'NO-ID'),
-        token: navigation.getParam('token', 'NO-ID'),
-        id: navigation.getParam('id', 'NO-ID'),
-        name: navigation.getParam('name', 'NO-ID'),
-        bio: navigation.getParam('bio', 'NO-ID'),
-        location: navigation.getParam('location', 'NO-ID'),
+        user_id:       navigation.getParam('user_id', 'NO-ID'),
+        settings:       true,
+        avatar:        navigation.getParam('avatar', 'NO-ID'),
+        token:         navigation.getParam('token', 'NO-ID'),
+        id:            navigation.getParam('id', 'NO-ID'),
+        name:          navigation.getParam('name', 'NO-ID'),
+        bio:           navigation.getParam('bio', 'NO-ID'),
+        location:      navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
-        distance: distance,
-        latitude: this.state.latitude,
-        longitude: this.state.longitude
+        distance:      distance,
+        latitude:      this.state.latitude,
+        longitude:     this.state.longitude
       })
     }
-  )
+   )
   }
 
   profileAvatarUri(){
@@ -166,22 +168,23 @@ render() {
        { Platform.OS === 'ios' ? (
 
       <StickyHeaderFooterScrollView
-      makeScrollable={true}
-      showsVerticalScrollIndicator={false}
-      renderStickyHeader={() => ( <View></View> )}
-      renderStickyFooter={() => (
-        <TouchableHighlight style={{alignItems: 'center'}}>
+        makeScrollable={true}
+        showsVerticalScrollIndicator={false}
+        renderStickyHeader={() => ( <View></View> )}
+        renderStickyFooter={() => (
+
+      <TouchableHighlight style={{alignItems: 'center'}}>
         { this.state.avatarLoading === false ? (
           <NavBar
-          navigation={this.props.navigation}
-          openOverlay={this.openOverlay}
-          attributes={{
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}}
+            navigation={     this.props.navigation}
+            openOverlay={    this.openOverlay}
+            attributes={{
+              token:         this.props.navigation.getParam('token', 'NO-ID'),
+              id:            this.props.navigation.getParam('id', 'NO-ID'),
+              name:          this.props.navigation.getParam('name', 'NO-ID'),
+              bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+              location:      this.props.navigation.getParam('location', 'NO-ID'),
+              user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}}
            />
         ) : <View></View>
       }
@@ -193,13 +196,13 @@ render() {
       <TouchableHighlight
         underlayColor="white"
         onPress={() => navigate('UserView', {
-          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
+          user_id:       this.props.navigation.getParam('user_id', 'NO-ID'),
+          avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+          token:         this.props.navigation.getParam('token', 'NO-ID'),
+          id:            this.props.navigation.getParam('id', 'NO-ID'),
+          name:          this.props.navigation.getParam('name', 'NO-ID'),
+          bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
           }
         style={{width: Dimensions.get('window').width}}>
@@ -210,18 +213,38 @@ render() {
         iterationDelay={2000}
         duration={1000}
         iterationCount="infinite"
-        direction="alternate">
+        direction="alternate"
+        style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}
+      >
           <AutoHeightImage
-          onLoad={this.setAvatarAsLoaded}
-          width={Dimensions.get('window').width}
-          style={{borderRadius: Dimensions.get('window').width*0.01}}
-          source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'https://www.viawater.nl/files/default-user.png'}}
+            onLoad={this.setAvatarAsLoaded}
+            width={Dimensions.get('window').width*0.8}
+            style={{
+              borderRadius: 4,
+              borderWidth: 3,
+              borderColor: '#a2e444',
+              borderRadius: Dimensions.get('window').width*0.4,
+              marginTop: Dimensions.get('window').height*0.05
+              }}
+            source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
           />
         </Animatable.View>
     </TouchableHighlight>
 
-    <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
-    <VenueSettingsOverlay navigation={this.props.navigation} launchVenueSearch={this.launchVenueSearch} openOverlay={this.openVenueOverlay} closeOverlay={this.closeVenueOverlay} overlayVisible={this.state.venueOverlayVisible} />
+    <MapSettingsOverlay
+      navigation    = {this.props.navigation}
+      launchMap     = {this.launchMap}
+      openOverlay   = {this.openOverlay}
+      closeOverlay  = {this.closeOverlay}
+      overlayVisible= {this.state.overlayVisible}
+    />
+    <VenueSettingsOverlay
+      navigation        = {this.props.navigation}
+      launchVenueSearch = {this.launchVenueSearch}
+      openOverlay       = {this.openVenueOverlay}
+      closeOverlay      = {this.closeVenueOverlay}
+      overlayVisible    = {this.state.venueOverlayVisible}
+    />
 
     {
       this.state.avatarLoading === false ? (
@@ -234,7 +257,13 @@ render() {
     {
       this.state.avatarLoading === false ? (
         <View style={homeStyle.greetingContainer}>
-          <Text style={{fontSize: 20, color: 'black'}}>
+          <Text style={{
+              fontSize: 18,
+              color: 'black',
+              marginLeft:30,
+              marginRight:30,
+              adjustsFontSizeToFit: true
+            }}>
             {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}
           </Text>
         </View>
@@ -249,12 +278,12 @@ render() {
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.12}
           onPress={() => navigate('RecipeList', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
+            avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Recipes"}
         />
@@ -274,23 +303,23 @@ render() {
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.12}
           onPress={() => navigate('BrandList', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
+            avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Shopping"} />
         <GlobalButton
           marginRight={Dimensions.get('window').width*0.12}
           onPress={() => navigate('MediaList', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
+            avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"News"} />
         </View>
@@ -315,40 +344,58 @@ render() {
       <TouchableHighlight
         underlayColor="white"
           onPress={() => navigate('UserView', {
-            user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
+            user_id:       this.props.navigation.getParam('user_id', 'NO-ID'),
+            avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           style={{width: Dimensions.get('window').width}}>
 
           <Animatable.View
-            animation="pulse"
-            iterationDelay={2000}
-            duration={1000}
-            iterationCount="infinite"
-            direction="alternate">
+            animation      = "pulse"
+            iterationDelay = {2000}
+            duration       = {1000}
+            iterationCount = "infinite"
+            direction      = "alternate"
+          >
 
             <AutoHeightImage
               onLoad={this.setAvatarAsLoaded}
               width={this.state.avatarLoading === false ? Dimensions.get('window').width*1 : 1}
               style={{borderRadius: Dimensions.get('window').width*0.01}}
-              source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'https://www.viawater.nl/files/default-user.png'}}
+              source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
             />
           </Animatable.View>
         </TouchableHighlight>
-        <MapSettingsOverlay navigation={this.props.navigation} launchMap={this.launchMap} openOverlay={this.openOverlay} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
-        <VenueSettingsOverlay navigation={this.props.navigation} launchVenueSearch={this.launchVenueSearch} openOverlay={this.openVenueOverlay} closeOverlay={this.closeVenueOverlay} overlayVisible={this.state.venueOverlayVisible} />
-
-      </View>
+         <MapSettingsOverlay
+          navigation     = {this.props.navigation}
+          launchMap      = {this.launchMap}
+          openOverlay    = {this.openOverlay}
+          closeOverlay   = {this.closeOverlay}
+          overlayVisible = {this.state.overlayVisible}
+          />
+          <VenueSettingsOverlay
+          navigation        = {this.props.navigation}
+          launchVenueSearch = {this.launchVenueSearch}
+          openOverlay       = {this.openVenueOverlay}
+          closeOverlay      = {this.closeVenueOverlay}
+          overlayVisible    = {this.state.venueOverlayVisible}
+          />
+        </View>
 
   {
     this.state.avatarLoading === false ? (
       <View style={homeStyle.greetingContainer}>
-        <Text style={{fontSize: 20, color: 'black'}}>{TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))} </Text>
+        <Text
+          style={{
+            fontSize: 20,
+            color:'black'
+          }}>
+          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}
+        </Text>
       </View>
   ) :
     null
@@ -359,22 +406,23 @@ render() {
       <View style={homeStyle.iconsContainer}>
 
       <GlobalButton
-        marginLeft={Dimensions.get('window').width*0.12}
+        marginLeft={Dimensions.get('window').width*0.2}
         onPress={() => navigate('RecipeList', {
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
+          avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+          token:         this.props.navigation.getParam('token', 'NO-ID'),
+          id:            this.props.navigation.getParam('id', 'NO-ID'),
+          name:          this.props.navigation.getParam('name', 'NO-ID'),
+          bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
         buttonTitle={"Recipes"}
         />
       <GlobalButton
-        marginRight={Dimensions.get('window').width*0.12}
-        onPress={() => this.openVenueOverlay() }
-        buttonTitle={"Eateries"} />
-      </View>
+        marginRight = {Dimensions.get('window').width*0.2}
+        onPress     = {() => this.openVenueOverlay() }
+        buttonTitle = {"Eateries"}
+      />
+    </View>
   ) :
     null
   }
@@ -384,26 +432,26 @@ render() {
       <View style={homeStyle.iconsContainer2}>
 
       <GlobalButton
-        marginLeft={Dimensions.get('window').width*0.12}
+        marginLeft={Dimensions.get('window').width*0.2}
         onPress={() => navigate('BrandList', {
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
+          avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+          token:         this.props.navigation.getParam('token', 'NO-ID'),
+          id:            this.props.navigation.getParam('id', 'NO-ID'),
+          name:          this.props.navigation.getParam('name', 'NO-ID'),
+          bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
         buttonTitle={"Shopping"}
       />
       <GlobalButton
-        marginRight={Dimensions.get('window').width*0.12}
+        marginRight={Dimensions.get('window').width*0.2}
         onPress={() => navigate('MediaList', {
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
+          avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+          token:         this.props.navigation.getParam('token', 'NO-ID'),
+          id:            this.props.navigation.getParam('id', 'NO-ID'),
+          name:          this.props.navigation.getParam('name', 'NO-ID'),
+          bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
         buttonTitle={"News"}
       />
@@ -418,12 +466,13 @@ render() {
         navigation={this.props.navigation}
         openOverlay={this.openOverlay}
         attributes={{
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
-          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}} />
+          token:         this.props.navigation.getParam('token', 'NO-ID'),
+          id:            this.props.navigation.getParam('id', 'NO-ID'),
+          name:          this.props.navigation.getParam('name', 'NO-ID'),
+          bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          location:      this.props.navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}}
+      />
   ) :
     null
   }
@@ -477,7 +526,7 @@ const homeStyle = StyleSheet.create({
   },
   greetingContainer: {
     marginBottom:     Dimensions.get('window').height*0.01,
-    marginTop:        Dimensions.get('window').height*0.02,
+    marginTop:        Dimensions.get('window').height*0.015,
     alignItems:       'center',
     backgroundColor:  'white',
     height:           Dimensions.get('window').height*0.03

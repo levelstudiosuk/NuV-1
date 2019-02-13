@@ -1,30 +1,44 @@
-import React from 'react';
-import { FlatList, TouchableOpacity, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
-import { Constants, Font } from 'expo'
-import GlobalButton from '../../components/GlobalButton.js';
-import TwoWayToggle from '../../components/TwoWayToggle.js';
-import AutoHeightImage from 'react-native-auto-height-image';
-import Expo, { ImagePicker } from 'expo';
-import AddItemButton from '../../components/AddItemButton.js';
-import FaveButton from '../../components/FaveButton.js';
-import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
-import LoadingCelery from '../../components/LoadingCelery.js';
-import _ from 'lodash';
-const ITEM_HEIGHT = 100;
-import {Permissions} from 'expo'
-const { width, height } = Dimensions.get('window');
-import Pagination from 'react-native-pagination';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Autocomplete from 'react-native-autocomplete-input';
+import    React from 'react';
+import {  FlatList,
+          ImageBackground,
+          TouchableOpacity,
+          StyleSheet,
+          ScrollView,
+          Platform,
+          TouchableHighlight,
+          Image,
+          TextInput,
+          Dimensions,
+          Button,
+          Text,
+          View } from 'react-native';
+import {  Constants,
+          Font } from 'expo'
+import    GlobalButton from '../../components/GlobalButton.js';
+import    TwoWayToggle from '../../components/TwoWayToggle.js';
+import    AutoHeightImage from 'react-native-auto-height-image';
+import    Expo, {
+          ImagePicker } from 'expo';
+import    AddItemButton from '../../components/AddItemButton.js';
+import    FaveButton from '../../components/FaveButton.js';
+import    SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import    LoadingCelery from '../../components/LoadingCelery.js';
+import {  Permissions} from 'expo'
+import    Pagination from 'react-native-pagination';
+import    Ionicons from 'react-native-vector-icons/Ionicons';
+import    Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
+import _ from 'lodash';
+const     ITEM_HEIGHT = 100;
+const { width, height } = Dimensions.get('window');
 
 export default class RecipeList extends React.Component {
   static navigationOptions = {
     title: null,
     headerTitle: (
-     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/AppIcons/transparentlogo.png')}/>
+     <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
  ),
 }
 
@@ -53,10 +67,8 @@ export default class RecipeList extends React.Component {
    });
 
     this.setState({ fontLoaded: true });
-
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
-
       axios.get('http://nuv-api.herokuapp.com/recipes',
 
    { headers: { Authorization: `${token}` }})
@@ -226,8 +238,23 @@ export default class RecipeList extends React.Component {
 
   renderMatches(recipes){
     return recipes.map((recipe, i) =>
-      <TouchableOpacity key={i} style={{flexDirection: 'row'}}>
-      <Text style={{flex: 1, flexWrap: 'wrap', textAlign: 'center', color: 'black', fontSize: 16, paddingTop: 10, paddingBottom: 10}} key={i}>{recipe}</Text>
+
+      <TouchableOpacity
+        key={i}
+        style={{flexDirection: 'row'}}
+      >
+      <Text
+        style={{
+          flex: 1,
+          flexWrap: 'wrap',
+          textAlign: 'center',
+          color: 'black',
+          fontSize: 16,
+          paddingTop: 10,
+          paddingBottom: 10}}
+        key={i}>
+        {recipe}
+      </Text>
       </TouchableOpacity>
     )
   }
@@ -236,11 +263,8 @@ export default class RecipeList extends React.Component {
     return (
       <View
         style={{
-          flex: 1,
-          margin: 5,
-          marginTop: 25,
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'centre',
         }}
       >
         <TouchableOpacity
@@ -252,12 +276,12 @@ export default class RecipeList extends React.Component {
               : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
-        <AutoHeightImage width={Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/plate.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/cutlery.png')}/>
           <Text
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: '#0dc6b5', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                ? { color: '#2e8302', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
                 : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
@@ -279,13 +303,10 @@ export default class RecipeList extends React.Component {
     this.setState({ viewableItems });
 
   render() {
-
     const {navigate} = this.props.navigation;
-
     const query = this.state.recipeTyped;
     const recipes = this.findRecipe(query, false);
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-
     const self = this;
 
     const ListEmptyComponent = () => (
@@ -324,10 +345,9 @@ export default class RecipeList extends React.Component {
 
     if (this.state.recipesLoading === false){
     return (
+
       <View style={[registerUserStyle.firstContainer]}>
-
         <View style={registerUserStyle.innerContainer}>
-
           {!this.state.activeItem && (
             <View
               style={{
@@ -351,16 +371,26 @@ export default class RecipeList extends React.Component {
 
             {this.returnExtraMessage()}
             </View>
-
           )}
 
           { this.state.activeItem ? (
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6, width: Dimensions.get('window').width}}>
+          <View style={{
+            alignItems: 'center',
+            marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6,
+            width: Dimensions.get('window').width}}
+          >
 
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => navigate('RecipeView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.state.activeItem.item.title, prep_time: this.state.activeItem.item.prep_time, cook_time: this.state.activeItem.item.cook_time, image: this.state.activeItem.item.method})}
+          onPress={() => navigate('RecipeView', {
+            token: this.props.navigation.getParam('token', 'NO-ID'),
+            id: this.state.activeItem.item.id,
+            name: this.state.activeItem.item.title,
+            prep_time: this.state.activeItem.item.prep_time,
+            cook_time: this.state.activeItem.item.cook_time,
+            image: this.state.activeItem.item.method
+            })}
           style={underlayColor="white"}
           >
           <AutoHeightImage
@@ -368,13 +398,32 @@ export default class RecipeList extends React.Component {
             width={Dimensions.get('window').width*0.5}
             source={{uri: this.state.activeItem.item.method}}
             />
-          </TouchableHighlight>
+        </TouchableHighlight>
 
-          <Text style={{color: '#0dc6b5', marginTop: Dimensions.get('window').height*0.02, fontSize: Dimensions.get('window').width > 750 ? 30 : 20, textAlign: 'center'}}>{this.state.activeItem.item.title}</Text>
+          <Text style={{
+            color: '#0dc6b5',
+            marginTop: Dimensions.get('window').height*0.02,
+            fontSize: Dimensions.get('window').width > 750 ? 30 : 20,
+            textAlign: 'center'}}>
+              {this.state.activeItem.item.title}
+          </Text>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.activeItem.item.prep_time}</Text>
+          <Text style={{
+            marginTop: Dimensions.get('window').height*0.01,
+            fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
+            textAlign: 'center'}}>
+              <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05}
+              />
+                Prep: {this.state.activeItem.item.prep_time}
+          </Text>
 
-          <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center'}}><AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.activeItem.item.cooking_time}</Text>
+          <Text style={{
+            marginTop: Dimensions.get('window').height*0.01,
+            fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
+            textAlign: 'center'}}>
+              <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} />
+               Cook: {this.state.activeItem.item.cooking_time}
+          </Text>
 
            </View>
 
@@ -419,12 +468,12 @@ export default class RecipeList extends React.Component {
             listRef={this.refs}
             endDotIconFamily={'MaterialIcons'}
             dotIconNameActive={'checkbox-blank-circle'}
-            dotIconColorActive={'#0DC6B5'}
+            dotIconColorActive={'#a2e444'}
             dotIconNameNotActive={'checkbox-blank-circle-outline'}
-            dotIconColorNotActive={'#92FE9D'}
+            dotIconColorNotActive={'#2e8302'}
             dotIconNameEmpty={'close'}
             dotTextHide={true}
-            dotTextColor={'#92FE9D'}
+            dotTextColor={'#2e8302'}
             dotIconSizeNotActive={15}
             dotIconSizeActive={15}
             dotIconSizeEmpty={15}
@@ -516,7 +565,7 @@ const registerUserStyle = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    color: 'green',
+    color: '#a2e444',
     textAlign: 'center',
     marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01

@@ -19,18 +19,18 @@ render() {
       marginLeft: this.props.marginLeft ? this.props.marginLeft : 0,
       marginRight: this.props.marginRight ? this.props.marginRight : 0,
         }}>
-        
+
       <GradientButton
         onPressAction     = {this.props.onPress}
-        textStyle         = {{fontSize: 15, color: 'black', fontWeight: 'normal'}}
+        textStyle         = {{fontSize: 15, color: 'white', fontWeight: 'normal'}}
         text              = {this.props.buttonTitle}
         radius            = {10}
         height            = {45}
         width             = {Dimensions.get('window').width*0.3}
         impact            = 'True'
         impactStyle       = 'Light'
-        gradientBegin     = "#0dc6b5"
-        gradientEnd       = "#92FE9D"
+        gradientBegin     = "#2e8302"
+        gradientEnd       = "#a2e444"
         gradientDirection = "horizontal"
         containerStyle    = {{ marginTop: 20 }}
       />
