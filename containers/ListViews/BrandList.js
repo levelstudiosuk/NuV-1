@@ -107,7 +107,7 @@ export default class BrandList extends React.Component {
         url: item.URL})}
       style={brandListStyle.brandimage}>
         <Image key={i+2}
-          source={require('../../assets/AppIcons/branddefault.png')}
+          source={require('../../assets/AppIcons/greenprice.png')}
           style={{height: 100, width: 100}}/>
 
       </TouchableHighlight>
@@ -258,13 +258,13 @@ const brandListStyle = StyleSheet.create({
     flexDirection:    'column',
   },
   brandtitle: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     margin:           4,
     fontSize:         18,
     fontWeight:       'bold',
   },
   brandtype: {
-    color:            '#92FE9D',
+    color:            '#696969',
     margin:           4,
     fontSize:         18,
     fontWeight:       'bold',
