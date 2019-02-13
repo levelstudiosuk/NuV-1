@@ -401,7 +401,7 @@ export default class RecipeList extends React.Component {
         </TouchableHighlight>
 
           <Text style={{
-            color: '#0dc6b5',
+            color: '#696969',
             marginTop: Dimensions.get('window').height*0.02,
             fontSize: Dimensions.get('window').width > 750 ? 30 : 20,
             textAlign: 'center'}}>
@@ -412,17 +412,15 @@ export default class RecipeList extends React.Component {
             marginTop: Dimensions.get('window').height*0.01,
             fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05}
-              />
-                Prep: {this.state.activeItem.item.prep_time}
+              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05}
+              />  Prep: {this.state.activeItem.item.prep_time}
           </Text>
 
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
             fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} />
-               Cook: {this.state.activeItem.item.cooking_time}
+              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Cook: {this.state.activeItem.item.cooking_time}
           </Text>
 
            </View>
