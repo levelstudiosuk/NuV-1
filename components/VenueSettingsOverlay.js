@@ -64,11 +64,11 @@ render() {
           onValueChange={(distance) => this.setState({distance})} />
           </View>
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.04}}>
-          <Text style={{marginBottom: Dimensions.get('window').width*0.135, marginTop: Dimensions.get('window').width*0.02, color: 'black', fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km</Text>
+          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.02}}>
+          <Text style={{marginBottom: Dimensions.get('window').width*0.02, marginTop: Dimensions.get('window').width*0.02, color: 'black', fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km</Text>
           </View>
 
-          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.1}}>
+          <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.02}}>
           <GlobalButton onPress={() => this.props.launchVenueSearch(this.props.navigation, this.state.distance)} buttonTitle={"Go"} />
           </View>
 
