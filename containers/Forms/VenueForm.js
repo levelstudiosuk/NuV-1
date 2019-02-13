@@ -35,6 +35,7 @@ export default class VenueForm extends React.Component {
   this.openOverlay = this.openOverlay.bind(this);
   this.closeOverlay = this.closeOverlay.bind(this);
   this.userInVenueStateUpdate = this.userInVenueStateUpdate.bind(this);
+  this.getPostcodeCoordinates = this.getPostcodeCoordinates.bind(this);
 
 }
 
@@ -167,12 +168,27 @@ export default class VenueForm extends React.Component {
         })
       }
       else {
-        console.log("Response status: ", response.status);
         self.setState({ validPostcode: true }, function(){
-          console.log("Postcode valid: ", self.state.validPostcode);
+          console.log("Response status: ", response.status);
+          if (self.state.userInVenue === false){
+          self.getPostcodeCoordinates()
+        }
         })
       };
     })}
+
+    getPostcodeCoordinates(){
+      var self = this;
+
+      fetch( `http://api.postcodes.io/postcodes/${this.state.postcode}`)
+      .then(
+    function(response) {
+      self.setState({
+        latitude: response.result.latitude,
+        longitude: response.result.longitude
+      })
+
+    }
 
     pickImage = async () => {
     await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -217,8 +233,8 @@ export default class VenueForm extends React.Component {
      if (this.state.image){
      var uriParts = this.state.image.split('.')
      var fileType = uriParts[uriParts.length - 1];
-     var longitude = this.state.venueLocation.longitude;
-     var latitude = this.state.venueLocation.latitude;
+     var longitude = this.state.longitude;
+     var latitude = this.state.latitude;
 
    }
 
