@@ -67,17 +67,32 @@ export default class TwoWayToggle extends React.Component {
   render() {
 
     return (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: "space-between", alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: "space-between",
+          alignItems: 'center'}
+        }>
 
-        <View style={{width: Dimensions.get('window').width*0.3, justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            width: Dimensions.get('window').width*0.3,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
 
           <MultiSwitch
             choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.10 : Dimensions.get('window').width*0.2}
-            activeItemStyle={[{color: 'white'}, {color: 'white'}, {color: 'white'}, ]}
+            activeItemStyle={[
+              {color: 'white'},
+              {color: 'white'},
+              {color: 'white'},
+              ]}
             layout={{vertical: 0, horizontal: -1}}
             onActivate={(number) => this.setActiveItem(number)}
             containerStyles={_.times(3, () => ({
-                backgroundColor: '#0dc6b5',
+                backgroundColor: '#a2e444',
                 borderRadius: 40,
                 borderWidth: 1,
                 borderColor: "white",

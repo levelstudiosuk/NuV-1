@@ -31,7 +31,7 @@ export default class Home extends React.Component {
       <AutoHeightImage
         width  = {75}
         style  = {{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }}
-        source = {require('../../assets/AppIcons/transparentlogo.png')}
+        source={require('../../assets/greenlogo.png')}
       />
       ),
     }
