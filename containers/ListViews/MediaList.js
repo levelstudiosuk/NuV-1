@@ -88,7 +88,7 @@ export default class MediaList extends React.Component {
 
         <View style={mediaListStyle.mediaitem}   key={i}>
         <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
-          <Image source={require('../../assets/AppIcons/newsdefault.png')} style={{height: 100, width: 100}}/>
+          <Image source={require('../../assets/AppIcons/greennews.png')} style={{height: 80, width: 80}}/>
         </TouchableHighlight>
             <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
               <View  key={i+1}>
@@ -204,7 +204,7 @@ const mediaListStyle = StyleSheet.create({
     flexDirection: 'column',
   },
   mediatitle: {
-    color: '#0dc6b5',
+    color: '#2e8302',
     margin: 4,
     fontSize: 18,
     fontWeight: 'bold',
