@@ -31,6 +31,9 @@ export default class VenueForm extends React.Component {
   this.onStarRatingPress = this.onStarRatingPress.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
   this.validatePostcode = this.validatePostcode.bind(this);
+  this.openOverlay = this.openOverlay.bind(this);
+  this.closeOverlay = this.closeOverlay.bind(this);
+  this.userInVenueStateUpdate = this.userInVenueStateUpdate.bind(this);
 
 }
 
@@ -44,6 +47,7 @@ export default class VenueForm extends React.Component {
       type: "",
       starCount: 3,
       vegan: true,
+      overlayVisible: true
     };
 
     componentDidMount(){
@@ -57,6 +61,24 @@ export default class VenueForm extends React.Component {
       error => Alert.alert(error.message),
       { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
     );
+    }
+
+    openOverlay(){
+      this.setState({
+        overlayVisible: true
+      })
+    }
+
+    closeOverlay(){
+      this.setState({
+        overlayVisible: false
+      })
+    }
+
+    userInVenueStateUpdate(status){
+      this.setState({
+        userInVenue: status
+      })
     }
 
     onStarRatingPress(rating) {
