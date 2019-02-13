@@ -1,57 +1,71 @@
-import React, { Component, Fragment } from 'react'
-import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Button, Text, View } from 'react-native';
-import { Constants } from 'expo'
+import    React, {
+          Component,
+          Fragment } from 'react'
+import {  StyleSheet,
+          Platform,
+          TouchableHighlight,
+          ScrollView,
+          Dimensions,
+          Button,
+          Text,
+          View,
+          Image} from 'react-native';
+import {  Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
-import NavBar from '../../components/NavBar.js';
-import AutoHeightImage from 'react-native-auto-height-image';
-import GlobalButton from '../../components/GlobalButton.js';
-import LogOut from '../../components/LogOut.js';
-import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
+import    NavBar from '../../components/NavBar.js';
+import    AutoHeightImage from 'react-native-auto-height-image';
+import    GlobalButton from '../../components/GlobalButton.js';
+import    LogOut from '../../components/LogOut.js';
+import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 
 export default class UserView extends React.Component {
   static navigationOptions = {
     title: null,
     headerTitle: (
-      <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
- ),
+      <AutoHeightImage
+        width={75}
+        style={{
+          position: 'absolute',
+          right: Platform.OS === 'android' ? 0 : -65 }}
+          source={require('../../assets/greenlogo.png')}
+      />
+    ),
 }
 
-      constructor(props) {
-      super(props);
-
+  constructor(props) {
+    super(props);
       this.openOverlay = this.openOverlay.bind(this);
       this.closeOverlay = this.closeOverlay.bind(this);
-
       }
 
-      state = {
-          image: null,
-          overlayVisible: false
-        };
+    state = {
+      image: null,
+      overlayVisible: false
+      };
 
-      returnStatus(){
-        if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
-          return "Vegan";
-        }
-        else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
-          return "Vegetarian";
-        }
-        else {
-          return "V-curious";
+    returnStatus(){
+      if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+       return "Vegan";
+      }
+      else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
+       return "Vegetarian";
+      }
+      else {
+       return "V-curious";
         }
       }
 
-      getLocation(){
-        if (Dimensions.get('window').width < 500 && this.props.navigation.getParam('location', 'NO-ID').length > 14){
-          return this.props.navigation.getParam('location', 'NO-ID').substring(0, 14) + '...'
-        }
-        else if (Dimensions.get('window').width > 750 && this.props.navigation.getParam('location', 'NO-ID').length > 23){
-          return this.props.navigation.getParam('location', 'NO-ID').substring(0, 23) + '...'
-        }
-        else {
-          return this.props.navigation.getParam('location', 'NO-ID');
-        }
+    getLocation(){
+      if (Dimensions.get('window').width < 500 && this.props.navigation.getParam('location', 'NO-ID').length > 14){
+        return this.props.navigation.getParam('location', 'NO-ID').substring(0, 14) + '...'
       }
+      else if (Dimensions.get('window').width > 750 && this.props.navigation.getParam('location', 'NO-ID').length > 23){
+        return this.props.navigation.getParam('location', 'NO-ID').substring(0, 23) + '...'
+      }
+      else {
+        return this.props.navigation.getParam('location', 'NO-ID');
+      }
+    }
 
     openOverlay(){
       this.setState({
@@ -66,7 +80,13 @@ export default class UserView extends React.Component {
         if (loggingOut === true){
           const {navigate} = this.props.navigation;
 
-          navigate('Landing', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+          navigate('Landing', {
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
+            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
         }
       })
     }
@@ -82,68 +102,160 @@ export default class UserView extends React.Component {
       <View style={userViewStyle.container}>
 
       <StickyHeaderFooterScrollView
-      makeScrollable={true}
-      renderStickyHeader={() => ( <View></View> )}
-      renderStickyFooter={() => (
-        <View style={{alignItems: 'center'}}>
-          <NavBar navigation={this.props.navigation} />
-        </View>
-      )}
-    >
+        makeScrollable={true}
+        renderStickyHeader={() => ( <View></View> )}
+        renderStickyFooter={() => (
+          <View style={{alignItems: 'center'}}>
+            <NavBar navigation={this.props.navigation} />
+          </View>
+        )}
+        >
     <View style={userViewStyle.flexRowContainer}>
-    <View style={{flexDirection: 'column'}}>
+      <View style={{flexDirection: 'column'}}>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Name: {this.props.navigation.getParam('name', 'NO-ID')} </Text>
+      <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+        <Text style={userViewStyle.profileItemName}>
+          {this.props.navigation.getParam('name', 'NO-ID')}
+        </Text>
+      </View>
+
+      <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+        <Text style={userViewStyle.profileItemHomeTown}>
+          {this.getLocation()}
+        </Text>
+      </View>
+
+      <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
+        <Text style={userViewStyle.profileItemBadge}>
+          {this.returnStatus()}
+        </Text>
+      </View>
+      <View>
+        <Image
+          style={{width: 90, height: 90}}
+          source={require('../../assets/badges/Vcurious.png')}
+        />
+      </View>
     </View>
 
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>Hometown: {this.getLocation()} </Text>
-    </View>
-
-    <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
-      <Text style={userViewStyle.profileItem}>NüV Status: {this.returnStatus()} </Text>
-    </View>
-
-    </View>
-
-    <AutoHeightImage width={Dimensions.get('window').width*0.34} style={{marginTop: Dimensions.get('window').width*0.025, borderRadius: Dimensions.get('window').width*0.17 }} source={require('../../assets/vegan_woman.jpeg')}/>
-
-    </View>
-
-    <Text style={[userViewStyle.profileItem, {padding: Dimensions.get('window').width* 0.025, textAlign: 'center', marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01}]}>{this.props.navigation.getParam('bio', 'NO-ID')}</Text>
-
-    <View style={userViewStyle.editButtonContainer}>
-
-    <GlobalButton onPress={() => navigate('EditUser', {token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Edit profile"} />
+    <AutoHeightImage
+      onLoad={this.setAvatarAsLoaded}
+      width={Dimensions.get('window').width*0.5}
+      style={{
+        borderRadius:   4,
+        borderWidth:    3,
+        borderColor:    '#a2e444',
+        borderRadius:   Dimensions.get('window').width*0.25,
+        marginTop:      Dimensions.get('window').height*0.05
+        }}
+      source={{
+        uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+    />
 
     </View>
+      <Text style={userViewStyle.profileItemBio}>
+        Bio: {this.props.navigation.getParam('bio', 'NO-ID')}
+      </Text>
+
+  <View style={userViewStyle.editButtonContainer}>
+    <GlobalButton
+      onPress={() => navigate('EditUser', {
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+      buttonTitle={"Edit profile"}
+    />
+  </View>
 
     { this.props.navigation.getParam('settings', 'NO-ID') && this.props.navigation.getParam('settings', 'NO-ID') === true ? (
 
-      <LogOut openOverlay={this.openOverlay} handleLogOut={this.handleLogOut} closeOverlay={this.closeOverlay} overlayVisible={this.state.overlayVisible} />
+      <LogOut
+        openOverlay    = {this.openOverlay}
+        handleLogOut   = {this.handleLogOut}
+        closeOverlay   = {this.closeOverlay}
+        overlayVisible = {this.state.overlayVisible}
+      />
 
   ) : null }
 
 
-    <Text style={{textAlign: 'center', fontSize: 26, fontWeight: 'bold', marginTop: Dimensions.get('window').height*0.06, marginBottom: Dimensions.get('window').height*0.03}}>My NüV Contributions</Text>
+    <Text style={{
+      textAlign: 'center',
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: '#696969',
+      marginTop: Dimensions.get('window').height*0.03,
+      marginBottom: Dimensions.get('window').height*0.015}}
+    >
+      Your NüV Contributions from
+    </Text>
 
     <View style={userViewStyle.iconsContainer}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('RecipeList', {user_id: this.props.navigation.getParam('user_id', 'NO-ID'), user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Recipes"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('VenueList', {user_id: this.props.navigation.getParam('user_id', 'NO-ID'), user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Eateries"} />
-
-    </View>
+      <GlobalButton
+        marginLeft={Dimensions.get('window').width*0.12}
+        onPress={() => navigate('RecipeList', {
+            user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+            user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+            token: this.props.navigation.getParam('token', 'NO-ID'),
+            id: this.props.navigation.getParam('id', 'NO-ID'),
+            name: this.props.navigation.getParam('name', 'NO-ID'),
+            bio: this.props.navigation.getParam('bio', 'NO-ID'),
+            location: this.props.navigation.getParam('location', 'NO-ID'),
+            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          buttonTitle={"Recipes"}
+        />
+      <GlobalButton
+        marginRight={Dimensions.get('window').width*0.12}
+        onPress={() => navigate('VenueList', {
+          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+          user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+          token: this.props.navigation.getParam('token', 'NO-ID'),
+          id: this.props.navigation.getParam('id', 'NO-ID'),
+          name: this.props.navigation.getParam('name', 'NO-ID'),
+          bio: this.props.navigation.getParam('bio', 'NO-ID'),
+          location: this.props.navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+        buttonTitle={"Eateries"}
+        />
+      </View>
 
     <View style={userViewStyle.iconsContainer2}>
 
-    <GlobalButton marginLeft={Dimensions.get('window').width*0.12} onPress={() => navigate('BrandList', {user_id: this.props.navigation.getParam('user_id', 'NO-ID'), user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Brands"} />
-    <GlobalButton marginRight={Dimensions.get('window').width*0.12} onPress={() => navigate('MediaList', {user_id: this.props.navigation.getParam('user_id', 'NO-ID'), user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} buttonTitle={"Media"} />
-
-    </View>
-    </StickyHeaderFooterScrollView>
-
-      </View>
+    <GlobalButton
+      marginLeft={Dimensions.get('window').width*0.12}
+      onPress={() => navigate('BrandList', {
+        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        user: true,
+        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+        token: this.props.navigation.getParam('token', 'NO-ID'),
+        id: this.props.navigation.getParam('id', 'NO-ID'),
+        name: this.props.navigation.getParam('name', 'NO-ID'),
+        bio: this.props.navigation.getParam('bio', 'NO-ID'),
+        location: this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+      buttonTitle={"Brands"}
+    />
+    <GlobalButton
+      marginRight={Dimensions.get('window').width*0.12}
+      onPress={() => navigate('MediaList', {
+        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        user: true,
+        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+        token: this.props.navigation.getParam('token', 'NO-ID'),
+        id: this.props.navigation.getParam('id', 'NO-ID'),
+        name: this.props.navigation.getParam('name', 'NO-ID'),
+        bio: this.props.navigation.getParam('bio', 'NO-ID'),
+        location: this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+      buttonTitle={"Media"}
+    />
+  </View>
+</StickyHeaderFooterScrollView>
+</View>
     );
   }
 }
@@ -155,15 +267,32 @@ const userViewStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  profileItem: {
-    padding: Dimensions.get('window').width* 0.025,
+  profileItemName: {
+    fontSize: Dimensions.get('window').width>750 ? 28 : 20 ,
+    color: '#696969',
+    fontWeight: 'bold'
+  },
+  profileItemHomeTown: {
+    fontSize: Dimensions.get('window').width>750 ? 28 : 20 ,
+    color: '#a2e444',
+    fontWeight: 'bold'
+  },
+  profileItemBadge: {
     fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
-    color: 'black'
+    color: '#696969'
+  },
+  profileItemBio: {
+    fontSize: Dimensions.get('window').width>750 ? 24 : 16 ,
+    color: '#696969',
+    padding: Dimensions.get('window').width* 0.025,
+    textAlign: 'center',
+    marginTop: Dimensions.get('window').height*0.02,
+    marginBottom: Dimensions.get('window').height*0.01
   },
   iconsContainer: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
-    marginTop: Dimensions.get('window').height*0.035,
+    marginTop: Dimensions.get('window').height*0.025,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -172,7 +301,7 @@ const userViewStyle = StyleSheet.create({
   iconsContainer2: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
-    marginTop: Dimensions.get('window').height*0.035,
+    marginTop: Dimensions.get('window').height*0.025,
     marginBottom: Dimensions.get('window').height*0.25,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
