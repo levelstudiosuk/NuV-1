@@ -106,7 +106,7 @@ export default class MediaView extends React.Component {
 
     var self = this;
 
-    var media_item = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+    var media_item = {title: this.state.mediaItem.title, id: this.state.mediaItem.id}
 
     try {
       AsyncStorage.getItem('media_item_favourites').then((media_items) => {

@@ -106,7 +106,7 @@ export default class BrandView extends React.Component {
 
     var self = this;
 
-    var brand = {title: JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')), description: JSON.stringify(this.props.navigation.getParam('description', 'Does not exist')), type: JSON.stringify(this.props.navigation.getParam('type', 'Does not exist')), image: JSON.stringify(this.props.navigation.getParam('image', 'Does not exist'))}
+    var brand = {title: this.state.brandItem.title, id: this.state.brandItem.id}
 
     try {
       AsyncStorage.getItem('brand_favourites').then((brands) => {

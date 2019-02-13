@@ -65,9 +65,6 @@ constructor(props) {
         var token = this.props.navigation.getParam('token', 'NO-ID');
       }
 
-      console.log("Token: ", token);
-      console.log("ID: ", id);
-
       var self = this;
 
       axios.get(`http://nuv-api.herokuapp.com/venues/${id}`,
@@ -155,7 +152,7 @@ checkFavouriteStatus(viewedVenue) {
 
     var self = this;
 
-    var venue = {title: this.state.venueItem.title, image: JSON.stringify(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')}
+    var venue = {title: this.state.venueItem.title, id: this.state.venueItem.id}
 
     try {
       AsyncStorage.getItem('venue_favourites').then((venues) => {
