@@ -132,7 +132,7 @@ export default class MediaList extends React.Component {
        title: item.title,
        url: item.url,
        publishedAt: item.created_at,
-       source: null,
+       source: `${item.user_name} (NüV)`,
        description: item.description,
        user_id: item.user_id,
        content_is_vegan: item.content_is_vegan
@@ -205,7 +205,7 @@ export default class MediaList extends React.Component {
               </View>
               <View  key={i+7}>
                 <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
-                {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()}
+                {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()} - {item.source}
                 </Text>
               </View>
             </View>
