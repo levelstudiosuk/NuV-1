@@ -248,7 +248,7 @@ render() {
         disabled={false}
         maxStars={5}
         rating={this.state.brandItem.rating}
-        fullStarColor={'#2e8302'}
+        fullStarColor={'#a2e444'}
         containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
         />
     </View>
@@ -265,7 +265,7 @@ render() {
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#2e8302'}
+        fullStarColor={'#a2e444'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
         />
       </View>
@@ -312,14 +312,14 @@ const brandViewStyle = StyleSheet.create({
     flexDirection: 'column',
   },
   brandname: {
-    color: '#2e8302',
+    color: '#a2e444',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 20,
   },
   brandreviewtitle: {
-    color: '#2e8302',
+    color: '#a2e444',
     margin: 4,
     fontSize: 18,
   },
@@ -336,7 +336,7 @@ const brandViewStyle = StyleSheet.create({
   vibeHeading: {
   fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
   textAlign: 'center',
-  color: '#2e8302',
+  color: '#a2e444',
   marginTop: Dimensions.get('window').height*0.03
   },
   submitContainer: {

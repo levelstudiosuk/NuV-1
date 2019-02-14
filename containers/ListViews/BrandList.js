@@ -258,7 +258,7 @@ const brandListStyle = StyleSheet.create({
     flexDirection:    'column',
   },
   brandtitle: {
-    color:            '#2e8302',
+    color:            '#a2e444',
     margin:           4,
     fontSize:         18,
     fontWeight:       'bold',

@@ -281,7 +281,7 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: '#2e8302', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                ? { color: '#a2e444', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
                 : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
@@ -394,8 +394,13 @@ export default class RecipeList extends React.Component {
           style={underlayColor="white"}
           >
           <AutoHeightImage
-            style={{marginTop: Dimensions.get('window').height*0.05}}
-            width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.5 : Dimensions.get('window').width*0.4}
+            style={{
+              marginTop: Dimensions.get('window').height*0.05
+              }}
+            width={
+              Dimensions.get('window').width < 750 ?
+              Dimensions.get('window').width*0.5 :
+              Dimensions.get('window').width*0.4}
             source={{uri: this.state.activeItem.item.method}}
             />
         </TouchableHighlight>

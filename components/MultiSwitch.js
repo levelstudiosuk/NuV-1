@@ -108,19 +108,19 @@ export default class MultiSwitch extends Component {
 
 MultiSwitch.defaultProps = {
   containerStyles: [{}],
-  activeContainerStyle: [{ backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: '#2e8302'}
+  activeContainerStyle: [{ backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: '#a2e444'}
                        , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: 'rgb(180, 180, 180)'}
                        , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: 'rgb(180, 180, 180)'}
-                       , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: '#2e8302'}
+                       , { backgroundColor: 'white', borderRadius: 100, borderWidth: 1, borderColor: '#a2e444'}
                        ],
   inactiveContainerStyle: [
-                         { backgroundColor: '#2e8302', borderRadius: 100,}
-                       , { backgroundColor: '#2e8302', borderRadius: 100,}
-                       , { backgroundColor: '#2e8302', borderRadius: 100,}
-                       , { backgroundColor: '#2e8302', borderRadius: 100,}
+                         { backgroundColor: '#a2e444', borderRadius: 100,}
+                       , { backgroundColor: '#a2e444', borderRadius: 100,}
+                       , { backgroundColor: '#a2e444', borderRadius: 100,}
+                       , { backgroundColor: '#a2e444', borderRadius: 100,}
                        ],
   activeItemStyle: [{}, {}, {}, {}],
-  inactiveItemStyle: [{backgroundColor: '#2e8302'}, {backgroundColor: '#2e8302'}, {backgroundColor: '#2e8302'}, {backgroundColor: '#2e8302'}],
+  inactiveItemStyle: [{backgroundColor: '#a2e444'}, {backgroundColor: '#a2e444'}, {backgroundColor: '#a2e444'}, {backgroundColor: '#a2e444'}],
   neverActivate: [],
   layout: {horizontal: -1, vertical: 0},
   onActivate: () => { },

@@ -418,7 +418,7 @@ export default class VenueForm extends React.Component {
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#0DC6B5'}
+        fullStarColor={'#a2e444'}
         containerStyle={{marginBottom: Dimensions.get('window').height*0.04}}
       />
 
