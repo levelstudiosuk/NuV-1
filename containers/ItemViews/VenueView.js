@@ -290,7 +290,7 @@ render() {
       disabled={false}
       maxStars={5}
       rating={this.state.venueItem.rating}
-      fullStarColor={'#2e8302'}
+      fullStarColor={'#a2e444'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
   </View>
@@ -304,7 +304,7 @@ render() {
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#2e8302'}
+        fullStarColor={'#a2e444'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
       />
   </View>
@@ -361,14 +361,14 @@ const venueViewStyle = StyleSheet.create({
     flexDirection:    'column',
   },
   venuename: {
-    color:            '#2e8302',
+    color:            '#a2e444',
     fontSize:          20,
     fontWeight:       'bold',
     marginTop:        20,
     marginBottom:     20,
   },
   venuereviewtitle: {
-    color:            '#2e8302',
+    color:            '#a2e444',
     margin:            4,
     fontSize:         18,
   },
@@ -426,7 +426,7 @@ const venueViewStyle = StyleSheet.create({
   vibeHeading: {
     fontSize:         Dimensions.get('window').width > 750 ? 27 : 20,
     textAlign:        'center',
-    color:            '#2e8302',
+    color:            '#a2e444',
     marginTop:        Dimensions.get('window').height*0.03
   },
   submitContainer: {

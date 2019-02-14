@@ -119,7 +119,7 @@ export default class VenueList extends React.Component {
         key={i+1}
         style={venueListStyle.venueimage}
         onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
-        <Image key={i+2} source={require('../../assets/AppIcons/greenpin.png')} style={{height: 50, width: 50}}/>
+        <Image key={i+2} source={require('../../assets/AppIcons/lightgreenpin.png')} style={{height: 50, width: 50}}/>
       </TouchableHighlight>
           <View key={i+3} style={venueListStyle.venuetextcontainer}>
             <View key={i+4}>
@@ -252,7 +252,7 @@ const venueListStyle = StyleSheet.create({
     flexDirection: 'column',
   },
   venuetitle: {
-    color: '#2e8302',
+    color: '#a2e444',
     margin: 4,
     fontSize: 18,
     fontWeight: 'bold',
@@ -264,7 +264,7 @@ const venueListStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
   venueaddress: {
-    color: '#0dc6b5',
+    color: '#a2e444',
     margin: 4,
     fontSize: 12,
     fontWeight: 'bold',
