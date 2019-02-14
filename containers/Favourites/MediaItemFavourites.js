@@ -103,10 +103,10 @@ export default class MediaItemFavourites extends Component {
         bio: this.props.navigation.getParam('bio', 'NO-ID'),
         location: this.props.navigation.getParam('location', 'NO-ID'),
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} key={i}>
-        <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 14, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.title} </Text>
+        <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 14, marginTop: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02, marginBottom: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02}} key={i}> {favourite.title} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>
-      <Image source={require('../../assets/AppIcons/trash.png')} style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02,  marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} />
+      <Image source={require('../../assets/AppIcons/trash.png')} style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02, marginBottom: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02}} />
       </TouchableOpacity>
       </View>
     )
