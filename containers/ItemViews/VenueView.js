@@ -193,6 +193,41 @@ checkFavouriteStatus(viewedVenue) {
         return this.state.venueItem.title
       }
 
+
+      postRating(){
+
+        const {navigate} = this.props.navigation;
+
+
+        this.setState({
+          ratingPending: true
+        },
+        function(){
+
+          var token = this.props.navigation.getParam('token', 'NO-ID');
+          var id = this.props.navigation.getParam('id', 'NO-ID');
+          var self = this;
+
+        axios.post(`http://nuv-api.herokuapp.com/venues/${id}/rating`, {"rating": `${self.state.starCount}`},
+
+     { headers: { Authorization: `${token}` }})
+
+     .then(function(response){
+
+       self.setState({
+         ratingPending: false
+       },
+       function(){
+         navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+       }
+     )
+     }).catch(function(error){
+       console.log("Error: ", error);
+     })
+   })
+      }
+
 render() {
 
   const {navigate} = this.props.navigation;
@@ -314,7 +349,7 @@ render() {
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.03}
       buttonTitle="Rate & Home"
-      onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
+      onPress={() => this.postRating()}/>
     </View>
   </ScrollView>
 
