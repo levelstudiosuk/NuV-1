@@ -5,6 +5,7 @@ import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
@@ -12,6 +13,7 @@ import axios from 'axios';
 import moment from 'moment';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
+import key from '../../news_key.js';
 
 export default class MediaList extends React.Component {
   static navigationOptions = {
@@ -28,33 +30,133 @@ export default class MediaList extends React.Component {
     }
 
     state = {
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      contentLoading: true
     }
 
     componentDidMount(){
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
+      var request_keyword = this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? "veganism" : "vegetarianism"
+      console.log("Key", key);
+      var url = `https://newsapi.org/v2/everything?q=veganism&apiKey=${key}`;
 
-      axios.get('http://nuv-api.herokuapp.com/media',
-
-   { headers: { Authorization: `${token}` }})
+      axios.get(url)
 
    .then(function(response){
 
-     var responseItems = JSON.parse(response.request['_response'])
-     var mediaItems = ReverseArray.reverseArray(responseItems);
+
+     var responseItems = response.data.articles
+     var newsArray = []
+     responseItems.forEach((item) => {
+       mediaItem = {
+         title: item.title,
+         url: item.url,
+         publishedAt: item.publishedAt,
+         source: item.source.name,
+         description: item.description,
+         user_id: null,
+         content_is_vegan: true
+       }
+       newsArray.push(mediaItem)
+     })
 
      self.setState({
-       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
+       mediaItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? newsArray.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : newsArray
      },
      function(){
-       console.log("Media items", self.state.mediaItems);
+       self.fetchVegetarianStories()
      }
    )
  }).catch(function(error){
    console.log("Error: ", error);
  })
     }
+
+    fetchVegetarianStories(){
+
+      var self = this;
+      var url = `https://newsapi.org/v2/everything?q=vegetarianism&apiKey=${key}`;
+
+      axios.get(url)
+
+   .then(function(response){
+
+
+     var responseItems = response.data.articles
+     var newsArray = []
+     responseItems.forEach((item) => {
+       mediaItem = {
+         title: item.title,
+         url: item.url,
+         publishedAt: item.publishedAt,
+         source: item.source.name,
+         description: item.description,
+         user_id: null,
+         content_is_vegan: false
+       }
+       newsArray.push(mediaItem)
+     })
+
+     var filteredNewsArray = self.props.navigation.getParam('user', 'NO-ID') === true ? newsArray.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : newsArray
+     var updatedState = filteredNewsArray.concat(self.state.mediaItems);
+
+     self.setState({
+       mediaItems: updatedState
+     },
+     function(){
+       self.fetchNuvApiStories()
+     }
+   )
+ }).catch(function(error){
+   console.log("Error: ", error);
+ })
+
+    }
+
+    fetchNuvApiStories(){
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+    var self = this;
+
+    axios.get('http://nuv-api.herokuapp.com/media',
+
+ { headers: { Authorization: `${token}` }})
+
+ .then(function(response){
+
+   var responseItems = JSON.parse(response.request['_response'])
+
+   var newsArray = []
+   responseItems.forEach((item) => {
+     mediaItem = {
+       title: item.title,
+       url: item.url,
+       publishedAt: item.created_at,
+       source: null,
+       description: item.description,
+       user_id: item.user_id,
+       content_is_vegan: item.content_is_vegan
+     }
+     newsArray.push(mediaItem)
+   })
+
+   var mediaItems = ReverseArray.reverseArray(newsArray);
+   var filteredMediaItems = self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
+
+   var updatedState = self.state.mediaItems.concat(filteredMediaItems)
+   self.setState({
+     mediaItems:  updatedState
+   },
+   function(){
+     self.setState({
+       contentLoading: false
+     })
+   }
+ )
+}).catch(function(error){
+ console.log("Error: ", error);
+})
+}
 
     getActiveToggleIndex(){
       return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
@@ -103,7 +205,7 @@ export default class MediaList extends React.Component {
               </View>
               <View  key={i+7}>
                 <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
-                {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').calendar()}
+                {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()}
                 </Text>
               </View>
             </View>
@@ -116,6 +218,8 @@ export default class MediaList extends React.Component {
       return (
 
     <View style={mediaListStyle.container}>
+
+    { this.state.contentLoading === false ? (
 
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
     <View style={mediaListStyle.container}>
@@ -168,6 +272,10 @@ export default class MediaList extends React.Component {
       </View>
     </View>
   </ScrollView>
+
+) : <LoadingCelery />
+
+}
 
 </View>
 

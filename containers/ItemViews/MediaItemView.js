@@ -4,6 +4,7 @@ import { Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import NavBar from '../../components/NavBar.js';
 import AddItemButton from '../../components/AddItemButton.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import FaveButton from '../../components/FaveButton.js';
 import ShareButton from '../../components/ShareButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -231,11 +232,7 @@ export default class MediaView extends React.Component {
         </View>
 
         </ScrollView>
-      ) : <AutoHeightImage
-        source={require('../../assets/celery.gif')}
-        style={{
-          backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
-       />
+      ) : <LoadingCelery />
     }
       </View>
       );

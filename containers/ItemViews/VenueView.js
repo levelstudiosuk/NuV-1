@@ -4,6 +4,7 @@ import AddItemButton      from '../../components/AddItemButton.js';
 import FaveButton         from '../../components/FaveButton.js';
 import ShareButton        from '../../components/ShareButton.js';
 import SnapCarousel       from '../../components/SnapCarousel.js';
+import LoadingCelery       from '../../components/LoadingCelery.js';
 import SmallTwoWayToggle  from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage    from 'react-native-auto-height-image';
 import Map                from '../../containers/Global/Map.js';
@@ -317,11 +318,7 @@ render() {
     </View>
   </ScrollView>
 
-) : <AutoHeightImage
-  source={require('../../assets/celery.gif')}
-  style={{
-    backgroundColor: 'transparent', position: 'absolute', top: Dimensions.get('window').height*0.26}} width={Dimensions.get('window').width*0.77}
- />
+) : <LoadingCelery />
 
 }
 </View>
