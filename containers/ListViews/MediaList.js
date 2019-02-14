@@ -5,6 +5,7 @@ import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import FaveButton from '../../components/FaveButton.js';
 import SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
@@ -29,7 +30,8 @@ export default class MediaList extends React.Component {
     }
 
     state = {
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      contentLoading: true
     }
 
     componentDidMount(){
@@ -97,7 +99,7 @@ export default class MediaList extends React.Component {
      })
 
      var filteredNewsArray = self.props.navigation.getParam('user', 'NO-ID') === true ? newsArray.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : newsArray
-     var updatedState = self.state.mediaItems.concatenate(filteredMediaItems)
+     var updatedState = filteredNewsArray.concat(self.state.mediaItems);
 
      self.setState({
        mediaItems: updatedState
@@ -141,12 +143,14 @@ export default class MediaList extends React.Component {
    var mediaItems = ReverseArray.reverseArray(newsArray);
    var filteredMediaItems = self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
 
-   var updatedState = self.state.mediaItems.concatenate(filteredMediaItems)
+   var updatedState = self.state.mediaItems.concat(filteredMediaItems)
    self.setState({
      mediaItems:  updatedState
    },
    function(){
-     console.log("Media items", self.state.mediaItems);
+     self.setState({
+       contentLoading: false
+     })
    }
  )
 }).catch(function(error){
@@ -215,6 +219,8 @@ export default class MediaList extends React.Component {
 
     <View style={mediaListStyle.container}>
 
+    { this.state.contentLoading === false ? (
+
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
     <View style={mediaListStyle.container}>
 
@@ -266,6 +272,10 @@ export default class MediaList extends React.Component {
       </View>
     </View>
   </ScrollView>
+
+) : <LoadingCelery />
+
+}
 
 </View>
 
