@@ -380,17 +380,10 @@ export default class RecipeList extends React.Component {
             marginTop: Dimensions.get('window').height*0.20, height: Dimensions.get('window').height*0.6,
             width: Dimensions.get('window').width}}
           >
-
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => navigate('RecipeView', {
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.state.activeItem.item.id,
-            name: this.state.activeItem.item.title,
-            prep_time: this.state.activeItem.item.prep_time,
-            cook_time: this.state.activeItem.item.cook_time,
-            image: this.state.activeItem.item.method
-            })}
+          onPress={() => navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+
           style={underlayColor="white"}
           >
           <AutoHeightImage
