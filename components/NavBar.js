@@ -40,7 +40,16 @@ export default class NavBar extends React.Component {
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
-      onPress={() => navigate('Favourites', this.props.attributes)}>
+      onPress={() => navigate('Favourites', {
+        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        settings: true,
+        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+        token: this.props.navigation.getParam('token', 'NO-ID'),
+        id: this.props.navigation.getParam('id', 'NO-ID'),
+        name: this.props.navigation.getParam('name', 'NO-ID'),
+        bio: this.props.navigation.getParam('bio', 'NO-ID'),
+        location: this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
           <Image source={require('../assets/NavBarIcons/Green/lightstar.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
       </TouchableHighlight>
 

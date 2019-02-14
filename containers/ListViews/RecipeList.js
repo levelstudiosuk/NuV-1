@@ -276,7 +276,7 @@ export default class RecipeList extends React.Component {
               : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
-        <AutoHeightImage width={Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/cutlery.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.20 : Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/cutlery.png')}/>
           <Text
             style={[
               registerUserStyle.name2,
@@ -395,7 +395,7 @@ export default class RecipeList extends React.Component {
           >
           <AutoHeightImage
             style={{marginTop: Dimensions.get('window').height*0.05}}
-            width={Dimensions.get('window').width*0.5}
+            width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.5 : Dimensions.get('window').width*0.4}
             source={{uri: this.state.activeItem.item.method}}
             />
         </TouchableHighlight>
@@ -403,24 +403,24 @@ export default class RecipeList extends React.Component {
           <Text style={{
             color: '#696969',
             marginTop: Dimensions.get('window').height*0.02,
-            fontSize: Dimensions.get('window').width > 750 ? 30 : 20,
+            fontSize: Dimensions.get('window').width > 750 ? 24 : 20,
             textAlign: 'center'}}>
               {this.state.activeItem.item.title}
           </Text>
 
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
-            fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
             textAlign: 'center'}}>
               <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05}
-              />  Prep: {this.state.activeItem.item.prep_time}
+              />  Prep: N/A
           </Text>
 
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
-            fontSize: Dimensions.get('window').width > 750 ? 25 : 16,
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Cook: {this.state.activeItem.item.cooking_time}
+              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Cook: {this.state.activeItem.item.cooking_time} mins
           </Text>
 
            </View>

@@ -16,12 +16,12 @@ export function getTimeBasedGreeting(user){
     return `Good morning ${user} You're up bright & early today!`
   }
   else if (timeNow.hours > 7 && timeNow.hours < 12){
-    return `Good morning ${user}! Lets explore NüV!`
+    return `Good morning ${user}! Let's explore NüV!`
   }
   else if (timeNow.hours > 11 && timeNow.hours < 18){
     return `Good afternoon ${user}! What are you looking for?`
   }
   else if (timeNow.hours > 17 && timeNow.hours < 23){
-    return `Good evening ${user}! Enjoy browsing NüV 😃`
+    return `Good evening ${user}!`
   }
 }

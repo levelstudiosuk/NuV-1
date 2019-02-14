@@ -87,11 +87,22 @@ export default class BrandFavourites extends Component {
 
   renderFavourites(){
 
+    const {navigate} = this.props.navigation;
+
     var favourites = JSON.parse(this.state.favourites);
 
     return favourites.map((favourite, i) =>
       <View key={i} style={{flexDirection: 'row'}}>
-      <TouchableOpacity onPress={() => this.setState({clickedFavourite: favourites[i]}, function(){ this.toggleFavouriteModal() })} key={i}>
+      <TouchableOpacity onPress={() => navigate('BrandView', {
+        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        settings: true,
+        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+        token: this.props.navigation.getParam('token', 'NO-ID'),
+        id: favourite.id,
+        name: this.props.navigation.getParam('name', 'NO-ID'),
+        bio: this.props.navigation.getParam('bio', 'NO-ID'),
+        location: this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} key={i}>
         <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 14, marginTop: Dimensions.get('window').height*0.04, marginBottom: Dimensions.get('window').height*0.04}} key={i}> {favourite.title} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>
@@ -121,7 +132,7 @@ export default class BrandFavourites extends Component {
             Your Favourite Brands
           </Text>
 
-            <ScrollView>
+            <ScrollView style={{marginBottom: Dimensions.get('window').height*0.3}}>
 
 
           {

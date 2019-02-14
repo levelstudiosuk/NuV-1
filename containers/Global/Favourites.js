@@ -9,19 +9,6 @@ import MediaItemFavourites from '../Favourites/MediaItemFavourites.js';
 import BrandFavourites from '../Favourites/BrandFavourites.js';
 import VenueFavourites from '../Favourites/VenueFavourites.js';
 
-const FirstRoute = () => (
-  <RecipeFavourites />
-);
-const SecondRoute = () => (
-  <VenueFavourites />
-);
-const ThirdRoute = () => (
-  <BrandFavourites />
-);
-const FourthRoute = () => (
-  <MediaItemFavourites />
-);
-
 export default class Favourites extends React.Component {
   static navigationOptions = {
     title: null,
@@ -57,6 +44,19 @@ export default class Favourites extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
+
+    const FirstRoute = () => (
+      <RecipeFavourites navigation={this.props.navigation} />
+    );
+    const SecondRoute = () => (
+      <VenueFavourites navigation={this.props.navigation} />
+    );
+    const ThirdRoute = () => (
+      <BrandFavourites navigation={this.props.navigation} />
+    );
+    const FourthRoute = () => (
+      <MediaItemFavourites navigation={this.props.navigation} />
+    );
 
     return (
       <TabView

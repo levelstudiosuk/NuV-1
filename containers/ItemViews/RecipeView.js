@@ -114,7 +114,7 @@ export default class RecipeView extends React.Component {
 
     var self = this;
 
-    var recipe = {name: this.state.recipeItem.title, cook_time: this.state.recipeItem.cooking_time}
+    var recipe = {name: this.state.recipeItem.title, id: this.state.recipeItem.id}
 
     try {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {
