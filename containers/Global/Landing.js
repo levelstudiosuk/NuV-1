@@ -37,11 +37,11 @@ render() {
     return (
 
       <View style={landingStyle.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center'}}>
         <AutoHeightImage
           source={require('../../assets/greenlogo.png')}
-            style={{marginTop:Dimensions.get('window').height*0.08}}
+            style={{marginTop:Dimensions.get('window').height*0.07}}
             width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.75 : Dimensions.get('window').width*0.57} />
       </View>
       <View style={landingStyle.iconsContainer}>
