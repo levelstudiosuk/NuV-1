@@ -198,9 +198,9 @@ render() {
 
   if (this.state.venueItem){
     var images = [];
-    images.push(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png');
+    images.push(this.state.venueItem.venue_main_image ? this.state.venueItem.venue_main_image : 'https://cdn.samsung.com/etc/designs/smg/global/imgs/support/cont/NO_IMG_600x600.png');
     for (image of this.state.venueItem.venue_images){
-      images.push(image.venue_image.url ? image.venue_image.url : 'https://www.triequestrian.ie/pub/media/catalog/product/placeholder/default/No-images-placeholder_1.png')
+      images.push(image.venue_image.url ? image.venue_image.url : 'https://cdn.samsung.com/etc/designs/smg/global/imgs/support/cont/NO_IMG_600x600.png')
     }
     var url = this.state.venueItem.url
     console.log("IMAGES", images);

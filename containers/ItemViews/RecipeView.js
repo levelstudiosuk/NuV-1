@@ -160,14 +160,12 @@ render() {
 
   if (this.state.recipeItem){
     var images = [];
+    images.push(this.state.recipeItem.recipe_main_image ? this.state.recipeItem.recipe_main_image : 'https://cdn.samsung.com/etc/designs/smg/global/imgs/support/cont/NO_IMG_600x600.png');
     for (image of this.state.recipeItem.recipe_images){
-      if (image){
-      images.push(image.recipe_image.url)
+      images.push(image.recipe_image.url ? image.recipe_image.url : 'https://cdn.samsung.com/etc/designs/smg/global/imgs/support/cont/NO_IMG_600x600.png')
     }
-    else {
-      images.push(image.method)
-    }
-    }
+    var url = this.state.recipeItem.url
+    console.log("IMAGES", images);
   }
 
     return (
@@ -240,7 +238,9 @@ render() {
           </View>
         </View>
 
-
+        <View>
+        <SnapCarousel venueItem={this.state.recipeItem} images={images}/>
+        </View>
 
 
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
