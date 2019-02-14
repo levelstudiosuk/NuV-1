@@ -40,7 +40,7 @@ render() {
     <View style={{
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: this.props.overlayVisible === true ? Dimensions.get('window').height*0.025 : Dimensions.get('window').height*0.0001
+        marginTop: this.props.overlayVisible === true ? Dimensions.get('window').height*0.0001 : Dimensions.get('window').height*0.0001
       }}>
     <Overlay
       visible={this.props.overlayVisible}
@@ -66,7 +66,7 @@ render() {
             <Slider
               animateTransitions={true}
               minimumValue={5}
-              maximumValue={25}
+              maximumValue={100}
               step={5}
               minimumTrackTintColor={'#a2e444'}
               maximumTrackTintColor={'#2e8302'}
@@ -83,7 +83,7 @@ render() {
             marginTop: Dimensions.get('window').height*0.04}}
           >
             <Text style={{
-              marginBottom: Dimensions.get('window').width*0.135,
+              marginBottom: Dimensions.get('window').width*0.07,
               marginTop: Dimensions.get('window').width*0.02,
               color: 'black',
               fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
@@ -95,7 +95,7 @@ render() {
           <Text style={{
             textAlign: 'center',
             fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
-            marginBottom: Dimensions.get('window').height*0.04,
+            marginBottom: Dimensions.get('window').height*0.07,
             marginTop: Dimensions.get('window').height*0.01 }}>
               Type of venue:
           </Text>

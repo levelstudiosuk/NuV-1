@@ -53,7 +53,7 @@ render() {
           <Slider
           animateTransitions={true}
           minimumValue={5}
-          maximumValue={25}
+          maximumValue={100}
           step={5}
           minimumTrackTintColor={'#2e8302'}
           maximumTrackTintColor={'#a2e444'}
