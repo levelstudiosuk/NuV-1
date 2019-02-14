@@ -22,7 +22,7 @@ render() {
 
       <GradientButton
         onPressAction     = {this.props.onPress}
-        textStyle         = {{fontSize: 15, color: 'white', fontWeight: 'normal'}}
+        textStyle         = {{fontSize: Dimensions.get('window').width < 750 ? 15 : 23, color: 'white', fontWeight: 'normal'}}
         text              = {this.props.buttonTitle}
         radius            = {10}
         height            = {45}

@@ -261,7 +261,7 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={homeStyle.greetingContainer}>
           <Text style={{
-              fontSize: 18,
+              fontSize: Dimensions.get('window').width < 750 ? 18 : 24,
               color: 'black',
               marginLeft:30,
               marginRight:30,
@@ -400,7 +400,7 @@ render() {
       <View style={homeStyle.greetingContainer}>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: Dimensions.get('window').width < 750 ? 18 : 24,
             color:'black',
             textAlign: 'center',
             marginBottom: Dimensions.get('window').height*0.04
