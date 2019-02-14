@@ -18,7 +18,7 @@ export default class FaveButton extends Component {
         underlayColor="white"
         >
           <Image
-            source={require('../assets/AppIcons/fave.png')}
+            source={require('../assets/NavBarIcons/Green/lightstar.png')}
             style={{height:50, width:50, marginRight:20}}
           />
       </TouchableHighlight>

@@ -255,11 +255,10 @@ render() {
 
   <View style={{flexDirection: 'row', justifyContent: 'center'}}>
   <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
-  <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
+  <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
 
-    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
 
     <ShareButton
       marginLeft={Dimensions.get('window').width*0.07}
@@ -291,7 +290,7 @@ render() {
       disabled={false}
       maxStars={5}
       rating={this.state.venueItem.rating}
-      fullStarColor={'#0DC6B5'}
+      fullStarColor={'#2e8302'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
   </View>
@@ -305,7 +304,7 @@ render() {
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#0DC6B5'}
+        fullStarColor={'#2e8302'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
       />
   </View>
@@ -362,14 +361,14 @@ const venueViewStyle = StyleSheet.create({
     flexDirection:    'column',
   },
   venuename: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     fontSize:          20,
     fontWeight:       'bold',
     marginTop:        20,
     marginBottom:     20,
   },
   venuereviewtitle: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     margin:            4,
     fontSize:         18,
   },
@@ -427,7 +426,7 @@ const venueViewStyle = StyleSheet.create({
   vibeHeading: {
     fontSize:         Dimensions.get('window').width > 750 ? 27 : 20,
     textAlign:        'center',
-    color:            '#0DC6B5',
+    color:            '#2e8302',
     marginTop:        Dimensions.get('window').height*0.03
   },
   submitContainer: {

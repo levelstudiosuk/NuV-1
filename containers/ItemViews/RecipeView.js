@@ -357,7 +357,7 @@ const recipeViewStyle = StyleSheet.create({
   vibeHeading: {
   fontSize:           Dimensions.get('window').width > 750 ? 27 : 20,
   textAlign:          'center',
-  color:              '#0DC6B5',
+  color:              '#2e8302',
   marginTop:          Dimensions.get('window').height*0.03
 },
   submitContainer: {
