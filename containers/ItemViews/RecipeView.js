@@ -198,7 +198,6 @@ render() {
       images.push(image.recipe_image.url ? image.recipe_image.url : 'https://cdn.samsung.com/etc/designs/smg/global/imgs/support/cont/NO_IMG_600x600.png')
     }
     var url = this.state.recipeItem.url
-    console.log("IMAGES", images);
   }
 
     return (
