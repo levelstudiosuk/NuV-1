@@ -343,7 +343,7 @@ const recipeViewStyle = StyleSheet.create({
   },
   recipename: {
     color:            '#a2e444',
-    fontSize:         20,
+    fontSize:         Dimensions.get('window').width < 750 ? 20 : 26,
     fontWeight:       'bold',
     marginTop:        Dimensions.get('window').height*0.025,
     marginBottom:     Dimensions.get('window').height*0.025,
