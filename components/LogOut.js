@@ -24,7 +24,7 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>Are you sure you want to log out?</Text>
+        <Text style={{fontSize: Dimensions.get('window').width < 750 ? 14 : 19, marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>Are you sure you want to log out?</Text>
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <GlobalButton onPress={() => this.props.handleLogOut()} buttonTitle={"Yes"} />
