@@ -1,16 +1,23 @@
-import React from 'react';
-import { StyleSheet, Platform, TouchableHighlight, ScrollView, Dimensions, Button, Text, View } from 'react-native';
-import { Constants } from 'expo'
+import    React from 'react';
+import {  StyleSheet,
+          Platform,
+          TouchableHighlight,
+          ScrollView,
+          Dimensions,
+          Button,
+          Text,
+          View } from 'react-native';
+import {  Constants } from 'expo'
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
-import NavBar from '../../components/NavBar.js';
-import AutoHeightImage from 'react-native-auto-height-image';
-import GlobalButton from '../../components/GlobalButton.js';
-import ShareButton from '../../components/ShareButton.js';
-import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
-import StarRating from 'react-native-star-rating';
-import AddItemButton from '../../components/AddItemButton.js';
-import FaveButton from '../../components/FaveButton.js';
-import { AsyncStorage, Alert } from "react-native"
+import    NavBar from '../../components/NavBar.js';
+import    AutoHeightImage from 'react-native-auto-height-image';
+import    GlobalButton from '../../components/GlobalButton.js';
+import    ShareButton from '../../components/ShareButton.js';
+import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
+import    StarRating from 'react-native-star-rating';
+import    AddItemButton from '../../components/AddItemButton.js';
+import    FaveButton from '../../components/FaveButton.js';
+import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
 import axios from 'axios';
 
@@ -41,7 +48,6 @@ export default class BrandView extends React.Component {
       }
 
       componentDidMount(){
-
         var id = this.props.navigation.getParam('id', 'NO-ID');
         var token = this.props.navigation.getParam('token', 'NO-ID');
         var self = this;
@@ -64,7 +70,6 @@ export default class BrandView extends React.Component {
      }).catch(function(error){
        console.log("Error: ", error);
      })
-
       }
 
   checkFavouriteStatus(viewedBrand) {
@@ -142,23 +147,43 @@ export default class BrandView extends React.Component {
     }
 }
 
-  render() {
-    const {navigate} = this.props.navigation;
+render() {
+  const {navigate} = this.props.navigation;
     return (
 
       <View style={brandViewStyle.container}>
 
       { this.state.brandItem ? (
 
-      <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
-      <View style={brandViewStyle.container}>
+      <ScrollView
+        style={{
+          width: Dimensions.get('window').width*1,
+          paddingLeft: Dimensions.get('window').width*0.015,
+          paddingRight: Dimensions.get('window').width*0.015}}
+        showsVerticalScrollIndicator={false}>
 
-      <View style={{marginTop: Dimensions.get('window').height*0.02}}>
-      </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <FaveButton navigation={this.props.navigation} handleButtonClick={this.addBrandToFavourites}/>
-          <AddItemButton navigation={this.props.navigation}
-          onPress={() => navigate('BrandForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+          <View style={brandViewStyle.container}>
+
+            <View style={{marginTop: Dimensions.get('window').height*0.02}}>
+            </View>
+
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row'}}>
+              <FaveButton
+                navigation={this.props.navigation}
+                handleButtonClick={this.addBrandToFavourites}/>
+              <AddItemButton
+                navigation={this.props.navigation}
+                onPress={() => navigate('BrandForm', {
+                    avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+                    token: this.props.navigation.getParam('token', 'NO-ID'),
+                    id: this.props.navigation.getParam('id', 'NO-ID'),
+                    name: this.props.navigation.getParam('name', 'NO-ID'),
+                    bio: this.props.navigation.getParam('bio', 'NO-ID'),
+                    location: this.props.navigation.getParam('location', 'NO-ID'),
+                    user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
 
         <Text style={brandViewStyle.brandname}>
@@ -166,72 +191,90 @@ export default class BrandView extends React.Component {
         </Text>
 
         <View style={brandViewStyle.mapcontainer}>
-        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={{uri: this.state.brandItem.brand_main_image_location}}/>
+          <AutoHeightImage
+            width={Dimensions.get('window').width*1}
+            style={{marginTop: Dimensions.get('window').width*0.02}}
+            source={{uri: this.state.brandItem.brand_main_image_location}}/>
         </View>
-    </View>
+      </View>
 
-    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.brandItem.user_image}}/>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
+    <View
+      style={{
+          flexDirection: 'row',
+          justifyContent: 'center'}}>
+
+        <AutoHeightImage
+          width={Dimensions.get('window').width*0.1}
+          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
+
+        <AutoHeightImage
+          width={Dimensions.get('window').width*0.1}
+          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}
+          source={{uri: this.state.brandItem.user_image}}/>
+
         <ShareButton
-        marginLeft={Dimensions.get('window').width*0.07}
-        title="Shared from NüV"
-        message="Message to share"
-        url="www.level-apps.co.uk"
-        subject="Hi, a NüV user though you would like to see this..."
+          marginLeft={Dimensions.get('window').width*0.07}
+          title="Shared from NüV"
+          message="Message to share"
+          url="www.level-apps.co.uk"
+          subject="Hi, a NüV user though you would like to see this..."
          />
     </View>
 
     <View style={{alignItems: 'center'}}>
-    <Text style={brandViewStyle.brandreviewbody}>
-    Uploaded {moment(new Date(this.state.brandItem.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()} by {this.state.brandItem.user_name}
-
-    </Text>
+      <Text style={brandViewStyle.brandreviewbody}>
+        Uploaded {moment(new Date(this.state.brandItem.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()} by {this.state.brandItem.user_name}
+      </Text>
     </View>
 
     <View >
       <View>
         <Text style={brandViewStyle.brandreviewtitle}>
-        This brand was described by {this.state.brandItem.user_name} as:{"\n"}
+          This brand was described by {this.state.brandItem.user_name} as:{"\n"}
         </Text>
         <Text style={brandViewStyle.brandreviewbody}>
-        {this.state.brandItem.description}
+          {this.state.brandItem.description}
         </Text>
       </View>
     </View>
 
 
     <View style={{alignItems: 'center', width: Dimensions.get('window').width*1}}>
-    <Text style={brandViewStyle.vibeHeading}>NuV user rating</Text>
-    <StarRating
-      disabled={false}
-      maxStars={5}
-      rating={this.state.brandItem.rating}
-      fullStarColor={'#0DC6B5'}
-      containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
-      />
+      <Text style={brandViewStyle.vibeHeading}>
+        NuV user rating
+      </Text>
+      <StarRating
+        disabled={false}
+        maxStars={5}
+        rating={this.state.brandItem.rating}
+        fullStarColor={'#2e8302'}
+        containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
+        />
     </View>
 
-      <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
-      <Text style={brandViewStyle.vibeHeading}>Rate this brand</Text>
+      <View style={{
+        alignItems: 'center',
+        marginTop: Dimensions.get('window').height*0.005,
+        width: Dimensions.get('window').width*1}}>
+          <Text style={brandViewStyle.vibeHeading}>
+            Rate this brand
+          </Text>
       <StarRating
         disabled={false}
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#0DC6B5'}
+        fullStarColor={'#2e8302'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
         />
-        </View>
+      </View>
 
-        <View style={brandViewStyle.submitContainer}>
+      <View style={brandViewStyle.submitContainer}>
         <GlobalButton
            buttonTitle="Rate and go"
            onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
-
-        </ScrollView>
+    </ScrollView>
 
       ) : null
 
@@ -268,14 +311,14 @@ const brandViewStyle = StyleSheet.create({
     flexDirection: 'column',
   },
   brandname: {
-    color: '#0dc6b5',
+    color: '#2e8302',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 20,
   },
   brandreviewtitle: {
-    color: '#0dc6b5',
+    color: '#2e8302',
     margin: 4,
     fontSize: 18,
   },
@@ -292,7 +335,7 @@ const brandViewStyle = StyleSheet.create({
   vibeHeading: {
   fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
   textAlign: 'center',
-  color: '#0DC6B5',
+  color: '#2e8302',
   marginTop: Dimensions.get('window').height*0.03
   },
   submitContainer: {
