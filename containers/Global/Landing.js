@@ -41,7 +41,7 @@ render() {
       <View style={{alignItems: 'center'}}>
         <AutoHeightImage
           source={require('../../assets/greenlogo.png')}
-            style={{marginTop:Dimensions.get('window').height*0.095}}
+            style={{marginTop:Dimensions.get('window').height*0.08}}
             width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.75 : Dimensions.get('window').width*0.57} />
       </View>
       <View style={landingStyle.iconsContainer}>
@@ -97,7 +97,7 @@ const landingStyle = StyleSheet.create({
     paddingLeft: Dimensions.get('window').width*0.005,
     paddingRight: Dimensions.get('window').width*0.005,
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: Dimensions.get('window').width < 750 ? 12 : 16,
     color: '#696969',
 
   },
