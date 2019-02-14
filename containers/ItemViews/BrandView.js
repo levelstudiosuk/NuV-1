@@ -205,7 +205,8 @@ render() {
 
         <AutoHeightImage
           width={Dimensions.get('window').width*0.1}
-          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
+          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}
+          />
 
         <AutoHeightImage
           width={Dimensions.get('window').width*0.1}

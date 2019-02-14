@@ -176,10 +176,9 @@ export default class MediaView extends React.Component {
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/link.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
         </TouchableHighlight>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.mediaItem.user_image}}/>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/VenueTypeIcons/cafe.png')}/>
         <ShareButton
         marginLeft={Dimensions.get('window').width*0.07}
         title="Shared from NüV"
@@ -208,7 +207,7 @@ export default class MediaView extends React.Component {
       disabled={false}
       maxStars={5}
       rating={this.state.starRating}
-      fullStarColor={'#0DC6B5'}
+      fullStarColor={'#a2e444'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
     </View>
@@ -220,7 +219,7 @@ export default class MediaView extends React.Component {
         maxStars={5}
         rating={this.state.starCount}
         selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#0DC6B5'}
+        fullStarColor={'#a2e444'}
         containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
         />
         </View>
@@ -269,14 +268,14 @@ const mediaViewStyle = StyleSheet.create({
     flexDirection: 'column',
   },
   medianame: {
-    color: '#0dc6b5',
+    color: '#a2e444',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 20,
   },
   mediareviewtitle: {
-    color: '#0dc6b5',
+    color: '#a2e444',
     margin: 4,
     fontSize: 18,
   },
@@ -293,7 +292,7 @@ const mediaViewStyle = StyleSheet.create({
   vibeHeading: {
   fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
   textAlign: 'center',
-  color: '#0DC6B5',
+  color: '#a2e444',
   marginTop: Dimensions.get('window').height*0.03
   },
   submitContainer: {
