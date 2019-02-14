@@ -209,7 +209,7 @@ render() {
 
         <View style={{alignItems: 'center'}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
-            <AutoHeightImage source={require('../../assets/AppIcons/cooktime.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/preptime.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
+            <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
         </View>
 
         <View style={{alignItems: 'center'}}>
@@ -249,7 +249,7 @@ render() {
             disabled={false}
             maxStars={5}
             rating={this.state.starRating}
-            fullStarColor={'#0DC6B5'}
+            fullStarColor={'#2e8302'}
             containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
           />
         </View>
@@ -261,7 +261,7 @@ render() {
               maxStars={5}
               rating={this.state.starCount}
               selectedStar={(rating) => this.onStarRatingPress(rating)}
-              fullStarColor={'#0DC6B5'}
+              fullStarColor={'#2e8302'}
               containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
             />
         </View>
@@ -310,7 +310,7 @@ const recipeViewStyle = StyleSheet.create({
     flexDirection:    'column',
   },
   recipename: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     fontSize:         20,
     fontWeight:       'bold',
     marginTop:        Dimensions.get('window').height*0.025,
@@ -320,14 +320,14 @@ const recipeViewStyle = StyleSheet.create({
     textAlign: 'center'
   },
   recipetype: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     fontSize:         15,
     fontWeight:       'bold',
     marginTop:        20,
     marginBottom:     20,
   },
   recipeingredients: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     margin:           4,
     fontSize:         18,
     marginLeft:       15,
@@ -339,7 +339,7 @@ const recipeViewStyle = StyleSheet.create({
     marginLeft:       15,
   },
   recipemethod: {
-    color:            '#0dc6b5',
+    color:            '#2e8302',
     margin:           4,
     fontSize:         18,
     marginLeft:       15,

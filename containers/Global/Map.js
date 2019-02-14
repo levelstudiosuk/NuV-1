@@ -84,7 +84,7 @@ export default class Map extends React.Component {
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
       var distance = R * c
-      console.log("Distance between me and this venue: ", distance);
+      console.log();
 
       return distance
 
