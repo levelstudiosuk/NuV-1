@@ -313,7 +313,7 @@ render() {
   <View style={venueViewStyle.submitContainer}>
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.03}
-      buttonTitle="rate & home"
+      buttonTitle="Rate & Home"
       onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
     </View>
   </ScrollView>

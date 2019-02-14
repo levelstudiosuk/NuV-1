@@ -264,7 +264,6 @@ export default class MediaList extends React.Component {
 ) :   null
 }
 
-
       <View>
         <GlobalButton
           buttonTitle="Home"

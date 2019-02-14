@@ -109,6 +109,7 @@ export default class VenueList extends React.Component {
 
     mapVenueItems(){
       const {navigate} = this.props.navigation;
+      var navigation = this.props.navigation;
 
       var venueItems = this.state.seeOnlyVegan === true ? this.state.venueItems.filter(venueItem => venueItem.content_is_vegan === true) : this.state.venueItems
 
@@ -118,7 +119,14 @@ export default class VenueList extends React.Component {
       <TouchableHighlight
         key={i+1}
         style={venueListStyle.venueimage}
-        onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
+        onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+        avatar: navigation.getParam('avatar', 'NO-ID'),
+        token: navigation.getParam('token', 'NO-ID'),
+        id: navigation.getParam('id', 'NO-ID'),
+        name: navigation.getParam('name', 'NO-ID'),
+        bio: navigation.getParam('bio', 'NO-ID'),
+        location: navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
         <Image key={i+2} source={require('../../assets/AppIcons/lightgreenpin.png')} style={{height: 50, width: 50}}/>
       </TouchableHighlight>
           <View key={i+3} style={venueListStyle.venuetextcontainer}>
@@ -126,13 +134,27 @@ export default class VenueList extends React.Component {
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
-              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
+              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              avatar: navigation.getParam('avatar', 'NO-ID'),
+              token: navigation.getParam('token', 'NO-ID'),
+              id: navigation.getParam('id', 'NO-ID'),
+              name: navigation.getParam('name', 'NO-ID'),
+              bio: navigation.getParam('bio', 'NO-ID'),
+              location: navigation.getParam('location', 'NO-ID'),
+              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
               {item.title} ({item.postcode})
               </Text>
               <Text
               key={i+6}
               style={venueListStyle.venuetype}
-              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
+              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              avatar: navigation.getParam('avatar', 'NO-ID'),
+              token: navigation.getParam('token', 'NO-ID'),
+              id: navigation.getParam('id', 'NO-ID'),
+              name: navigation.getParam('name', 'NO-ID'),
+              bio: navigation.getParam('bio', 'NO-ID'),
+              location: navigation.getParam('location', 'NO-ID'),
+              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
               {item.venue_type}
               </Text>
             </View>
@@ -140,7 +162,15 @@ export default class VenueList extends React.Component {
               <Text
               key={i+8}
               style={venueListStyle.venuedescription}
-              onPress={() => navigate('VenueView', {token: this.props.navigation.getParam('token', 'NO-ID'), id: item.id})}>
+              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              settings: true,
+              avatar: navigation.getParam('avatar', 'NO-ID'),
+              token: navigation.getParam('token', 'NO-ID'),
+              id: navigation.getParam('id', 'NO-ID'),
+              name: navigation.getParam('name', 'NO-ID'),
+              bio: navigation.getParam('bio', 'NO-ID'),
+              location: navigation.getParam('location', 'NO-ID'),
+              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
               {item.description}
               </Text>
             </View>
