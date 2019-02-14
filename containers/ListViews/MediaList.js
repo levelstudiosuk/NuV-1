@@ -144,8 +144,13 @@ export default class MediaList extends React.Component {
    var filteredMediaItems = self.props.navigation.getParam('user', 'NO-ID') === true ? mediaItems.filter(mediaItem => mediaItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : mediaItems
 
    var updatedState = self.state.mediaItems.concat(filteredMediaItems)
+
+   const filteredUpdatedState = updatedState.sort((a, b) => {
+      return moment(b.publishedAt).diff(a.publishedAt)
+    })
+
    self.setState({
-     mediaItems:  updatedState
+     mediaItems:  filteredUpdatedState
    },
    function(){
      self.setState({
