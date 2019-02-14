@@ -38,11 +38,12 @@ render() {
 
       <View style={landingStyle.container}>
       <ScrollView>
+      <View style={{alignItems: 'center'}}>
         <AutoHeightImage
           source={require('../../assets/greenlogo.png')}
             style={{marginTop:Dimensions.get('window').height*0.095}}
-            width={Dimensions.get('window').width*0.77} />
-
+            width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.75 : Dimensions.get('window').width*0.57} />
+      </View>
       <View style={landingStyle.iconsContainer}>
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.16}
