@@ -7,12 +7,15 @@ import {  ImageBackground,
           Text,
           View,
           TextStyle,
-          ViewStyle } from 'react-native';
+          ViewStyle,
+          ScrollView, } from 'react-native';
 import {  Constants } from 'expo'
 import    NavBar from '../../components/NavBar.js';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
+import    HeroImageCarousel from '../../components/HeroImageCarousel.js';
+
 
 export default class Landing extends React.Component {
   static navigationOptions = {
@@ -32,11 +35,12 @@ export default class Landing extends React.Component {
 render() {
   const {navigate} = this.props.navigation;
     return (
+
       <View style={landingStyle.container}>
+      <ScrollView>
         <AutoHeightImage
           source={require('../../assets/greenlogo.png')}
-            style={{
-              marginTop: Constants.statusBarHeight + Dimensions.get('window').height*0.095}}
+            style={{marginTop:Dimensions.get('window').height*0.095}}
             width={Dimensions.get('window').width*0.77} />
 
       <View style={landingStyle.iconsContainer}>
@@ -52,19 +56,23 @@ render() {
       </View>
 
       <View style={landingStyle.descriptionContainer}>
-        <ImageBackground
-          source={require('../../assets/leaves.png')}
-          style={
-            Dimensions.get('window').width*1.0,
-            Dimensions.get('window').height*1.0}>
           <Text style={landingStyle.descriptionText}>
-              The lifestyle support system for vegans, vegetarians and the v.curious.{"\n"}{"\n"}
-              Join the community. Find and share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
-              This is just the veganning…
+              Lifestyle support system for vegans, vegetarians & the v.curious
           </Text>
-        </ImageBackground>
       </View>
-    </View>
+
+      <View>
+      <HeroImageCarousel />
+      </View>
+
+      <View style={landingStyle.descriptionContainer}>
+          <Text style={landingStyle.descriptionText}>
+              Join our community; find & share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
+              This is just the veganning
+          </Text>
+      </View>
+    </ScrollView>
+  </View>
     );
   }
 }
@@ -77,25 +85,20 @@ const landingStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   descriptionContainer: {
-    marginTop: Dimensions.get('window').height*0.05,
-    paddingLeft: Dimensions.get('window').width*0.115,
-    paddingRight: Dimensions.get('window').width*0.115,
-    shadowOffset:{  width: 10,  height: 10,  },
-    shadowColor: 'grey',
-    shadowOpacity: 1.0,
+    marginTop: Dimensions.get('window').height*0.01,
+    paddingLeft: Dimensions.get('window').width*0.0275,
+    paddingRight: Dimensions.get('window').width*0.0275,
 
   },
   descriptionText: {
-    marginTop: Dimensions.get('window').height*0.05,
-    marginBottom: Dimensions.get('window').height*0.05,
-    paddingLeft: Dimensions.get('window').width*0.08,
-    paddingRight: Dimensions.get('window').width*0.08,
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Dimensions.get('window').height*0.03,
+    paddingLeft: Dimensions.get('window').width*0.005,
+    paddingRight: Dimensions.get('window').width*0.005,
     textAlign: 'center',
-    fontSize: 18,
-    color: 'white',
-    shadowOffset:{
-              width: 10,  height: 10,},
-    shadowColor: 'black',
+    fontSize: 12,
+    color: '#696969',
+
   },
   iconsContainer: {
     width: Dimensions.get('window').width,
