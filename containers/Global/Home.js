@@ -247,6 +247,8 @@ render() {
         </Animatable.View>
     </TouchableHighlight>
 
+    { this.state.avatarLoading === false ? (
+
     <View
       style={{
         marginTop:Dimensions.get('window').height* 0.025}}>
@@ -255,6 +257,10 @@ render() {
         source= {Badges.getDietBadge (this.returnStatus())}
       />
     </View>
+
+  ) : null
+
+}
 
     <MapSettingsOverlay
       navigation    = {this.props.navigation}
@@ -400,6 +406,22 @@ render() {
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
           />
           </Animatable.View>
+
+          { this.state.avatarLoading === false ? (
+
+          <View
+            style={{
+              marginTop:Dimensions.get('window').height* 0.025}}>
+            <Image
+              style={{width: 90, height: 90}}
+              source= {Badges.getDietBadge (this.returnStatus())}
+            />
+          </View>
+
+        ) : null
+
+      }
+        
         </TouchableHighlight>
          <MapSettingsOverlay
           navigation     = {this.props.navigation}

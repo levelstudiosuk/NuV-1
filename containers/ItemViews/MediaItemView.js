@@ -147,13 +147,11 @@ export default class MediaView extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     if (this.state.mediaItem){
-      var url = this.state.mediaItem.url
+      var url = this.props.navigation.getParam('url', 'NO-ID')
     }
     return (
 
       <View style={mediaViewStyle.container}>
-
-      {this.state.mediaItem ? (
 
       <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
       <View style={mediaViewStyle.container}>
@@ -167,40 +165,47 @@ export default class MediaView extends React.Component {
         </View>
 
         <Text style={mediaViewStyle.medianame}>
-           {this.state.mediaItem.title} / {this.state.mediaItem.url}
+           {this.props.navigation.getParam('title', 'NO-ID')}{"\n"}
         </Text>
 
-        <View style={mediaViewStyle.mapcontainer}>
-        <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.02}} source={{uri: this.state.mediaItem.medium_images[0].medium_image.url}}/>
-        </View>
+        <Text style={mediaViewStyle.mediareviewtitle}>
+        This item was originally published by {this.props.navigation.getParam('source', 'NO-ID')}
+        </Text>
     </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
+        <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(this.props.navigation.getParam('url', 'NO-ID'))}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
         </TouchableHighlight>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.mediaItem.user_image}}/>
+        { this.props.navigation.getParam('user_image', 'NO-ID') ? (
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.props.navigation.getParam('user_image', 'NO-ID')}}/>
+      ) : null
+    }
         <ShareButton
         marginLeft={Dimensions.get('window').width*0.07}
         title="Shared from NüV"
-        message="Message to share"
+        message="A NüV user has shared something with you"
         url="www.level-apps.co.uk"
-        subject="Hi, a NüV user though you would like to see this..."
+        subject="Hi, a NüV user thought you would like to see this..."
          />
     </View>
 
     <View >
       <View>
+      { this.props.navigation.getParam('item_user_name', 'NO-ID') ? (
+
         <Text style={mediaViewStyle.mediareviewtitle}>
-        This article was described by {this.state.mediaItem.user} as:{"\n"}
+        A brief description of this news item courtesy of NüV user {this.props.navigation.getParam('item_user_name', 'NO-ID')}:{"\n"}
         </Text>
+
+      ) : null
+
+    }
         <Text style={mediaViewStyle.mediareviewbody}>
-          {this.state.mediaItem.description}
+          {this.props.navigation.getParam('description', 'NO-ID')}
         </Text>
       </View>
     </View>
-
-
 
     <View style={{alignItems: 'center', width: Dimensions.get('window').width*1}}>
     <Text style={mediaViewStyle.vibeHeading}>NuV user rating</Text>
@@ -232,9 +237,7 @@ export default class MediaView extends React.Component {
         </View>
 
         </ScrollView>
-      ) : <LoadingCelery />
-    }
-      </View>
+        </View>
       );
       }
       }
