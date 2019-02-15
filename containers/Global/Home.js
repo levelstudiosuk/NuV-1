@@ -249,7 +249,6 @@ render() {
 
     <View
       style={{
-        paddingLeft: Dimensions.get('window').width* 0.025,
         marginTop:Dimensions.get('window').height* 0.025}}>
       <Image
         style={{width: 90, height: 90}}
