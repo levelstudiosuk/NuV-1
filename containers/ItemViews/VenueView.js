@@ -30,6 +30,7 @@ import {
        Button,
        Text,
        View,
+       Linking,
        TouchableOpacity}  from 'react-native';
 import axios from 'axios';
 
@@ -290,7 +291,7 @@ render() {
   </View>
 
   <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-  <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(url)}>
+  <TouchableHighlight underlayColor="white" onPress={()=> url ? Linking.openURL(`${url}`) : console.log("No URL for this venue")}>
   <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
