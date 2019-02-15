@@ -196,22 +196,55 @@ export default class MediaList extends React.Component {
       return mediaItems.map((item, i) =>
 
         <View style={mediaListStyle.mediaitem}   key={i}>
-        <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, item_id: item.id, source: item.source, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
+        <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView',
+        {token: this.props.navigation.getParam('token', 'NO-ID'), url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, item_id: item.id, source: item.source, title: item.title, description: item.description,
+        avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+        style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
           <Image source={require('../../assets/AppIcons/greennews.png')} style={{height: 80, width: 80}}/>
         </TouchableHighlight>
             <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
               <View  key={i+1}>
-                <Text  key={i+3} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                <Text  key={i+3} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description,
+                avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                token:         this.props.navigation.getParam('token', 'NO-ID'),
+                id:            this.props.navigation.getParam('id', 'NO-ID'),
+                name:          this.props.navigation.getParam('name', 'NO-ID'),
+                bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                location:      this.props.navigation.getParam('location', 'NO-ID'),
+                user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+               style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {item.title}
                 </Text>
               </View>
               <View  key={i+4}>
-                <Text  key={i+5} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}>
+                <Text  key={i+5} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description,
+                avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                token:         this.props.navigation.getParam('token', 'NO-ID'),
+                id:            this.props.navigation.getParam('id', 'NO-ID'),
+                name:          this.props.navigation.getParam('name', 'NO-ID'),
+                bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                location:      this.props.navigation.getParam('location', 'NO-ID'),
+                user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+                style={mediaListStyle.mediadescription}>
                 {item.description}
                 </Text>
               </View>
               <View  key={i+7}>
-                <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description})}  style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
+                <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description,
+                avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                token:         this.props.navigation.getParam('token', 'NO-ID'),
+                id:            this.props.navigation.getParam('id', 'NO-ID'),
+                name:          this.props.navigation.getParam('name', 'NO-ID'),
+                bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                location:      this.props.navigation.getParam('location', 'NO-ID'),
+                user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+                style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()} - {item.source}
                 </Text>
               </View>
