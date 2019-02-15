@@ -218,21 +218,9 @@ export default class MediaView extends React.Component {
       />
     </View>
 
-      <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
-      <Text style={mediaViewStyle.vibeHeading}>Rate this brand</Text>
-      <StarRating
-        disabled={false}
-        maxStars={5}
-        rating={this.state.starCount}
-        selectedStar={(rating) => this.onStarRatingPress(rating)}
-        fullStarColor={'#a2e444'}
-        containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
-        />
-        </View>
-
         <View style={mediaViewStyle.submitContainer}>
         <GlobalButton
-           buttonTitle="Rate and go"
+           buttonTitle="Home"
            onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
 

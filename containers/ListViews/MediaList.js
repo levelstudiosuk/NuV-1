@@ -176,7 +176,6 @@ export default class MediaList extends React.Component {
       }, function(){
         console.log("See only vegan: ", this.state.seeOnlyVegan);
       })
-
     }
 
     returnMessage(){
