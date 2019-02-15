@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, Platform, Alert, TouchableHighlight, Image, Tex
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
+import LoadingCelery from '../../components/LoadingCelery.js';
 import VenueFormOverlay from '../../components/VenueFormOverlay.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
@@ -36,6 +37,7 @@ export default class VenueForm extends React.Component {
   this.closeOverlay = this.closeOverlay.bind(this);
   this.userInVenueStateUpdate = this.userInVenueStateUpdate.bind(this);
   this.getPostcodeCoordinates = this.getPostcodeCoordinates.bind(this);
+  this.postData = this.postData.bind(this);
 
 }
 
@@ -183,9 +185,11 @@ export default class VenueForm extends React.Component {
       fetch( `http://api.postcodes.io/postcodes/${this.state.postcode}`)
       .then(
     function(response) {
+      var response = response
+      console.log("response from PC", JSON.parse(response['_bodyInit']));
       self.setState({
-        latitude: response.result.latitude,
-        longitude: response.result.longitude
+        latitude: JSON.parse(response['_bodyInit']).result.latitude,
+        longitude: JSON.parse(response['_bodyInit']).result.longitude
       })
     }
   )
@@ -228,6 +232,12 @@ export default class VenueForm extends React.Component {
 
      if (this.state.validPostcode === true){
 
+       this.setState({
+
+         postingData: true
+
+       }, function(){
+
      var {navigate} = this.props.navigation;
      var self = this;
      var token = this.props.navigation.getParam('token', 'NO-ID');
@@ -244,6 +254,8 @@ export default class VenueForm extends React.Component {
      formData.append('venue[description]', self.state.description);
      formData.append('venue[content_is_vegan]', self.state.vegan);
      formData.append('venue[venue_type]', self.state.type);
+     formData.append('venue[latitude]', self.state.latitude);
+     formData.append('venue[longitude]', self.state.longitude);
      formData.append('venue[url]', self.state.url.toLowerCase());
      formData.append('venue[postcode]', self.state.postcode);
      // formData.append('venue[rating]', self.state.starCount);
@@ -302,11 +314,15 @@ export default class VenueForm extends React.Component {
 
     .then(function(response){
       var {navigate} = self.props.navigation;
-      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
 
+      self.setState({ postingData: false }, function(){
+      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+    })
     })
     .catch(function(error){
       console.log(error);
+    })
+
     })
 
   }
@@ -343,6 +359,8 @@ export default class VenueForm extends React.Component {
     return (
 
       <View style={registerUserStyle.container}>
+
+      { this.state.postingData != true ? (
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
@@ -461,6 +479,10 @@ export default class VenueForm extends React.Component {
           </View>
 
           </ScrollView>
+
+        ) : <LoadingCelery />
+
+      }
 
       </View>
     );
