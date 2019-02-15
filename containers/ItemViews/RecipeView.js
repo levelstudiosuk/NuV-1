@@ -224,7 +224,9 @@ render() {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {avatar: this.state.recipeItem.user_image, token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.state.recipeItem.user.name, bio: this.state.recipeItem.user.bio, location: this.state.recipeItem.user.location, user_is_vegan: this.state.recipeItem.user.user_is_vegan}) }>
             <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
+          </TouchableHighlight>
               <Text style={recipeViewStyle.recipetype}>
                 {this.state.recipeItem.category}
               </Text>
