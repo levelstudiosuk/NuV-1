@@ -23,6 +23,7 @@ import {  BallIndicator,
           BarIndicator,
           DotIndicator,
           WaveIndicator } from 'react-native-indicators';
+import * as Badges from '../../helper_functions/Badges.js';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -93,6 +94,18 @@ export default class Home extends React.Component {
     })
   }
 
+  returnStatus(){
+    if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+     return "Vegan";
+    }
+    else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
+     return "Vegetarian";
+    }
+    else {
+     return "vCurious";
+      }
+    }
+
   launchMap(navigation, distance, vegan){
     var self = this;
     const {navigate} = navigation
@@ -159,7 +172,7 @@ export default class Home extends React.Component {
   }
 
   getPortraitSize(){
-    return Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.8 : Dimensions.get('window').width*0.55
+    return Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.6 : Dimensions.get('window').width*0.4
   }
 
 render() {
@@ -226,13 +239,23 @@ render() {
             style={{
               borderWidth: 3,
               borderColor: '#a2e444',
-              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.275,
+              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.3 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.05
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
           />
         </Animatable.View>
     </TouchableHighlight>
+
+    <View
+      style={{
+        paddingLeft: Dimensions.get('window').width* 0.025,
+        marginTop:Dimensions.get('window').height* 0.025}}>
+      <Image
+        style={{width: 90, height: 90}}
+        source= {Badges.getDietBadge (this.returnStatus())}
+      />
+    </View>
 
     <MapSettingsOverlay
       navigation    = {this.props.navigation}
