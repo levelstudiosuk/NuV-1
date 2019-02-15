@@ -294,7 +294,7 @@ render() {
   <TouchableHighlight underlayColor="white" onPress={()=> url ? Linking.openURL(`${url}`) : console.log("No URL for this venue")}>
   <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
-  <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {avatar: this.state.venueItem.user_image, token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.state.venueItem.user.name, bio: this.state.venueItem.user.bio, location: this.state.venueItem.user.location, user_is_vegan: this.state.venueItem.user.user_is_vegan}) } >
+  <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {notMyProfile: true, avatar: this.state.venueItem.user_image, token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.state.venueItem.user.name, bio: this.state.venueItem.user.bio, location: this.state.venueItem.user.location, user_is_vegan: this.state.venueItem.user.user_is_vegan}) } >
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
   </TouchableHighlight>
 

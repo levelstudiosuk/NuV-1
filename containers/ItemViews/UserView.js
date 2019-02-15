@@ -152,6 +152,8 @@ export default class UserView extends React.Component {
         Bio: {this.props.navigation.getParam('bio', 'NO-ID')}
       </Text>
 
+      {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+
   <View style={userViewStyle.editButtonContainer}>
     <GlobalButton
       onPress={() => navigate('EditUser', {
@@ -165,7 +167,11 @@ export default class UserView extends React.Component {
     />
   </View>
 
-    { this.props.navigation.getParam('settings', 'NO-ID') && this.props.navigation.getParam('settings', 'NO-ID') === true ? (
+) : null
+
+}
+
+    { this.props.navigation.getParam('settings', 'NO-ID') && this.props.navigation.getParam('settings', 'NO-ID') === true && this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
       <LogOut
         openOverlay    = {this.openOverlay}
@@ -177,6 +183,8 @@ export default class UserView extends React.Component {
   ) : null }
 
 
+      {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+
     <Text style={{
       textAlign: 'center',
       fontSize: 20,
@@ -187,6 +195,21 @@ export default class UserView extends React.Component {
     >
       Your NüV Contributions
     </Text>
+
+  ) :
+
+  <Text style={{
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#696969',
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Dimensions.get('window').height*0.015}}
+  >
+    Their NüV Contributions
+  </Text>
+
+}
 
     <View style={userViewStyle.iconsContainer}>
 
