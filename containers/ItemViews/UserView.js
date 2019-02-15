@@ -104,10 +104,15 @@ export default class UserView extends React.Component {
 
       <StickyHeaderFooterScrollView
         makeScrollable={true}
+        showVerticalScrollIndicator={false}
         renderStickyHeader={() => ( <View></View> )}
         renderStickyFooter={() => (
           <View style={{alignItems: 'center'}}>
+          {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+
             <NavBar navigation={this.props.navigation} />
+
+          ) : null }
           </View>
         )}
         >
