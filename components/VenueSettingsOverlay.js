@@ -57,7 +57,7 @@ render() {
           step={5}
           minimumTrackTintColor={'#2e8302'}
           maximumTrackTintColor={'#a2e444'}
-          thumbTintColor={'grey'}
+          thumbTintColor={'white'}
           value={this.state.distance}
           style={{width: Dimensions.get('window').width*0.70}}
           thumbStyle={buttonContainerStyle.thumb}
@@ -100,9 +100,12 @@ const buttonContainerStyle = StyleSheet.create({
     width: Dimensions.get('window').width*0.4
   },
   thumb: {
-   width: Dimensions.get('window').width*0.05,
-   height: Dimensions.get('window').width*0.05,
-   shadowColor: '#92FE9D',
+   width: Dimensions.get('window').width*0.04,
+   height: Dimensions.get('window').width*0.04,
+   borderRadius:     Dimensions.get('window').width*0.02,
+   shadowColor: 'green',
+   borderColor:      '#2e8302',
+   borderWidth:      2,
    shadowOffset: {width: 0, height: 1},
    shadowOpacity: 0.5,
    shadowRadius: 1,
