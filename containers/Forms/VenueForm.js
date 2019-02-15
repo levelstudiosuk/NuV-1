@@ -158,7 +158,7 @@ export default class VenueForm extends React.Component {
     validatePostcode(){
       var self = this;
 
-      fetch( `http://api.postcodes.io/postcodes/${this.state.postcode}`)
+      fetch( `http://api.postcodes.io/postcodes/${this.state.postcode.replace(' ', '')}`)
       .then(
     function(response) {
       if (response.status !== 200) {
@@ -246,7 +246,7 @@ export default class VenueForm extends React.Component {
      formData.append('venue[venue_type]', self.state.type);
      formData.append('venue[url]', self.state.url.toLowerCase());
      formData.append('venue[postcode]', self.state.postcode);
-     formData.append('venue[rating]', self.state.starCount);
+     // formData.append('venue[rating]', self.state.starCount);
 
      if (this.state.image){
      formData.append('venue[venue_main_image]', {
