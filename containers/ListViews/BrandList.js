@@ -116,26 +116,26 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+5}
                 onPress={() => navigate('BrandView', {
-                  id: item.id,
-                  title: item.title,
-                  description: item.description,
-                  type: item.brand_type,
-                  image: item.brand_main_image,
-                  rating: item.rating,
-                  url: item.URL})}
+                  avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                  token:         this.props.navigation.getParam('token', 'NO-ID'),
+                  id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  name:          this.props.navigation.getParam('name', 'NO-ID'),
+                  bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                  location:      this.props.navigation.getParam('location', 'NO-ID'),
+                  user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
                 style={brandListStyle.brandtitle}>
                 {item.title}
               </Text>
               <Text
                 key={i+6}
                 onPress={() => navigate('BrandView', {
-                  id: item.id,
-                  title: item.title,
-                  description: item.description,
-                  type: item.brand_type,
-                  image: item.brand_main_image,
-                  rating: item.rating,
-                  url: item.URL})}
+                  avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                  token:         this.props.navigation.getParam('token', 'NO-ID'),
+                  id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  name:          this.props.navigation.getParam('name', 'NO-ID'),
+                  bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                  location:      this.props.navigation.getParam('location', 'NO-ID'),
+                  user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
                 style={brandListStyle.brandtype}>
                 {item.brand_type}
               </Text>
@@ -144,13 +144,13 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+8}
                 onPress={() => navigate('BrandView', {
-                  id: item.id,
-                  title: item.title,
-                  description: item.description,
-                  type: item.brand_type,
-                  image: item.brand_main_image,
-                  rating: item.rating,
-                  url: item.URL})}
+                  avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+                  token:         this.props.navigation.getParam('token', 'NO-ID'),
+                  id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  name:          this.props.navigation.getParam('name', 'NO-ID'),
+                  bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+                  location:      this.props.navigation.getParam('location', 'NO-ID'),
+                  user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
                 style={brandListStyle.branddescription}>
                {item.description}
               </Text>
