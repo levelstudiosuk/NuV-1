@@ -47,7 +47,7 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Eatery search radius</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.03 }}>Search radius:</Text>
 
           <View style={buttonContainerStyle.container}>
           <Slider

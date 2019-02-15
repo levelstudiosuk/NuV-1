@@ -51,6 +51,7 @@ export default class Map extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
+
      var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, 55.9497, -3.1811) <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
@@ -96,19 +97,19 @@ export default class Map extends React.Component {
 
           <MapView.Marker
 
-                            key={i}
-                            coordinate={{
-                              latitude: parseFloat(venue.latitude),
-                              longitude: parseFloat(venue.longitude)
-                            }}
-                            onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
-                            title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
-                            pinColor={'green'}
-                            description={"Click to view"}
-                            onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}
-                            >
-
-                            </MapView.Marker>
+              key={i}
+              coordinate={{
+                  latitude: parseFloat(venue.latitude),
+                  longitude: parseFloat(venue.longitude)
+                  }}
+              onPress={() => this.setState({
+                  clickedVenue: venue.id},
+                  function(){ console.log("clicked", this.state.clickedVenue)}) }
+              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
+              pinColor={'blue'}
+              description={"Click to view"}
+              onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
+          </MapView.Marker>
         )
     }
 
@@ -117,27 +118,23 @@ export default class Map extends React.Component {
       return this.state.venueItems.map( (venue, i) =>
 
           <MapView.Marker
-
-                            key={i}
-                            coordinate={{
-                              latitude: parseFloat(venue.latitude),
-                              longitude: parseFloat(venue.longitude)
-                            }}
-                            onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
-                            title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
-                            pinColor={'green'}
-                            description={"Click to view"}
-                            onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}
-                            >
-
-                            </MapView.Marker>
-                          )
-
+              key={i}
+              coordinate={{
+                  latitude: parseFloat(venue.latitude),
+                  longitude: parseFloat(venue.longitude)
+                  }}
+              onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
+              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
+              pinColor={'blue'}
+              description={"Click to view"}
+              onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
+          </MapView.Marker>
+        )
     }
 
-    venueResultsMarkers(){
-      if (this.props.navigation.getParam('see_only_vegan', 'NO-ID') === true){
-        return this.plotVeganRestaurants()
+ venueResultsMarkers(){
+    if (this.props.navigation.getParam('see_only_vegan', 'NO-ID') === true){
+      return this.plotVeganRestaurants()
       }
       else {
         return this.plotVeganAndVegetarianRestaurants()
@@ -145,22 +142,22 @@ export default class Map extends React.Component {
     }
 
     processMarkerClick(){
-        console.log("clickedVenue", this.state.clickedVenue);
-        this.setState({ isFlipped: !this.state.isFlipped })
+      console.log("clickedVenue", this.state.clickedVenue);
+      this.setState({ isFlipped: !this.state.isFlipped })
     }
 
     resetFlipped(){
-      this.setState({
-        isFlipped: !this.state.isFlipped,
+     this.setState({
+      isFlipped: !this.state.isFlipped,
         clickedVenue: null
        })
-    }
+     }
 
 render() {
 
   const {navigate} = this.props.navigation;
 
-  return (
+    return (
 
   <View>
   { this.state.venueItems ? (
@@ -168,7 +165,6 @@ render() {
     <FlipComponent
         isFlipped={this.state.isFlipped}
         frontView={
-
 
       <View style={mapStyle.container}>
           <MapView style={mapStyle.map}
@@ -219,7 +215,10 @@ render() {
 
           { this.state.clickedVenue ? (
 
-          <VenueView fromMap={true} venue={this.state.clickedVenue} id={this.props.navigation.getParam('id', 'NO-ID')} token={this.props.navigation.getParam('token', 'NO-ID')} navigation={this.props.navigation}/>
+          <VenueView
+            fromMap={true}
+            venue={this.state.clickedVenue}   id={this.props.navigation.getParam('id', 'NO-ID')}  token={this.props.navigation.getParam('token', 'NO-ID')}  navigation={this.props.navigation}
+          />
 
         ) : null
 
