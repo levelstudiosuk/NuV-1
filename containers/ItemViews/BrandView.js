@@ -16,6 +16,7 @@ import    ShareButton from '../../components/ShareButton.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import    StarRating from 'react-native-star-rating';
 import    AddItemButton from '../../components/AddItemButton.js';
+import    LoadingCelery from '../../components/LoadingCelery.js';
 import    FaveButton from '../../components/FaveButton.js';
 import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
@@ -48,7 +49,7 @@ export default class BrandView extends React.Component {
       }
 
       componentDidMount(){
-        var id = this.props.navigation.getParam('id', 'NO-ID');
+        var id = this.props.navigation.getParam('brand_id', 'NO-ID');
         var token = this.props.navigation.getParam('token', 'NO-ID');
         var self = this;
 
@@ -83,7 +84,8 @@ export default class BrandView extends React.Component {
         function(){
 
           var token = this.props.navigation.getParam('token', 'NO-ID');
-          var id = this.props.navigation.getParam('id', 'NO-ID');
+          var id = this.state.brandItem.id
+          console.log("Brand ID", id);
           var self = this;
 
         axios.post(`http://nuv-api.herokuapp.com/brands/${id}/rating`, {"rating": `${self.state.starCount}`},
@@ -281,7 +283,7 @@ render() {
       <StarRating
         disabled={false}
         maxStars={5}
-        rating={this.state.brandItem.rating}
+        rating={parseInt(this.state.brandItem.rating)}
         fullStarColor={'#a2e444'}
         containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
         />
@@ -311,7 +313,7 @@ render() {
         </View>
     </ScrollView>
 
-      ) : null
+  ) : <LoadingCelery />
 
     }
 

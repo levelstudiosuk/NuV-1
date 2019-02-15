@@ -98,13 +98,14 @@ export default class BrandList extends React.Component {
       <TouchableHighlight
       key={i+1}
       onPress={() => navigate('BrandView', {
-        id: item.id,
-        title: item.title,
-        description: item.description,
-        type: item.brand_type,
-        image: item.brand_main_image,
-        rating: item.rating,
-        url: item.URL})}
+        avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        brand_id:      item.id,
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
       style={brandListStyle.brandimage}>
         <Image key={i+2}
           source={require('../../assets/AppIcons/greenprice.png')}
@@ -119,6 +120,7 @@ export default class BrandList extends React.Component {
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  brand_id:      item.id,
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
@@ -132,6 +134,7 @@ export default class BrandList extends React.Component {
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  brand_id:      item.id,
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
@@ -147,6 +150,7 @@ export default class BrandList extends React.Component {
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
+                  brand_id:      item.id,
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
