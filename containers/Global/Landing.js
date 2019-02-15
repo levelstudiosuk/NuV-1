@@ -23,8 +23,9 @@ export default class Landing extends React.Component {
   };
 
   componentDidMount(){
-    this.nudgeHeroku('http://nuv-api.herokuapp.com/login');
+    this.nudgeHeroku('http://nuv-api.herokuapp.com/login')
   }
+
 
   nudgeHeroku(url){
     return axios.get(url)
@@ -57,8 +58,8 @@ render() {
       </View>
 
       <View style={landingStyle.descriptionContainer}>
-          <Text style={landingStyle.descriptionText}>
-              Lifestyle support system for vegans, vegetarians & the v.curious
+          <Text style={landingStyle.descriptionText1}>
+              Life support for vegans, vegetarians & the v.curious
           </Text>
       </View>
 
@@ -67,9 +68,9 @@ render() {
       </View>
 
       <View style={landingStyle.descriptionContainer}>
-          <Text style={landingStyle.descriptionText}>
-              Join our community; find & share well researched recipes, brilliant brands, awesome articles and ethical eateries.{"\n"}{"\n"}
-              This is just the veganning
+          <Text style={landingStyle.descriptionText2}>
+              Join our community; find & share brilliant brands, researched recipes, awesome articles & ethical eateries{"\n"}{"\n"}
+              This is just the veganing
           </Text>
       </View>
     </ScrollView>
@@ -91,15 +92,23 @@ const landingStyle = StyleSheet.create({
     paddingRight: Dimensions.get('window').width*0.0275,
 
   },
-  descriptionText: {
+  descriptionText1: {
     marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Dimensions.get('window').height*0.03,
     paddingLeft: Dimensions.get('window').width*0.005,
     paddingRight: Dimensions.get('window').width*0.005,
     textAlign: 'center',
-    fontSize: Dimensions.get('window').width < 750 ? 12 : 16,
+    fontSize: Dimensions.get('window').width < 750 ? 14 : 16,
     color: '#696969',
-
+  },
+  descriptionText2: {
+    marginTop: Dimensions.get('window').height*0.03,
+    marginBottom: Dimensions.get('window').height*0.03,
+    paddingLeft: Dimensions.get('window').width*0.005,
+    paddingRight: Dimensions.get('window').width*0.005,
+    textAlign: 'center',
+    fontSize: Dimensions.get('window').width < 750 ? 14 : 16,
+    color: '#696969',
   },
   iconsContainer: {
     width: Dimensions.get('window').width,
