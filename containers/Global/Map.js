@@ -36,7 +36,9 @@ export default class Map extends React.Component {
       isFlipped: false,
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
       venuesLoading: true,
-      clickedVenue: null
+      clickedVenue: null,
+      latitude: 55.9497,
+      longitude: -3.1811
     }};
 
     componentDidMount(){
@@ -123,7 +125,7 @@ export default class Map extends React.Component {
                   latitude: parseFloat(venue.latitude),
                   longitude: parseFloat(venue.longitude)
                   }}
-              onPress={() => this.setState({clickedVenue: venue.id}, function(){ console.log("clicked", this.state.clickedVenue)}) }
+              onPress={() => this.setState({clickedVenue: venue.id, latitude: parseFloat(venue.latitude), longitude: parseFloat(venue.longitude) }, function(){ console.log("clicked", this.state.clickedVenue)}) }
               title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
               pinColor={'blue'}
               description={"Click to view"}
@@ -173,8 +175,8 @@ render() {
             zoomEnabled={true}
             zoomControlEnabled={true}
             region={{
-              latitude: 55.9497,
-              longitude: -3.1811,
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
               latitudeDelta: 0.03,
               longitudeDelta: 0.03
             }}
@@ -182,7 +184,7 @@ render() {
         <MapView.Marker
             coordinate={{
               latitude: 55.9497,
-              longitude: -3.1811
+              longitude: -3.1811,
               }}
               title={"Your location"}
               pinColor={'red'}
