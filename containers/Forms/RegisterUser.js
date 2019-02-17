@@ -124,7 +124,6 @@ export default class RegisterUser extends React.Component {
       }
     }
     else {
-      console.log("Form completed.");
       return "Complete"
     }
     }
@@ -283,8 +282,6 @@ export default class RegisterUser extends React.Component {
       })
     };
 
-    console.log("form data", formData);
-
          axios.post('http://nuv-api.herokuapp.com/profiles',
         formData,
       { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
@@ -293,7 +290,6 @@ export default class RegisterUser extends React.Component {
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
-         console.log("RESP", responseForName);
          var uri = responseForName.avatar.url
 
         self.setState({
