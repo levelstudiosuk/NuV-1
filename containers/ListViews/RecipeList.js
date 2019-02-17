@@ -30,6 +30,7 @@ import    Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
+import * as ShuffleArray from '../../helper_functions/ShuffleArray.js';
 import _ from 'lodash';
 const     ITEM_HEIGHT = 100;
 const { width, height } = Dimensions.get('window');
@@ -76,13 +77,15 @@ export default class RecipeList extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response'])
-     var recipeItems = ReverseArray.reverseArray(responseItems);
+     var recipeItems = ShuffleArray.shuffle(responseItems);
      recipeItems.forEach((recipe, index) => {
        recipe['key'] = recipe.id
      })
 
      self.setState({
-       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : recipeItems
+       recipeItems:  self.props.navigation.getParam('user', 'NO-ID') === true ?
+                     recipeItems.filter(recipeItem => recipeItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID'))
+                     : recipeItems
      },
      function(){
        console.log("Recipe items", self.state.recipeItems);
