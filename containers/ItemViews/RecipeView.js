@@ -110,6 +110,28 @@ export default class RecipeView extends React.Component {
  })
     }
 
+    retrieveUploaderProfile(){
+      const {navigate} = this.props.navigation;
+
+      var id = this.state.recipeItem.user_id;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var uploaderProfile = JSON.parse(response.request['_response'])
+
+     navigate('UserView', {notMyProfile: true, avatar: uploaderProfile.avatar.url, token: self.props.navigation.getParam('token', 'NO-ID'), id: uploaderProfile.id, name: uploaderProfile.name, bio: uploaderProfile.bio, location: uploaderProfile.location, user_is_vegan: uploaderProfile.user_is_vegan})
+
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
+    }
+
   checkFavouriteStatus(viewedRecipe) {
     try {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {
@@ -224,7 +246,7 @@ render() {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {avatar: this.state.recipeItem.user_image, token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.state.recipeItem.user.name, bio: this.state.recipeItem.user.bio, location: this.state.recipeItem.user.location, user_is_vegan: this.state.recipeItem.user.user_is_vegan}) }>
+          <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
             <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
           </TouchableHighlight>
               <Text style={recipeViewStyle.recipetype}>
