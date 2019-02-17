@@ -123,7 +123,17 @@ export default class BrandView extends React.Component {
 
        var uploaderProfile = JSON.parse(response.request['_response'])
 
-       navigate('UserView', {notMyProfile: true, avatar: uploaderProfile.avatar.url, token: self.props.navigation.getParam('token', 'NO-ID'), id: uploaderProfile.id, name: uploaderProfile.name, bio: uploaderProfile.bio, location: uploaderProfile.location, user_is_vegan: uploaderProfile.user_is_vegan})
+       navigate('UserView',
+       {notMyProfile: true,
+          uploader: uploaderProfile,
+          token: self.props.navigation.getParam('token', 'NO-ID'),
+          avatar:        self.props.navigation.getParam('avatar', 'NO-ID'),
+          id:            self.props.navigation.getParam('id', 'NO-ID'),
+          name:          self.props.navigation.getParam('name', 'NO-ID'),
+          bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+          location:      self.props.navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
+        })
 
      }).catch(function(error){
        console.log("Error: ", error);

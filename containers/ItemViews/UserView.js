@@ -44,11 +44,11 @@ export default class UserView extends React.Component {
       overlayVisible: false
       };
 
-    returnStatus(){
-      if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan"){
+    returnStatus(status){
+      if (status === "vegan"){
        return "Vegan";
       }
-      else if (this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegetarian"){
+      else if (status === "vegetarian"){
        return "Vegetarian";
       }
       else {
@@ -56,15 +56,15 @@ export default class UserView extends React.Component {
         }
       }
 
-    getLocation(){
-      if (Dimensions.get('window').width < 500 && this.props.navigation.getParam('location', 'NO-ID').length > 14){
-        return this.props.navigation.getParam('location', 'NO-ID').substring(0, 14) + '...'
+    getLocation(location){
+      if (Dimensions.get('window').width < 500 && location.length > 14){
+        return location.substring(0, 14) + '...'
       }
-      else if (Dimensions.get('window').width > 750 && this.props.navigation.getParam('location', 'NO-ID').length > 23){
-        return this.props.navigation.getParam('location', 'NO-ID').substring(0, 23) + '...'
+      else if (Dimensions.get('window').width > 750 && location.length > 23){
+        return location.substring(0, 23) + '...'
       }
       else {
-        return this.props.navigation.getParam('location', 'NO-ID');
+        return location;
       }
     }
 
@@ -118,25 +118,30 @@ export default class UserView extends React.Component {
         >
     <View style={userViewStyle.flexRowContainer}>
       <View style={{flexDirection: 'column'}}>
-
       <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
         <Text style={userViewStyle.profileItemName}>
-          {this.props.navigation.getParam('name', 'NO-ID')}
+          {this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ?  this.props.navigation.getParam('name', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO-ID').name}
         </Text>
       </View>
 
       <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
         <Text style={userViewStyle.profileItemHomeTown}>
-          {this.getLocation()}
+          {this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.getLocation(this.props.navigation.getParam('location', 'NO-ID')) : this.getLocation(this.props.navigation.getParam('uploader', 'NO-ID').location)}
         </Text>
       </View>
       <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
         <Image
           style={{width: 90, height: 90}}
-          source= {Badges.getDietBadge (this.returnStatus())}
+          source= {
+          this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ?
+          Badges.getDietBadge (this.returnStatus(this.props.navigation.getParam('user_is_vegan', 'NO-ID')))
+          : Badges.getDietBadge (this.returnStatus(this.props.navigation.getParam('uploader', 'NO-ID').user_is_vegan))
+      }
         />
         </View>
     </View>
+
+    {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
     <AutoHeightImage
       onLoad={this.setAvatarAsLoaded}
@@ -151,6 +156,24 @@ export default class UserView extends React.Component {
       source={{
         uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
     />
+
+  ) :
+
+  <AutoHeightImage
+    onLoad={this.setAvatarAsLoaded}
+    width={Dimensions.get('window').width*0.5}
+    style={{
+      borderRadius:   4,
+      borderWidth:    3,
+      borderColor:    '#a2e444',
+      borderRadius:   Dimensions.get('window').width*0.25,
+      marginTop:      Dimensions.get('window').height*0.05
+      }}
+    source={{
+      uri: this.props.navigation.getParam('uploader', 'NO-ID').avatar.url ? this.props.navigation.getParam('uploader', 'NO-ID').avatar.url : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+  />
+
+}
 
     </View>
       <Text style={userViewStyle.profileItemBio}>
@@ -211,7 +234,7 @@ export default class UserView extends React.Component {
     marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Dimensions.get('window').height*0.015}}
   >
-    Their NüV Contributions
+    NüV Contributions from {`${this.props.navigation.getParam('uploader', 'NO-ID').name}`}
   </Text>
 
 }
@@ -221,8 +244,10 @@ export default class UserView extends React.Component {
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.12}
         onPress={() => navigate('RecipeList', {
-            user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
-            user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+          user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
+            user: true,
+            viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
+            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
             token: this.props.navigation.getParam('token', 'NO-ID'),
             id: this.props.navigation.getParam('id', 'NO-ID'),
             name: this.props.navigation.getParam('name', 'NO-ID'),
@@ -234,8 +259,9 @@ export default class UserView extends React.Component {
       <GlobalButton
         marginRight={Dimensions.get('window').width*0.12}
         onPress={() => navigate('VenueList', {
-          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+          user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
           user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+          viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
           token: this.props.navigation.getParam('token', 'NO-ID'),
           id: this.props.navigation.getParam('id', 'NO-ID'),
           name: this.props.navigation.getParam('name', 'NO-ID'),
@@ -251,8 +277,9 @@ export default class UserView extends React.Component {
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.12}
       onPress={() => navigate('BrandList', {
-        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
+        viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
         token: this.props.navigation.getParam('token', 'NO-ID'),
         id: this.props.navigation.getParam('id', 'NO-ID'),
@@ -265,8 +292,9 @@ export default class UserView extends React.Component {
     <GlobalButton
       marginRight={Dimensions.get('window').width*0.12}
       onPress={() => navigate('MediaList', {
-        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
+        viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
         token: this.props.navigation.getParam('token', 'NO-ID'),
         id: this.props.navigation.getParam('id', 'NO-ID'),

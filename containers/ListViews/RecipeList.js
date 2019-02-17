@@ -88,11 +88,9 @@ export default class RecipeList extends React.Component {
                      : recipeItems
      },
      function(){
-       console.log("Recipe items", self.state.recipeItems);
        self.setState({
          names: self.state.recipeItems.map((recipe) => recipe.title)
        }, function(){
-         console.log("Currently not calling populateRecipes()");
          self.setState({
            recipesLoading: false
          }, function(){
@@ -112,8 +110,6 @@ export default class RecipeList extends React.Component {
      axios.get('https://api.edamam.com/search?q=breakfast&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=500&health=vegan')
 
   .then(function(response){
-
-    console.log("REC", response.data.hits);
 
     var recipesArray = []
 
