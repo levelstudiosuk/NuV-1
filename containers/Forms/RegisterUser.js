@@ -7,7 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import axios from 'axios';
-import Spinner from 'react-native-loading-spinner-overlay';
+import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -357,12 +357,7 @@ export default class RegisterUser extends React.Component {
 
       <View style={registerUserStyle.container}>
 
-      <Spinner
-         visible={this.state.spinner}
-         textContent={'NüV is saving your details...'}
-         textStyle={{color: 'white'}}
-         overlayColor={'rgba(0,0,0,0.8)'}
-       />
+      <SubmittedFormSpinner spinner={this.state.spinner} />
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
