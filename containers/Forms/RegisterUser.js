@@ -7,6 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -31,6 +32,7 @@ export default class RegisterUser extends React.Component {
   this.passwordMatchChecker = this.passwordMatchChecker.bind(this);
   this.fieldCompletionCheck = this.fieldCompletionCheck.bind(this);
   this.processRegistration = this.processRegistration.bind(this);
+  this.postData = this.postData.bind(this);
 
 }
 
@@ -43,7 +45,8 @@ export default class RegisterUser extends React.Component {
       bio: "",
       image: null,
       vSelection: "vegetarian",
-      sentPhotoWarning: false
+      sentPhotoWarning: false,
+      spinner: false
     };
 
     componentDidMount(){
@@ -219,13 +222,12 @@ export default class RegisterUser extends React.Component {
     }
 
     processRegistration(){
-      console.log("Processing reg");
       if (this.fieldCompletionCheck() === "Complete"){
       this.setState({
-        processingRegistration: true
+        processingRegistration: true,
+        spinner: true
       },
     function(){
-      console.log("Complete fields");
       this.postData();
     })
     }
@@ -294,7 +296,13 @@ export default class RegisterUser extends React.Component {
          console.log("RESP", responseForName);
          var uri = responseForName.avatar.url
 
-           navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+        self.setState({
+
+          spinner: false
+
+        }, function(){
+          navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+        })
           })
         })
       })
@@ -348,6 +356,13 @@ export default class RegisterUser extends React.Component {
     return (
 
       <View style={registerUserStyle.container}>
+
+      <Spinner
+         visible={this.state.spinner}
+         textContent={'NüV is saving your details...'}
+         textStyle={{color: 'white'}}
+         overlayColor={'rgba(0,0,0,0.8)'}
+       />
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
