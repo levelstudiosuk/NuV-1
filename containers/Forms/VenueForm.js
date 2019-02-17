@@ -12,6 +12,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class VenueForm extends React.Component {
   static navigationOptions = {
@@ -51,7 +52,8 @@ export default class VenueForm extends React.Component {
       type: "",
       starCount: 3,
       vegan: true,
-      overlayVisible: true
+      overlayVisible: true,
+      spinner: false
     };
 
     componentDidMount(){

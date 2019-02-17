@@ -10,6 +10,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
+import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class BrandForm extends React.Component {
   static navigationOptions = {
@@ -29,6 +30,7 @@ export default class BrandForm extends React.Component {
   this.pickImage = this.pickImage.bind(this);
   this.onStarRatingPress = this.onStarRatingPress.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
+  this.postData = this.postData.bind(this);
 
 }
 
@@ -40,7 +42,8 @@ export default class BrandForm extends React.Component {
       image: null,
       type: "",
       starCount: 3,
-      vegan: true
+      vegan: true,
+      spinner: false
     };
 
     onStarRatingPress(rating) {
@@ -106,6 +109,10 @@ export default class BrandForm extends React.Component {
 
    postData(){
 
+    this.setState({
+
+    }, function(){
+
     var {navigate} = this.props.navigation;
     var self = this;
     var token = this.props.navigation.getParam('token', 'NO-ID');
@@ -131,12 +138,19 @@ export default class BrandForm extends React.Component {
    .then(function(response){
      console.log("RESP", response);
      var {navigate} = self.props.navigation;
-     navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+     self.setState({
+       spinner: false
+     }, function(){
+       navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+     })
 
    })
    .catch(function(error){
      console.log(error);
    })
+
+ })
 
    }
 
@@ -162,6 +176,8 @@ export default class BrandForm extends React.Component {
     return (
 
       <View style={registerUserStyle.container}>
+
+      <SubmittedFormSpinner spinner={this.state.spinner} />
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>

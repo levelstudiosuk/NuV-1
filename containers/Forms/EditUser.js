@@ -7,6 +7,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class EditUser extends React.Component {
   static navigationOptions = {
@@ -35,7 +36,8 @@ export default class EditUser extends React.Component {
       location: this.props.navigation.getParam('location', 'NO-ID'),
       bio: this.props.navigation.getParam('bio', 'NO-ID'),
       image: null,
-      vSelection: this.props.navigation.getParam('user_is_vegan', 'NO-ID')
+      vSelection: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+      spinner: false
     };
 
     changeEmailText(email){
