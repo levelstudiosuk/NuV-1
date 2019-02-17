@@ -62,6 +62,28 @@ export default class MediaView extends React.Component {
 
     }
 
+    retrieveUploaderProfile(){
+      const {navigate} = this.props.navigation;
+
+      var id = this.state.mediaItem.user_id;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+     var uploaderProfile = JSON.parse(response.request['_response'])
+
+     navigate('UserView', {notMyProfile: true, avatar: uploaderProfile.avatar.url, token: self.props.navigation.getParam('token', 'NO-ID'), id: uploaderProfile.id, name: uploaderProfile.name, bio: uploaderProfile.bio, location: uploaderProfile.location, user_is_vegan: uploaderProfile.user_is_vegan})
+
+    }).catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+
   onStarRatingPress(rating) {
   this.setState({
     starCount: rating
@@ -178,7 +200,9 @@ export default class MediaView extends React.Component {
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
         </TouchableHighlight>
         { this.props.navigation.getParam('user_image', 'NO-ID') ? (
+        <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.props.navigation.getParam('user_image', 'NO-ID')}}/>
+        </TouchableHighlight>
       ) : null
     }
         <ShareButton
