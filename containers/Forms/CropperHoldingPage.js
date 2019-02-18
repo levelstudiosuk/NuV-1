@@ -27,7 +27,8 @@ export default class CropperHoldingPage extends React.Component {
 
   state = {
       spinner: false,
-      cropperVisible: false
+      cropperVisible: false,
+      image: null
     };
 
     componentDidMount(){
@@ -42,23 +43,56 @@ export default class CropperHoldingPage extends React.Component {
     }
 
     processRegistration(){
-      if (this.fieldCompletionCheck() === "Complete"){
       this.setState({
         processingRegistration: true,
         spinner: true
       },
     function(){
-      this.postData();
+      this.patchCroppedImage();
     })
-    }
+
+  }
+
+  patchCroppedImage(){
+    var user_profile_end_point = 'http://nuv-api.herokuapp.com/profiles/' + this.props.navigation.getParam('id', 'NO-ID')
+    var token = this.props.navigation.getParam('token', 'NO-ID');
+    const {navigate} = this.props.navigation;
+    var self = this;
+    var uriParts = this.state.image ? this.state.image.split('.') : 'file:///Users/james/programming_work/nuv/NuV/assets/wil.jpg'.split('.');
+    var fileType = uriParts[uriParts.length - 1];
+
+    const formData = new FormData();
+
+   if (self.state.image){
+   formData.append('profile[avatar]', {
+      uri: self.state.image,
+     name: `${Date.now()}.${fileType}`,
+     type: `image/${fileType}`,
+    });
+  }
+    axios.patch(user_profile_end_point,
+    formData,
+ { headers: { Authorization: `${token}` }}).then(function(response){
+   console.log("RESP", response);
+   var updatedProfile = JSON.parse(response.request['_response'])
+   var uri = updatedProfile.avatar.url
+
+   self.setState({spinner: false}, function(){
+     navigate('Home', {name: updatedProfile.name, avatar: uri, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+
+   })
+ }
+ ).catch(function(e){
+     console.log(e);
+   })
   }
 
   render() {
     const {navigate} = this.props.navigation;
 
-    var image = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
+    var image = this.props.navigation.getParam('avatar', 'NO-ID')
 
-    var uri = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
+    var uri = this.props.navigation.getParam('avatar', 'NO-ID')
 
     return (
 
@@ -73,21 +107,23 @@ export default class CropperHoldingPage extends React.Component {
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
         }
 
-        {image && !this.state.image &&
+        {image && !this.state.imageLoaded &&
 
         <ImageBackground
               resizeMode="contain"
               style={{
-                  justifyContent: 'center', padding: 20, alignItems: 'center', height: 350, width: 350, backgroundColor: 'transparent',
+                  justifyContent: 'center', padding: 20, alignItems: 'center', height: this.props.navigation.getParam('height', 'NO-ID')/3, width: this.props.navigation.getParam('width', 'NO-ID')/3, backgroundColor: 'transparent',
               }}
-              source={{ uri: 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg' }}
+              source={{ uri: this.props.navigation.getParam('avatar', 'NO-ID') }}
           >
 
 
           <ImageManipulator
                   photo={ {uri} }
                   isVisible={this.state.cropperVisible}
-                  onPictureChoosed={uriM => this.setState({ image: uriM })}
+                  onPictureChoosed={uriM => this.setState({ image: uriM }, function(){
+                    this.setState({ imageLoaded: true })
+                  })}
                   onToggleModal={this.onToggleModal}
               />
 
@@ -99,11 +135,15 @@ export default class CropperHoldingPage extends React.Component {
           </ImageBackground>
         }
 
+        {this.state.image &&
+
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-              onPress={() => this.patchCroppedImage()}/>
+              onPress={() => this.processRegistration()}/>
           </View>
+
+        }
 
           </View>
 

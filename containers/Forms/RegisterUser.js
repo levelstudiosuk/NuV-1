@@ -306,7 +306,7 @@ export default class RegisterUser extends React.Component {
 
         }, function(){
           if (self.state.image){
-          navigate('CropperHoldingPage', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+          navigate('CropperHoldingPage', {height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
         }
         else {
           navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
@@ -352,7 +352,11 @@ export default class RegisterUser extends React.Component {
      console.log(result);
 
      if (!result.cancelled) {
-       this.setState({ image: result.uri });
+       this.setState({
+         image: result.uri,
+         width: result.width,
+         height: result.height
+       });
      }
    };
 
@@ -360,9 +364,8 @@ export default class RegisterUser extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
 
-    var image = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
+    var image = this.state.image
 
-    var uri = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
 
     return (
 
@@ -439,33 +442,7 @@ export default class RegisterUser extends React.Component {
 
 
         {this.state.image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
-        }
-
-        {image && !this.state.image &&
-
-        <ImageBackground
-              resizeMode="contain"
-              style={{
-                  justifyContent: 'center', padding: 20, alignItems: 'center', height: 350, width: 350, backgroundColor: 'transparent',
-              }}
-              source={{ uri: 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg' }}
-          >
-
-
-          <ImageManipulator
-                  photo={ {uri} }
-                  isVisible={this.state.cropperVisible}
-                  onPictureChoosed={uriM => this.setState({ image: uriM })}
-                  onToggleModal={this.onToggleModal}
-              />
-
-              <GlobalButton
-                 buttonTitle="Crop image"
-                 onPress={() => this.setState({ cropperVisible: true })}/>
-
-
-          </ImageBackground>
+          <Image source={{ uri: image }} style={{ width: this.state.width/3, height: this.state.height/3, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
         }
 
           <View style={registerUserStyle.submitContainer}>

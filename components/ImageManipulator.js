@@ -312,11 +312,11 @@ export default class ImgManipulator extends Component {
                                     borderWidth: 3,
                                     borderColor: 'yellow',
                                     flex: 1,
-                                    width: this.maxSizes.width,
-                                    height: this.maxSizes.width,
+                                    width: this.maxSizes.width > this.maxSizes.height ? this.maxSizes.height : this.maxSizes.width,
+                                    height: this.maxSizes.height > this.maxSizes.width ? this.maxSizes.width : this.maxSizes.height,
                                     position: 'absolute',
-                                    maxHeight: this.maxSizes.height,
-                                    maxWidth: this.maxSizes.width,
+                                    maxHeight: this.maxSizes.width > this.maxSizes.height ? this.maxSizes.height : this.maxSizes.width,
+                                    maxWidth: this.maxSizes.height > this.maxSizes.width ? this.maxSizes.width : this.maxSizes.height,
                                     backgroundColor: 'rgba(0,0,0,0.5)',
                                 }}
                             />
