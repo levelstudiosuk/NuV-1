@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, ImageBackground, ImageEditor, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import VWayToggle from '../../components/VWayToggle.js';
@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo'
 import axios from 'axios';
 import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
+import ImageManipulator from '../../components/ImageManipulator.js';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -33,6 +34,7 @@ export default class RegisterUser extends React.Component {
   this.fieldCompletionCheck = this.fieldCompletionCheck.bind(this);
   this.processRegistration = this.processRegistration.bind(this);
   this.postData = this.postData.bind(this);
+  this.onToggleModal = this.onToggleModal.bind(this);
 
 }
 
@@ -46,7 +48,8 @@ export default class RegisterUser extends React.Component {
       image: null,
       vSelection: "vegetarian",
       sentPhotoWarning: false,
-      spinner: false
+      spinner: false,
+      cropperVisible: false
     };
 
     componentDidMount(){
@@ -182,6 +185,11 @@ export default class RegisterUser extends React.Component {
           passwordMismatch: false
         })
       }
+    }
+
+    onToggleModal() {
+      this.setState({ cropperVisible: !this.state.cropperVisible })
+
     }
 
     changeEmailText(email){
@@ -339,7 +347,7 @@ export default class RegisterUser extends React.Component {
      console.log(result);
 
      if (!result.cancelled) {
-       this.setState({ image: result.uri});
+       this.setState({ image: result.uri });
      }
    };
 
@@ -347,7 +355,9 @@ export default class RegisterUser extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
 
-    var image = this.state.image
+    var image = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
+
+    var uri = 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg'
 
     return (
 
@@ -423,8 +433,35 @@ export default class RegisterUser extends React.Component {
              onPress={() => this.pickImage()}/>
 
 
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+        {this.state.image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
+        }
+
+        {image && !this.state.image &&
+
+        <ImageBackground
+              resizeMode="contain"
+              style={{
+                  justifyContent: 'center', padding: 20, alignItems: 'center', height: 350, width: 350, backgroundColor: 'transparent',
+              }}
+              source={{ uri: 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg' }}
+          >
+
+
+          <ImageManipulator
+                  photo={ {uri} }
+                  isVisible={this.state.cropperVisible}
+                  onPictureChoosed={uriM => this.setState({ image: uriM })}
+                  onToggleModal={this.onToggleModal}
+              />
+
+              <GlobalButton
+                 buttonTitle="Crop image"
+                 onPress={() => this.setState({ cropperVisible: true })}/>
+
+
+          </ImageBackground>
+        }
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
