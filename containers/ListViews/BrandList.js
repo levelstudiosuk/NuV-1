@@ -79,8 +79,11 @@ export default class BrandList extends React.Component {
     }
 
     returnMessage(){
-      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true && this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') != true){
         return `Here are your brand contributions. Click for info.`
+      }
+      else if (this.props.navigation.getParam('uploader', 'NO-ID')){
+        return `Here are all brand contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Scroll and click a brand for info; or scan a (foodstuffs) barcode for info"
@@ -165,6 +168,10 @@ export default class BrandList extends React.Component {
     )
     }
 
+    returnBrandMessage(){
+      return this.props.navigation.getParam('uploader', 'NO-ID') ? this.props.navigation.getParam('uploader', 'NO-ID').name + 'has not made any brand contributions yet.' : 'You have not made any brand contributions yet.'
+    }
+
     render() {
       const {navigate} = this.props.navigation;
 
@@ -196,10 +203,21 @@ export default class BrandList extends React.Component {
         style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
        />
 
-      <Text style={{fontSize: 18, textAlign: 'center'}}>
-          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+       {
+         this.props.navigation.getParam('uploader', 'NO-ID') ? (
 
-      </Text>
+           <Text style={{fontSize: 18, textAlign: 'center'}}>
+               {this.returnMessage()}{"\n"}{"\n"}
+
+           </Text>
+
+    ) :
+
+    <Text style={{fontSize: 18, textAlign: 'center'}}>
+        {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+
+    </Text>
+  }
 
       <BarCodeScanner/>
       <AutoHeightImage
@@ -215,7 +233,10 @@ export default class BrandList extends React.Component {
 
         this.mapBrandItems()
       )
-      : <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> You have not made any brand contributions yet. </Text>
+      :
+
+
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> {this.returnBrandMessage()} </Text>
     }
       <View>
         <GlobalButton
