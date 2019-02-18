@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Home from './containers/Global/Home.js';
 import RegisterUser from './containers/Forms/RegisterUser.js';
+import CropperHoldingPage from './containers/Forms/CropperHoldingPage.js';
 import SignIn from './containers/Global/SignIn.js';
 import Landing from './containers/Global/Landing.js';
 import Favourites from './containers/Global/Favourites.js';
@@ -29,6 +30,7 @@ import { Constants } from 'expo'
 const navigationVariable = createStackNavigator({
   Landing: {screen: Landing},
   RegisterUser: {screen: RegisterUser},
+  CropperHoldingPage: {screen: CropperHoldingPage},
   SignIn: {screen: SignIn},
   Favourites: {screen: Favourites},
   Home: {screen: Home},
