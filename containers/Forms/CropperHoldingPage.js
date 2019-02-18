@@ -112,7 +112,7 @@ export default class CropperHoldingPage extends React.Component {
         <ImageBackground
               resizeMode="contain"
               style={{
-                  justifyContent: 'center', padding: 20, alignItems: 'center', height: this.props.navigation.getParam('height', 'NO-ID')/3, width: this.props.navigation.getParam('width', 'NO-ID')/3, backgroundColor: 'transparent',
+                  justifyContent: 'center', padding: 20, alignItems: 'center', height: Dimensions.get('window').width > 750 ? this.props.navigation.getParam('height', 'NO-ID')/3 : this.props.navigation.getParam('height', 'NO-ID')/5, width: Dimensions.get('window').width > 750 ? this.props.navigation.getParam('width', 'NO-ID')/3 : this.props.navigation.getParam('width', 'NO-ID')/5, backgroundColor: 'transparent',
               }}
               source={{ uri: this.props.navigation.getParam('avatar', 'NO-ID') }}
           >
