@@ -333,7 +333,7 @@ export default class RegisterUser extends React.Component {
        mediaTypes: ImagePicker.MediaTypeOptions.All,
        quality: 0.5, //NB: Set at 0.5 to reduce file size for DB
        exif: false,  //NB: Set to false to reduce file sive for DB
-       aspect: [4, 4]
+       aspect: [1, 1]
      });
 
      console.log(result);

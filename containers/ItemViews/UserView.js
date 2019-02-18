@@ -176,9 +176,20 @@ export default class UserView extends React.Component {
 }
 
     </View>
+
+    {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+
       <Text style={userViewStyle.profileItemBio}>
         Bio: {this.props.navigation.getParam('bio', 'NO-ID')}
       </Text>
+
+    ) :
+
+    <Text style={userViewStyle.profileItemBio}>
+      Bio: {this.props.navigation.getParam('uploader', 'NO-ID').bio}
+    </Text>
+
+  }
 
       {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 

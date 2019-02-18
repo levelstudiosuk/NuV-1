@@ -15,7 +15,7 @@ export default class SubmittedFormSpinner extends Component {
 
       <Spinner
          visible={this.props.spinner}
-         textContent={'NüV is saving your details...'}
+         textContent={'NüV is processing your data...'}
          textStyle={{color: 'white'}}
          overlayColor={'rgba(0,0,0,0.8)'}
        />
