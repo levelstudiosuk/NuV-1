@@ -99,11 +99,23 @@ export default class VenueList extends React.Component {
     }
 
     returnMessage(){
-      if (this.props.navigation.getParam('user', 'NO-ID') === true){
+      if (this.props.navigation.getParam('user', 'NO-ID') === true && !this.props.navigation.getParam('uploader', 'NO-ID')){
         return `Here are your venue contributions.`
+      }
+      else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
+        return `Here are all venue contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Search the ethical eateries here"
+      }
+    }
+
+    getExtraMessage(){
+      if (this.props.navigation.getParam('uploader', 'NO-ID')){
+        return `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not uploaded any venues yet`
+      }
+      else {
+        return "You have not uploaded any venues yet"
       }
     }
 
@@ -215,9 +227,21 @@ export default class VenueList extends React.Component {
     <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
     <View style={venueListStyle.container}>
 
-      <Text style={{fontSize: 18, textAlign: 'center'}}>
-          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}Search the ethical eateries here:
-      </Text>
+    {
+      this.props.navigation.getParam('uploader', 'NO-ID') ? (
+
+        <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+            {this.returnMessage()}{"\n"}{"\n"}
+
+        </Text>
+
+ ) :
+
+       <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+           {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+
+       </Text>
+      }
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
@@ -228,7 +252,7 @@ export default class VenueList extends React.Component {
     }
 
     {this.state.venueItems && this.state.venueItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true ? (
-      <Text> You have not added any venues to NüV yet. </Text>
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center', marginBottom: Dimensions.get('window').height*0.02}}> {this.getExtraMessage()} </Text>
 
     ): null
   }

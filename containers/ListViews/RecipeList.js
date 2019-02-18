@@ -165,7 +165,16 @@ export default class RecipeList extends React.Component {
    }
 
    returnMessage(){
-     return this.props.navigation.getParam('user', 'NO-ID') != true ? "Scroll through the NüV community recipes. Tap one to see its details" : "Here are your NüV recipe contributions!"
+     if (this.props.navigation.getParam('user', 'NO-ID') != true){
+       return "Scroll through the NüV community recipes. Tap one to see its details"
+     }
+     else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
+       return `Here are all recipe contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
+
+     }
+     else {
+     return "Here are your NüV recipe contributions!"
+   }
    }
 
    changeToggleSelection(selection){
@@ -179,8 +188,11 @@ export default class RecipeList extends React.Component {
    }
 
    returnExtraMessage(){
-      if (this.state.recipeItems && this.state.recipeItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true){
+      if (this.state.recipeItems && this.state.recipeItems.length == 0 && !this.props.navigation.getParam('uploader', 'NO-ID') && this.props.navigation.getParam('user', 'NO-ID') === true){
       return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> You have not added any recipes to NüV yet. </Text>
+   }
+   else if (this.state.recipeItems && this.state.recipeItems.length == 0 && this.props.navigation.getParam('uploader', 'NO-ID') && this.props.navigation.getParam('user', 'NO-ID') === true){
+     return <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginTop: Dimensions.get('window').height*0.02}}> It seems that {this.props.navigation.getParam('uploader', 'NO-ID').name} has not added any recipes to NüV yet. </Text>
    }
     else {
       return null;
@@ -361,7 +373,7 @@ export default class RecipeList extends React.Component {
                 color: 'black',
                 textAlign: 'center',
                 fontWeight: '400',
-                fontSize: 16,
+                fontSize: Dimensions.get('window').width > 750 ? 24 : 18,
                 margin: 30
               }}
             >

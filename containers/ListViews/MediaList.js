@@ -179,8 +179,11 @@ export default class MediaList extends React.Component {
     }
 
     returnMessage(){
-      if (this.props.navigation.getParam('user', 'NO-ID') === true ){
+      if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') != true && this.props.navigation.getParam('user', 'NO-ID') === true ){
         return `Here are your media contributions.`
+      }
+      else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
+        return `Here are all media contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Here is the news."
@@ -279,9 +282,21 @@ export default class MediaList extends React.Component {
           style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
       />
 
-      <Text style={{fontSize: 18, textAlign: 'center'}}>
-          {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"} {this.returnMessage()}
-      </Text>
+      {
+        this.props.navigation.getParam('uploader', 'NO-ID') ? (
+
+          <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+              {this.returnMessage()}{"\n"}{"\n"}
+
+          </Text>
+
+   ) :
+
+   <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+       {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+
+   </Text>
+ }
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>

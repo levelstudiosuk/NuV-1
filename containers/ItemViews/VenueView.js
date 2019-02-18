@@ -295,7 +295,7 @@ render() {
   <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
   <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {notMyProfile: true,
-     uploader: this.state.recipeItem.user,
+     uploader: this.state.venueItem.user,
      token: self.props.navigation.getParam('token', 'NO-ID'),
      avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
      id:            this.props.navigation.getParam('id', 'NO-ID'),
