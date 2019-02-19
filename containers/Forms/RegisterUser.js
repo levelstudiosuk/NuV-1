@@ -9,6 +9,7 @@ import {Permissions} from 'expo'
 import axios from 'axios';
 import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 import ImageManipulator from '../../components/ImageManipulator.js';
+import * as ValidateEmail from '../../helper_functions/ValidateEmail.js';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -65,7 +66,7 @@ export default class RegisterUser extends React.Component {
             )
             return;
       }
-      if (this.validateEmail() === false) {
+      if (ValidateEmail.validateEmail(this.state.email) === false) {
         Alert.alert(
               "Please enter a valid email address"
             )
@@ -131,13 +132,8 @@ export default class RegisterUser extends React.Component {
     }
     }
 
-    validateEmail(){
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(this.state.email.toLowerCase());
-    }
-
     emailFeedback(){
-      if (this.validateEmail() === true){
+      if (ValidateEmail.validateEmail(this.state.email) === true){
         this.setState({
           emailTextColor: '#0dc6b5'
         })

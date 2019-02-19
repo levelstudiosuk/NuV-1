@@ -12,6 +12,7 @@ import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import {  Tile  } from 'react-native-elements';
+import * as ValidateEmail from '../../helper_functions/ValidateEmail.js';
 
 
 export default class ResetPassword extends React.Component {
@@ -95,6 +96,12 @@ export default class ResetPassword extends React.Component {
     var self = this;
     const formData = new FormData();
 
+    if (ValidateEmail.validateEmail(this.state.email) != true){
+      Alert.alert(
+        'Please enter a valid email address'
+        )
+    }
+    else {
     axios.get(session_url, {params: {"email": this.state.email.toLowerCase()}}, { headers: { "Content-Type": "application/json" }}
   ).then(function(response) {
     var responseData = response.request['_response']
@@ -114,6 +121,8 @@ export default class ResetPassword extends React.Component {
         )
         console.log(e);
         })
+
+      }
       }
 
 render() {
