@@ -166,7 +166,7 @@ export default class EditUser extends React.Component {
 
     }, function(){
       if (self.state.image){
-      navigate('CropperHoldingPage', {height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      navigate('CropperHoldingPage', {editingProfile: true, height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
     }
     else {
       navigate('Home', {user_id: updatedProfile.user_id, avatar: uri, token: token, id: updatedProfile.id, name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
