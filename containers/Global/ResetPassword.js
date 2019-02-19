@@ -151,10 +151,13 @@ export default class ResetPassword extends React.Component {
       var {navigate} = this.props.navigation;
       var self = this;
 
-    axios.get(session_url, {params: {"reset_password_token": this.state.resetPasswordToken, "new_password": this.state.password.trim(), "new_password_confirmation": this.state.password2}}, { headers: { "Content-Type": "application/json" }}
+      console.log("Token: ", this.state.resetPasswordToken);
+
+    axios.post(session_url, {params: {"reset_password_token": this.state.resetPasswordToken, "new_password": this.state.password.trim(), "new_password_confirmation": this.state.password2.trim()}}, { headers: { "Content-Type": "application/json" }}
   ).then(function(response) {
     var responseData = response.request['_response']
-    if (responseData === "Password reset code emailed"){
+    console.log("Reset response", response);
+    if (responseData != "code not found, check email"){
     self.setState({
       spinner: true
     }, function(){
@@ -169,12 +172,12 @@ export default class ResetPassword extends React.Component {
   }
     else {
       Alert.alert(
-        'Looks like no NüV account with that email address exists...'
+        'Oh dear - it seems that your reset code is not valid'
         )
     }
   }).catch(function(e){
       Alert.alert(
-        'No NüV account exists with that email address'
+        'That is not a valid reset code'
         )
         console.log(e);
         })
@@ -231,7 +234,6 @@ render() {
             onChangeText         =  {(email) => {this.changeEmailText(email)}}
             value                =  {this.state.email} placeholder='Email address' placeholderTextColor = 'black'
             underlineColorAndroid=  'transparent' underlineColorIOS="grey"
-            onEndEditing={this.passwordFeedback}
            />
 
          ) :
@@ -254,7 +256,8 @@ render() {
                     onChangeText         =  {(password) => {this.changePasswordText(password)}}
                     value                =  {this.state.password} placeholder='New password' placeholderTextColor = 'black'
                     underlineColorAndroid=  'transparent' underlineColorIOS="grey"
-                    onEndEditing={this.passwordMatchChecker}
+                    onEndEditing={this.passwordFeedback}
+
                    />
                    </View>
 
@@ -282,6 +285,7 @@ render() {
                onChangeText          =  {(password2) => {this.changePassword2Text(password2)}}
                value                 =  {this.state.password2} placeholder='Confirm new password' placeholderTextColor  =  'black'
                underlineColorAndroid =  'transparent'
+               onEndEditing={this.passwordMatchChecker}
               />
 
               {
