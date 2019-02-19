@@ -25,6 +25,7 @@ import FaveButton from './components/FaveButton.js';
 import NavBar from './components/NavBar.js';
 import MediaList from './containers/ListViews/MediaList.js';
 import BrandList from './containers/ListViews/BrandList.js';
+import ResetPassword from './containers/Global/ResetPassword.js';
 import { Constants } from 'expo'
 
 const navigationVariable = createStackNavigator({
@@ -32,6 +33,7 @@ const navigationVariable = createStackNavigator({
   RegisterUser: {screen: RegisterUser},
   CropperHoldingPage: {screen: CropperHoldingPage},
   SignIn: {screen: SignIn},
+  ResetPassword: {screen: ResetPassword},
   Favourites: {screen: Favourites},
   Home: {screen: Home},
   UserView: {screen: UserView},

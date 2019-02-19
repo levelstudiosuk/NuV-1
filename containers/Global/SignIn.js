@@ -45,6 +45,12 @@ export default class SignIn extends React.Component {
     })
   }
 
+  transitionToResetPage(){
+    var {navigate} = this.props.navigation;
+
+    navigate('ResetPassword')
+  }
+
   postData(){
     var session_url = 'http://nuv-api.herokuapp.com/login';
     var {navigate} = this.props.navigation;

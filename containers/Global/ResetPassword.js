@@ -14,7 +14,7 @@ import    axios from 'axios';
 import {  Tile  } from 'react-native-elements';
 
 
-export default class SignIn extends React.Component {
+export default class ResetPassword extends React.Component {
   static navigationOptions = {
     title: null,
     headerTitle: (
@@ -27,6 +27,7 @@ export default class SignIn extends React.Component {
       this.changeEmailText    = this.changeEmailText.bind(this);
       this.changePasswordText    = this.changePasswordText.bind(this);
       this.changePassword2Text = this.changePassword2Text.bind(this);
+      this.resetPasswordRequest = this.resetPasswordRequest.bind(this);
     }
 
   state = {
@@ -57,13 +58,21 @@ export default class SignIn extends React.Component {
     var session_url = 'http://nuv-api.herokuapp.com/reset_password_request';
     var {navigate} = this.props.navigation;
     var self = this;
-    axios.get(session_url, {"email": self.state.email
-  }
+    const formData = new FormData();
+
+    axios.get(session_url, {params: {"email": this.state.email.toLowerCase()}}, { headers: { "Content-Type": "application/json" }}
   ).then(function(response) {
-    console.log("Response from reset: ", response);
+    var responseData = response.request['_response']
+    if (responseData === "Password reset code emailed"){
     self.setState({
       resetRequestMade: true
     })
+  }
+    else {
+      Alert.alert(
+        'Looks like no NüV account with that email address exists...'
+        )
+    }
   }).catch(function(e){
       Alert.alert(
         'No NüV account exists with that email address'
@@ -89,21 +98,43 @@ render() {
 
          ) :
 
-          <TextInput
-            style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.15}]}
-            onChangeText         =  {(email) => {this.changePasswordText(email)}}
-            value                =  {this.state.email} placeholder='New password' placeholderTextColor = 'black'
-            underlineColorAndroid=  'transparent' underlineColorIOS="grey"
-           />
-
-         <TextInput
-           style={signInStyle.button}
-           onChangeText          =  {(password) => {this.changePassword2Text(password)}}
-           value                 =  {this.state.password} placeholder='Confirm new password' placeholderTextColor  =  'black'
-           underlineColorAndroid =  'transparent'
-          />
+      null
 
         }
+
+        { this.state.resetRequestMade === true ? (
+
+                <View>
+                  <TextInput
+                    style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.15}]}
+                    onChangeText         =  {(password) => {this.changePasswordText(password)}}
+                    value                =  {this.state.password} placeholder='New password' placeholderTextColor = 'black'
+                    underlineColorAndroid=  'transparent' underlineColorIOS="grey"
+                   />
+                </View>
+
+           ) :
+
+        null
+
+          }
+
+          { this.state.resetRequestMade === true ? (
+
+            <View>
+             <TextInput
+               style={signInStyle.button}
+               onChangeText          =  {(password2) => {this.changePassword2Text(password2)}}
+               value                 =  {this.state.password2} placeholder='Confirm new password' placeholderTextColor  =  'black'
+               underlineColorAndroid =  'transparent'
+              />
+            </View>
+
+             ) :
+
+          null
+
+            }
 
          <View style={signInStyle.submitContainer}>
           <GlobalButton
