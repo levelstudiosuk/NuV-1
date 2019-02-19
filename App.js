@@ -26,10 +26,12 @@ import NavBar from './components/NavBar.js';
 import MediaList from './containers/ListViews/MediaList.js';
 import BrandList from './containers/ListViews/BrandList.js';
 import ResetPassword from './containers/Global/ResetPassword.js';
+import ResetLanding from './containers/Global/ResetLanding.js';
 import { Constants } from 'expo'
 
 const navigationVariable = createStackNavigator({
   Landing: {screen: Landing},
+  ResetLanding: {screen: ResetLanding},
   RegisterUser: {screen: RegisterUser},
   CropperHoldingPage: {screen: CropperHoldingPage},
   SignIn: {screen: SignIn},

@@ -13,7 +13,6 @@ import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import {  Tile  } from 'react-native-elements';
 
-
 export default class SignIn extends React.Component {
   static navigationOptions = {
     title: null,
@@ -32,6 +31,7 @@ export default class SignIn extends React.Component {
       email:    "",
       password: ""
     };
+
 
   changeEmailText(email){
     this.setState({

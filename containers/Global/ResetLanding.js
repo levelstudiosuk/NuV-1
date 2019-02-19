@@ -15,15 +15,44 @@ import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    HeroImageCarousel from '../../components/HeroImageCarousel.js';
+import    SuccessfulResetOverlay from '../../components/SuccessfulResetOverlay.js';
 
-export default class Landing extends React.Component {
+export default class ResetLanding extends React.Component {
   static navigationOptions = {
       header: null,
   };
 
+  constructor(props){
+    super(props);
+
+    this.toggleOverlay = this.toggleOverlay.bind(this);
+    this.closeOverlay = this.closeOverlay.bind(this);
+  }
+
+  state = {
+      overlayVisible: false
+    };
 
   componentDidMount(){
     this.nudgeHeroku('http://nuv-api.herokuapp.com/login')
+    if (this.props.navigation.state.routeName === "ResetLanding"){
+      this.toggleOverlay();
+  }
+  }
+
+  toggleOverlay(){
+    var self = this;
+      setTimeout(function(){
+        self.setState({
+          overlayVisible: true
+        })
+      }, 500)
+  }
+
+  closeOverlay(){
+    this.setState({
+      overlayVisible: false
+    })
   }
 
   nudgeHeroku(url){
@@ -37,6 +66,8 @@ render() {
     return (
 
       <View style={landingStyle.container}>
+
+      <SuccessfulResetOverlay overlayVisible={this.state.overlayVisible} closeOverlay={this.closeOverlay} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center'}}>
