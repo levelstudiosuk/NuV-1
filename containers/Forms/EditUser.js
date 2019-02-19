@@ -166,7 +166,7 @@ export default class EditUser extends React.Component {
 
     }, function(){
       if (self.state.image){
-      navigate('CropperHoldingPage', {editingProfile: true, height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      navigate('CropperHoldingPage', {editingProfile: true, height: self.state.height, width: self.state.width, user_id: updatedProfile.user_id, avatar: uri, token: token, id: updatedProfile.id, name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
     }
     else {
       navigate('Home', {user_id: updatedProfile.user_id, avatar: uri, token: token, id: updatedProfile.id, name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
@@ -192,10 +192,9 @@ export default class EditUser extends React.Component {
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={editUserStyle.container}>
 
-      <Text style={{fontSize: 18, textAlign: 'center', marginTop: Dimensions.get('window').height*0.035, marginBottom: Dimensions.get('window').height*0.02 }}>
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 14, textAlign: 'center', marginTop: Dimensions.get('window').height*0.035, marginBottom: Dimensions.get('window').height*0.025 }}>
       You are editing your NüV profile.{"\n"}{"\n"}
       Please ensure information is true and complete all fields.{"\n"}{"\n"}
-      Thank you! :-)
       </Text>
 
           <TextInput
@@ -222,7 +221,7 @@ export default class EditUser extends React.Component {
           />
 
           <GlobalButton
-             buttonTitle="Profile pic"
+             buttonTitle="Add new image"
              onPress={() => this.pickImage()}/>
 
         {image &&

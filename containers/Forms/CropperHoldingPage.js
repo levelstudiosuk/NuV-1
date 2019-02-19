@@ -103,6 +103,30 @@ export default class CropperHoldingPage extends React.Component {
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
 
+      {this.props.navigation.getParam('editingProfile', 'NO-ID') === true && !this.state.imageLoaded  ? (
+
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 14, textAlign: 'center', marginTop: Dimensions.get('window').height*0.035, marginBottom: Dimensions.get('window').height*0.025 }}>
+      Hi {this.props.navigation.getParam('name', 'NO-ID')}. To finalise your profile update, please crop your NüV profile picture. This will help us make you a killer profile.{"\n"}{"\n"}
+      </Text>
+
+    ) :
+
+    null
+
+  }
+
+      {this.props.navigation.getParam('registering', 'NO-ID') === true && !this.state.imageLoaded ? (
+
+          <Text style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 14, textAlign: 'center', marginTop: Dimensions.get('window').height*0.035, marginBottom: Dimensions.get('window').height*0.025 }}>
+          Hi {this.props.navigation.getParam('name', 'NO-ID')}. Just to get you started, please crop your NüV profile picture. This will help us make you a killer profile.{"\n"}{"\n"}
+          </Text>
+
+    ) :
+
+    null
+
+    }
+
         {this.state.image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
         }
