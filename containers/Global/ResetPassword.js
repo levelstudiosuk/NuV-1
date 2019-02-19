@@ -153,7 +153,7 @@ export default class ResetPassword extends React.Component {
 
       console.log("Token: ", this.state.resetPasswordToken);
 
-    axios.post(session_url, {params: {"reset_password_token": this.state.resetPasswordToken, "new_password": this.state.password.trim(), "new_password_confirmation": this.state.password2.trim()}}, { headers: { "Content-Type": "application/json" }}
+    axios.post(session_url, {"reset_password_token": this.state.resetPasswordToken, "new_password": this.state.password.trim(), "new_password_confirmation": this.state.password2.trim()}, { headers: { "Content-Type": "application/json" }}
   ).then(function(response) {
     var responseData = response.request['_response']
     console.log("Reset response", response);
@@ -167,7 +167,7 @@ export default class ResetPassword extends React.Component {
       }, function(){
         navigate('Landing')
       })
-    }, 2500);
+    }, 4500);
     })
   }
     else {
@@ -224,7 +224,7 @@ render() {
 
       <View style={signInStyle.container}>
 
-      <SubmittedFormSpinner spinner={this.state.spinner} message="Success! You can now log back in to NüV with your new password..." />
+      <SubmittedFormSpinner spinner={this.state.spinner} message="Success! You can now log back in to NüV with your new password. Taking you home..." />
 
 
       { !this.state.resetRequestMade ? (
