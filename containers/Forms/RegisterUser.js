@@ -10,6 +10,7 @@ import axios from 'axios';
 import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 import ImageManipulator from '../../components/ImageManipulator.js';
 import * as ValidateEmail from '../../helper_functions/ValidateEmail.js';
+import * as ValidatePassword from '../../helper_functions/ValidatePassword.js';
 
 export default class RegisterUser extends React.Component {
   static navigationOptions = {
@@ -84,7 +85,7 @@ export default class RegisterUser extends React.Component {
             )
             return;
       }
-      if (this.validatePassword() === false) {
+      if (ValidatePassword.validatePassword(this.state.password) === false) {
         Alert.alert(
               "Please enter a valid password"
             )
@@ -145,13 +146,8 @@ export default class RegisterUser extends React.Component {
       }
     }
 
-    validatePassword(){
-      var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
-      return re.test(this.state.password);
-    }
-
     passwordFeedback(){
-      if (this.validatePassword() === true){
+      if (ValidatePassword.validatePassword(this.state.password) === true){
         this.setState({
           passwordTextColor: '#0dc6b5',
           firstPasswordError: false
@@ -250,6 +246,8 @@ export default class RegisterUser extends React.Component {
         return;
       }
 
+      else {
+
       var session_url = 'http://nuv-api.herokuapp.com/signup';
       var {navigate} = this.props.navigation;
       var self = this;
@@ -314,6 +312,8 @@ export default class RegisterUser extends React.Component {
     }).catch(function(e){
           console.log(e);
         })
+
+      }
     }
 
     returnVToggleSelection(selection){
