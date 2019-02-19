@@ -229,6 +229,38 @@ checkFavouriteStatus(viewedVenue) {
    })
       }
 
+      retrieveUploaderProfile(){
+        const {navigate} = this.props.navigation;
+
+        var id = this.state.venueItem.user_id;
+        var token = this.props.navigation.getParam('token', 'NO-ID');
+        var self = this;
+
+        axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+     { headers: { Authorization: `${token}` }})
+
+     .then(function(response){
+
+       var uploaderProfile = JSON.parse(response.request['_response'])
+
+       navigate('UserView',
+       {notMyProfile: true,
+          uploader: uploaderProfile,
+          token: self.props.navigation.getParam('token', 'NO-ID'),
+          avatar:        self.props.navigation.getParam('avatar', 'NO-ID'),
+          id:            self.props.navigation.getParam('id', 'NO-ID'),
+          name:          self.props.navigation.getParam('name', 'NO-ID'),
+          bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+          location:      self.props.navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
+        })
+
+     }).catch(function(error){
+       console.log("Error: ", error);
+     })
+      }
+
 render() {
 
   const {navigate} = this.props.navigation;
@@ -294,16 +326,7 @@ render() {
   <TouchableHighlight underlayColor="white" onPress={()=> url ? Linking.openURL(`${url}`) : console.log("No URL for this venue")}>
   <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
-  <TouchableHighlight underlayColor='white' onPress={() => navigate('UserView', {notMyProfile: true,
-     uploader: this.state.venueItem.user,
-     token: self.props.navigation.getParam('token', 'NO-ID'),
-     avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
-     id:            this.props.navigation.getParam('id', 'NO-ID'),
-     name:          this.props.navigation.getParam('name', 'NO-ID'),
-     bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-     location:      this.props.navigation.getParam('location', 'NO-ID'),
-     user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')
-   }) } >
+  <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() } >
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
   </TouchableHighlight>
 
@@ -318,7 +341,7 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      {this.state.venueItem.title} was described by {this.state.venueItem.user.name} as:{"\n"}
+      {this.state.venueItem.title} was described by {this.state.venueItem.user_name} as:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
       {this.state.venueItem.description}
