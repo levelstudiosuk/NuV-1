@@ -25,6 +25,7 @@ export default class EditUser extends React.Component {
   this.changeBioText = this.changeBioText.bind(this);
   this.pickImage = this.pickImage.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
+  this.processEdit = this.processEdit.bind(this);
 
 }
 
@@ -102,7 +103,11 @@ export default class EditUser extends React.Component {
      console.log(result);
 
      if (!result.cancelled) {
-       this.setState({ image: result.uri });
+       this.setState({
+         image: result.uri,
+         width: result.width,
+         height: result.height
+       });
      }
    };
 
@@ -117,6 +122,14 @@ export default class EditUser extends React.Component {
        else {
          return 2;
        }
+   }
+
+   processEdit(){
+     this.setState({
+       spinner: true
+     }, function(){
+       this.postData();
+     })
    }
 
    postData(){
@@ -147,7 +160,18 @@ export default class EditUser extends React.Component {
     var updatedProfile = JSON.parse(response.request['_response'])
     var uri = updatedProfile.avatar.url
 
-    navigate('Home', {name: updatedProfile.name, avatar: uri, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+    self.setState({
+
+      spinner: false
+
+    }, function(){
+      if (self.state.image){
+      navigate('CropperHoldingPage', {height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+    }
+    else {
+      navigate('Home', {user_id: updatedProfile.user_id, avatar: uri, token: token, id: updatedProfile.id, name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
+    }
+      })
   }
   ).catch(function(e){
       console.log(e);
@@ -163,6 +187,7 @@ export default class EditUser extends React.Component {
     return (
 
       <View style={editUserStyle.container}>
+      <SubmittedFormSpinner spinner={this.state.spinner} />
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={editUserStyle.container}>
@@ -201,12 +226,12 @@ export default class EditUser extends React.Component {
              onPress={() => this.pickImage()}/>
 
         {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+          <Image source={{ uri: image }} style={{ width: Dimensions.get('window').width >750 ? this.state.width/3 : this.state.width/5, height: Dimensions.get('window').width > 750 ? this.state.height/3 : this.state.height/5, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
 
           <View style={editUserStyle.submitContainer}>
           <GlobalButton
              buttonTitle="Submit"
-             onPress={() => this.postData()}/>
+             onPress={() => this.processEdit()}/>
           </View>
 
           </View>

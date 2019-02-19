@@ -440,7 +440,6 @@ export default class RegisterUser extends React.Component {
              buttonTitle="Profile pic"
              onPress={() => this.pickImage()}/>
 
-
         {this.state.image &&
           <Image source={{ uri: image }} style={{ width: Dimensions.get('window').width >750 ? this.state.width/3 : this.state.width/5, height: Dimensions.get('window').width > 750 ? this.state.height/3 : this.state.height/5, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />
         }
