@@ -25,6 +25,7 @@ export default class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
       this.changeEmailText    = this.changeEmailText.bind(this);
+      this.changeTokenText    = this.changeTokenText.bind(this);
       this.changePasswordText    = this.changePasswordText.bind(this);
       this.changePassword2Text = this.changePassword2Text.bind(this);
       this.resetPasswordRequest = this.resetPasswordRequest.bind(this);
@@ -33,7 +34,8 @@ export default class ResetPassword extends React.Component {
   state = {
       email: "",
       password:    "",
-      password2: ""
+      password2: "",
+      resetPasswordToken: ""
     };
 
     changeEmailText(email){
@@ -54,13 +56,19 @@ export default class ResetPassword extends React.Component {
     })
   }
 
+  changeTokenText(token){
+    this.setState({
+      resetPasswordToken: token
+    })
+  }
+
   resetPasswordRequest(){
     var session_url = 'http://nuv-api.herokuapp.com/reset_password_request';
     var {navigate} = this.props.navigation;
     var self = this;
     const formData = new FormData();
 
-    axios.get(session_url, {params: {"email": this.state.email.toLowerCase()}}, { headers: { "Content-Type": "application/json" }}
+    axios.get(session_url, {params: {"reset_password_token": this.state.resetPasswordToken, "new_password": this.state.password.trim(), "new_password_confirmation": this.state.password2}}, { headers: { "Content-Type": "application/json" }}
   ).then(function(response) {
     var responseData = response.request['_response']
     if (responseData === "Password reset code emailed"){
@@ -76,6 +84,33 @@ export default class ResetPassword extends React.Component {
   }).catch(function(e){
       Alert.alert(
         'No NüV account exists with that email address'
+        )
+        console.log(e);
+        })
+      }
+
+  resetPasswordEmailRequest(){
+    var session_url = 'http://nuv-api.herokuapp.com/reset_password_request';
+    var {navigate} = this.props.navigation;
+    var self = this;
+    const formData = new FormData();
+
+    axios.get(session_url, {params: {"email": this.state.email.toLowerCase()}}, { headers: { "Content-Type": "application/json" }}
+  ).then(function(response) {
+    var responseData = response.request['_response']
+    if (responseData === "Password reset code emailed"){
+    self.setState({
+      resetRequestMade: true
+    })
+  }
+    else {
+      Alert.alert(
+        'Oh dear - it seems that no NüV account with that email address exists at present'
+        )
+    }
+  }).catch(function(e){
+      Alert.alert(
+        'Oh dear - it seems that no NüV account with that email address exists at present'
         )
         console.log(e);
         })
@@ -105,12 +140,20 @@ render() {
         { this.state.resetRequestMade === true ? (
 
                 <View>
+                <Text style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 14, textAlign: 'center', marginTop: Dimensions.get('window').height*0.065}}>
+                  Please enter your new password here and also verify your identity with the token we sent to your email address{"\n"}{"\n"}
+                </Text>
+
+                <View style={{alignItems: 'center'}}>
+
                   <TextInput
-                    style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.15}]}
+                    style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.025}]}
                     onChangeText         =  {(password) => {this.changePasswordText(password)}}
                     value                =  {this.state.password} placeholder='New password' placeholderTextColor = 'black'
                     underlineColorAndroid=  'transparent' underlineColorIOS="grey"
                    />
+                   </View>
+
                 </View>
 
            ) :
@@ -136,10 +179,27 @@ render() {
 
             }
 
+            { this.state.resetRequestMade === true ? (
+
+              <View>
+               <TextInput
+                 style={signInStyle.button}
+                 onChangeText          =  {(token) => {this.changeTokenText(token)}}
+                 value                 =  {this.state.resetPasswordToken} placeholder='Email token' placeholderTextColor  =  'black'
+                 underlineColorAndroid =  'transparent'
+                />
+              </View>
+
+               ) :
+
+            null
+
+              }
+
          <View style={signInStyle.submitContainer}>
           <GlobalButton
             buttonTitle="Reset password"
-            onPress={() => this.resetPasswordRequest()}
+            onPress={() => !this.state.resetRequestMade === true ? this.resetPasswordEmailRequest() : this.resetPasswordRequest() }
           />
          </View>
       </View>
