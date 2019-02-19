@@ -6,7 +6,7 @@ import {  Alert,
           Image,
           Dimensions,
           Text,
-          View } from 'react-native';
+          View, ScrollView } from 'react-native';
 import {  Constants } from 'expo'
 import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
@@ -225,6 +225,8 @@ render() {
 
       <SubmittedFormSpinner spinner={this.state.spinner} message="Success! NüV redirecting..." />
 
+      <ScrollView showsVerticalScrollIndicator={false}>
+
 
       { !this.state.resetRequestMade ? (
 
@@ -278,7 +280,7 @@ render() {
 
           { this.state.resetRequestMade === true ? (
 
-            <View>
+            <View style={{alignItems: 'center'}}>
              <TextInput
                style={[signInStyle.button, {color: this.state.password2TextColor}]}
                onChangeText          =  {(password2) => {this.changePassword2Text(password2)}}
@@ -306,7 +308,7 @@ render() {
 
             { this.state.resetRequestMade === true ? (
 
-              <View>
+              <View style={{alignItems: 'center'}}>
                <TextInput
                  style={signInStyle.button}
                  onChangeText          =  {(token) => {this.changeTokenText(token)}}
@@ -327,6 +329,8 @@ render() {
             onPress={() => !this.state.resetRequestMade === true ? this.resetPasswordEmailRequest() : this.resetPasswordRequest() }
           />
          </View>
+
+         </ScrollView>
       </View>
     )
   }
@@ -341,7 +345,7 @@ const signInStyle = StyleSheet.create({
   submitContainer: {
     alignItems:         'center',
     marginTop:          30,
-    marginBottom:       Dimensions.get('window').height*0.035,
+    marginBottom:       Dimensions.get('window').height*0.85,
   },
   button: {
     borderBottomColor:  'grey',
