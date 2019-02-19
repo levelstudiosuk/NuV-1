@@ -25,19 +25,21 @@ export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
       this.changeEmailText    = this.changeEmailText.bind(this);
-      this.changePasswordText = this.changePasswordText.bind(this);
+      this.changePasswordText    = this.changePasswordText.bind(this);
+      this.changePassword2Text = this.changePassword2Text.bind(this);
     }
 
   state = {
-      email:    "",
-      password: ""
+      email: "",
+      password:    "",
+      password2: ""
     };
 
-  changeEmailText(email){
-    this.setState({
-      email: email
-    })
-  }
+    changeEmailText(email){
+      this.setState({
+        email: email
+      })
+    }
 
   changePasswordText(password){
     this.setState({
@@ -45,38 +47,26 @@ export default class SignIn extends React.Component {
     })
   }
 
-  postData(){
-    var session_url = 'http://nuv-api.herokuapp.com/login';
+  changePassword2Text(password){
+    this.setState({
+      password2: password
+    })
+  }
+
+  resetPasswordRequest(){
+    var session_url = 'http://nuv-api.herokuapp.com/reset_password_request';
     var {navigate} = this.props.navigation;
     var self = this;
-    axios.post(session_url, {"user":
-	{
-    "email": this.state.email.trim(),
-    "password": this.state.password.trim()
-  }
+    axios.get(session_url, {"email": self.state.email
   }
   ).then(function(response) {
-    var token = response.headers.authorization
-      axios.get('http://nuv-api.herokuapp.com/this_users_profile',
-        { headers: { Authorization: `${token}` }})
-
-   .then(function(second_response){
-     var responseForName = JSON.parse(second_response.request['_response'])
-     var uri = responseForName.avatar.url
-      navigate('Home', {
-            avatar:        uri,
-            token:         token,
-            id:            responseForName.id,
-            name:          responseForName.name,
-            bio:           responseForName.bio,
-            user_is_vegan: responseForName.user_is_vegan,
-            user_id:       responseForName.user_id,
-            location:      responseForName.location
-          })
-
-    })}).catch(function(e){
+    console.log("Response from reset: ", response);
+    self.setState({
+      resetRequestMade: true
+    })
+  }).catch(function(e){
       Alert.alert(
-        'There was an error logging you in. Make sure to enter valid credentials.'
+        'No NüV account exists with that email address'
         )
         console.log(e);
         })
@@ -88,6 +78,8 @@ render() {
 
       <View style={signInStyle.container}>
 
+      { !this.state.resetRequestMade ? (
+
           <TextInput
             style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.15}]}
             onChangeText         =  {(email) => {this.changeEmailText(email)}}
@@ -95,26 +87,30 @@ render() {
             underlineColorAndroid=  'transparent' underlineColorIOS="grey"
            />
 
+         ) :
+
+          <TextInput
+            style={[signInStyle.button, { marginTop:Dimensions.get('window').height*0.15}]}
+            onChangeText         =  {(email) => {this.changePasswordText(email)}}
+            value                =  {this.state.email} placeholder='New password' placeholderTextColor = 'black'
+            underlineColorAndroid=  'transparent' underlineColorIOS="grey"
+           />
+
          <TextInput
            style={signInStyle.button}
-           onChangeText          =  {(password) => {this.changePasswordText(password)}}
-           value                 =  {this.state.password} placeholder='Password' placeholderTextColor  =  'black'
+           onChangeText          =  {(password) => {this.changePassword2Text(password)}}
+           value                 =  {this.state.password} placeholder='Confirm new password' placeholderTextColor  =  'black'
            underlineColorAndroid =  'transparent'
           />
 
+        }
+
          <View style={signInStyle.submitContainer}>
           <GlobalButton
-            buttonTitle="Sign in"
-            onPress={() => this.postData()}
+            buttonTitle="Reset password"
+            onPress={() => this.resetPasswordRequest()}
           />
          </View>
-
-         <Text
-         style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20}}
-         onPress={() => this.transitionToResetPage()}
-         >
-         Forgotten password?
-        </Text>
       </View>
     )
   }
