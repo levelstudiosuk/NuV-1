@@ -41,12 +41,15 @@ export default class UserView extends React.Component {
       this.openMapOverlay = this.openMapOverlay.bind(this);
       this.closeMapOverlay = this.closeMapOverlay.bind(this);
       this.launchMap = this.launchMap.bind(this);
+      this.openAddItemOverlay = this.openAddItemOverlay.bind(this);
+      this.closeAddItemOverlay = this.closeAddItemOverlay.bind(this);
       }
 
     state = {
       image: null,
       overlayVisible: false,
-      mapOverlayVisible: false
+      mapOverlayVisible: false,
+      addItemOverlayVisible: false
       };
 
     returnStatus(status){
@@ -70,6 +73,18 @@ export default class UserView extends React.Component {
       closeMapOverlay(){
         this.setState({
           mapOverlayVisible: false
+        })
+      }
+
+      openAddItemOverlay(){
+        this.setState({
+          addItemOverlayVisible: true
+        })
+      }
+
+      closeAddItemOverlay(){
+        this.setState({
+          addItemOverlayVisible: false
         })
       }
 
