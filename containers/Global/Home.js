@@ -24,6 +24,7 @@ import {  BallIndicator,
           DotIndicator,
           WaveIndicator } from 'react-native-indicators';
 import * as Badges from '../../helper_functions/Badges.js';
+import   AddItemButton from '../../components/AddItemButton.js';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -240,7 +241,7 @@ render() {
               borderWidth: 3,
               borderColor: '#a2e444',
               borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.3 : Dimensions.get('window').width*0.2,
-              marginTop: Dimensions.get('window').height*0.05
+              marginTop: Dimensions.get('window').height*0.02
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
           />
@@ -251,7 +252,7 @@ render() {
 
     <View
       style={{
-        marginTop:Dimensions.get('window').height* 0.025}}>
+        marginTop:Dimensions.get('window').height* 0.02}}>
       <Image
         style={{width: 90, height: 90}}
         source= {Badges.getDietBadge (this.returnStatus())}
@@ -307,7 +308,7 @@ render() {
         <View style={homeStyle.iconsContainer}>
 
         <GlobalButton
-          marginLeft={Dimensions.get('window').width*0.12}
+          marginLeft={Dimensions.get('window').width*0.1}
           onPress={() => navigate('RecipeList', {
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -318,8 +319,9 @@ render() {
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Recipes"}
         />
+
         <GlobalButton
-          marginRight={Dimensions.get('window').width*0.12}
+          marginRight={Dimensions.get('window').width*0.1}
           onPress={() => this.openVenueOverlay()}
           buttonTitle={"Eateries"} />
         </View>
@@ -329,10 +331,20 @@ render() {
 
     {
       this.state.avatarLoading === false ? (
+        <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
+
+      <AddItemButton noMargin={true} />
+    </View>
+
+  ) : null}
+
+
+    {
+      this.state.avatarLoading === false ? (
         <View style={homeStyle.iconsContainer}>
 
         <GlobalButton
-          marginLeft={Dimensions.get('window').width*0.12}
+          marginLeft={Dimensions.get('window').width*0.1}
           onPress={() => navigate('BrandList', {
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -343,7 +355,7 @@ render() {
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Shopping"} />
         <GlobalButton
-          marginRight={Dimensions.get('window').width*0.12}
+          marginRight={Dimensions.get('window').width*0.1}
           onPress={() => navigate('MediaList', {
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -421,7 +433,7 @@ render() {
         ) : null
 
       }
-        
+
         </TouchableHighlight>
          <MapSettingsOverlay
           navigation     = {this.props.navigation}

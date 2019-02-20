@@ -10,7 +10,6 @@ import { StyleSheet,
 export default class AddItemButton extends Component {
 
   render() {
-    const {navigate} = this.props.navigation;
     return (
 
       <TouchableHighlight
@@ -20,7 +19,7 @@ export default class AddItemButton extends Component {
         {
           <Image
             source={require('../assets/AppIcons/lightgreenplus.png')}
-            style={{height:50, width:50, marginRight: Dimensions.get('window').width*0.01}}
+            style={{height:50, width:50, marginRight: this.props.noMargin != true ? Dimensions.get('window').width*0.01 : 0}}
           />
         }
       </TouchableHighlight>
