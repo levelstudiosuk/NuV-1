@@ -22,6 +22,8 @@ export default class AddItemOverlay extends Component {
 
 
 render() {
+  const {navigate} = this.props.navigation;
+
   return (
     <View style={{  alignItems: 'center', justifyContent: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
 
@@ -44,7 +46,7 @@ render() {
           What kind of item would you like to add to NüV?
         </Text>
 
-        <View style={userViewStyle.iconsContainer}>
+        <View style={addItemOverlayStyle.iconsContainer}>
 
           <GlobalButton
             marginLeft={Dimensions.get('window').width*0.12}
@@ -71,7 +73,7 @@ render() {
             />
           </View>
 
-        <View style={userViewStyle.iconsContainer2}>
+        <View style={addItemOverlayStyle.iconsContainer2}>
 
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.12}

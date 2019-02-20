@@ -25,6 +25,7 @@ import {  BallIndicator,
           WaveIndicator } from 'react-native-indicators';
 import * as Badges from '../../helper_functions/Badges.js';
 import   AddItemButton from '../../components/AddItemButton.js';
+import    AddItemOverlay from '../../components/AddItemOverlay.js';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -47,12 +48,15 @@ export default class Home extends React.Component {
       this.openVenueOverlay  = this.openVenueOverlay.bind(this);
       this.closeVenueOverlay = this.closeVenueOverlay.bind(this);
       this.launchVenueSearch = this.launchVenueSearch.bind(this);
+      this.openAddItemOverlay = this.openAddItemOverlay.bind(this);
+      this.closeAddItemOverlay = this.closeAddItemOverlay.bind(this);
      }
 
   state = {
     avatarLoading       : true,
     overlayVisible      : false,
     venueOverlayVisible : false,
+    addItemOverlayVisible: false
   };
 
   componentDidMount(){
@@ -80,6 +84,18 @@ export default class Home extends React.Component {
   closeOverlay(){
     this.setState({
       overlayVisible: false
+    })
+  }
+
+  openAddItemOverlay(){
+    this.setState({
+      addItemOverlayVisible: true
+    })
+  }
+
+  closeAddItemOverlay(){
+    this.setState({
+      addItemOverlayVisible: false
     })
   }
 
@@ -281,6 +297,12 @@ render() {
       closeOverlay      = {this.closeVenueOverlay}
       overlayVisible    = {this.state.venueOverlayVisible}
     />
+    <AddItemOverlay
+     navigation={this.props.navigation}
+     openOverlay={this.openAddItemOverlay}
+     closeOverlay={this.closeAddItemOverlay}
+     overlayVisible={this.state.addItemOverlayVisible}
+    />
 
     {
       this.state.avatarLoading === false ? (
@@ -456,6 +478,12 @@ render() {
           openOverlay       = {this.openVenueOverlay}
           closeOverlay      = {this.closeVenueOverlay}
           overlayVisible    = {this.state.venueOverlayVisible}
+          />
+          <AddItemOverlay
+           navigation={this.props.navigation}
+           openOverlay={this.openAddItemOverlay}
+           closeOverlay={this.closeAddItemOverlay}
+           overlayVisible={this.state.addItemOverlayVisible}
           />
         </View>
 
