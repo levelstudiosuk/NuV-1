@@ -69,7 +69,7 @@ render() {
         />
         <GlobalButton
           marginRight={Dimensions.get('window').width*0.12}
-          onPress={() => this.openMediaForm() }
+          onPress={() => this.props.openMediaForm() }
           buttonTitle={"Media Item"}
         />
       </View>
