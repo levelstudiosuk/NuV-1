@@ -116,6 +116,8 @@ export default class Home extends React.Component {
   }
 
   openRecipeForm(){
+    const {navigate} = this.props.navigation;
+
     this.setState({
       addItemOverlayVisible: false
     }, function(){
@@ -131,6 +133,8 @@ export default class Home extends React.Component {
   }
 
   openVenueForm(){
+    const {navigate} = this.props.navigation;
+
     this.setState({
       addItemOverlayVisible: false
     }, function(){
@@ -146,6 +150,8 @@ export default class Home extends React.Component {
   }
 
   openBrandForm(){
+    const {navigate} = this.props.navigation;
+
     this.setState({
       addItemOverlayVisible: false
     }, function(){
@@ -161,6 +167,8 @@ export default class Home extends React.Component {
   }
 
   openMediaForm(){
+    const {navigate} = this.props.navigation;
+
     this.setState({
       addItemOverlayVisible: false
     }, function(){
@@ -366,6 +374,10 @@ render() {
      openOverlay={this.openAddItemOverlay}
      closeOverlay={this.closeAddItemOverlay}
      overlayVisible={this.state.addItemOverlayVisible}
+     openRecipeForm={this.openRecipeForm}
+     openVenueForm={this.openVenueForm}
+     openBrandForm={this.openBrandForm}
+     openMediaForm={this.openMediaForm}
     />
 
     {
@@ -548,6 +560,10 @@ render() {
            openOverlay={this.openAddItemOverlay}
            closeOverlay={this.closeAddItemOverlay}
            overlayVisible={this.state.addItemOverlayVisible}
+           openRecipeForm={this.openRecipeForm}
+           openVenueForm={this.openVenueForm}
+           openBrandForm={this.openBrandForm}
+           openMediaForm={this.openMediaForm}
           />
         </View>
 

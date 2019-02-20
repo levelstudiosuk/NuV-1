@@ -99,7 +99,7 @@ const addItemOverlayStyle = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginLeft: 0,
     marginTop: Dimensions.get('window').height*0.025,
-    marginBottom: Dimensions.get('window').height*0.25,
+    marginBottom: Dimensions.get('window').height*0.025,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',
