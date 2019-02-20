@@ -50,6 +50,10 @@ export default class Home extends React.Component {
       this.launchVenueSearch = this.launchVenueSearch.bind(this);
       this.openAddItemOverlay = this.openAddItemOverlay.bind(this);
       this.closeAddItemOverlay = this.closeAddItemOverlay.bind(this);
+      this.openRecipeForm = this.openRecipeForm.bind(this);
+      this.openVenueForm = this.openVenueForm.bind(this);
+      this.openBrandForm = this.openBrandForm.bind(this);
+      this.openMediaForm = this.openMediaForm.bind(this);
      }
 
   state = {
@@ -108,6 +112,66 @@ export default class Home extends React.Component {
   closeVenueOverlay(){
     this.setState({
       venueOverlayVisible: false
+    })
+  }
+
+  openRecipeForm(){
+    this.setState({
+      addItemOverlayVisible: false
+    }, function(){
+      navigate('RecipeForm', {
+         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+         token: this.props.navigation.getParam('token', 'NO-ID'),
+         id: this.props.navigation.getParam('id', 'NO-ID'),
+         name: this.props.navigation.getParam('name', 'NO-ID'),
+         bio: this.props.navigation.getParam('bio', 'NO-ID'),
+         location: this.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+    })
+  }
+
+  openVenueForm(){
+    this.setState({
+      addItemOverlayVisible: false
+    }, function(){
+      navigate('VenueForm', {
+         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+         token: this.props.navigation.getParam('token', 'NO-ID'),
+         id: this.props.navigation.getParam('id', 'NO-ID'),
+         name: this.props.navigation.getParam('name', 'NO-ID'),
+         bio: this.props.navigation.getParam('bio', 'NO-ID'),
+         location: this.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+    })
+  }
+
+  openBrandForm(){
+    this.setState({
+      addItemOverlayVisible: false
+    }, function(){
+      navigate('BrandForm', {
+         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+         token: this.props.navigation.getParam('token', 'NO-ID'),
+         id: this.props.navigation.getParam('id', 'NO-ID'),
+         name: this.props.navigation.getParam('name', 'NO-ID'),
+         bio: this.props.navigation.getParam('bio', 'NO-ID'),
+         location: this.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+    })
+  }
+
+  openMediaForm(){
+    this.setState({
+      addItemOverlayVisible: false
+    }, function(){
+      navigate('MediaForm', {
+         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+         token: this.props.navigation.getParam('token', 'NO-ID'),
+         id: this.props.navigation.getParam('id', 'NO-ID'),
+         name: this.props.navigation.getParam('name', 'NO-ID'),
+         bio: this.props.navigation.getParam('bio', 'NO-ID'),
+         location: this.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
 
@@ -359,7 +423,7 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-      <AddItemButton noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+      <AddItemButton onPress={this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
     </View>
 
   ) : null}
@@ -534,7 +598,7 @@ render() {
     this.state.avatarLoading === false ? (
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-    <AddItemButton noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+    <AddItemButton onPress={this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
 
 ) : null}

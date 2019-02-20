@@ -50,25 +50,12 @@ render() {
 
           <GlobalButton
             marginLeft={Dimensions.get('window').width*0.12}
-            onPress={() => navigate('RecipeForm', {
-                avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-                token: this.props.navigation.getParam('token', 'NO-ID'),
-                id: this.props.navigation.getParam('id', 'NO-ID'),
-                name: this.props.navigation.getParam('name', 'NO-ID'),
-                bio: this.props.navigation.getParam('bio', 'NO-ID'),
-                location: this.props.navigation.getParam('location', 'NO-ID'),
-                user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+            onPress={() => this.props.openRecipeForm() }
               buttonTitle={"Recipe"}
             />
           <GlobalButton
             marginRight={Dimensions.get('window').width*0.12}
-            onPress={() => navigate('VenueForm', {
-              token: this.props.navigation.getParam('token', 'NO-ID'),
-              id: this.props.navigation.getParam('id', 'NO-ID'),
-              name: this.props.navigation.getParam('name', 'NO-ID'),
-              bio: this.props.navigation.getParam('bio', 'NO-ID'),
-              location: this.props.navigation.getParam('location', 'NO-ID'),
-              user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+            onPress={() => this.props.openVenueForm() }
             buttonTitle={"Eatery"}
             />
           </View>
@@ -77,26 +64,12 @@ render() {
 
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.12}
-          onPress={() => navigate('BrandForm', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          onPress={() => this.props.openBrandForm() }
           buttonTitle={"Brand"}
         />
         <GlobalButton
           marginRight={Dimensions.get('window').width*0.12}
-          onPress={() => navigate('MediaForm', {
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          onPress={() => this.openMediaForm() }
           buttonTitle={"Media Item"}
         />
       </View>
