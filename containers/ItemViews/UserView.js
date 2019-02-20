@@ -18,6 +18,7 @@ import    GlobalButton from '../../components/GlobalButton.js';
 import    LogOut from '../../components/LogOut.js';
 import * as Badges from '../../helper_functions/Badges.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
+import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
 
 export default class UserView extends React.Component {
   static navigationOptions = {
@@ -37,11 +38,15 @@ export default class UserView extends React.Component {
     super(props);
       this.openOverlay = this.openOverlay.bind(this);
       this.closeOverlay = this.closeOverlay.bind(this);
+      this.openMapOverlay = this.openMapOverlay.bind(this);
+      this.closeMapOverlay = this.closeMapOverlay.bind(this);
+      this.launchMap = this.launchMap.bind(this);
       }
 
     state = {
       image: null,
-      overlayVisible: false
+      overlayVisible: false,
+      mapOverlayVisible: false
       };
 
     returnStatus(status){
@@ -54,6 +59,18 @@ export default class UserView extends React.Component {
       else {
        return "vCurious";
         }
+      }
+
+      openMapOverlay(){
+        this.setState({
+          mapOverlayVisible: true
+        })
+      }
+
+      closeMapOverlay(){
+        this.setState({
+          mapOverlayVisible: false
+        })
       }
 
     getLocation(location){
@@ -96,6 +113,34 @@ export default class UserView extends React.Component {
       this.closeOverlay(true)
     }
 
+    launchMap(navigation, distance, vegan){
+      var self = this;
+      const {navigate} = navigation
+
+      this.setState({
+        mapOverlayVisible: false
+      }, function(){
+
+        navigate('Map', {
+          user_id: navigation.getParam('user_id', 'NO-ID'),
+          settings: true,
+          avatar: navigation.getParam('avatar', 'NO-ID'),
+          token: navigation.getParam('token', 'NO-ID'),
+          id: navigation.getParam('id', 'NO-ID'),
+          name: navigation.getParam('name', 'NO-ID'),
+          bio: navigation.getParam('bio', 'NO-ID'),
+          location: navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
+          distance: distance,
+          latitude: navigation.getParam('latitude', 'NO-ID'),
+          longitude: navigation.getParam('longitude', 'NO-ID'),
+          see_only_vegan: vegan
+      }
+    )
+    }
+  )
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -108,9 +153,9 @@ export default class UserView extends React.Component {
         renderStickyHeader={() => ( <View></View> )}
         renderStickyFooter={() => (
           <View style={{alignItems: 'center'}}>
-          {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+          {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true && Platform.OS === "ios" ? (
 
-            <NavBar navigation={this.props.navigation} />
+            <NavBar navigation={this.props.navigation} openOverlay={this.openMapOverlay} />
 
           ) : null }
           </View>
@@ -176,6 +221,14 @@ export default class UserView extends React.Component {
 }
 
     </View>
+
+    <MapSettingsOverlay
+     navigation     = {this.props.navigation}
+     launchMap      = {this.launchMap}
+     openOverlay    = {this.openMapOverlay}
+     closeOverlay   = {this.closeMapOverlay}
+     overlayVisible = {this.state.mapOverlayVisible}
+     />
 
     {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
@@ -321,6 +374,22 @@ export default class UserView extends React.Component {
     />
   </View>
 </StickyHeaderFooterScrollView>
+{
+  Platform.OS === "android" ? (
+    <NavBar
+      navigation={this.props.navigation}
+      openOverlay={this.openMapOverlay}
+      attributes={{
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}}
+    />
+) :
+  null
+}
 </View>
     );
   }

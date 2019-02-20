@@ -221,7 +221,11 @@ render() {
           name:          this.props.navigation.getParam('name', 'NO-ID'),
           bio:           this.props.navigation.getParam('bio', 'NO-ID'),
           location:      this.props.navigation.getParam('location', 'NO-ID'),
-          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+          latitude: this.state.latitude ? this.state.latitude : 55.9497,
+          longitude: this.state.longitude ? this.state.longitude : -3.1811
+
+        })
           }
         style={{width: Dimensions.get('window').width}}>
 
@@ -394,7 +398,10 @@ render() {
             name:          this.props.navigation.getParam('name', 'NO-ID'),
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+            latitude:      this.state.latitude ? this.state.latitude : 55.9497,
+            longitude:     this.state.longitude ? this.state.longitude : -3.1811
+          })}
           style={{width: this.state.avatarLoading === false ? this.getPortraitSize() : 1}}>
 
           <Animatable.View
@@ -419,22 +426,23 @@ render() {
           />
           </Animatable.View>
 
-          { this.state.avatarLoading === false ? (
-
-          <View
-            style={{
-              marginTop:Dimensions.get('window').height* 0.025}}>
-            <Image
-              style={{width: 90, height: 90}}
-              source= {Badges.getDietBadge (this.returnStatus())}
-            />
-          </View>
-
-        ) : null
-
-      }
-
         </TouchableHighlight>
+
+        { this.state.avatarLoading === false ? (
+
+        <View
+          style={{
+            marginTop:Dimensions.get('window').height* 0.025}}>
+          <Image
+            style={{width: 90, height: 90}}
+            source= {Badges.getDietBadge (this.returnStatus())}
+          />
+        </View>
+
+      ) : null
+
+    }
+
          <MapSettingsOverlay
           navigation     = {this.props.navigation}
           launchMap      = {this.launchMap}
@@ -473,7 +481,7 @@ render() {
       <View style={homeStyle.iconsContainer}>
 
       <GlobalButton
-        marginLeft={Dimensions.get('window').width*0.2}
+        marginLeft={Dimensions.get('window').width*0.1}
         onPress={() => navigate('RecipeList', {
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -485,7 +493,7 @@ render() {
         buttonTitle={"Recipes"}
         />
       <GlobalButton
-        marginRight = {Dimensions.get('window').width*0.2}
+        marginRight = {Dimensions.get('window').width*0.1}
         onPress     = {() => this.openVenueOverlay() }
         buttonTitle = {"Eateries"}
       />
@@ -496,10 +504,19 @@ render() {
 
   {
     this.state.avatarLoading === false ? (
+      <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
+
+    <AddItemButton noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+  </View>
+
+) : null}
+
+  {
+    this.state.avatarLoading === false ? (
       <View style={homeStyle.iconsContainer2}>
 
       <GlobalButton
-        marginLeft={Dimensions.get('window').width*0.2}
+        marginLeft={Dimensions.get('window').width*0.1}
         onPress={() => navigate('BrandList', {
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -511,7 +528,7 @@ render() {
         buttonTitle={"Shopping"}
       />
       <GlobalButton
-        marginRight={Dimensions.get('window').width*0.2}
+        marginRight={Dimensions.get('window').width*0.1}
         onPress={() => navigate('MediaList', {
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -593,7 +610,7 @@ const homeStyle = StyleSheet.create({
   },
   greetingContainer: {
     flex: 1,
-    marginBottom:     Platform.OS === 'ios' ? Dimensions.get('window').height*0.015 : Dimensions.get('window').height*0.045,
+    marginBottom:     Platform.OS === 'ios' ? Dimensions.get('window').height*0.015 : Dimensions.get('window').height*0.015,
     marginTop:        Dimensions.get('window').height*0.005,
     alignItems:       'center',
     backgroundColor:  'white',

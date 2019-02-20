@@ -115,12 +115,15 @@ render() {
           />
          </View>
 
+         <View>
+
          <Text
          style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20}}
          onPress={() => this.transitionToResetPage()}
          >
          Forgotten password?
         </Text>
+        </View>
       </View>
     )
   }
