@@ -333,7 +333,7 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-      <AddItemButton noMargin={true} />
+      <AddItemButton noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
     </View>
 
   ) : null}
