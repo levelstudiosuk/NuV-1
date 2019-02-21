@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Button }    from 'react-native-elements';
 import { View,
          Dimensions,
-         StyleSheet, Text } from 'react-native';
+         StyleSheet, TextInput, Text } from 'react-native';
 import GradientButton from './GradientButton.js';
 import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
@@ -15,11 +15,16 @@ export default class MapSettingsOverlay extends Component {
   super(props);
 
     this.changeToggleSelection = this.changeToggleSelection.bind(this);
+    this.chooseSearchLocation = this.chooseSearchLocation.bind(this);
+    this.chooseCurrentLocation = this.chooseCurrentLocation.bind(this);
+    this.changeSearchText = this.changeSearchText.bind(this);
   }
 
   state = {
       distance: 10,
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false
+      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      selectedOption: null,
+      place: ""
     };
 
 
@@ -35,93 +40,231 @@ export default class MapSettingsOverlay extends Component {
 
     }
 
+    chooseSearchLocation(){
+      this.setState({
+        selectedOption: "searchLocation"
+      })
+    }
+
+    chooseCurrentLocation(){
+      this.setState({
+        selectedOption: "currentLocation"
+      })
+    }
+
+    changeSearchText(place){
+      this.setState({
+        place: place
+      })
+    }
+
 render() {
+  console.log("location selection state: ", this.state.selectedOption);
   return (
     <View style={{
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: this.props.overlayVisible === true ? Dimensions.get('window').height*0.0001 : Dimensions.get('window').height*0.0001
       }}>
-    <Overlay
-      visible={this.props.overlayVisible}
-      onClose={this.props.closeOverlay}
-      closeOnTouchOutside
-      animationType="fadeInUp"
-      containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-      childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
-      animationDuration={500}
-    >
-    {
-      (hideModal, overlayState) => (
-        <Fragment>
-          <Text style={{
-            textAlign: 'center',
-            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
-            marginBottom: Dimensions.get('window').height*0.05,
-            marginTop: Dimensions.get('window').height*0.03 }}>
-              Search for eats within:
-          </Text>
 
-          <View style={buttonContainerStyle.container}>
-            <Slider
-              animateTransitions={true}
-              minimumValue={5}
-              maximumValue={100}
-              step={5}
-              minimumTrackTintColor={'#a2e444'}
-              maximumTrackTintColor={'#2e8302'}
-              thumbTintColor={'white'}
-              value={this.state.distance}
-              style={{width: Dimensions.get('window').width*0.70}}
-              thumbStyle={buttonContainerStyle.thumb}
-              onValueChange={(distance) => this.setState({distance})}
-            />
-          </View>
+      { !this.state.selectedOption ? (
 
-          <View style={{
-            alignItems: 'center',
-            marginTop: Dimensions.get('window').height*0.04}}
-          >
-            <Text style={{
-              marginBottom: Dimensions.get('window').width*0.07,
-              marginTop: Dimensions.get('window').width*0.02,
-              color: 'black',
-              fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
-            </Text>
-          </View>
-
-
-
-          <Text style={{
-            textAlign: 'center',
-            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
-            marginBottom: Dimensions.get('window').height*0.07,
-            marginTop: Dimensions.get('window').height*0.01 }}>
-              Type of venue:
-          </Text>
-
-            <MapSettingsTwoWayToggle
-              changeToggleSelection={this.changeToggleSelection}
-              activeIndex={this.getActiveToggleIndex()}
-            />
-
-
-
-          <View style={{
-            alignItems: 'center',
-            marginTop: Dimensions.get('window').height*0.1}}
+            <Overlay
+              visible={this.props.overlayVisible}
+              onClose={() => this.props.closeOverlay()}
+              closeOnTouchOutside
+              animationType="fadeInUp"
+              containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+              childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
+              animationDuration={500}
             >
-            <GlobalButton
-              onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
-              buttonTitle={"Go"}
-            />
+            {
+              (hideModal, overlayState) => (
 
-          </View>
+
+        <Fragment>
+
+        <Text style={{
+          textAlign: 'center',
+          fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+          marginBottom: Dimensions.get('window').height*0.03,
+          marginTop: Dimensions.get('window').height*0.03 }}>
+            How would you like to find restaurants?
+        </Text>
+
+        <View style={{
+          alignItems: 'center',
+          marginTop: Dimensions.get('window').height*0.02}}
+          >
+          <GlobalButton
+            onPress={() => this.chooseCurrentLocation()}
+            buttonTitle={"My Location"}
+          />
+
+        </View>
+
+        <View style={{
+          alignItems: 'center',
+          marginTop: Dimensions.get('window').height*0.02}}
+          >
+          <GlobalButton
+            onPress={() => this.chooseSearchLocation()}
+            buttonTitle={"Search Location"}
+          />
+
+        </View>
 
         </Fragment>
+
+        )
+      }
+
+        </Overlay>
+
+
+    ) :
+
+    <View>
+
+      {this.state.selectedOption === "currentLocation" ? (
+
+
+        <Overlay
+          visible={this.props.overlayVisible}
+          onClose={() => this.setState({selectedOption: null}, function(){this.props.closeOverlay()})}
+          closeOnTouchOutside
+          animationType="fadeInUp"
+          containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+          childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
+          animationDuration={500}
+        >
+        {
+          (hideModal, overlayState) => (
+
+              <Fragment>
+
+
+              <Text style={{
+                textAlign: 'center',
+                fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+                marginBottom: Dimensions.get('window').height*0.05,
+                marginTop: Dimensions.get('window').height*0.03 }}>
+                  Search for eats within:
+              </Text>
+
+              <View style={buttonContainerStyle.container}>
+                <Slider
+                  animateTransitions={true}
+                  minimumValue={5}
+                  maximumValue={100}
+                  step={5}
+                  minimumTrackTintColor={'#a2e444'}
+                  maximumTrackTintColor={'#2e8302'}
+                  thumbTintColor={'white'}
+                  value={this.state.distance}
+                  style={{width: Dimensions.get('window').width*0.70}}
+                  thumbStyle={buttonContainerStyle.thumb}
+                  onValueChange={(distance) => this.setState({distance})}
+                />
+              </View>
+
+              <View style={{
+                alignItems: 'center',
+                marginTop: Dimensions.get('window').height*0.04}}
+              >
+                <Text style={{
+                  marginBottom: Dimensions.get('window').width*0.07,
+                  marginTop: Dimensions.get('window').width*0.02,
+                  color: 'black',
+                  fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
+                </Text>
+              </View>
+
+
+
+              <Text style={{
+                textAlign: 'center',
+                fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+                marginBottom: Dimensions.get('window').height*0.07,
+                marginTop: Dimensions.get('window').height*0.01 }}>
+                  Type of venue:
+              </Text>
+
+                <MapSettingsTwoWayToggle
+                  changeToggleSelection={this.changeToggleSelection}
+                  activeIndex={this.getActiveToggleIndex()}
+                />
+
+
+
+              <View style={{
+                alignItems: 'center',
+                marginTop: Dimensions.get('window').height*0.1}}
+                >
+                <GlobalButton
+                  onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
+                  buttonTitle={"Go"}
+                />
+
+              </View>
+
+              </Fragment>
+
+            )
+          }
+
+                </Overlay>
+
+
+
+    ) :
+
+          <Overlay
+            visible={this.props.overlayVisible}
+            onClose={() => this.setState({selectedOption: null}, function(){this.props.closeOverlay()})}
+            closeOnTouchOutside
+            animationType="fadeInUp"
+            containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+            childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
+            animationDuration={500}
+          >
+          {
+            (hideModal, overlayState) => (
+
+
+      <Fragment>
+
+      <TextInput
+        style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+        onChangeText={(place) => {this.changeSearchText(place)}}
+        value={this.state.place} placeholder='Enter a place (GB/Ireland only)' placeholderTextColor='black'
+        underlineColorAndroid='transparent' maxLength={500} multiline={true}
+      />
+
+
+      <View style={{
+        alignItems: 'center',
+        marginTop: Dimensions.get('window').height*0.02}}
+        >
+        <GlobalButton
+          onPress={() => this.getPlaceCoordinates()}
+          buttonTitle={"Go"}
+        />
+
+      </View>
+
+      </Fragment>
+
       )
+      }
+
+      </Overlay>
+
     }
-  </Overlay>
+
+      </View>
+
+    }
 
         </View>
     )
