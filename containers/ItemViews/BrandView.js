@@ -173,6 +173,30 @@ export default class BrandView extends React.Component {
     }
     }
 
+  postLike(navigation){
+    const {navigate} = navigation
+
+      var token = navigation.getParam('token', 'NO-ID');
+      var id = this.state.brandItem.id
+      var self = this;
+
+    axios.post(`http://nuv-api.herokuapp.com/brands/${id}/favourite`,
+
+ { headers: { Authorization: `${token}` }})
+
+ .then(function(response){
+
+   console.log("Response from like post: ", response);
+
+   self.addBrandToFavourites()
+
+   }
+ )
+ .catch(function(error){
+   console.log("Error: ", error);
+ })
+  }
+
   addBrandToFavourites = async() => {
 
     console.log("ITEM", JSON.stringify(this.props.navigation.getParam('title', 'Does not exist')));
@@ -241,7 +265,7 @@ render() {
             flexDirection: 'row'}}>
               <FaveButton
                 navigation={this.props.navigation}
-                handleButtonClick={this.addBrandToFavourites}/>
+                handleButtonClick={() => this.postLike(this.props.navigation)}/>
               <AddItemButton
                 navigation={this.props.navigation}
                 onPress={() => navigate('BrandForm', {
