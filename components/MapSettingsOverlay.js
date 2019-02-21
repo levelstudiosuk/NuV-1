@@ -55,10 +55,6 @@ export default class MapSettingsOverlay extends Component {
       })
     }
 
-      removeNonAlphanumeric(string){
-        return string.replace(/\W/g, '');
-      }
-
     getPlaceCoordinates(location){
 
       if (this.state.place === ""){
@@ -70,8 +66,7 @@ export default class MapSettingsOverlay extends Component {
 
       else {
 
-      var sanitisedLocation = this.removeNonAlphanumeric(location)
-      var updatedLocation = ProblematicPlaceNameHandler.problematicPlaceNameHandler(sanitisedLocation);
+      var updatedLocation = ProblematicPlaceNameHandler.problematicPlaceNameHandler(location);
       var url = `http://api.geograph.org.uk/syndicator.php?key=[1d6edee685]&text=${updatedLocation}&format=JSON`
       var self = this;
 
