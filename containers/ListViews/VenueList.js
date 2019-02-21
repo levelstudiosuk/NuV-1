@@ -44,9 +44,6 @@ export default class VenueList extends React.Component {
 
    .then(function(response){
 
-     console.log("Latitude in VenueList.js: ", self.props.navigation.getParam('latitude', 'NO-ID'));
-     console.log("Longitude in VenueList.js: ", self.props.navigation.getParam('longitude', 'NO-ID'));
-
      var responseItems = JSON.parse(response.request['_response']);
      var venueItems = self.props.navigation.getParam('user', 'NO-ID') === true ?
      ReverseArray.reverseArray(responseItems) : ReverseArray.reverseArray(responseItems).
