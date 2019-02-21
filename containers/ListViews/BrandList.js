@@ -178,16 +178,16 @@ export default class BrandList extends React.Component {
     render() {
       const {navigate} = this.props.navigation;
 
+      if (this.state.contentLoading === false){
       return (
 
     <View style={brandListStyle.container}>
 
-    { this.state.contentLoading === false ? (
-
      <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={brandListStyle.container}>
+
       <View style={{marginTop: Dimensions.get('window').height*0.02}}>
-    </View>
+      </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
@@ -208,6 +208,12 @@ export default class BrandList extends React.Component {
         source={require('../../assets/AppIcons/shopping.png')}
         style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
        />
+
+       </View>
+       </ScrollView>
+
+       <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
+        <View style={brandListStyle.container}>
 
        {
          this.props.navigation.getParam('uploader', 'NO-ID') ? (
@@ -255,15 +261,22 @@ export default class BrandList extends React.Component {
              bio: this.props.navigation.getParam('bio', 'NO-ID'),
              location: this.props.navigation.getParam('location', 'NO-ID'),
              user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
-      </View>
+    </View>
     </View>
   </ScrollView>
-
-) : <LoadingCelery />
-
+  </View>
+)
 }
-</View>
-);
+
+else {
+  return (
+
+    <View style={{backgroundColor: '#FBFEFC'}}>
+    <LoadingCelery />
+    </View>
+
+  )
+}
 }
 }
 
