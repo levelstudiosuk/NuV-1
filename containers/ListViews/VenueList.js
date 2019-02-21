@@ -44,10 +44,13 @@ export default class VenueList extends React.Component {
 
    .then(function(response){
 
+     console.log("Latitude in VenueList.js: ", self.props.navigation.getParam('latitude', 'NO-ID'));
+     console.log("Longitude in VenueList.js: ", self.props.navigation.getParam('longitude', 'NO-ID'));
+
      var responseItems = JSON.parse(response.request['_response']);
      var venueItems = self.props.navigation.getParam('user', 'NO-ID') === true ?
      ReverseArray.reverseArray(responseItems) : ReverseArray.reverseArray(responseItems).
-     filter(venueItem => venueItem.longitude &&
+     filter(venueItem => venueItem.longitude && venueItem.latitude &&
        self.approxDistanceBetweenTwoPoints(
        venueItem.latitude,
        venueItem.longitude,
@@ -92,7 +95,7 @@ export default class VenueList extends React.Component {
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
       var distance = R * c
-      console.log("Distance between me and this venue: ", distance);
+      // console.log("Distance between me and this venue: ", distance);
 
       return distance
 

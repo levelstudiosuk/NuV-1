@@ -355,7 +355,7 @@ render() {
           />
 
           <GlobalButton
-            onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
+            onPress={() => this.getPlaceCoordinates(this.state.place)}
             buttonTitle={"Go"}
           />
 

@@ -228,6 +228,9 @@ export default class Home extends React.Component {
     var self         = this;
     const {navigate} = navigation
     var distance     = distance;
+    console.log("Latitude: ", latitude);
+    console.log("Longitude: ", longitude);
+    console.log("Searched location: ", searchedLocation);
 
     this.setState({
       venueOverlayVisible: false
