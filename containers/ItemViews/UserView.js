@@ -149,7 +149,7 @@ export default class UserView extends React.Component {
 
       <StickyHeaderFooterScrollView
         makeScrollable={true}
-        showVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         renderStickyHeader={() => ( <View></View> )}
         renderStickyFooter={() => (
           <View style={{alignItems: 'center'}}>
