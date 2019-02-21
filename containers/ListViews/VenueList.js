@@ -45,7 +45,17 @@ export default class VenueList extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
-     var venueItems = self.props.navigation.getParam('user', 'NO-ID') === true ? ReverseArray.reverseArray(responseItems) : ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, 55.9497, -3.1811) <= self.props.navigation.getParam('distance', 'NO-ID'));
+     var venueItems = self.props.navigation.getParam('user', 'NO-ID') === true ?
+     ReverseArray.reverseArray(responseItems) : ReverseArray.reverseArray(responseItems).
+     filter(venueItem => venueItem.longitude &&
+       self.approxDistanceBetweenTwoPoints(
+       venueItem.latitude,
+       venueItem.longitude,
+       self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ?
+       self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+     self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ?
+     self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811)
+     <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems

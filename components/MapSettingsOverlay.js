@@ -243,16 +243,23 @@ render() {
 
 
 
-              <View style={{
-                alignItems: 'center',
-                marginTop: Dimensions.get('window').height*0.1}}
-                >
-                <GlobalButton
-                  onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
-                  buttonTitle={"Go"}
-                />
+                <View style={{
+                  alignItems: 'center',
+                  marginTop: Dimensions.get('window').height*0.1,
+                  flexDirection: 'row'
+                }}
+                  >
+                  <GlobalButton
+                    onPress={() => this.setState({ selectedOption: "searchLocation" })}
+                    buttonTitle={"Search Location"}
+                  />
 
-              </View>
+                  <GlobalButton
+                    onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
+                    buttonTitle={"Go"}
+                  />
+
+                </View>
 
               </Fragment>
 
@@ -336,16 +343,23 @@ render() {
           activeIndex={this.getActiveToggleIndex()}
         />
 
-      <View style={{
-        alignItems: 'center',
-        marginTop: Dimensions.get('window').height*0.1}}
-        >
-        <GlobalButton
-          onPress={() => this.getPlaceCoordinates(this.state.place)}
-          buttonTitle={"Go"}
-        />
+        <View style={{
+          alignItems: 'center',
+          marginTop: Dimensions.get('window').height*0.1,
+          flexDirection: 'row'
+        }}
+          >
+          <GlobalButton
+            onPress={() => this.setState({ selectedOption: "currentLocation" })}
+            buttonTitle={"By My Location"}
+          />
 
-      </View>
+          <GlobalButton
+            onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
+            buttonTitle={"Go"}
+          />
+
+        </View>
 
       </Fragment>
 

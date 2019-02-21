@@ -224,7 +224,7 @@ export default class Home extends React.Component {
 )
 }
 
-  launchVenueSearch(navigation, distance){
+  launchVenueSearch(navigation, distance, latitude, longitude, searchedLocation){
     var self         = this;
     const {navigate} = navigation
     var distance     = distance;
@@ -244,8 +244,9 @@ export default class Home extends React.Component {
         location:      navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
         distance:      distance,
-        latitude:      this.state.latitude,
-        longitude:     this.state.longitude
+        latitude: latitude ? latitude : this.state.latitude,
+        longitude: longitude ? longitude : this.state.longitude,
+        searchedLocation: searchedLocation === true ? true : false
       })
     }
    )
