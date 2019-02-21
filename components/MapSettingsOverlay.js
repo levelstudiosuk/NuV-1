@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Button }    from 'react-native-elements';
-import { View,
+import { View, Alert,
          Dimensions,
          StyleSheet, TextInput, Text } from 'react-native';
 import GradientButton from './GradientButton.js';
@@ -8,6 +8,8 @@ import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
 import Slider from 'react-native-slider';
 import MapSettingsTwoWayToggle from './MapSettingsTwoWayToggle.js';
+import * as ProblematicPlaceNameHandler from '../helper_functions/ProblematicPlaceNameHandler.js';
+import axios from 'axios';
 
 export default class MapSettingsOverlay extends Component {
 
@@ -18,10 +20,11 @@ export default class MapSettingsOverlay extends Component {
     this.chooseSearchLocation = this.chooseSearchLocation.bind(this);
     this.chooseCurrentLocation = this.chooseCurrentLocation.bind(this);
     this.changeSearchText = this.changeSearchText.bind(this);
+    this.getPlaceCoordinates = this.getPlaceCoordinates.bind(this);
   }
 
   state = {
-      distance: 10,
+      distance: 50,
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
       selectedOption: null,
       place: ""
@@ -52,14 +55,58 @@ export default class MapSettingsOverlay extends Component {
       })
     }
 
+      removeNonAlphanumeric(string){
+        return string.replace(/\W/g, '');
+      }
+
+    getPlaceCoordinates(location){
+
+      if (this.state.place === ""){
+        Alert.alert(
+              "Please enter a place name"
+            )
+        return;
+      }
+
+      else {
+
+      console.log("location: ", location);
+      var updatedLocation = ProblematicPlaceNameHandler.problematicPlaceNameHandler(location);
+      var sanitisedLocation = this.removeNonAlphanumeric(updatedLocation)
+      var url = `http://api.geograph.org.uk/syndicator.php?key=[1d6edee685]&location=${sanitisedLocation}&format=JSON`
+      var self = this;
+
+        axios.get(url).then( (response) => {
+
+          var position = [parseFloat(response.data.items[0].lat), parseFloat(response.data.items[0].long)]
+          this.setState({
+            coordinatesDataLoaded: true
+          }, function(){
+            this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan, position[0], position[1], true)
+          })
+    }).catch(function(error){
+      console.log(error);
+      console.log("Error fetching coordinates data.");
+      Alert.alert(
+ 'Could not find weather for your location',
+ "Try to be more specific e.g. type 'Bath Somerset' rather than 'Bath' or 'Bangor Wales' instead of 'Bangor'."
+)
+  self.setState({
+    loadingInProcess: false
+  })
+    })
+    }
+  }
+
     changeSearchText(place){
       this.setState({
         place: place
       })
+
     }
 
+
 render() {
-  console.log("location selection state: ", this.state.selectedOption);
   return (
     <View style={{
         alignItems: 'center',
@@ -237,17 +284,65 @@ render() {
       <TextInput
         style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
         onChangeText={(place) => {this.changeSearchText(place)}}
-        value={this.state.place} placeholder='Enter a place (GB/Ireland only)' placeholderTextColor='black'
+        value={this.state.place} placeholder='Enter a place (GB/Ireland)' placeholderTextColor='black'
         underlineColorAndroid='transparent' maxLength={500} multiline={true}
       />
 
+      <Text style={{
+        textAlign: 'center',
+        fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+        marginBottom: Dimensions.get('window').height*0.05,
+        marginTop: Dimensions.get('window').height*0.03 }}>
+          Search for eats within:
+      </Text>
+
+      <View style={buttonContainerStyle.container}>
+        <Slider
+          animateTransitions={true}
+          minimumValue={5}
+          maximumValue={100}
+          step={5}
+          minimumTrackTintColor={'#a2e444'}
+          maximumTrackTintColor={'#2e8302'}
+          thumbTintColor={'white'}
+          value={this.state.distance}
+          style={{width: Dimensions.get('window').width*0.70}}
+          thumbStyle={buttonContainerStyle.thumb}
+          onValueChange={(distance) => this.setState({distance})}
+        />
+      </View>
 
       <View style={{
         alignItems: 'center',
-        marginTop: Dimensions.get('window').height*0.02}}
+        marginTop: Dimensions.get('window').height*0.04}}
+      >
+        <Text style={{
+          marginBottom: Dimensions.get('window').width*0.07,
+          marginTop: Dimensions.get('window').width*0.02,
+          color: 'black',
+          fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
+        </Text>
+      </View>
+
+      <Text style={{
+        textAlign: 'center',
+        fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+        marginBottom: Dimensions.get('window').height*0.07,
+        marginTop: Dimensions.get('window').height*0.01 }}>
+          Type of venue:
+      </Text>
+
+        <MapSettingsTwoWayToggle
+          changeToggleSelection={this.changeToggleSelection}
+          activeIndex={this.getActiveToggleIndex()}
+        />
+
+      <View style={{
+        alignItems: 'center',
+        marginTop: Dimensions.get('window').height*0.1}}
         >
         <GlobalButton
-          onPress={() => this.getPlaceCoordinates()}
+          onPress={() => this.getPlaceCoordinates(this.state.place)}
           buttonTitle={"Go"}
         />
 

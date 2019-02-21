@@ -37,8 +37,8 @@ export default class Map extends React.Component {
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
       venuesLoading: true,
       clickedVenue: null,
-      latitude: 55.9497,
-      longitude: -3.1811
+      latitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+      longitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
     }};
 
     componentDidMount(){
@@ -57,12 +57,19 @@ export default class Map extends React.Component {
      // var pointsArray = [{latitude: -3.1811, longitude: 55.9497}].concat(responseItems.filter(venueItem => venueItem.longitude && venueItem.latitude))
      // var location = self.getRegionForCoordinates(pointsArray)
 
-     var region = self.regionFrom(55.9497, -3.1811, self.props.navigation.getParam('distance', 'NO-ID')*1000)
+     var region = self.regionFrom(self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497, self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811, self.props.navigation.getParam('distance', 'NO-ID')*1000)
 
      console.log("Location: ", region);
 
 
-     var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, 55.9497, -3.1811) <= self.props.navigation.getParam('distance', 'NO-ID'));
+     var venueItems = ReverseArray.reverseArray(responseItems)
+     .filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(
+       venueItem.latitude,
+       venueItem.longitude,
+       self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+       self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
+     )
+     <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
        mapLocation: region,
@@ -210,8 +217,8 @@ render() {
           >
         <MapView.Marker
             coordinate={{
-              latitude: 55.9497,
-              longitude: -3.1811,
+              latitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+              longitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
               }}
               title={"Your location"}
               pinColor={'red'}
