@@ -13,7 +13,7 @@ export default class LoadingCelery extends Component {
   render() {
     return (
 
-    <View style={{flex: 1, backgroundColor: '#FBFEFC', alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
     <AutoHeightImage
       source={require('../assets/celery.gif')}
       style={{

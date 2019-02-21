@@ -69,7 +69,7 @@ export default class MediaItemFavourites extends Component {
   retrieveFavourites(){
       AsyncStorage.getItem('media_item_favourites').then((mediaItems) => {
         this.setState({
-          favourites: mediaItems
+          favourites:  mediaItems
         }, function(){
           if (mediaItems){
           if (JSON.parse(mediaItems).length === 0){
@@ -102,7 +102,9 @@ export default class MediaItemFavourites extends Component {
         name: this.props.navigation.getParam('name', 'NO-ID'),
         bio: this.props.navigation.getParam('bio', 'NO-ID'),
         location: this.props.navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} key={i}>
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+        mediaItem: JSON.parse(this.state.favourites)[i],
+      })} key={i}>
         <Text style={{fontSize: Dimensions.get('window').width > 750 ? 22 : 14, marginTop: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02, marginBottom: Dimensions.get('window').width < 750 ? Dimensions.get('window').height*0.02 : Dimensions.get('window').width*0.02}} key={i}> {favourite.title} </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => this.setState({deletedFavourite: favourites[i]}, function(){ this.deleteFavourite(this.state.deletedFavourite) })} key={Date.now()}>

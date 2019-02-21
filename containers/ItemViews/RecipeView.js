@@ -185,8 +185,8 @@ export default class RecipeView extends React.Component {
       AsyncStorage.getItem('recipe_favourites').then((recipes) => {
         const recips = recipes ? JSON.parse(recipes) : [];
           if (recips.length > 0){
-            var names = recips.map((recipe) => recipe.name);
-          if (!names.includes(recipe.name)){
+            var names = recips.map((recipe) => recipe.id);
+          if (!names.includes(recipe.id)){
             recips.push(recipe);
             AsyncStorage.setItem('recipe_favourites', JSON.stringify(recips));
             this.setState({newFavouriteAdded: true}, function(){

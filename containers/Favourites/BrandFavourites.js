@@ -98,7 +98,7 @@ export default class BrandFavourites extends Component {
         settings: true,
         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
         token: this.props.navigation.getParam('token', 'NO-ID'),
-        id: favourite.id,
+        brand_id: favourite.id,
         name: this.props.navigation.getParam('name', 'NO-ID'),
         bio: this.props.navigation.getParam('bio', 'NO-ID'),
         location: this.props.navigation.getParam('location', 'NO-ID'),

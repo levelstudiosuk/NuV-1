@@ -37,28 +37,11 @@ export default class MediaView extends React.Component {
 
     componentDidMount(){
 
-      var id = this.props.navigation.getParam('id', 'NO-ID');
-      var token = this.props.navigation.getParam('token', 'NO-ID');
-      var self = this;
-
-      axios.get(`http://nuv-api.herokuapp.com/media/${id}`,
-
-   { headers: { Authorization: `${token}` }})
-
-   .then(function(response){
-
-     var mediaItem = JSON.parse(response.request['_response'])
-
-     self.setState({
+      var mediaItem = this.props.navigation.getParam('mediaItem', 'NO-ID');
+      console.log("Media item: ", this.state.mediaItem);
+     this.setState({
        mediaItem: mediaItem
-     },
-     function(){
-       console.log("Media item", self.state.mediaItem);
-     }
-   )
-   }).catch(function(error){
-     console.log("Error: ", error);
-   })
+     })
 
     }
 
@@ -139,7 +122,7 @@ export default class MediaView extends React.Component {
 
     var self = this;
 
-    var media_item = {title: this.state.mediaItem.title, id: this.state.mediaItem.id}
+    var media_item = {title: this.state.mediaItem.title, url: this.state.mediaItem.url, user_image: this.state.mediaItem.user_image ? this.state.mediaItem.user_image : null, item_user_name: this.state.mediaItem.item_user_name, description: this.state.mediaItem.description}
 
     try {
       AsyncStorage.getItem('media_item_favourites').then((media_items) => {
@@ -179,13 +162,17 @@ export default class MediaView extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     if (this.state.mediaItem){
-      var url = this.props.navigation.getParam('url', 'NO-ID')
+      var url = this.state.mediaItem.url
     }
     return (
 
       <View style={mediaViewStyle.container}>
 
+      { this.state.mediaItem ? (
+
+
       <ScrollView style={{width: Dimensions.get('window').width*1, paddingLeft: Dimensions.get('window').width*0.015, paddingRight: Dimensions.get('window').width*0.015}} showsVerticalScrollIndicator={false}>
+
       <View style={mediaViewStyle.container}>
 
       <View style={{marginTop: Dimensions.get('window').height*0.02}}>
@@ -197,11 +184,11 @@ export default class MediaView extends React.Component {
         </View>
 
         <Text style={mediaViewStyle.medianame}>
-           {this.props.navigation.getParam('title', 'NO-ID')}{"\n"}
+           {this.state.mediaItem.title}{"\n"}
         </Text>
 
         <Text style={mediaViewStyle.mediareviewtitle}>
-        This item was originally published by {this.props.navigation.getParam('source', 'NO-ID')}
+        This item was originally published by {this.state.mediaItem.source}
         </Text>
     </View>
 
@@ -209,9 +196,9 @@ export default class MediaView extends React.Component {
         <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(this.props.navigation.getParam('url', 'NO-ID'))}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
         </TouchableHighlight>
-        { this.props.navigation.getParam('user_image', 'NO-ID') ? (
+        { this.state.mediaItem.user_image ? (
         <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.props.navigation.getParam('user_image', 'NO-ID')}}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.mediaItem.user_image}}/>
         </TouchableHighlight>
       ) : null
     }
@@ -229,14 +216,14 @@ export default class MediaView extends React.Component {
       { this.props.navigation.getParam('item_user_name', 'NO-ID') ? (
 
         <Text style={mediaViewStyle.mediareviewtitle}>
-        A brief description of this news item courtesy of NüV user {this.props.navigation.getParam('item_user_name', 'NO-ID')}:{"\n"}
+        A brief description of this news item courtesy of NüV user {this.state.mediaItem.item_user_name}:{"\n"}
         </Text>
 
       ) : null
 
     }
         <Text style={mediaViewStyle.mediareviewbody}>
-          {this.props.navigation.getParam('description', 'NO-ID')}
+          {this.state.mediaItem.description}
         </Text>
       </View>
     </View>
@@ -259,6 +246,8 @@ export default class MediaView extends React.Component {
         </View>
 
         </ScrollView>
+      ) : null }
+
         </View>
       );
       }

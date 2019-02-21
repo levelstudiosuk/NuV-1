@@ -185,8 +185,8 @@ export default class BrandView extends React.Component {
       AsyncStorage.getItem('brand_favourites').then((brands) => {
         const brandss = brands ? JSON.parse(brands) : [];
         if (brandss.length > 0){
-          var names = brandss.map((brand) => brand.title);
-          if (!names.includes(brand.title)){
+          var names = brandss.map((brand) => brand.id);
+          if (!names.includes(brand.id)){
           brandss.push(brand);
           AsyncStorage.setItem('brand_favourites', JSON.stringify(brandss));
           this.setState({newBrandAdded: true}, function(){

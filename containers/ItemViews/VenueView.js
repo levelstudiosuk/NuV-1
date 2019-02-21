@@ -160,8 +160,8 @@ checkFavouriteStatus(viewedVenue) {
       AsyncStorage.getItem('venue_favourites').then((venues) => {
       const venuess = venues ? JSON.parse(venues) : [];
         if (venuess.length > 0){
-          var names = venuess.map((venue) => venue.title);
-        if (!names.includes(venue.title)){
+          var names = venuess.map((venue) => venue.id);
+        if (!names.includes(venue.id)){
           venuess.push(venue);
             AsyncStorage.setItem('venue_favourites', JSON.stringify(venuess));
             this.setState({newVenueAdded: true}, function(){
