@@ -212,7 +212,7 @@ export default class VenueList extends React.Component {
     <View style={venueListStyle.container}>
 
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
-    <View style={venueListStyle.container}>
+    <View style={[venueListStyle.container, {marginBottom: Dimensions.get('window').height*0.04}]}>
 
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
@@ -231,27 +231,27 @@ export default class VenueList extends React.Component {
           style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
       />
 
+      {
+        this.props.navigation.getParam('uploader', 'NO-ID') ? (
+
+          <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+              {this.returnMessage()}{"\n"}{"\n"}
+
+          </Text>
+
+   ) :
+
+         <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+             {this.returnMessage()}{"\n"}{"\n"}
+
+         </Text>
+        }
+
       </View>
       </ScrollView>
 
     <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.05}} showsVerticalScrollIndicator={false}>
     <View style={venueListStyle.container}>
-
-    {
-      this.props.navigation.getParam('uploader', 'NO-ID') ? (
-
-        <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-            {this.returnMessage()}{"\n"}{"\n"}
-
-        </Text>
-
- ) :
-
-       <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-           {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
-
-       </Text>
-      }
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>

@@ -209,12 +209,6 @@ export default class BrandList extends React.Component {
         style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
        />
 
-       </View>
-       </ScrollView>
-
-       <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
-        <View style={brandListStyle.container}>
-
        {
          this.props.navigation.getParam('uploader', 'NO-ID') ? (
 
@@ -230,6 +224,12 @@ export default class BrandList extends React.Component {
 
     </Text>
   }
+
+       </View>
+       </ScrollView>
+
+       <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
+        <View style={brandListStyle.container}>
 
       <BarCodeScanner/>
       <AutoHeightImage

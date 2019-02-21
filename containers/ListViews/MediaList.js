@@ -257,14 +257,14 @@ export default class MediaList extends React.Component {
 
     render() {
       const {navigate} = this.props.navigation;
+
+      if (this.state.contentLoading === false){
       return (
 
     <View style={mediaListStyle.container}>
 
-    { this.state.contentLoading === false ? (
-
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
-    <View style={mediaListStyle.container}>
+    <View style={[mediaListStyle.container, {marginBottom: Dimensions.get('window').height*0.04}]}>
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
@@ -298,6 +298,12 @@ export default class MediaList extends React.Component {
    </Text>
  }
 
+      </View>
+      </ScrollView>
+
+      <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.04}} showsVerticalScrollIndicator={false}>
+      <View style={mediaListStyle.container}>
+
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
@@ -325,14 +331,21 @@ export default class MediaList extends React.Component {
       </View>
     </View>
   </ScrollView>
-
-) : <LoadingCelery />
-
-}
-
 </View>
 
 )
+}
+
+else {
+  return (
+
+    <View style={{backgroundColor: '#FBFEFC'}}>
+    <LoadingCelery />
+    </View>
+
+  )
+}
+
 
 }
 }
