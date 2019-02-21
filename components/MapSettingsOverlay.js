@@ -70,10 +70,9 @@ export default class MapSettingsOverlay extends Component {
 
       else {
 
-      console.log("location: ", location);
-      var updatedLocation = ProblematicPlaceNameHandler.problematicPlaceNameHandler(location);
-      var sanitisedLocation = this.removeNonAlphanumeric(updatedLocation)
-      var url = `http://api.geograph.org.uk/syndicator.php?key=[1d6edee685]&location=${sanitisedLocation}&format=JSON`
+      var sanitisedLocation = this.removeNonAlphanumeric(location)
+      var updatedLocation = ProblematicPlaceNameHandler.problematicPlaceNameHandler(sanitisedLocation);
+      var url = `http://api.geograph.org.uk/syndicator.php?key=[1d6edee685]&text=${updatedLocation}&format=JSON`
       var self = this;
 
         axios.get(url).then( (response) => {
@@ -178,7 +177,7 @@ render() {
 
         <Overlay
           visible={this.props.overlayVisible}
-          onClose={() => this.setState({selectedOption: null}, function(){this.props.closeOverlay()})}
+          onClose={() => this.props.closeOverlay() }
           closeOnTouchOutside
           animationType="fadeInUp"
           containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
@@ -268,7 +267,7 @@ render() {
 
           <Overlay
             visible={this.props.overlayVisible}
-            onClose={() => this.setState({selectedOption: null}, function(){this.props.closeOverlay()})}
+            onClose={() => this.props.closeOverlay() }
             closeOnTouchOutside
             animationType="fadeInUp"
             containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
