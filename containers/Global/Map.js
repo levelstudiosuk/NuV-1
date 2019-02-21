@@ -164,19 +164,19 @@ export default class Map extends React.Component {
      }
 
     regionFrom(latitude, longitude, distanceInMetres) {
-        distance = distance/2
+        distance = distanceInMetres/2
         var circumference = 40075
         var oneDegreeOfLatitudeInMeters = 111.32 * 1000
-        var angularDistance = distance/circumference
+        var angularDistance = distanceInMetres/circumference
 
-        var latitudeDelta = distance / oneDegreeOfLatitudeInMeters
+        var latitudeDelta = distanceInMetres / oneDegreeOfLatitudeInMeters
         var longitudeDelta = Math.abs(Math.atan2(
-                Math.sin(angularDistance)*Math.cos(lat),
-                Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)))
+                Math.sin(angularDistance)*Math.cos(latitude),
+                Math.cos(angularDistance) - Math.sin(latitude) * Math.sin(latitude)))
 
         return result = {
-            latitude: lat,
-            longitude: lon,
+            latitude: latitude,
+            longitude: longitude,
             latitudeDelta,
             longitudeDelta,
         }
