@@ -198,7 +198,7 @@ checkFavouriteStatus(viewedVenue) {
               var id = this.state.venueItem.id
               var self = this;
 
-            axios.post(`http://nuv-api.herokuapp.com/venues/${id}/favourite`,
+            axios.post(`http://nuv-api.herokuapp.com/venues/${id}/like`, {"data": ""},
 
           { headers: { Authorization: `${token}` }})
 

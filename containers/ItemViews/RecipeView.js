@@ -214,8 +214,6 @@ export default class RecipeView extends React.Component {
           }
         }
 
-
-
             postLike(navigation){
               const {navigate} = navigation
 
@@ -223,8 +221,8 @@ export default class RecipeView extends React.Component {
                 var id = this.state.recipeItem.id
                 var self = this;
 
-              axios.post(`http://nuv-api.herokuapp.com/recipes/${id}/favourite`,
-
+              axios.post(`http://nuv-api.herokuapp.com/recipes/${id}/like`,
+                {"data": ""},
             { headers: { Authorization: `${token}` }})
 
             .then(function(response){

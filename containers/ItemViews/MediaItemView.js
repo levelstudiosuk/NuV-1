@@ -38,7 +38,7 @@ export default class MediaView extends React.Component {
     componentDidMount(){
 
       var mediaItem = this.props.navigation.getParam('mediaItem', 'NO-ID');
-      console.log("Media item: ", this.state.mediaItem);
+      console.log("Media item: ", mediaItem);
      this.setState({
        mediaItem: mediaItem
      })
@@ -166,10 +166,10 @@ export default class MediaView extends React.Component {
       const {navigate} = navigation
 
         var token = navigation.getParam('token', 'NO-ID');
-        var id = this.state.mediaItem.id
+        var id = this.state.mediaItem.item_id
         var self = this;
 
-      axios.post(`http://nuv-api.herokuapp.com/media/${id}/favourite`,
+      axios.post(`http://nuv-api.herokuapp.com/media/${id}/like`,  {"data": ""},
 
     { headers: { Authorization: `${token}` }})
 

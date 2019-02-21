@@ -180,9 +180,7 @@ export default class BrandView extends React.Component {
       var id = this.state.brandItem.id
       var self = this;
 
-      console.log("Token for request: ", token);
-
-    axios.post(`http://nuv-api.herokuapp.com/brands/${id}/favourite`,
+    axios.post(`http://nuv-api.herokuapp.com/brands/${id}/like`, {"data": ""},
 
  { headers: { Authorization: `${token}` }})
 

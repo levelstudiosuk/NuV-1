@@ -102,6 +102,7 @@ export default class BrandList extends React.Component {
 
     <View key={i} style={brandListStyle.branditem}>
       <TouchableHighlight
+      underlayColor={'white'}
       key={i+1}
       onPress={() => navigate('BrandView', {
         avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
