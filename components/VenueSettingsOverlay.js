@@ -286,29 +286,16 @@ render() {
         marginTop: Dimensions.get('window').height*0.04}}
       >
         <Text style={{
-          marginBottom: Dimensions.get('window').width*0.07,
+          marginBottom: Dimensions.get('window').width*0.02,
           marginTop: Dimensions.get('window').width*0.02,
           color: 'black',
           fontSize: Dimensions.get('window').width > 750 ? 18 : 14}}>{this.state.distance}km
         </Text>
       </View>
 
-      <Text style={{
-        textAlign: 'center',
-        fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
-        marginBottom: Dimensions.get('window').height*0.07,
-        marginTop: Dimensions.get('window').height*0.01 }}>
-          Type of venue:
-      </Text>
-
-        <MapSettingsTwoWayToggle
-          changeToggleSelection={this.changeToggleSelection}
-          activeIndex={this.getActiveToggleIndex()}
-        />
-
       <View style={{
         alignItems: 'center',
-        marginTop: Dimensions.get('window').height*0.1,
+        marginTop: Dimensions.get('window').height*0.03,
         flexDirection: 'row'
       }}
         >
