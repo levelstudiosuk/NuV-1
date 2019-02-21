@@ -160,6 +160,7 @@ export default class MediaView extends React.Component {
 }
 
     postLike(navigation){
+      var self = this;
 
       if (self.state.mediaItem.user_id){
       const {navigate} = navigation
