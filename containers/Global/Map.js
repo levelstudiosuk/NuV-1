@@ -54,9 +54,18 @@ export default class Map extends React.Component {
 
      var responseItems = JSON.parse(response.request['_response']);
 
+     // var pointsArray = [{latitude: -3.1811, longitude: 55.9497}].concat(responseItems.filter(venueItem => venueItem.longitude && venueItem.latitude))
+     // var location = self.getRegionForCoordinates(pointsArray)
+
+     var region = self.regionFrom(55.9497, -3.1811, self.props.navigation.getParam('distance', 'NO-ID')*1000)
+
+     console.log("Location: ", region);
+
+
      var venueItems = ReverseArray.reverseArray(responseItems).filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(venueItem.latitude, venueItem.longitude, 55.9497, -3.1811) <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
+       mapLocation: region,
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
      },
      function(){
@@ -154,6 +163,25 @@ export default class Map extends React.Component {
        })
      }
 
+    regionFrom(latitude, longitude, distanceInMetres) {
+        distance = distance/2
+        var circumference = 40075
+        var oneDegreeOfLatitudeInMeters = 111.32 * 1000
+        var angularDistance = distance/circumference
+
+        var latitudeDelta = distance / oneDegreeOfLatitudeInMeters
+        var longitudeDelta = Math.abs(Math.atan2(
+                Math.sin(angularDistance)*Math.cos(lat),
+                Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)))
+
+        return result = {
+            latitude: lat,
+            longitude: lon,
+            latitudeDelta,
+            longitudeDelta,
+        }
+    }
+
 render() {
 
   const {navigate} = this.props.navigation;
@@ -174,10 +202,10 @@ render() {
             zoomEnabled={true}
             zoomControlEnabled={true}
             region={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-              latitudeDelta: 0.03,
-              longitudeDelta: 0.03
+              latitude: this.state.mapLocation.latitude,
+              longitude: this.state.mapLocation.longitude,
+              latitudeDelta: this.state.mapLocation.latitudeDelta,
+              longitudeDelta: this.state.mapLocation.longitudeDelta
             }}
           >
         <MapView.Marker
