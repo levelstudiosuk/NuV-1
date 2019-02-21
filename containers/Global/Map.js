@@ -220,9 +220,9 @@ render() {
               latitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
               longitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
               }}
-              title={"Your location"}
+              title={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? "Your searched location" : "Your location"}
               pinColor={'red'}
-              description={"Your current location"}
+              description={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? "The place you searched" : "Your current location"}
             />
           {this.venueResultsMarkers()}
         </MapView>
