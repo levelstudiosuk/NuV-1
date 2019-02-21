@@ -160,6 +160,8 @@ export default class MediaView extends React.Component {
 }
 
     postLike(navigation){
+
+      if (self.state.mediaItem.user_id){
       const {navigate} = navigation
 
         var token = navigation.getParam('token', 'NO-ID');
@@ -175,12 +177,16 @@ export default class MediaView extends React.Component {
      console.log("Response from like post: ", response);
 
      self.addMediaItemToFavourites()
-
      }
     )
     .catch(function(error){
      console.log("Error: ", error);
     })
+  }
+  else {
+    console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+    this.addMediaItemToFavourites()
+  }
     }
 
   render() {
