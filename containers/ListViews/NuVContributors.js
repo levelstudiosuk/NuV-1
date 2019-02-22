@@ -26,15 +26,16 @@ export default class NuVContributors extends React.Component {
       super(props);
 
       this.changeToggleSelection = this.changeToggleSelection.bind(this);
+      this.retrieveUploaderProfile = this.retrieveUploaderProfile.bind(this);
     }
 
     state = {
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
-      contributorsLoading: true
+      contributorsLoading: true,
+      loadingProfile: false
     }
 
     componentDidMount(){
-      console.log("In NuV Contributions component");
       const {navigate} = this.props.navigation;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
@@ -87,14 +88,7 @@ export default class NuVContributors extends React.Component {
         <View key={i+10} style={venueListStyle.venuetextcontainer}>
       <TouchableHighlight underlayColor={'white'}
         key={i+1}
-        onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
-        avatar: navigation.getParam('avatar', 'NO-ID'),
-        token: navigation.getParam('token', 'NO-ID'),
-        profile_id: navigation.getParam('id', 'NO-ID'),
-        name: navigation.getParam('name', 'NO-ID'),
-        bio: navigation.getParam('bio', 'NO-ID'),
-        location: navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
+        onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
         <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
       </TouchableHighlight>
       </View>
@@ -102,14 +96,7 @@ export default class NuVContributors extends React.Component {
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
-              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
-              avatar: navigation.getParam('avatar', 'NO-ID'),
-              token: navigation.getParam('token', 'NO-ID'),
-              profile_id: navigation.getParam('id', 'NO-ID'),
-              name: navigation.getParam('name', 'NO-ID'),
-              bio: navigation.getParam('bio', 'NO-ID'),
-              location: navigation.getParam('location', 'NO-ID'),
-              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.profile.id})}>
+              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
               {item.profile.name === this.props.navigation.getParam('name', 'NO-ID') ? "You" : item.profile.name}
               </Text>
           </View>
@@ -117,27 +104,49 @@ export default class NuVContributors extends React.Component {
               <Text
               key={i+8}
               style={venueListStyle.contributionCount}
-              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
-              avatar: navigation.getParam('avatar', 'NO-ID'),
-              token: navigation.getParam('token', 'NO-ID'),
-              profile_id: navigation.getParam('id', 'NO-ID'),
-              name: navigation.getParam('name', 'NO-ID'),
-              bio: navigation.getParam('bio', 'NO-ID'),
-              location: navigation.getParam('location', 'NO-ID'),
-              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.profile.id})}>
+              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
               {item.total_contributions} {item.total_contributions === 1 ? 'contribution' : 'contributions'}
               </Text>
           </View>
         </View>
-
       )
+    }
 
+    retrieveUploaderProfile(id){
+
+      const {navigate} = this.props.navigation;
+      var navigation = this.props.navigation;
+
+      var id = id;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     var uploaderProfile = JSON.parse(response.request['_response'])
+
+     self.setState({ loadingProfile: false},
+       function(){
+     navigate('UserView',
+     {notMyProfile: true,
+        uploader: uploaderProfile
+      })
+    }
+    )
+
+   }).catch(function(error){
+     console.log("Error: ", error);
+   })
     }
 
     render() {
       const {navigate} = this.props.navigation;
 
-      if (this.state.contributorsLoading === false){
+      if (this.state.contributorsLoading === false && this.state.loadingProfile === false){
       return (
 
     <View style={venueListStyle.container}>
