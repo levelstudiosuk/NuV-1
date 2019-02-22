@@ -113,7 +113,7 @@ export default class BrandView extends React.Component {
       retrieveUploaderProfile(){
         const {navigate} = this.props.navigation;
 
-        var id = this.state.brandItem.user_id;
+        var id = this.state.brandItem.profile_id;
         var token = this.props.navigation.getParam('token', 'NO-ID');
         var self = this;
 
@@ -327,8 +327,7 @@ render() {
                 navigation={this.props.navigation}
                 itemAlreadyLiked={this.state.brandItem.id
                 && this.state.likedItem === true ? true : false}
-                handleButtonClick={() => this.state.brandItem.already_liked === true
-                || this.state.likedItem === true ?
+                handleButtonClick={() => this.state.likedItem === true ?
                 this.deleteLike(this.props.navigation)
                 : this.postLike(this.props.navigation)}
                 />

@@ -77,7 +77,7 @@ export default class MediaView extends React.Component {
     retrieveUploaderProfile(){
       const {navigate} = this.props.navigation;
 
-      var id = this.state.mediaItem.user_id;
+      var id = this.state.mediaItem.profile_id;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
 
@@ -152,7 +152,7 @@ export default class MediaView extends React.Component {
 
     var self = this;
 
-    var media_item = {title: this.state.mediaItem.title, url: this.state.mediaItem.url, user_image: this.state.mediaItem.user_image ? this.state.mediaItem.user_image : null, item_user_name: this.state.mediaItem.item_user_name, description: this.state.mediaItem.description}
+    var media_item = {title: this.state.mediaItem.title, url: this.state.mediaItem.url, user_image: this.state.mediaItem.user_image ? this.state.mediaItem.user_image : null, source: this.state.mediaItem.source ? this.state.mediaItem.source : null, user: this.state.mediaItem.user ? this.state.mediaItem.user : null, description: this.state.mediaItem.description}
 
     try {
       AsyncStorage.getItem('media_item_favourites').then((media_items) => {
@@ -293,8 +293,7 @@ export default class MediaView extends React.Component {
           navigation={this.props.navigation}
           itemAlreadyLiked={this.state.mediaItem.id
           && this.state.likedItem === true ? true : false}
-          handleButtonClick={() => this.state.mediaItem.already_liked === true
-          || this.state.likedItem === true ?
+          handleButtonClick={() => this.state.likedItem === true ?
           this.deleteLike(this.props.navigation)
           : this.postLike(this.props.navigation)}
           />
@@ -309,7 +308,7 @@ export default class MediaView extends React.Component {
         </Text>
 
         <Text style={mediaViewStyle.mediareviewtitle}>
-        This item was originally published by {this.state.mediaItem.source}
+        This item was originally published by {this.state.mediaItem.source ? this.state.mediaItem.source : this.state.mediaItem.user}
         </Text>
     </View>
 
@@ -334,10 +333,10 @@ export default class MediaView extends React.Component {
 
     <View >
       <View>
-      { this.props.navigation.getParam('item_user_name', 'NO-ID') ? (
+      { this.state.mediaItem.source || this.state.mediaItem.user ? (
 
         <Text style={mediaViewStyle.mediareviewtitle}>
-        A brief description of this news item courtesy of NüV user {this.state.mediaItem.user_name}:{"\n"}
+        A brief description of this news item courtesy of {this.state.mediaItem.source ? this.state.mediaItem.source : `NüV user ${this.state.mediaItem.user}`}:{"\n"}
         </Text>
 
       ) : null

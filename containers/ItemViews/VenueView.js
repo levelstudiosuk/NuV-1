@@ -313,7 +313,7 @@ checkFavouriteStatus(viewedVenue) {
       retrieveUploaderProfile(){
         const {navigate} = this.props.navigation;
 
-        var id = this.state.venueItem.user_id;
+        var id = this.state.venueItem.profile_id;
         var token = this.props.navigation.getParam('token', 'NO-ID');
         var self = this;
 
@@ -375,8 +375,7 @@ render() {
         navigation={this.props.navigation}
         itemAlreadyLiked={this.state.venueItem.id
         && this.state.likedItem === true ? true : false}
-        handleButtonClick={() => this.state.venueItem.already_liked === true
-        || this.state.likedItem === true ?
+        handleButtonClick={() => this.state.likedItem === true ?
         this.deleteLike(this.props.navigation)
         : this.postLike(this.props.navigation)}
         />
