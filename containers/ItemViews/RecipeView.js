@@ -15,6 +15,7 @@ import   GlobalButton from '../../components/GlobalButton.js';
 import   SnapCarousel       from '../../components/SnapCarousel.js';
 import   LoadingCelery       from '../../components/LoadingCelery.js';
 import   AddItemButton from '../../components/AddItemButton.js';
+import   LikeButton from '../../components/LikeButton.js';
 import   FaveButton from '../../components/FaveButton.js';
 import   ShareButton from '../../components/ShareButton.js';
 import   SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
@@ -64,7 +65,8 @@ export default class RecipeView extends React.Component {
      var recipeItem = JSON.parse(response.request['_response'])
 
      self.setState({
-       recipeItem: recipeItem
+       recipeItem: recipeItem,
+       likedItem: recipeItem.already_liked
      },
      function(){
        console.log("Recipe item", self.state.recipeItem);
@@ -214,29 +216,83 @@ export default class RecipeView extends React.Component {
           }
         }
 
-            postLike(navigation){
-              const {navigate} = navigation
+        postLike(navigation){
+          var self = this;
 
-                var token = navigation.getParam('token', 'NO-ID');
-                var id = this.state.recipeItem.id
-                var self = this;
+          if (self.state.recipeItem.user_id){
+          const {navigate} = navigation
 
-              axios.post(`http://nuv-api.herokuapp.com/recipes/${id}/like`,
-                {"data": ""},
-            { headers: { Authorization: `${token}` }})
+            var token = navigation.getParam('token', 'NO-ID');
+            var id = this.state.recipeItem.id
+            var self = this;
 
-            .then(function(response){
+          axios.post(`http://nuv-api.herokuapp.com/recipes/${id}/like`,  {"data": ""},
 
-             console.log("Response from like post: ", response);
+        { headers: { Authorization: `${token}` }})
 
-             self.addRecipeToFavourites()
+        .then(function(response){
 
-             }
+          self.setState({
+            likedItem: true
+          }, function(){
+            Alert.alert(
+                   `You now like '${this.state.recipeItem.title}'!`
+                )
+
+           console.log("Response from like post: ", response);
+          })
+         }
+        )
+        .catch(function(error){
+         console.log("Error: ", error);
+        })
+        }
+        else {
+        Alert.alert(
+               `This is not NüV proprietary content! You cannot like it.`
             )
-            .catch(function(error){
-             console.log("Error: ", error);
-            })
-            }
+        console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+        }
+        }
+
+        deleteLike(navigation){
+          var self = this;
+
+          if (self.state.recipeItem.user_id){
+          const {navigate} = navigation
+
+            var token = navigation.getParam('token', 'NO-ID');
+            var id = this.state.recipeItem.id
+            var self = this;
+
+          axios.delete(`http://nuv-api.herokuapp.com/recipes/${id}/remove_like`,
+
+        { headers: { Authorization: `${token}` }})
+
+        .then(function(response){
+
+          self.setState({
+            likedItem: false
+          }, function(){
+            Alert.alert(
+                   `You no longer like '${this.state.recipeItem.title}'!`
+                )
+
+           console.log("Response from like post: ", response);
+          })
+         }
+        )
+        .catch(function(error){
+         console.log("Error: ", error);
+        })
+        }
+        else {
+        Alert.alert(
+               `This is not NüV proprietary content! You cannot like it.`
+            )
+        console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+        }
+        }
 
   onStarRatingPress(rating) {
     this.setState({
@@ -268,7 +324,20 @@ render() {
           </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
               <FaveButton
-              navigation={this.props.navigation} handleButtonClick={() => this.postLike(this.props.navigation)}/>
+              navigation={this.props.navigation} handleButtonClick={() => this.addRecipeToFavourites()}/>
+              { this.state.recipeItem.id ? (
+
+              <LikeButton
+              navigation={this.props.navigation}
+              itemAlreadyLiked={this.state.recipeItem.id
+              && this.state.likedItem === true ? true : false}
+              handleButtonClick={() => this.state.recipeItem.already_liked === true
+              || this.state.likedItem === true ?
+              this.deleteLike(this.props.navigation)
+              : this.postLike(this.props.navigation)}
+              />
+
+            ) : null }
               <AddItemButton
               navigation={this.props.navigation}
               onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />

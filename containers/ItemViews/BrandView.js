@@ -320,7 +320,7 @@ render() {
             flexDirection: 'row'}}>
               <FaveButton
                 navigation={this.props.navigation}
-                handleButtonClick={() => this.postLike(this.props.navigation)}/>
+                handleButtonClick={() => this.addBrandToFavourites()}/>
                 { this.state.brandItem.id ? (
 
                 <LikeButton

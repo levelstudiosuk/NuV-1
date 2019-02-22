@@ -4,7 +4,8 @@ import AddItemButton      from '../../components/AddItemButton.js';
 import FaveButton         from '../../components/FaveButton.js';
 import ShareButton        from '../../components/ShareButton.js';
 import SnapCarousel       from '../../components/SnapCarousel.js';
-import LoadingCelery       from '../../components/LoadingCelery.js';
+import LoadingCelery      from '../../components/LoadingCelery.js';
+import LikeButton         from '../../components/LikeButton.js';
 import SmallTwoWayToggle  from '../../components/SmallTwoWayToggle.js';
 import AutoHeightImage    from 'react-native-auto-height-image';
 import Map                from '../../containers/Global/Map.js';
@@ -78,7 +79,8 @@ constructor(props) {
      var venueItem = JSON.parse(response.request['_response'])
 
      self.setState({
-       venueItem: venueItem
+       venueItem: venueItem,
+       likedItem: venueItem.already_liked
      },
      function(){
        console.log("Venue item", self.state.venueItem);
@@ -191,29 +193,83 @@ checkFavouriteStatus(viewedVenue) {
       }
 
 
-          postLike(navigation){
-            const {navigate} = navigation
+      postLike(navigation){
+        var self = this;
 
-              var token = navigation.getParam('token', 'NO-ID');
-              var id = this.state.venueItem.id
-              var self = this;
+        if (self.state.venueItem.user_id){
+        const {navigate} = navigation
 
-            axios.post(`http://nuv-api.herokuapp.com/venues/${id}/like`, {"data": ""},
+          var token = navigation.getParam('token', 'NO-ID');
+          var id = this.state.venueItem.id
+          var self = this;
 
-          { headers: { Authorization: `${token}` }})
+        axios.post(`http://nuv-api.herokuapp.com/venues/${id}/like`,  {"data": ""},
 
-          .then(function(response){
+      { headers: { Authorization: `${token}` }})
 
-           console.log("Response from like post: ", response);
+      .then(function(response){
 
-           self.addVenueToFavourites()
+        self.setState({
+          likedItem: true
+        }, function(){
+          Alert.alert(
+                 `You now like '${this.state.venueItem.title}'!`
+              )
 
-           }
+         console.log("Response from like post: ", response);
+        })
+       }
+      )
+      .catch(function(error){
+       console.log("Error: ", error);
+      })
+      }
+      else {
+      Alert.alert(
+             `This is not NüV proprietary content! You cannot like it.`
           )
-          .catch(function(error){
-           console.log("Error: ", error);
-          })
-          }
+      console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+      }
+      }
+
+      deleteLike(navigation){
+        var self = this;
+
+        if (self.state.venueItem.user_id){
+        const {navigate} = navigation
+
+          var token = navigation.getParam('token', 'NO-ID');
+          var id = this.state.venueItem.id
+          var self = this;
+
+        axios.delete(`http://nuv-api.herokuapp.com/venues/${id}/remove_like`,
+
+      { headers: { Authorization: `${token}` }})
+
+      .then(function(response){
+
+        self.setState({
+          likedItem: false
+        }, function(){
+          Alert.alert(
+                 `You no longer like '${this.state.venueItem.title}'!`
+              )
+
+         console.log("Response from like post: ", response);
+        })
+       }
+      )
+      .catch(function(error){
+       console.log("Error: ", error);
+      })
+      }
+      else {
+      Alert.alert(
+             `This is not NüV proprietary content! You cannot like it.`
+          )
+      console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+      }
+      }
 
       returnRestaurantName(){
         return this.state.venueItem.title
@@ -312,7 +368,21 @@ render() {
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
     </View>
       <View style={{flex: 1, flexDirection: 'row', marginTop: this.props.fromMap === true ? Dimensions.get('window').height*0.02 : 0}}>
-        <FaveButton navigation={this.props.navigation} handleButtonClick={() => this.postLike(this.props.navigation)}/>
+        <FaveButton navigation={this.props.navigation} handleButtonClick={() => this.addVenueToFavourites()}/>
+        { this.state.venueItem.id ? (
+
+        <LikeButton
+        navigation={this.props.navigation}
+        itemAlreadyLiked={this.state.venueItem.id
+        && this.state.likedItem === true ? true : false}
+        handleButtonClick={() => this.state.venueItem.already_liked === true
+        || this.state.likedItem === true ?
+        this.deleteLike(this.props.navigation)
+        : this.postLike(this.props.navigation)}
+        />
+
+      ) : null }
+
         <AddItemButton navigation={this.props.navigation}
         onPress={() => navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
       </View>
