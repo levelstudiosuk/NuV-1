@@ -34,6 +34,7 @@ export default class NuVContributors extends React.Component {
     }
 
     componentDidMount(){
+      console.log("In NuV Contributions component");
       const {navigate} = this.props.navigation;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
@@ -45,12 +46,11 @@ export default class NuVContributors extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
-     var contributors = responseItems.filter
+     var contributors = responseItems.filter(contributor => contributor.total_contributions > 0)
 
      self.setState({
-       contributors:
-     function(){
-       console.log("Venue items here");
+       contributors: contributors
+     }, function(){
        self.setState({
          contributorsLoading: false
        })
@@ -60,6 +60,7 @@ export default class NuVContributors extends React.Component {
    console.log("Error: ", error);
  })
     }
+
 
     getActiveToggleIndex(){
       return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
@@ -79,14 +80,13 @@ export default class NuVContributors extends React.Component {
       const {navigate} = this.props.navigation;
       var navigation = this.props.navigation;
 
-      var venueItems = this.state.seeOnlyVegan === true ? this.state.venueItems.filter(venueItem => venueItem.user_is_vegan === "vegan") : this.state.venueItems
-
-      return venueItems.map((item, i) =>
+      var contributorItems = this.state.seeOnlyVegan === true ? this.state.contributors.filter(contributor => contributor.profile && contributor.profile.user_is_vegan === "vegan" && contributor.profile.avatar.url) : this.state.contributors.filter(contributor => contributor.profile && contributor.profile.avatar.url)
+      return contributorItems.map((item, i) =>
 
       <View key={i} style={venueListStyle.venueitem}>
-      <TouchableHighlight
+        <View key={i+10} style={venueListStyle.venuetextcontainer}>
+      <TouchableHighlight underlayColor={'white'}
         key={i+1}
-        style={venueListStyle.venueimage}
         onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
         avatar: navigation.getParam('avatar', 'NO-ID'),
         token: navigation.getParam('token', 'NO-ID'),
@@ -95,9 +95,10 @@ export default class NuVContributors extends React.Component {
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
-        <AutoHeightImage key={i+2} source={require('../../assets/AppIcons/lightgreenpin.png')} width={50} style={{borderRadius: 25}}/>
+        <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
       </TouchableHighlight>
-          <View key={i+3} style={venueListStyle.venuetextcontainer}>
+      </View>
+          <View key={i+3} style={[venueListStyle.venuetextcontainer], {position: 'relative', left: -Dimensions.get('window').width*0.085}}>
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
@@ -108,8 +109,23 @@ export default class NuVContributors extends React.Component {
               name: navigation.getParam('name', 'NO-ID'),
               bio: navigation.getParam('bio', 'NO-ID'),
               location: navigation.getParam('location', 'NO-ID'),
-              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.id})}>
-              {item.name}
+              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.profile.id})}>
+              {item.profile.name}
+              </Text>
+          </View>
+          <View key={i+7} style={venueListStyle.venuetextcontainer}>
+              <Text
+              key={i+8}
+              style={venueListStyle.contributionCount}
+              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              avatar: navigation.getParam('avatar', 'NO-ID'),
+              token: navigation.getParam('token', 'NO-ID'),
+              profile_id: navigation.getParam('id', 'NO-ID'),
+              name: navigation.getParam('name', 'NO-ID'),
+              bio: navigation.getParam('bio', 'NO-ID'),
+              location: navigation.getParam('location', 'NO-ID'),
+              user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.profile.id})}>
+              {item.total_contributions} {item.total_contributions === 1 ? 'contribution' : 'contributions'}
               </Text>
           </View>
         </View>
@@ -121,13 +137,13 @@ export default class NuVContributors extends React.Component {
     render() {
       const {navigate} = this.props.navigation;
 
-      if (this.state.venuesLoading === false){
+      if (this.state.contributorsLoading === false){
       return (
 
     <View style={venueListStyle.container}>
 
     <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
-    <View style={[venueListStyle.container, {marginBottom: Dimensions.get('window').height*0.04}]}>
+    <View style={[venueListStyle.container, {marginBottom: Dimensions.get('window').height*0.06}]}>
 
 
     <View style={{marginTop: Dimensions.get('window').height*0.02}}>
@@ -135,38 +151,38 @@ export default class NuVContributors extends React.Component {
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
-        <AddItemButton navigation={this.props.navigation}
-        onPress={() => navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+        <AddItemButton navigation={this.props.navigation} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 
       <AutoHeightImage
           width={70}
-          source={require('../../assets/AppIcons/dining.png')}
+          source={require('../../assets/icon.png')}
           style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
       />
 
+          <View style={{height: 35, alignItems: 'center'}}>
           <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-              NuV top contributors{"\n"}{"\n"}
-
+              Our top contributors
           </Text>
+          </View>
 
       </View>
       </ScrollView>
 
-    <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.05}} showsVerticalScrollIndicator={false}>
-    <View style={venueListStyle.container}>
+    <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.01}} showsVerticalScrollIndicator={false}>
+    <View style={venueListStyle.innerContainer}>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
-      {this.state.venueItems && this.state.venueItems.length > 0 ? (
-        this.mapVenueItems()
+      {this.state.contributors && this.state.contributors.length > 0 ? (
+        this.mapContributors()
       ): null
     }
 
-    {this.state.venueItems && this.state.venueItems.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true ? (
-      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center', marginBottom: Dimensions.get('window').height*0.02}}> {this.getExtraMessage()} </Text>
+    {this.state.contributors && this.state.contributors.length == 0 && this.props.navigation.getParam('user', 'NO-ID') === true ? (
+      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center', marginBottom: Dimensions.get('window').height*0.02}}> No contributors to show </Text>
 
     ): null
   }
@@ -192,7 +208,13 @@ const venueListStyle = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     alignItems: 'center',
+    justifyContent: 'center'
+  },
+  innerContainer: {
+    backgroundColor: 'white',
+    alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: Dimensions.get('window').height*0.6
   },
   submitContainer: {
     alignItems: 'center',
@@ -218,6 +240,12 @@ const venueListStyle = StyleSheet.create({
     color: '#a2e444',
     margin: 4,
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  contributionCount: {
+    color: 'black',
+    margin: 4,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   venuetype: {

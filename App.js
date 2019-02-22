@@ -27,6 +27,7 @@ import MediaList from './containers/ListViews/MediaList.js';
 import BrandList from './containers/ListViews/BrandList.js';
 import ResetPassword from './containers/Global/ResetPassword.js';
 import ResetLanding from './containers/Global/ResetLanding.js';
+import NuVContributors from './containers/ListViews/NuVContributors.js';
 import { Constants } from 'expo'
 
 const navigationVariable = createStackNavigator({
@@ -47,6 +48,7 @@ const navigationVariable = createStackNavigator({
   Map: {screen: Map},
   EditUser: {screen: EditUser},
   RecipeList: {screen: RecipeList},
+  NuVContributors: {screen: NuVContributors},
   MediaList: {screen: MediaList},
   BrandList: {screen: BrandList},
   VenueList: {screen: VenueList},
