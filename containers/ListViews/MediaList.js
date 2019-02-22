@@ -202,7 +202,7 @@ export default class MediaList extends React.Component {
 
         <View style={mediaListStyle.mediaitem}   key={i}>
         <TouchableHighlight  key={i+6} onPress={() => navigate('MediaItemView',
-        {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: {user_id: item.user_id ? item.user_id : null, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, item_id: item.id, source: item.source, title: item.title, description: item.description},
+        {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: item,
         avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
         token:         this.props.navigation.getParam('token', 'NO-ID'),
         id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -217,7 +217,7 @@ export default class MediaList extends React.Component {
         </TouchableHighlight>
             <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
               <View  key={i+1}>
-                <Text  key={i+3} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: {user_id: item.user_id ? item.user_id : null,  item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description},
+                <Text  key={i+3} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: item,
                 avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                 token:         this.props.navigation.getParam('token', 'NO-ID'),
                 id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -232,7 +232,7 @@ export default class MediaList extends React.Component {
                 </Text>
               </View>
               <View  key={i+4}>
-                <Text  key={i+5} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: {user_id: item.user_id ? item.user_id : null,  item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description},
+                <Text  key={i+5} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: item,
                 avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                 token:         this.props.navigation.getParam('token', 'NO-ID'),
                 id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -247,7 +247,7 @@ export default class MediaList extends React.Component {
                 </Text>
               </View>
               <View  key={i+7}>
-                <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: {user_id: item.user_id ? item.user_id : null, item_id: item.id, url: item.url, user_image: item.user_image ? item.user_image : null, item_user_name: item.user_name, source: item.source, title: item.title, description: item.description},
+                <Text  key={i+8} onPress={() => navigate('MediaItemView', {token: this.props.navigation.getParam('token', 'NO-ID'), mediaItem: item,
                 avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                 token:         this.props.navigation.getParam('token', 'NO-ID'),
                 id:            this.props.navigation.getParam('id', 'NO-ID'),

@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar.js';
 import AddItemButton from '../../components/AddItemButton.js';
 import LoadingCelery from '../../components/LoadingCelery.js';
 import FaveButton from '../../components/FaveButton.js';
+import LikeButton from '../../components/LikeButton.js';
 import ShareButton from '../../components/ShareButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
 import GlobalButton from '../../components/GlobalButton.js';
@@ -28,6 +29,7 @@ export default class MediaView extends React.Component {
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
       this.addMediaItemToFavourites = this.addMediaItemToFavourites.bind(this);
       this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
+      this.postLike = this.postLike.bind(this);
       }
 
       state = {
@@ -38,10 +40,36 @@ export default class MediaView extends React.Component {
     componentDidMount(){
 
       var mediaItem = this.props.navigation.getParam('mediaItem', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var self = this;
+
+      if (mediaItem.user_id){
+        axios.get(`http://nuv-api.herokuapp.com/media/${mediaItem.id}`,
+
+     { headers: { Authorization: `${token}` }})
+
+     .then(function(response){
+
+       var mediaItem = JSON.parse(response.request['_response'])
+
+       self.setState({
+         mediaItem: mediaItem
+       },
+       function(){
+         console.log("Media item", self.state.mediaItem);
+       }
+     )
+     }).catch(function(error){
+       console.log("Error: ", error);
+     })
+   }
+
+    else {
       console.log("Media item: ", mediaItem);
      this.setState({
        mediaItem: mediaItem
      })
+    }
 
     }
 
@@ -175,9 +203,15 @@ export default class MediaView extends React.Component {
 
     .then(function(response){
 
-     console.log("Response from like post: ", response);
+      self.setState({
+        likedItem: true
+      }, function(){
+        Alert.alert(
+               `You now like ${this.state.mediaItem.title}!`
+            )
 
-     self.addMediaItemToFavourites()
+       console.log("Response from like post: ", response);
+      })
      }
     )
     .catch(function(error){
@@ -185,8 +219,10 @@ export default class MediaView extends React.Component {
     })
   }
   else {
+    Alert.alert(
+           `This is not NüV proprietary content! You cannot like it.`
+        )
     console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
-    this.addMediaItemToFavourites()
   }
     }
 
@@ -209,7 +245,8 @@ export default class MediaView extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.02}}>
       </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <FaveButton navigation={this.props.navigation} handleButtonClick={() => this.postLike(this.props.navigation)}/>
+          <FaveButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.already_liked} handleButtonClick={() => this.addMediaItemToFavourites()}/>
+          <LikeButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.id && (this.state.mediaItem.already_liked === true || this.state.likedItem === true) ? true : false} handleButtonClick={() => this.state.mediaItem.already_liked === true || this.state.likedItem === true ? console.log("ITEM ALREADY LIKED") : this.postLike(this.props.navigation)} />
           <AddItemButton navigation={this.props.navigation}
           onPress={() => navigate('MediaForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         </View>
@@ -247,7 +284,7 @@ export default class MediaView extends React.Component {
       { this.props.navigation.getParam('item_user_name', 'NO-ID') ? (
 
         <Text style={mediaViewStyle.mediareviewtitle}>
-        A brief description of this news item courtesy of NüV user {this.state.mediaItem.item_user_name}:{"\n"}
+        A brief description of this news item courtesy of NüV user {this.state.mediaItem.user_name}:{"\n"}
         </Text>
 
       ) : null
