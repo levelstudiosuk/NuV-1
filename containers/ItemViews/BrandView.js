@@ -64,7 +64,8 @@ export default class BrandView extends React.Component {
 
        self.setState({
          brandItem: brandItem,
-         likedItem: brandItem.already_liked
+         likedItem: brandItem.user_liked,
+         likes: brandItem.likes
        },
        function(){
          console.log("Brand item", self.state.brandItem);
@@ -190,8 +191,11 @@ export default class BrandView extends React.Component {
 
     .then(function(response){
 
+      var likes = self.state.likes += 1
+
       self.setState({
-        likedItem: true
+        likedItem: true,
+        likes: likes
       }, function(){
         Alert.alert(
                `You now like '${this.state.brandItem.title}'!`
@@ -229,8 +233,11 @@ export default class BrandView extends React.Component {
 
     .then(function(response){
 
+      var likes = self.state.likes -= 1
+
       self.setState({
-        likedItem: false
+        likedItem: false,
+        likes: likes
       }, function(){
         Alert.alert(
                `You no longer like '${this.state.brandItem.title}'!`
@@ -348,6 +355,12 @@ render() {
         <Text style={brandViewStyle.brandname}>
             {this.state.brandItem.title} / Type: {this.state.brandItem.brand_type} / {this.state.brandItem.URL}
         </Text>
+
+        <View style={{alignItems: 'center'}}>
+          <Text style={brandViewStyle.brandreviewtitle}>
+            Liked by {this.state.likes} NüV user(s)
+          </Text>
+        </View>
 
         <View style={brandViewStyle.mapcontainer}>
           <AutoHeightImage

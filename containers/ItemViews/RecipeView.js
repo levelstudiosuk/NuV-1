@@ -66,7 +66,7 @@ export default class RecipeView extends React.Component {
 
      self.setState({
        recipeItem: recipeItem,
-       likedItem: recipeItem.already_liked
+       likedItem: recipeItem.user_liked
      },
      function(){
        console.log("Recipe item", self.state.recipeItem);

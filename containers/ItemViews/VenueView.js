@@ -80,7 +80,7 @@ constructor(props) {
 
      self.setState({
        venueItem: venueItem,
-       likedItem: venueItem.already_liked
+       likedItem: venueItem.user_liked
      },
      function(){
        console.log("Venue item", self.state.venueItem);
