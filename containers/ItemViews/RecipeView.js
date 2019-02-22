@@ -254,7 +254,7 @@ export default class RecipeView extends React.Component {
           var currentUser = [{
                       name: navigation.getParam('name', 'NO-ID'),
                       thumbnail: navigation.getParam('avatar', 'NO-ID'),
-                      profile_id: navigation.getParam('id', 'NO-ID')
+                      profile_id: navigation.getParam('profile_id', 'NO-ID')
                     }]
           var likers = self.state.likers.concat(currentUser)
 

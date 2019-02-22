@@ -292,8 +292,8 @@ export default class RecipeList extends React.Component {
             style={[
               registerUserStyle.name2,
               this.state.activeId === o.item.id
-                ? { color: '#a2e444', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
-                : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                ? { color: '#a2e444', fontSize: Dimensions.get('window').width > 750 ? 20 : 13, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
+                : { color: 'black', fontSize: Dimensions.get('window').width > 750 ? 20 : 13, flexWrap: 'wrap', textAlign: 'center', width: Dimensions.get('window').width*0.25 }
             ]}
           >
             {o.item.title ? this.handleLongRecipeNames(o.item.title) : 'Unknown'}
@@ -393,7 +393,7 @@ export default class RecipeList extends React.Component {
           >
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          onPress={() => navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
 
           style={underlayColor="white"}
           >
@@ -412,14 +412,14 @@ export default class RecipeList extends React.Component {
           <Text style={{
             color: '#696969',
             marginTop: Dimensions.get('window').height*0.02,
-            fontSize: Dimensions.get('window').width > 750 ? 24 : 20,
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
             textAlign: 'center'}}>
               {this.state.activeItem.item.title}
           </Text>
 
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
-            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
             textAlign: 'center'}}>
               <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05}
               />  Prep: N/A
@@ -427,7 +427,7 @@ export default class RecipeList extends React.Component {
 
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
-            fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+            fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
             textAlign: 'center'}}>
               <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Cook: {this.state.activeItem.item.cooking_time} mins
           </Text>
@@ -612,7 +612,7 @@ const registerUserStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    fontSize: 26,
+    fontSize: Dimensions.get('window').width > 750 ? 20 : 15,
     color: 'black',
   },
 });

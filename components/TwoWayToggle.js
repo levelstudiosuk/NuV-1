@@ -83,7 +83,7 @@ export default class TwoWayToggle extends React.Component {
           }}>
 
           <MultiSwitch
-            choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.10 : Dimensions.get('window').width*0.2}
+            choiceSize={Dimensions.get('window').width > 500 ? Dimensions.get('window').width*0.13 : Dimensions.get('window').width*0.24}
             activeItemStyle={[
               {color: 'white'},
               {color: 'white'},

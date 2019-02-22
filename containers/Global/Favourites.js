@@ -37,6 +37,8 @@ export default class Favourites extends React.Component {
       {...props}
       style          = {{backgroundColor: '#a2e444'}}
       tabStyle       = {{backgroundColor: '#2e8302'}}
+      labelStyle={{fontSize: Dimensions.get('window')< 400 ? 7 : 11}}
+
       indicatorStyle = {{backgroundColor: '#a2e444'}}
     />
 
@@ -60,6 +62,7 @@ export default class Favourites extends React.Component {
 
     return (
       <TabView
+        labelStyle={{fontSize: Dimensions.get('window')< 400 ? 14 : 18}}
         navigationState={this.state}
         renderScene={SceneMap({
           first:  FirstRoute,

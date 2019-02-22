@@ -31,12 +31,17 @@ export default class NavBar extends React.Component {
 
       <TouchableHighlight underlayColor="white"
         onPress={() => navigate('Home', this.props.attributes)}>
-          <Image source={require('../assets/NavBarIcons/Green/greenhome.png')} style={{height: 40, marginLeft: Dimensions.get('window').width*0.11, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/Green/greenhome.png')} style={{height: Dimensions.get('window').width < 400 ? 33 : 40, marginLeft: Dimensions.get('window').width*0.08, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 33 : 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
       onPress={() => this.props.openOverlay() }>
-          <Image source={require('../assets/NavBarIcons/Green/greenworld.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/Green/users.png')} style={{height: Dimensions.get('window').width < 400 ? 33 : 40, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 33 : 40, marginBottom: 20}}/>
+      </TouchableHighlight>
+
+      <TouchableHighlight underlayColor="white"
+      onPress={() => this.props.openOverlay() }>
+          <Image source={require('../assets/NavBarIcons/Green/greenworld.png')} style={{height: Dimensions.get('window').width < 400 ? 33 : 40, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 33 : 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
@@ -50,7 +55,7 @@ export default class NavBar extends React.Component {
         bio: this.props.navigation.getParam('bio', 'NO-ID'),
         location: this.props.navigation.getParam('location', 'NO-ID'),
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
-          <Image source={require('../assets/NavBarIcons/Green/lightstar.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/Green/lightstar.png')} style={{height: Dimensions.get('window').width < 400 ? 33 : 40, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 33 : 40, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
@@ -64,7 +69,7 @@ export default class NavBar extends React.Component {
           bio: this.props.navigation.getParam('bio', 'NO-ID'),
           location: this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
-          <Image source={require('../assets/NavBarIcons/Green/lightsettings.png')} style={{height: 40, marginRight: Dimensions.get('window').width*0.11, width: 40, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/Green/lightsettings.png')} style={{height: Dimensions.get('window').width < 400 ? 33 : 40, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 33 : 40, marginBottom: 20}}/>
       </TouchableHighlight>
     </View>
     );

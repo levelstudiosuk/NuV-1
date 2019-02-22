@@ -283,7 +283,7 @@ render() {
       <Fragment>
 
       <TextInput
-        style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+        style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.8, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
         onChangeText={(place) => {this.changeSearchText(place)}}
         value={this.state.place} placeholder='Enter a place (GB/Ireland)' placeholderTextColor='black'
         underlineColorAndroid='transparent' maxLength={500} multiline={true}

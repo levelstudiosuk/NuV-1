@@ -208,7 +208,7 @@ export default class Home extends React.Component {
         settings: true,
         avatar: navigation.getParam('avatar', 'NO-ID'),
         token: navigation.getParam('token', 'NO-ID'),
-        id: navigation.getParam('id', 'NO-ID'),
+        profile_id: navigation.getParam('id', 'NO-ID'),
         name: navigation.getParam('name', 'NO-ID'),
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
@@ -724,6 +724,6 @@ const homeStyle = StyleSheet.create({
     marginTop:        Dimensions.get('window').height*0.005,
     alignItems:       'center',
     backgroundColor:  'white',
-    height:           Dimensions.get('window').height*0.03
+    height:           Dimensions.get('window').height*0.05
   }
 });

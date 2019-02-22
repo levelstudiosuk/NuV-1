@@ -255,7 +255,7 @@ render() {
 
           <VenueView
             fromMap={true}
-            venue={this.state.clickedVenue}   id={this.props.navigation.getParam('id', 'NO-ID')}  token={this.props.navigation.getParam('token', 'NO-ID')}  navigation={this.props.navigation}
+            venue={this.state.clickedVenue}   profile_id={this.props.navigation.getParam('profile_id', 'NO-ID')}  token={this.props.navigation.getParam('token', 'NO-ID')}  navigation={this.props.navigation}
           />
 
         ) : null
