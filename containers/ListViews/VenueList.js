@@ -45,8 +45,7 @@ export default class VenueList extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
-     var venueItems = self.props.navigation.getParam('user', 'NO-ID') === true ?
-     ReverseArray.reverseArray(responseItems) : ReverseArray.reverseArray(responseItems).
+     var venueItems = responseItems.
      filter(venueItem => venueItem.longitude && venueItem.latitude &&
        self.approxDistanceBetweenTwoPoints(
        venueItem.latitude,

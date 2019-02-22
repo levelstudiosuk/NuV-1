@@ -64,7 +64,7 @@ export default class Map extends React.Component {
      console.log("Location: ", region);
 
 
-     var venueItems = ReverseArray.reverseArray(responseItems)
+     var venueItems = responseItems
      .filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(
        venueItem.latitude,
        venueItem.longitude,

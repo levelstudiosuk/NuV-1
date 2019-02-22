@@ -34,7 +34,7 @@ import {
        Linking,
        TouchableOpacity}  from 'react-native';
 import axios from 'axios';
-
+import LikersOverlay from '../../components/LikersOverlay.js';
 
 export default class VenueView extends React.Component {
   static navigationOptions = {
@@ -49,10 +49,13 @@ constructor(props) {
     this.onStarRatingPress = this.onStarRatingPress.bind(this);
     this.addVenueToFavourites = this.addVenueToFavourites.bind(this);
     this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
+    this.openLikersOverlay = this.openLikersOverlay.bind(this);
+    this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
     }
     state = {
     starRating: 3,
-    starCount: 2
+    starCount: 2,
+    likersOverlayVisible: false
     };
 
 
@@ -60,7 +63,6 @@ constructor(props) {
 
       if (this.props.fromMap === true){
         var id = this.props.venue;
-        console.log("ID", id);
         var token = this.props.token;
       }
       else {
@@ -81,7 +83,8 @@ constructor(props) {
      self.setState({
        venueItem: venueItem,
        likedItem: venueItem.user_liked,
-       likes: venueItem.likes
+       likes: venueItem.likes,
+       likers: venueItem.likers
      },
      function(){
        console.log("Venue item", self.state.venueItem);
@@ -91,6 +94,18 @@ constructor(props) {
      console.log("Error: ", error);
    })
 
+    }
+
+    openLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: true
+      })
+    }
+
+    closeLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: false
+      })
     }
 
 onStarRatingPress(rating) {
@@ -211,10 +226,17 @@ checkFavouriteStatus(viewedVenue) {
       .then(function(response){
 
         var likes = self.state.venueItem.likes += 1;
+        var currentUser = [{
+                    name: navigation.getParam('name', 'NO-ID'),
+                    thumbnail: navigation.getParam('avatar', 'NO-ID'),
+                    profile_id: navigation.getParam('id', 'NO-ID')
+                  }]
+        var likers = self.state.likers.concat(currentUser)
 
         self.setState({
           likedItem: true,
-          likes: likes
+          likes: likes,
+          likers: likers
         }, function(){
           Alert.alert(
                  `You now like '${this.state.venueItem.title}'!`
@@ -253,10 +275,12 @@ checkFavouriteStatus(viewedVenue) {
       .then(function(response){
 
         var likes = self.state.venueItem.likes -= 1;
+        var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
 
         self.setState({
           likes: likes,
-          likedItem: false
+          likedItem: false,
+          likers: likers
         }, function(){
           Alert.alert(
                  `You no longer like '${this.state.venueItem.title}'!`
@@ -396,7 +420,7 @@ render() {
           {this.state.venueItem.title} / {this.state.venueItem.postcode} / {this.state.venueItem.url}
       </Text>
 
-      <Text style={venueViewStyle.venueLikes}>
+      <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={venueViewStyle.venueLikes}>
         Liked by {this.state.likes} NüV user(s) ℹ︎
       </Text>
 
@@ -463,7 +487,7 @@ render() {
     <StarRating
       disabled={false}
       maxStars={5}
-      rating={this.state.venueItem.rating}
+      rating={parseInt(this.state.venueItem.rating)}
       fullStarColor={'#a2e444'}
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
@@ -489,6 +513,13 @@ render() {
       buttonTitle="Rate & Home"
       onPress={() => this.postRating()}/>
     </View>
+
+    <LikersOverlay
+          likers={this.state.likers}
+          overlayVisible={this.state.likersOverlayVisible}
+          closeOverlay={this.closeLikersOverlay}
+          currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+    />
   </ScrollView>
 
 ) : <LoadingCelery />
