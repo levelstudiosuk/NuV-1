@@ -482,6 +482,7 @@ render() {
               overlayVisible={this.state.likersOverlayVisible}
               closeOverlay={this.closeLikersOverlay}
               currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+              navigation={this.props.navigation}
         />
 
     </ScrollView>
