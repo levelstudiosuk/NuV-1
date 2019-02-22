@@ -343,7 +343,7 @@ export default class MediaView extends React.Component {
           {
             this.state.mediaItem.id ? (
             <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={mediaViewStyle.medianame}>
-               Liked by {this.state.likes} NüV user(s){"\n"}
+               Liked by {this.state.likes} NüV user(s) ℹ︎{"\n"}
             </Text>
             ) : null
           }
@@ -406,12 +406,16 @@ export default class MediaView extends React.Component {
            onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
 
+      {  this.state.mediaItem.id ? (
+
         <LikersOverlay
               likers={this.state.likers}
               overlayVisible={this.state.likersOverlayVisible}
               closeOverlay={this.closeLikersOverlay}
               currentUser={this.props.navigation.getParam('id', 'NO-ID')}
         />
+
+      ) : null }
 
         </ScrollView>
       ) : <LoadingCelery /> }
