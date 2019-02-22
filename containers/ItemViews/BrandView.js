@@ -19,6 +19,7 @@ import    AddItemButton from '../../components/AddItemButton.js';
 import    LoadingCelery from '../../components/LoadingCelery.js';
 import    FaveButton from '../../components/FaveButton.js';
 import    LikeButton from '../../components/LikeButton.js';
+import    LikersOverlay from '../../components/LikersOverlay.js';
 import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
 import axios from 'axios';
@@ -36,11 +37,14 @@ export default class BrandView extends React.Component {
 
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
       this.addBrandToFavourites = this.addBrandToFavourites.bind(this);
+      this.openLikersOverlay = this.openLikersOverlay.bind(this);
+      this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
       }
 
       state = {
           starRating: parseInt(this.props.navigation.getParam('rating', 'NO-ID')),
-          starCount: 2
+          starCount: 2,
+          likersOverlayVisible: false
         };
 
       onStarRatingPress(rating) {
@@ -65,7 +69,8 @@ export default class BrandView extends React.Component {
        self.setState({
          brandItem: brandItem,
          likedItem: brandItem.user_liked,
-         likes: brandItem.likes
+         likes: brandItem.likes,
+         likers: brandItem.likers
        },
        function(){
          console.log("Brand item", self.state.brandItem);
@@ -74,6 +79,18 @@ export default class BrandView extends React.Component {
      }).catch(function(error){
        console.log("Error: ", error);
      })
+      }
+
+      openLikersOverlay(){
+        this.setState({
+          likersOverlayVisible: true
+        })
+      }
+
+      closeLikersOverlay(){
+        this.setState({
+          likersOverlayVisible: false
+        })
       }
 
       postRating(){
@@ -192,14 +209,23 @@ export default class BrandView extends React.Component {
     .then(function(response){
 
       var likes = self.state.likes += 1
+      var currentUser = [{
+                  name: navigation.getParam('name', 'NO-ID'),
+                  thumbnail: navigation.getParam('avatar', 'NO-ID'),
+                  profile_id: navigation.getParam('id', 'NO-ID')
+                }]
+      var likers = self.state.likers.concat(currentUser)
+      console.log("Likers", likers);
 
       self.setState({
         likedItem: true,
-        likes: likes
+        likes: likes,
+        likers: likers
       }, function(){
         Alert.alert(
                `You now like '${this.state.brandItem.title}'!`
             )
+            console.log("Likers state", self.state.likers);
 
        console.log("Response from like post: ", response);
       })
@@ -234,10 +260,12 @@ export default class BrandView extends React.Component {
     .then(function(response){
 
       var likes = self.state.likes -= 1
+      var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
 
       self.setState({
         likedItem: false,
-        likes: likes
+        likes: likes,
+        likers: likers
       }, function(){
         Alert.alert(
                `You no longer like '${this.state.brandItem.title}'!`
@@ -357,8 +385,8 @@ render() {
         </Text>
 
         <View style={{alignItems: 'center'}}>
-          <Text style={brandViewStyle.brandreviewtitle}>
-            Liked by {this.state.likes} NüV user(s)
+          <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={brandViewStyle.brandreviewtitle}>
+            Liked by {this.state.likes} NüV user(s) ℹ︎
           </Text>
         </View>
 
@@ -449,6 +477,14 @@ render() {
            buttonTitle="Rate & Home"
            onPress={ () => this.postRating() }/>
         </View>
+
+        <LikersOverlay
+              likers={this.state.likers}
+              overlayVisible={this.state.likersOverlayVisible}
+              closeOverlay={this.closeLikersOverlay}
+              currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+        />
+
     </ScrollView>
 
   ) : <LoadingCelery />
