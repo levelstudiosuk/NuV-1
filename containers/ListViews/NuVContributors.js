@@ -110,7 +110,7 @@ export default class NuVContributors extends React.Component {
               bio: navigation.getParam('bio', 'NO-ID'),
               location: navigation.getParam('location', 'NO-ID'),
               user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'), id: item.profile.id})}>
-              {item.profile.name}
+              {item.profile.name === this.props.navigation.getParam('name', 'NO-ID') ? "You" : item.profile.name}
               </Text>
           </View>
           <View key={i+7} style={venueListStyle.venuetextcontainer}>
@@ -163,7 +163,7 @@ export default class NuVContributors extends React.Component {
 
           <View style={{height: 35, alignItems: 'center'}}>
           <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-              Our top contributors
+              Meet our community
           </Text>
           </View>
 

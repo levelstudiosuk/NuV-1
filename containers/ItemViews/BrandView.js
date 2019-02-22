@@ -385,7 +385,7 @@ render() {
 
         <View style={{alignItems: 'center'}}>
           <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={brandViewStyle.brandreviewtitle}>
-            Liked by {this.state.likes} NüV user(s) ℹ︎
+          Liked by {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} ℹ︎
           </Text>
         </View>
 

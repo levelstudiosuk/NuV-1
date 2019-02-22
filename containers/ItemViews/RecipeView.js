@@ -378,7 +378,7 @@ render() {
                   {this.state.recipeItem.title}
               </Text>
               <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={recipeViewStyle.recipeLikes}>
-                Liked by {this.state.likes} NüV user(s) ℹ︎
+              Liked by {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} ℹ︎
               </Text>
             <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>

@@ -343,7 +343,7 @@ export default class MediaView extends React.Component {
           {
             this.state.mediaItem.id ? (
             <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={mediaViewStyle.medianame}>
-               Liked by {this.state.likes} NüV user(s) ℹ︎{"\n"}
+            Liked by {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} ℹ︎ {"\n"}
             </Text>
             ) : null
           }
