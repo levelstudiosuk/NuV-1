@@ -18,6 +18,7 @@ import    StarRating from 'react-native-star-rating';
 import    AddItemButton from '../../components/AddItemButton.js';
 import    LoadingCelery from '../../components/LoadingCelery.js';
 import    FaveButton from '../../components/FaveButton.js';
+import    LikeButton from '../../components/LikeButton.js';
 import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
 import axios from 'axios';
@@ -62,7 +63,8 @@ export default class BrandView extends React.Component {
        var brandItem = JSON.parse(response.request['_response'])
 
        self.setState({
-         brandItem: brandItem
+         brandItem: brandItem,
+         likedItem: brandItem.already_liked
        },
        function(){
          console.log("Brand item", self.state.brandItem);
@@ -172,30 +174,83 @@ export default class BrandView extends React.Component {
         console.log(error);
     }
     }
-
-  postLike(navigation){
-    const {navigate} = navigation
-
-      var token = navigation.getParam('token', 'NO-ID');
-      var id = this.state.brandItem.id
+    postLike(navigation){
       var self = this;
 
-    axios.post(`http://nuv-api.herokuapp.com/brands/${id}/like`, {"data": ""},
+      if (self.state.brandItem.user_id){
+      const {navigate} = navigation
 
- { headers: { Authorization: `${token}` }})
+        var token = navigation.getParam('token', 'NO-ID');
+        var id = this.state.brandItem.id
+        var self = this;
 
- .then(function(response){
+      axios.post(`http://nuv-api.herokuapp.com/brands/${id}/like`,  {"data": ""},
 
-   console.log("Response from like post: ", response);
+    { headers: { Authorization: `${token}` }})
 
-   self.addBrandToFavourites()
+    .then(function(response){
 
-   }
- )
- .catch(function(error){
-   console.log("Error: ", error);
- })
-  }
+      self.setState({
+        likedItem: true
+      }, function(){
+        Alert.alert(
+               `You now like '${this.state.brandItem.title}'!`
+            )
+
+       console.log("Response from like post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+    else {
+    Alert.alert(
+           `This is not NüV proprietary content! You cannot like it.`
+        )
+    console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+    }
+    }
+
+    deleteLike(navigation){
+      var self = this;
+
+      if (self.state.brandItem.user_id){
+      const {navigate} = navigation
+
+        var token = navigation.getParam('token', 'NO-ID');
+        var id = this.state.brandItem.id
+        var self = this;
+
+      axios.delete(`http://nuv-api.herokuapp.com/brands/${id}/remove_like`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      self.setState({
+        likedItem: false
+      }, function(){
+        Alert.alert(
+               `You no longer like '${this.state.brandItem.title}'!`
+            )
+
+       console.log("Response from like post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+    else {
+    Alert.alert(
+           `This is not NüV proprietary content! You cannot like it.`
+        )
+    console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+    }
+    }
 
   addBrandToFavourites = async() => {
 
@@ -266,6 +321,19 @@ render() {
               <FaveButton
                 navigation={this.props.navigation}
                 handleButtonClick={() => this.postLike(this.props.navigation)}/>
+                { this.state.brandItem.id ? (
+
+                <LikeButton
+                navigation={this.props.navigation}
+                itemAlreadyLiked={this.state.brandItem.id
+                && this.state.likedItem === true ? true : false}
+                handleButtonClick={() => this.state.brandItem.already_liked === true
+                || this.state.likedItem === true ?
+                this.deleteLike(this.props.navigation)
+                : this.postLike(this.props.navigation)}
+                />
+
+              ) : null }
               <AddItemButton
                 navigation={this.props.navigation}
                 onPress={() => navigate('BrandForm', {
