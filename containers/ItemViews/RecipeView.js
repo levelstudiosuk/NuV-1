@@ -66,7 +66,8 @@ export default class RecipeView extends React.Component {
 
      self.setState({
        recipeItem: recipeItem,
-       likedItem: recipeItem.user_liked
+       likedItem: recipeItem.user_liked,
+       likes: recipeItem.likes
      },
      function(){
        console.log("Recipe item", self.state.recipeItem);
@@ -232,8 +233,11 @@ export default class RecipeView extends React.Component {
 
         .then(function(response){
 
+          var likes = self.state.recipeItem.likes += 1;
+
           self.setState({
-            likedItem: true
+            likedItem: true,
+            likes: likes
           }, function(){
             Alert.alert(
                    `You now like '${this.state.recipeItem.title}'!`
@@ -271,8 +275,11 @@ export default class RecipeView extends React.Component {
 
         .then(function(response){
 
+          var likes = self.state.recipeItem.likes -= 1;
+
           self.setState({
-            likedItem: false
+            likedItem: false,
+            likes: likes
           }, function(){
             Alert.alert(
                    `You no longer like '${this.state.recipeItem.title}'!`
@@ -343,6 +350,9 @@ render() {
             </View>
               <Text style={recipeViewStyle.recipename}>
                   {this.state.recipeItem.title}
+              </Text>
+              <Text style={recipeViewStyle.recipeLikes}>
+                Liked by {this.state.likes} NüV user(s)
               </Text>
             <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>
@@ -476,6 +486,13 @@ const recipeViewStyle = StyleSheet.create({
     marginLeft:       Dimensions.get('window').width*0.02,
     marginRight:      Dimensions.get('window').width*0.02,
     textAlign: 'center'
+  },
+  recipeLikes: {
+    color:            '#a2e444',
+    fontSize:         Dimensions.get('window').width > 750 ? 22 : 18,
+    fontWeight:       'bold',
+    marginTop:        20,
+    marginBottom:     20,
   },
   recipetype: {
     color:            '#a2e444',
