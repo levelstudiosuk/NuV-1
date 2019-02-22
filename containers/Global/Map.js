@@ -52,6 +52,8 @@ export default class Map extends React.Component {
 
    .then(function(response){
 
+     console.log("Response for map: ", response);
+
      var responseItems = JSON.parse(response.request['_response']);
 
      // var pointsArray = [{latitude: -3.1811, longitude: 55.9497}].concat(responseItems.filter(venueItem => venueItem.longitude && venueItem.latitude))

@@ -80,7 +80,8 @@ constructor(props) {
 
      self.setState({
        venueItem: venueItem,
-       likedItem: venueItem.user_liked
+       likedItem: venueItem.user_liked,
+       likes: venueItem.likes
      },
      function(){
        console.log("Venue item", self.state.venueItem);
@@ -209,8 +210,11 @@ checkFavouriteStatus(viewedVenue) {
 
       .then(function(response){
 
+        var likes = self.state.venueItem.likes += 1;
+
         self.setState({
-          likedItem: true
+          likedItem: true,
+          likes: likes
         }, function(){
           Alert.alert(
                  `You now like '${this.state.venueItem.title}'!`
@@ -248,7 +252,10 @@ checkFavouriteStatus(viewedVenue) {
 
       .then(function(response){
 
+        var likes = self.state.venueItem.likes -= 1;
+
         self.setState({
+          likes: likes,
           likedItem: false
         }, function(){
           Alert.alert(
@@ -279,7 +286,6 @@ checkFavouriteStatus(viewedVenue) {
       postRating(){
 
         const {navigate} = this.props.navigation;
-
 
         this.setState({
           ratingPending: true
@@ -388,6 +394,10 @@ render() {
 
       <Text style={venueViewStyle.venuename}>
           {this.state.venueItem.title} / {this.state.venueItem.postcode} / {this.state.venueItem.url}
+      </Text>
+
+      <Text style={venueViewStyle.venueLikes}>
+        Liked by {this.state.likes} NüV user(s)
       </Text>
 
       <View style={venueViewStyle.mapcontainer}>
@@ -522,7 +532,14 @@ const venueViewStyle = StyleSheet.create({
   },
   venuename: {
     color:            '#a2e444',
-    fontSize:          20,
+    fontSize:          Dimensions.get('window').width > 750 ? 23 : 20,
+    fontWeight:       'bold',
+    marginTop:        20,
+    marginBottom:     20,
+  },
+  venueLikes: {
+    color:            '#a2e444',
+      fontSize:        Dimensions.get('window').width > 750 ? 20 : 17,
     fontWeight:       'bold',
     marginTop:        20,
     marginBottom:     20,
