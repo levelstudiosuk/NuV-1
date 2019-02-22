@@ -300,7 +300,7 @@ export default class RecipeView extends React.Component {
         .then(function(response){
 
           var likes = self.state.recipeItem.likes -= 1;
-          var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
+          var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('profile_id', 'NO-ID'))
 
           self.setState({
             likedItem: false,

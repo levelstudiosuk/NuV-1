@@ -275,7 +275,7 @@ checkFavouriteStatus(viewedVenue) {
       .then(function(response){
 
         var likes = self.state.venueItem.likes -= 1;
-        var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
+        var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('profile_id', 'NO-ID'))
 
         self.setState({
           likes: likes,

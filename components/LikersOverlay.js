@@ -66,6 +66,8 @@ export default class LikersOverlay extends Component {
 
    var uploaderProfile = JSON.parse(response.request['_response'])
 
+   console.log("Uploader profile details: ", uploaderProfile);
+
    navigate('UserView',
    {notMyProfile: true,
       uploader: uploaderProfile
