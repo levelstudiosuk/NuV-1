@@ -215,7 +215,6 @@ export default class BrandView extends React.Component {
                   profile_id: navigation.getParam('id', 'NO-ID')
                 }]
       var likers = self.state.likers.concat(currentUser)
-      console.log("Likers", likers);
 
       self.setState({
         likedItem: true,

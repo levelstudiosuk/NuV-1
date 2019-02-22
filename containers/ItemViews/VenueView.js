@@ -397,7 +397,7 @@ render() {
       </Text>
 
       <Text style={venueViewStyle.venueLikes}>
-        Liked by {this.state.likes} NüV user(s)
+        Liked by {this.state.likes} NüV user(s) ℹ︎
       </Text>
 
       <View style={venueViewStyle.mapcontainer}>

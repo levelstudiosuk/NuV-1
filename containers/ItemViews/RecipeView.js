@@ -20,6 +20,7 @@ import   FaveButton from '../../components/FaveButton.js';
 import   ShareButton from '../../components/ShareButton.js';
 import   SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
 import   AutoHeightImage from 'react-native-auto-height-image';
+import    LikersOverlay from '../../components/LikersOverlay.js';
 import   Expo, {
          ImagePicker } from 'expo';
 import { Permissions} from 'expo'
@@ -44,10 +45,13 @@ export default class RecipeView extends React.Component {
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
       this.addRecipeToFavourites = this.addRecipeToFavourites.bind(this);
       this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
+      this.openLikersOverlay = this.openLikersOverlay.bind(this);
+      this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
       }
       state = {
       starRating: 3,
-      starCount: 2
+      starCount: 2,
+      likersOverlayVisible: false
     };
 
     componentDidMount(){
@@ -67,7 +71,8 @@ export default class RecipeView extends React.Component {
      self.setState({
        recipeItem: recipeItem,
        likedItem: recipeItem.user_liked,
-       likes: recipeItem.likes
+       likes: recipeItem.likes,
+       likers: recipeItem.likers
      },
      function(){
        console.log("Recipe item", self.state.recipeItem);
@@ -77,6 +82,18 @@ export default class RecipeView extends React.Component {
      console.log("Error: ", error);
    })
 
+    }
+
+    openLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: true
+      })
+    }
+
+    closeLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: false
+      })
     }
 
     postRating(){
@@ -234,10 +251,17 @@ export default class RecipeView extends React.Component {
         .then(function(response){
 
           var likes = self.state.recipeItem.likes += 1;
+          var currentUser = [{
+                      name: navigation.getParam('name', 'NO-ID'),
+                      thumbnail: navigation.getParam('avatar', 'NO-ID'),
+                      profile_id: navigation.getParam('id', 'NO-ID')
+                    }]
+          var likers = self.state.likers.concat(currentUser)
 
           self.setState({
             likedItem: true,
-            likes: likes
+            likes: likes,
+            likers: likers
           }, function(){
             Alert.alert(
                    `You now like '${this.state.recipeItem.title}'!`
@@ -276,10 +300,12 @@ export default class RecipeView extends React.Component {
         .then(function(response){
 
           var likes = self.state.recipeItem.likes -= 1;
+          var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
 
           self.setState({
             likedItem: false,
-            likes: likes
+            likes: likes,
+            likers: likers
           }, function(){
             Alert.alert(
                    `You no longer like '${this.state.recipeItem.title}'!`
@@ -351,8 +377,8 @@ render() {
               <Text style={recipeViewStyle.recipename}>
                   {this.state.recipeItem.title}
               </Text>
-              <Text style={recipeViewStyle.recipeLikes}>
-                Liked by {this.state.likes} NüV user(s)
+              <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={recipeViewStyle.recipeLikes}>
+                Liked by {this.state.likes} NüV user(s) ℹ︎
               </Text>
             <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>
@@ -440,6 +466,13 @@ render() {
             buttonTitle="Rate and go"
             onPress={() => this.postRating()}/>
         </View>
+
+        <LikersOverlay
+              likers={this.state.likers}
+              overlayVisible={this.state.likersOverlayVisible}
+              closeOverlay={this.closeLikersOverlay}
+              currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+        />
       </ScrollView>
 
     ) :
