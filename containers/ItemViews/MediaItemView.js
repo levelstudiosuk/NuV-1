@@ -54,7 +54,8 @@ export default class MediaView extends React.Component {
 
        self.setState({
          mediaItem: mediaItem,
-         likedItem: mediaItem.already_liked
+         likedItem: mediaItem.already_liked,
+         likes: mediaItem.likes
        },
        function(){
          console.log("Media item", self.state.mediaItem);
@@ -205,8 +206,11 @@ export default class MediaView extends React.Component {
 
     .then(function(response){
 
+      var likes = self.state.mediaItem.likes += 1;
+
       self.setState({
-        likedItem: true
+        likedItem: true,
+        likes: likes
       }, function(){
         Alert.alert(
                `You now like '${this.state.mediaItem.title}'!`
@@ -244,8 +248,11 @@ export default class MediaView extends React.Component {
 
     .then(function(response){
 
+      var likes = self.state.mediaItem.likes -= 1;
+
       self.setState({
-        likedItem: false
+        likedItem: false,
+        likes: likes
       }, function(){
         Alert.alert(
                `You no longer like '${this.state.mediaItem.title}'!`
@@ -306,6 +313,14 @@ export default class MediaView extends React.Component {
         <Text style={mediaViewStyle.medianame}>
            {this.state.mediaItem.title}{"\n"}
         </Text>
+
+          {
+            this.state.mediaItem.id ? (
+            <Text style={mediaViewStyle.medianame}>
+               Liked by {this.state.likes} NüV user(s){"\n"}
+            </Text>
+            ) : null
+          }
 
         <Text style={mediaViewStyle.mediareviewtitle}>
         This item was originally published by {this.state.mediaItem.source ? this.state.mediaItem.source : this.state.mediaItem.user}
