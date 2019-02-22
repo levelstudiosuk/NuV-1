@@ -14,6 +14,7 @@ import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scro
 import StarRating from 'react-native-star-rating';
 import { AsyncStorage, Alert } from "react-native"
 import axios from 'axios';
+import LikersOverlay from '../../components/LikersOverlay.js';
 
 export default class MediaView extends React.Component {
   static navigationOptions = {
@@ -30,11 +31,14 @@ export default class MediaView extends React.Component {
       this.addMediaItemToFavourites = this.addMediaItemToFavourites.bind(this);
       this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
       this.postLike = this.postLike.bind(this);
+      this.openLikersOverlay = this.openLikersOverlay.bind(this);
+      this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
       }
 
       state = {
           starRating: 3,
-          starCount: 2
+          starCount: 2,
+          likersOverlayVisible: false
         };
 
     componentDidMount(){
@@ -55,7 +59,8 @@ export default class MediaView extends React.Component {
        self.setState({
          mediaItem: mediaItem,
          likedItem: mediaItem.already_liked,
-         likes: mediaItem.likes
+         likes: mediaItem.likes,
+         likers: mediaItem.likers
        },
        function(){
          console.log("Media item", self.state.mediaItem);
@@ -73,6 +78,18 @@ export default class MediaView extends React.Component {
      })
     }
 
+    }
+
+    openLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: true
+      })
+    }
+
+    closeLikersOverlay(){
+      this.setState({
+        likersOverlayVisible: false
+      })
     }
 
     retrieveUploaderProfile(){
@@ -207,10 +224,17 @@ export default class MediaView extends React.Component {
     .then(function(response){
 
       var likes = self.state.mediaItem.likes += 1;
+      var currentUser = [{
+                  name: navigation.getParam('name', 'NO-ID'),
+                  thumbnail: navigation.getParam('avatar', 'NO-ID'),
+                  profile_id: navigation.getParam('id', 'NO-ID')
+                }]
+      var likers = self.state.likers.concat(currentUser)
 
       self.setState({
         likedItem: true,
-        likes: likes
+        likes: likes,
+        likers: likers
       }, function(){
         Alert.alert(
                `You now like '${this.state.mediaItem.title}'!`
@@ -249,10 +273,12 @@ export default class MediaView extends React.Component {
     .then(function(response){
 
       var likes = self.state.mediaItem.likes -= 1;
+      var likers = self.state.likers.filter(liker => liker.profile_id != navigation.getParam('id', 'NO-ID'))
 
       self.setState({
         likedItem: false,
-        likes: likes
+        likes: likes,
+        likers: likers
       }, function(){
         Alert.alert(
                `You no longer like '${this.state.mediaItem.title}'!`
@@ -316,7 +342,7 @@ export default class MediaView extends React.Component {
 
           {
             this.state.mediaItem.id ? (
-            <Text style={mediaViewStyle.medianame}>
+            <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={mediaViewStyle.medianame}>
                Liked by {this.state.likes} NüV user(s){"\n"}
             </Text>
             ) : null
@@ -379,6 +405,13 @@ export default class MediaView extends React.Component {
            buttonTitle="Home"
            onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
         </View>
+
+        <LikersOverlay
+              likers={this.state.likers}
+              overlayVisible={this.state.likersOverlayVisible}
+              closeOverlay={this.closeLikersOverlay}
+              currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+        />
 
         </ScrollView>
       ) : <LoadingCelery /> }

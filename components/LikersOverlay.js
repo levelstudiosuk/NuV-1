@@ -31,7 +31,14 @@ export default class LikersOverlay extends Component {
       width={Dimensions.get('window').width*0.15}
       style={{ borderRadius: Dimensions.get('window').width*0.025 }}
       source={{uri: liker.thumbnail}}/>
-      <Text key={i+1} style={{fontSize: Dimensions.get('window').width > 750 ? 19 : 16, marginLeft: Dimensions.get('window').width*0.05}}>{liker.profile_id === this.props.currentUser ? 'You' : liker.name}</Text>
+
+      <Text
+      key={i+1}
+      style={{fontSize: Dimensions.get('window').width > 750 ? 19 : 16,
+      marginLeft: Dimensions.get('window').width*0.05}}>
+      {liker.profile_id === this.props.currentUser ? 'You' : liker.name}
+      </Text>
+
       </View>
     )
   }
