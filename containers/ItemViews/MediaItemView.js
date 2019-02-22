@@ -53,7 +53,8 @@ export default class MediaView extends React.Component {
        var mediaItem = JSON.parse(response.request['_response'])
 
        self.setState({
-         mediaItem: mediaItem
+         mediaItem: mediaItem,
+         likedItem: mediaItem.already_liked
        },
        function(){
          console.log("Media item", self.state.mediaItem);
@@ -87,6 +88,7 @@ export default class MediaView extends React.Component {
     .then(function(response){
 
      var uploaderProfile = JSON.parse(response.request['_response'])
+     console.log("Uploader: ", uploaderProfile);
 
      navigate('UserView',
      {notMyProfile: true,
@@ -194,7 +196,7 @@ export default class MediaView extends React.Component {
       const {navigate} = navigation
 
         var token = navigation.getParam('token', 'NO-ID');
-        var id = this.state.mediaItem.item_id
+        var id = this.state.mediaItem.id
         var self = this;
 
       axios.post(`http://nuv-api.herokuapp.com/media/${id}/like`,  {"data": ""},
@@ -207,7 +209,46 @@ export default class MediaView extends React.Component {
         likedItem: true
       }, function(){
         Alert.alert(
-               `You now like ${this.state.mediaItem.title}!`
+               `You now like '${this.state.mediaItem.title}'!`
+            )
+
+       console.log("Response from like post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+  }
+  else {
+    Alert.alert(
+           `This is not NüV proprietary content! You cannot like it.`
+        )
+    console.log("This item is not NüV proprietary content. Therefore we cannot save a like to the back end.");
+  }
+    }
+
+    deleteLike(navigation){
+      var self = this;
+
+      if (self.state.mediaItem.user_id){
+      const {navigate} = navigation
+
+        var token = navigation.getParam('token', 'NO-ID');
+        var id = this.state.mediaItem.id
+        var self = this;
+
+      axios.delete(`http://nuv-api.herokuapp.com/media/${id}/remove_like`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      self.setState({
+        likedItem: false
+      }, function(){
+        Alert.alert(
+               `You no longer like '${this.state.mediaItem.title}'!`
             )
 
        console.log("Response from like post: ", response);
@@ -246,7 +287,19 @@ export default class MediaView extends React.Component {
       </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <FaveButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.already_liked} handleButtonClick={() => this.addMediaItemToFavourites()}/>
-          <LikeButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.id && (this.state.mediaItem.already_liked === true || this.state.likedItem === true) ? true : false} handleButtonClick={() => this.state.mediaItem.already_liked === true || this.state.likedItem === true ? console.log("ITEM ALREADY LIKED") : this.postLike(this.props.navigation)} />
+          { this.state.mediaItem.id ? (
+
+          <LikeButton
+          navigation={this.props.navigation}
+          itemAlreadyLiked={this.state.mediaItem.id
+          && this.state.likedItem === true ? true : false}
+          handleButtonClick={() => this.state.mediaItem.already_liked === true
+          || this.state.likedItem === true ?
+          this.deleteLike(this.props.navigation)
+          : this.postLike(this.props.navigation)}
+          />
+
+        ) : null }
           <AddItemButton navigation={this.props.navigation}
           onPress={() => navigate('MediaForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         </View>
@@ -314,7 +367,7 @@ export default class MediaView extends React.Component {
         </View>
 
         </ScrollView>
-      ) : null }
+      ) : <LoadingCelery /> }
 
         </View>
       );
