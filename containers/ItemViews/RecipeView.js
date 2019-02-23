@@ -378,7 +378,7 @@ render() {
                   {this.state.recipeItem.title}
               </Text>
               <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={recipeViewStyle.recipeLikes}>
-              Liked by {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} ℹ︎
+              {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} {this.state.likes === 1 ? "likes" : "like"} this ℹ︎
               </Text>
             <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
         </View>
@@ -471,7 +471,7 @@ render() {
               likers={this.state.likers}
               overlayVisible={this.state.likersOverlayVisible}
               closeOverlay={this.closeLikersOverlay}
-              currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+              currentUser={this.props.navigation.getParam('profile_id', 'NO-ID')}
               navigation={this.props.navigation}
         />
       </ScrollView>

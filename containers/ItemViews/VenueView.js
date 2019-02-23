@@ -421,7 +421,7 @@ render() {
       </Text>
 
       <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={venueViewStyle.venueLikes}>
-        Liked by {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} ℹ︎
+        {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} {this.state.likes === 1 ? "likes" : "like"} this ℹ︎
       </Text>
 
       <View style={venueViewStyle.mapcontainer}>
@@ -518,7 +518,7 @@ render() {
           likers={this.state.likers}
           overlayVisible={this.state.likersOverlayVisible}
           closeOverlay={this.closeLikersOverlay}
-          currentUser={this.props.navigation.getParam('id', 'NO-ID')}
+          currentUser={this.props.navigation.getParam('profile_id', 'NO-ID')}
           navigation={this.props.navigation}
     />
   </ScrollView>
