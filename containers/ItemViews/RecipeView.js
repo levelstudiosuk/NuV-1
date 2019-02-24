@@ -396,8 +396,8 @@ render() {
             marginLeft={Dimensions.get('window').width*0.07}
             title="Shared from NüV"
             message="Message to share"
-            url="www.level-apps.co.uk"
-            subject="Hi, a NüV user though you would like to see this..."
+            url={this.state.recipeItem.description}
+            subject={`Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like to see this... A killer NüV recipe post by ${this.state.recipeItem.user}`}
              />
         </View>
 
