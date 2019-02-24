@@ -92,7 +92,7 @@ export default class NuVContributors extends React.Component {
         <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
       </TouchableHighlight>
       </View>
-          <View key={i+3} style={[venueListStyle.venuetextcontainer], {position: 'relative', left: -Dimensions.get('window').width*0.085}}>
+          <View key={i+3} style={venueListStyle.venuetextcontainer}>
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
@@ -239,6 +239,7 @@ const venueListStyle = StyleSheet.create({
   venueitem: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingBottom: 20,
   },
   venuetextcontainer: {
