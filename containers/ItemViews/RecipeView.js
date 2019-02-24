@@ -8,6 +8,7 @@ import { StyleSheet,
          Dimensions,
          Button,
          Text,
+         Linking,
          View,
          TouchableOpacity } from 'react-native';
 import { Constants } from 'expo'
@@ -384,6 +385,7 @@ render() {
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+
           <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
             <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
           </TouchableHighlight>
@@ -401,7 +403,8 @@ render() {
 
         <View style={{alignItems: 'center'}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
-            <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Prep: {this.state.recipeItem.prep_time}    <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Cook: {this.state.recipeItem.cooking_time} </Text>
+            <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Prep + Cook: {this.state.recipeItem.cooking_time} minutes
+          </Text>
         </View>
 
         <View style={{alignItems: 'center'}}>
@@ -426,8 +429,8 @@ render() {
             <Text style={recipeViewStyle.recipemethod}>
             Method:{"\n"}
             </Text>
-            <Text style={recipeViewStyle.recipemethodbody}>
-            {this.state.recipeItem.category}
+            <Text onPress={() => Linking.openURL(this.state.recipeItem.description)} style={recipeViewStyle.recipemethodbody}>
+            {this.state.recipeItem.description}
             </Text>
           </View>
         </View>

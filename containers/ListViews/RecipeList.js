@@ -107,7 +107,7 @@ export default class RecipeList extends React.Component {
 
    populateRecipes(){
      var self = this;
-     axios.get('https://api.edamam.com/search?q=breakfast&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=500&health=vegan')
+     axios.get('https://api.edamam.com/search?q=dinner&app_id=ed97753a&app_key=ee493f15666062a6a2e53559f9b3309f&from=0&to=500&health=vegetarian')
 
   .then(function(response){
 
@@ -129,13 +129,14 @@ export default class RecipeList extends React.Component {
       var token = self.props.navigation.getParam('token', 'NO-ID');
       for (recipe of recipesArray) {
 
-      if (recipe.healthLabels.includes("Vegan")){
+      if (!recipe.healthLabels.includes("Vegan")){
 
       const formData = new FormData();
       formData.append('recipe[title]', recipe.name.includes("Dinner Tonight:") ? recipe.name.replace('Dinner Tonight: ', "") : recipe.name);
       formData.append('recipe[method]', recipe.image);
-      formData.append('recipe[content_is_vegan]', true);
-      formData.append('recipe[category]', "Breakfast");
+      formData.append('recipe[description]', recipe.url)
+      formData.append('recipe[content_is_vegan]', false);
+      formData.append('recipe[category]', "Dinner");
 
       var ingredients = ""
       for (var i = 0; i < recipe.ingredients.length; i++){
@@ -421,15 +422,7 @@ export default class RecipeList extends React.Component {
             marginTop: Dimensions.get('window').height*0.01,
             fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05}
-              />  Prep: N/A
-          </Text>
-
-          <Text style={{
-            marginTop: Dimensions.get('window').height*0.01,
-            fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
-            textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Cook: {this.state.activeItem.item.cooking_time} mins
+              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Prep + Cook: {this.state.activeItem.item.cooking_time} mins
           </Text>
 
            </View>
