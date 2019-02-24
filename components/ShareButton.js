@@ -17,7 +17,7 @@ const shareOptions = {
 
 export default class ShareExample extends React.Component {
 
-  onSharePress = () => Share.share(shareOptions);
+  onSharePress = () => Share.share(this.props.shareOptions);
 
   render(){
     return(

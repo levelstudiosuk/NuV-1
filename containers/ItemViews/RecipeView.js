@@ -394,10 +394,12 @@ render() {
               </Text>
             <ShareButton
             marginLeft={Dimensions.get('window').width*0.07}
-            title="Shared from NüV"
-            message="Message to share"
-            url={this.state.recipeItem.description}
-            subject={`Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like to see this... A killer NüV recipe post by ${this.state.recipeItem.user}`}
+            shareOptions={{
+            title: "Shared from NüV",
+            message: "Message to share",
+            url: this.state.recipeItem.description,
+            subject: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.recipeItem.title} uploaded by ${this.state.recipeItem.user}. Download NüV now to see more killer posts just like this!`
+          }}
              />
         </View>
 
