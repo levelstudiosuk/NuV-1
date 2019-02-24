@@ -88,7 +88,7 @@ export default class NuVContributors extends React.Component {
         <View key={i+10} style={venueListStyle.venuetextcontainer}>
       <TouchableHighlight underlayColor={'white'}
         key={i+1}
-        onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
+        onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item)})}>
         <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
       </TouchableHighlight>
       </View>
@@ -96,7 +96,7 @@ export default class NuVContributors extends React.Component {
               <Text
               key={i+5}
               style={venueListStyle.venuetitle}
-              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
+              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item)})}>
               {item.profile.name === this.props.navigation.getParam('name', 'NO-ID') ? "You" : item.profile.name}
               </Text>
           </View>
@@ -104,7 +104,7 @@ export default class NuVContributors extends React.Component {
               <Text
               key={i+8}
               style={venueListStyle.contributionCount}
-              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item.profile.id)})}>
+              onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item)})}>
               {item.total_contributions} {item.total_contributions === 1 ? 'contribution' : 'contributions'}
               </Text>
           </View>
@@ -112,12 +112,12 @@ export default class NuVContributors extends React.Component {
       )
     }
 
-    retrieveUploaderProfile(id){
+    retrieveUploaderProfile(contributor){
 
       const {navigate} = this.props.navigation;
       var navigation = this.props.navigation;
 
-      var id = id;
+      var id = contributor.profile.id;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var self = this;
 
@@ -133,7 +133,12 @@ export default class NuVContributors extends React.Component {
        function(){
      navigate('UserView',
      {notMyProfile: true,
-        uploader: uploaderProfile
+        uploader: uploaderProfile,
+        fromContributorsPage: true,
+        brands: !contributor.brands_cont_count ? 0 : contributor.brands_cont_count,
+        media: !contributor.media_cont_count ? 0 : contributor.media_cont_count,
+        venues: !contributor.venues_cont_count ? 0 : contributor.venues_cont_count,
+        recipes: !contributor.recipes.cont_count ? 0 : contributor.recipes.cont_count
       })
     }
     )
