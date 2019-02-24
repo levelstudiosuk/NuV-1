@@ -3,6 +3,7 @@ import    React, {
           Fragment } from 'react'
 import {  StyleSheet,
           Platform,
+          Alert,
           TouchableHighlight,
           ScrollView,
           Dimensions,
@@ -307,7 +308,9 @@ export default class UserView extends React.Component {
 
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.12}
-        onPress={() => navigate('RecipeList', {
+        onPress={() => this.props.navigation.getParam('recipes', 'NO-ID') === 0 ? Alert.alert(
+               `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any recipes yet`
+            ) : navigate('RecipeList', {
           user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
             user: true,
             viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -323,7 +326,9 @@ export default class UserView extends React.Component {
         />
       <GlobalButton
         marginRight={Dimensions.get('window').width*0.12}
-        onPress={() => navigate('VenueList', {
+        onPress={() => this.props.navigation.getParam('venues', 'NO-ID') === 0 ? Alert.alert(
+               `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any venues yet`
+            ) : navigate('VenueList', {
           user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
           user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
           viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -342,7 +347,9 @@ export default class UserView extends React.Component {
 
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.12}
-      onPress={() => navigate('BrandList', {
+      onPress={() => this.props.navigation.getParam('brands', 'NO-ID') === 0 ? Alert.alert(
+             `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any brands yet`
+          ) : navigate('BrandList', {
         user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
         viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -358,7 +365,9 @@ export default class UserView extends React.Component {
     />
     <GlobalButton
       marginRight={Dimensions.get('window').width*0.12}
-      onPress={() => navigate('MediaList', {
+      onPress={() => this.props.navigation.getParam('media', 'NO-ID') === 0 ? Alert.alert(
+             `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any media items yet`
+          ) : navigate('MediaList', {
         user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
         viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,

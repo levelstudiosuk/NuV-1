@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
@@ -138,7 +138,7 @@ export default class NuVContributors extends React.Component {
         brands: !contributor.brands_cont_count ? 0 : contributor.brands_cont_count,
         media: !contributor.media_cont_count ? 0 : contributor.media_cont_count,
         venues: !contributor.venues_cont_count ? 0 : contributor.venues_cont_count,
-        recipes: !contributor.recipes.cont_count ? 0 : contributor.recipes.cont_count
+        recipes: !contributor.recipes_cont_count ? 0 : contributor.recipes_cont_count
       })
     }
     )
