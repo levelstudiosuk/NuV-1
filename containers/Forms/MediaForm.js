@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
@@ -95,7 +95,45 @@ export default class MediaForm extends React.Component {
      }
    };
 
+   fieldCompletionCheck(){
+     if (this.state.name === "" || this.state.name.length < 1 || !this.state.name.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter the name of the media item"
+           )
+           return;
+     }
+     if (this.state.description === "" || this.state.description.length < 1 || !this.state.description.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter a proper description of the media item"
+           )
+           return;
+     }
+     if (this.state.url === "" || this.validateUrl(this.state.url) != true){
+       Alert.alert(
+             "Please enter a valid url"
+           )
+         return;
+     }
+   else {
+     return "Complete"
+   }
+   }
+
+   validateUrl(url) {
+    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
+
    postData(){
+
+     if (this.fieldCompletionCheck() != "Complete"){
+       return;
+     }
+
+     else {
 
     this.setState({ spinner: true }, function(){
 
@@ -145,6 +183,8 @@ export default class MediaForm extends React.Component {
    })
 
  })
+
+}
 
    }
 
@@ -199,7 +239,7 @@ export default class MediaForm extends React.Component {
           <TextInput
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(words) => {this.changeWordsText(words)}}
-            value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
+            value={this.state.words} placeholder='Key words (comma-separated - optional)' placeholderTextColor='black'
             underlineColorAndroid='transparent' maxLength={500} multiline={true}
           />
 
@@ -211,7 +251,7 @@ export default class MediaForm extends React.Component {
           />
 
           <GlobalButton
-             buttonTitle="Item image"
+             buttonTitle="Image (optional)"
              onPress={() => this.pickImage()}/>
 
         {image &&
