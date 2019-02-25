@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
@@ -8,6 +8,7 @@ import Expo, { ImagePicker } from 'expo';
 import { Dropdown } from 'react-native-material-dropdown';
 import {Permissions} from 'expo'
 import axios from 'axios';
+import StarRating from 'react-native-star-rating';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
@@ -33,6 +34,7 @@ export default class RecipeForm extends React.Component {
   this.changeMethodText = this.changeMethodText.bind(this);
   this.returnVToggleSelection = this.returnVToggleSelection.bind(this);
   this.postData = this.postData.bind(this);
+  this.onStarRatingPress = this.onStarRatingPress.bind(this);
 
 }
 
@@ -49,9 +51,16 @@ export default class RecipeForm extends React.Component {
       cook: "",
       words: "",
       vegan: true,
-      spinner: false
+      spinner: false,
+      starCount: 3
 
     };
+
+    onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating
+    });
+  }
 
     changeNameText(name){
       this.setState({
@@ -167,7 +176,67 @@ export default class RecipeForm extends React.Component {
    this.setState({ cook: newText});
   }
 
+  fieldCompletionCheck(){
+    if (this.state.name === "" || this.state.name.length < 1 || !this.state.name.match(/[a-z]/i)){
+      Alert.alert(
+            "Please enter the name of your recipe"
+          )
+          return;
+    }
+    if (this.state.description === "" || this.state.description.length < 1 || !this.state.description.match(/[a-z]/i)){
+      Alert.alert(
+            "Please enter a brief description for your recipe"
+          )
+          return;
+    }
+    if (this.state.words === ""){
+      Alert.alert(
+            "Please enter a valid ingredients list"
+          )
+        return;
+    }
+    if (this.state.type === ""){
+      Alert.alert(
+            "Please pick the category the recipe falls into"
+          )
+          return;
+    }
+    if (this.state.prep === ""){
+      Alert.alert(
+            "Please enter an approximate preparation time in minutes"
+          )
+          return;
+    }
+    if (this.state.cook === ""){
+      Alert.alert(
+            "Please enter an approximate cooking time in minutes"
+          )
+          return;
+    }
+    if (this.state.method === "" || this.state.method.length < 1 || !this.state.method.match(/[a-z]/i)){
+      Alert.alert(
+            "Please enter a cooking method for your recipe"
+          )
+          return;
+    }
+    if (!this.state.image){
+      Alert.alert(
+            "You have not uploaded a recipe picture. Add one to proceed"
+          )
+        return;
+    }
+  else {
+    return "Complete"
+  }
+  }
+
   postData(){
+
+    if (this.fieldCompletionCheck() != "Complete"){
+      return;
+    }
+
+    else {
 
     this.setState( {
       spinner: true
@@ -251,10 +320,12 @@ export default class RecipeForm extends React.Component {
 
    .then(function(response){
      console.log("RESP", response);
+     var recipeResponse = JSON.parse(response.request['_response'])
+
      var {navigate} = self.props.navigation;
 
-     self.setState({ spinner: false }, function(){
-       navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+     self.setState({ uploadedRecipeId: recipeResponse.id }, function(){
+       self.postRating();
      })
    })
    .catch(function(error){
@@ -262,8 +333,42 @@ export default class RecipeForm extends React.Component {
    })
 
    })
+ }
+  }
 
+  postRating(){
 
+    const {navigate} = this.props.navigation;
+
+    this.setState({
+      ratingPending: true
+    },
+    function(){
+
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var id = this.state.uploadedRecipeId
+      console.log("Recipe ID", id);
+      var self = this;
+
+    axios.post(`http://nuv-api.herokuapp.com/recipes/${id}/rating`, {"rating": `${self.state.starCount}`},
+
+ { headers: { Authorization: `${token}` }})
+
+ .then(function(response){
+
+   self.setState({
+     ratingPending: false,
+     spinner: false
+   },
+   function(){
+     navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+   }
+ )
+ }).catch(function(error){
+   console.log("Error: ", error);
+ })
+})
   }
 
   getButtonTitle(){
@@ -286,7 +391,6 @@ export default class RecipeForm extends React.Component {
       return "Add image 6"
     }
   }
-
 
   render() {
     const {navigate} = this.props.navigation;
@@ -429,6 +533,15 @@ export default class RecipeForm extends React.Component {
 
           {image_six &&
           <Image source={{ uri: image_six }} style={{ width: 200, height: 200, marginTop: Dimensions.get('window').height*0.05, marginBottom: Dimensions.get('window').height*0.05 }} />}
+
+          <StarRating
+        disabled={false}
+        maxStars={5}
+        rating={this.state.starCount}
+        selectedStar={(rating) => this.onStarRatingPress(rating)}
+        fullStarColor={'#a2e444'}
+        containerStyle={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.04}}
+      />
 
           <View style={registerUserStyle.submitContainer}>
           <GlobalButton
