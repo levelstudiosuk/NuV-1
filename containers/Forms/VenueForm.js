@@ -230,13 +230,103 @@ export default class VenueForm extends React.Component {
      }
    };
 
+   validateUrl(url) {
+    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
+
+   fieldCompletionCheck(){
+     if (this.state.name === "" || this.state.name.length < 1 || !this.state.name.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter the name of the venue"
+           )
+           return;
+     }
+     if (this.state.postcode === "" || this.state.validPostcode != true){
+       Alert.alert(
+             "Please enter a valid postcode"
+           )
+         return;
+     }
+     if (this.state.url === "" || this.validateUrl(this.state.url) != true){
+       Alert.alert(
+             "Please enter a valid url"
+           )
+         return;
+     }
+     if (this.state.type === ""){
+       Alert.alert(
+             "Please pick the category the venue falls into"
+           )
+           return;
+     }
+     if (this.state.description === "" || this.state.description.length < 1 || !this.state.description.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter a proper description of the venue"
+           )
+           return;
+     }
+     if (!this.state.image){
+       Alert.alert(
+             "You have not uploaded a venue picture. Add one to proceed"
+           )
+         return;
+     }
+   else {
+     return "Complete"
+   }
+   }
+
+
+      postRating(){
+
+        const {navigate} = this.props.navigation;
+
+
+        this.setState({
+          ratingPending: true
+        },
+        function(){
+
+          var token = this.props.navigation.getParam('token', 'NO-ID');
+          var id = this.state.uploadedVenuedId
+          console.log("Venue ID", id);
+          var self = this;
+
+        axios.post(`http://nuv-api.herokuapp.com/venues/${id}/rating`, {"rating": `${self.state.starCount}`},
+
+     { headers: { Authorization: `${token}` }})
+
+     .then(function(response){
+
+       self.setState({
+         ratingPending: false,
+         spinner: false
+       },
+       function(){
+         navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+       }
+     )
+     }).catch(function(error){
+       console.log("Error: ", error);
+     })
+   })
+      }
+
    postData(){
 
-     if (this.state.validPostcode === true){
+     if (this.fieldCompletionCheck() != "Complete"){
+       return;
+     }
+     else {
 
        this.setState({
 
-         postingData: true
+         spinner: true
 
        }, function(){
 
@@ -316,10 +406,11 @@ export default class VenueForm extends React.Component {
 
     .then(function(response){
       var {navigate} = self.props.navigation;
+      var venueResponse = JSON.parse(response.request['_response'])
 
-      self.setState({ postingData: false }, function(){
-      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
-    })
+      self.setState({ uploadedVenuedId: venueResponse.id }, function(){
+        self.postRating()
+      })
     })
     .catch(function(error){
       console.log(error);
@@ -328,12 +419,7 @@ export default class VenueForm extends React.Component {
     })
 
   }
-  else {
-    Alert.alert(
-          "Please enter a valid UK postcode"
-        )
-  }
-   }
+}
 
   render() {
     const {navigate} = this.props.navigation;
@@ -362,7 +448,7 @@ export default class VenueForm extends React.Component {
 
       <View style={registerUserStyle.container}>
 
-      { this.state.postingData != true ? (
+      <SubmittedFormSpinner spinner={this.state.spinner} />
 
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
@@ -481,10 +567,6 @@ export default class VenueForm extends React.Component {
           </View>
 
           </ScrollView>
-
-        ) : <LoadingCelery />
-
-      }
 
       </View>
     );
