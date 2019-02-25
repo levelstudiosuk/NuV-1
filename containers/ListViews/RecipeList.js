@@ -10,6 +10,7 @@ import {  FlatList,
           TextInput,
           Dimensions,
           Button,
+          Alert,
           Text,
           View } from 'react-native';
 import {  Constants,
@@ -47,6 +48,7 @@ export default class RecipeList extends React.Component {
   super(props);
 
   this.changeToggleSelection = this.changeToggleSelection.bind(this);
+  this.redirectToView = this.redirectToView.bind(this);
 }
 
   state = {
@@ -89,7 +91,8 @@ export default class RecipeList extends React.Component {
      },
      function(){
        self.setState({
-         names: self.state.recipeItems.map((recipe) => recipe.title)
+         names: self.state.recipeItems.map((recipe) => recipe.title),
+         ids: self.state.recipeItems.map((recipe) => recipe.id)
        }, function(){
          self.setState({
            recipesLoading: false
@@ -221,6 +224,11 @@ export default class RecipeList extends React.Component {
     return string.replace(/\W/g, '');
   }
 
+  redirectToView(recipe, navigation){
+    const {navigate} = navigation
+    this.setState({ clickedRecipe: recipe}, function(){ navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.ids[this.state.names.indexOf(this.state.clickedRecipe)], name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})})
+  }
+
   findRecipe(query, diet) {
 
   var sanitizedQuery = this.removeNonAlphanumeric(query);
@@ -239,10 +247,15 @@ export default class RecipeList extends React.Component {
    return recipes.filter(recipe => recipe.search(regex) >= 0);
   }
 
-  renderMatches(recipes){
+  renderMatches(recipes, navigation){
+    const {navigate} = navigation
+
     return recipes.map((recipe, i) =>
 
       <TouchableOpacity
+      onPress = {() => this.state.ids[this.state.names.indexOf(recipe)] < 3536 ? this.redirectToView(recipe, navigation) : Alert.alert(
+           `Unfortunately this particular recipe is not clickable. Find it in the horizontal list below to view it`
+          ) }
         key={i}
         style={{flexDirection: 'row'}}
       >
@@ -385,7 +398,7 @@ export default class RecipeList extends React.Component {
           >
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          onPress={() => this.state.activeItem ? navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) : null}
 
           style={underlayColor="white"}
           >
@@ -397,7 +410,7 @@ export default class RecipeList extends React.Component {
               Dimensions.get('window').width < 750 ?
               Dimensions.get('window').width*0.5 :
               Dimensions.get('window').width*0.4}
-            source={{uri: this.state.activeItem.item.method}}
+            source={{uri: this.state.activeItem.item.recipe_main_image ? `http://res.cloudinary.com/nuv-api/${this.state.activeItem.item.recipe_main_image}` : this.state.activeItem.item.method}}
             />
         </TouchableHighlight>
 
@@ -413,7 +426,7 @@ export default class RecipeList extends React.Component {
             marginTop: Dimensions.get('window').height*0.01,
             fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Prep + Cook: {this.state.activeItem.item.cooking_time} mins
+              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Prep + Cook: {this.state.activeItem.item.prep_time ? this.state.activeItem.item.prep_time + this.state.activeItem.item.cooking_time : this.state.activeItem.item.cooking_time} mins
           </Text>
 
            </View>
@@ -456,7 +469,7 @@ export default class RecipeList extends React.Component {
           <Pagination
             horizontal
             debugMode={true}
-            listRef={this.refs}
+            listRef={this.refs}m
             endDotIconFamily={'MaterialIcons'}
             dotIconNameActive={'checkbox-blank-circle'}
             dotIconColorActive={'#a2e444'}
@@ -505,13 +518,13 @@ export default class RecipeList extends React.Component {
       {this.findRecipe(query).length > 0 ? (
         <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black', height: height*0.55}}>
         <ScrollView style={{flex: 1, flexWrap: 'wrap', backgroundColor: 'white'}}>
-        {this.renderMatches(recipes)}
+        {this.renderMatches(recipes, this.props.navigation)}
         </ScrollView>
         </View>
       ) : (
         <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black'}}>
         <ScrollView style={{backgroundColor: 'white'}}>
-        {this.renderMatches(recipes)}
+        {this.renderMatches(recipes, this.props.navigation)}
         </ScrollView>
         </View>
       )}

@@ -389,7 +389,7 @@ render() {
               <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={recipeViewStyle.recipeLikes}>
               {this.state.likes} NüV {this.state.likes === 1 ? "user" : "users"} {this.state.likes === 1 ? "likes" : "like"} this ℹ︎
               </Text>
-            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.method}}/>
+            <AutoHeightImage width={Dimensions.get('window').width*1} style={{marginTop: Dimensions.get('window').width*0.025}} source={{uri: this.state.recipeItem.recipe_main_image ? `http://res.cloudinary.com/nuv-api/${this.state.activeItem.item.recipe_main_image}` : this.state.recipeItem.method}}/>
         </View>
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
