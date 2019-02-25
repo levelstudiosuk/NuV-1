@@ -30,7 +30,7 @@ export default class NuVContributors extends React.Component {
     }
 
     state = {
-      seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
+      seeOnlyVegan: false,
       contributorsLoading: true,
       loadingProfile: false
     }
@@ -64,7 +64,8 @@ export default class NuVContributors extends React.Component {
 
 
     getActiveToggleIndex(){
-      return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+      // return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
+      return 1
     }
 
     changeToggleSelection(selection){
@@ -164,7 +165,7 @@ export default class NuVContributors extends React.Component {
     </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
+        <SmallTwoWayToggle onContributorsPage={true} changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
         <AddItemButton navigation={this.props.navigation} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>

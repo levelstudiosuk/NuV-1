@@ -413,7 +413,7 @@ render() {
 
         <View style={{alignItems: 'center'}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.01, fontSize: Dimensions.get('window').width > 750 ? 25 : 16, textAlign: 'center', flex: 1, flexDirection: 'row'}}>
-            <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Prep + Cook: {this.state.recipeItem.cooking_time} minutes
+            <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} /> Prep + Cook: {this.state.prep_time ? this.state.recipeItem.cooking_time + this.state.prep_time : this.state.recipeItem.cooking_time} minutes
           </Text>
         </View>
 

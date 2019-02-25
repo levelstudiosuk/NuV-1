@@ -92,7 +92,7 @@ export default class SmallTwoWayToggle extends React.Component {
                             <Text style={{color: this.state.activeIndex === 0 ? 'black' : 'white'}}>Vgn</Text>
                             </View>
                             <View>
-                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>Vgtrn</Text>
+                            <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>{this.props.onContributorsPage === true ? 'All' : 'Vgtrn'}</Text>
                             </View>
               </MultiSwitch>
             </View>
