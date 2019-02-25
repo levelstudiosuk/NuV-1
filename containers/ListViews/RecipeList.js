@@ -125,7 +125,6 @@ export default class RecipeList extends React.Component {
       recipesArray.push(recipe)
     })
 
-      console.log("recipes", recipesArray);
       var token = self.props.navigation.getParam('token', 'NO-ID');
       for (recipe of recipesArray) {
 
@@ -138,19 +137,11 @@ export default class RecipeList extends React.Component {
       formData.append('recipe[content_is_vegan]', false);
       formData.append('recipe[category]', "Dinner");
 
-      var ingredients = ""
       for (var i = 0; i < recipe.ingredients.length; i++){
-        if (i != recipe.ingredients.length - 1){
-        ingredients += `${recipe.ingredients[i]}, `
-      }
-        else {
-          ingredients += recipe.ingredients[i]
-        }
+        formData.append('recipe[keywords][]', recipe.ingredients[i])
       }
 
-      var ingredientsList = recipe.ingredients
       formData.append('recipe[cooking_time]', recipe.totalTime);
-      formData.append('recipe[ingredients]', ingredients);
 
       axios.post('http://nuv-api.herokuapp.com/recipes',
      formData,

@@ -354,7 +354,7 @@ export default class RecipeForm extends React.Component {
             <TextInput
               style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
               onChangeText={(words) => {this.changeWordsText(words)}}
-              value={this.state.words} placeholder='Key words (comma-separated)' placeholderTextColor='black'
+              value={this.state.words} placeholder='Ingredients (comma-separated)' placeholderTextColor='black'
               underlineColorAndroid='transparent' maxLength={500} multiline={true}
             />
 
@@ -392,14 +392,6 @@ export default class RecipeForm extends React.Component {
            onChangeText={(text)=> this.onChangedCook(text)}
            value={this.state.cook}
            maxLength={10}  //setting limit of input
-          />
-
-
-          <TextInput
-            style={{marginTop: Dimensions.get('window').height*0.03, borderWidth: 1, borderColor: 'grey', width: Dimensions.get('window').width*0.75, height: 100, marginBottom: Dimensions.get('window').height*0.04, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-            onChangeText={(bio) => {this.changeIngredientText(bio)}}
-            value={this.state.ingredients} placeholder='ingredients' placeholderTextColor='black'
-            underlineColorAndroid='transparent' maxLength={10000} multiline={true}
           />
 
           <TextInput

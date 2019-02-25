@@ -334,6 +334,14 @@ export default class RecipeView extends React.Component {
       });
     }
 
+    mapIngredients(){
+      return this.state.recipeItem.keywords.map((word, i) =>
+      <Text key={i} style={recipeViewStyle.recipeingredientsbody}>
+      {word}
+      </Text>
+    )
+    }
+
 render() {
   const {navigate} = this.props.navigation;
 
@@ -420,9 +428,7 @@ render() {
             <Text style={recipeViewStyle.recipeingredients}>
             Ingredients:{"\n"}
             </Text>
-            <Text style={recipeViewStyle.recipeingredientsbody}>
-          {this.state.recipeItem.ingredients}
-            </Text>
+            {this.mapIngredients()}
           </View>
         </View>
 
@@ -548,8 +554,8 @@ const recipeViewStyle = StyleSheet.create({
   },
   recipeingredientsbody: {
     margin:           4,
-    fontSize:         15,
-    marginBottom:     40,
+    fontSize:         Dimensions.get('window').width > 750 ? 17 : 14,
+    marginBottom:     Dimensions.get('window').height*0.01,
     marginLeft:       15,
   },
   recipemethod: {
@@ -557,6 +563,7 @@ const recipeViewStyle = StyleSheet.create({
     margin:           4,
     fontSize:         18,
     marginLeft:       15,
+    marginTop: Dimensions.get('window').height*0.02
   },
   recipemethodbody: {
     margin:           4,
