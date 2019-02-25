@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { Alert, StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import TwoWayToggle from '../../components/TwoWayToggle.js';
@@ -107,10 +107,60 @@ export default class BrandForm extends React.Component {
      }
    };
 
+   validateUrl(url) {
+    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
+
+   fieldCompletionCheck(){
+     if (this.state.name === "" || this.state.name.length < 1 || !this.state.name.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter the name of the brand"
+           )
+           return;
+     }
+     if (this.state.type === ""){
+       Alert.alert(
+             "Please pick the category the brand falls into"
+           )
+           return;
+     }
+     if (this.state.description === "" || this.state.description.length < 1 || !this.state.description.match(/[a-z]/i)){
+       Alert.alert(
+             "Please enter a proper description of the brand"
+           )
+           return;
+     }
+     if (this.state.url === "" || this.validateUrl(this.state.url) != true){
+       Alert.alert(
+             "Please enter a valid url"
+           )
+         return;
+     }
+     if (!this.state.image){
+       Alert.alert(
+             "You have not uploaded a brand picture. Add one to proceed"
+           )
+         return;
+     }
+   else {
+     return "Complete"
+   }
+   }
+
    postData(){
 
-    this.setState({
+     if (this.fieldCompletionCheck() != "Complete"){
+       return;
+     }
 
+     else {
+
+    this.setState({
+      spinner: true
     }, function(){
 
     var {navigate} = this.props.navigation;
@@ -151,6 +201,8 @@ export default class BrandForm extends React.Component {
    })
 
  })
+
+}
 
    }
 
