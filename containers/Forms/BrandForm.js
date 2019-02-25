@@ -179,7 +179,6 @@ export default class BrandForm extends React.Component {
      name: `${self.state.image}.${fileType}`,
      type: `image/${fileType}`,
    });
-    formData.append('brand[rating]', self.state.starCount);
 
       axios.post('http://nuv-api.herokuapp.com/brands',
      formData,
@@ -187,13 +186,14 @@ export default class BrandForm extends React.Component {
 
    .then(function(response){
      console.log("RESP", response);
+     var brandResponse = JSON.parse(response.request['_response'])
      var {navigate} = self.props.navigation;
 
      self.setState({
-       spinner: false
+       uploadedBrandId: brandResponse.id
      }, function(){
-       navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
-     })
+       self.postRating()
+      })
 
    })
    .catch(function(error){
@@ -203,7 +203,42 @@ export default class BrandForm extends React.Component {
  })
 
 }
+   }
 
+   postRating(){
+
+     const {navigate} = this.props.navigation;
+
+
+     this.setState({
+       ratingPending: true
+     },
+     function(){
+
+       var token = this.props.navigation.getParam('token', 'NO-ID');
+       var id = this.state.uploadedBrandId
+       console.log("Brand ID", id);
+       var self = this;
+
+     axios.post(`http://nuv-api.herokuapp.com/brands/${id}/rating`, {"rating": `${self.state.starCount}`},
+
+  { headers: { Authorization: `${token}` }})
+
+  .then(function(response){
+
+    self.setState({
+      ratingPending: false,
+      spinner: false
+    },
+    function(){
+      navigate('Home', {avatar: self.props.navigation.getParam('avatar', 'NO-ID'), token: self.props.navigation.getParam('token', 'NO-ID'), id: self.props.navigation.getParam('id', 'NO-ID'), name: self.props.navigation.getParam('name', 'NO-ID'), bio: self.props.navigation.getParam('bio', 'NO-ID'), location: self.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+    }
+  )
+  }).catch(function(error){
+    console.log("Error: ", error);
+  })
+})
    }
 
 
