@@ -103,6 +103,12 @@ export default class RegisterUser extends React.Component {
             )
            return;
       }
+      if (this.state.name.length > 11){
+        Alert.alert(
+              "Your NüV name must be shorter than 12 characters"
+            )
+           return;
+      }
       if (this.state.location === ""){
         Alert.alert(
               "Please enter a hometown"
@@ -413,7 +419,7 @@ export default class RegisterUser extends React.Component {
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(name) => {this.changeNameText(name)}}
             value={this.state.name} placeholder='Name' placeholderTextColor='black'
-            underlineColorAndroid='transparent'
+            underlineColorAndroid='transparent' maxLength={14}
           />
 
           <TextInput

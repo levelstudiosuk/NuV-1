@@ -142,6 +142,22 @@ export default class UserView extends React.Component {
   )
   }
 
+  treatShortNames(name){
+    var length = name.length
+    switch(length) {
+      case 1: return  `${name}          `
+      case 2: return  `${name}         `
+      case 3: return  `${name}        `
+      case 4: return  `${name}       `
+      case 5: return  `${name}      `
+      case 6: return  `${name}     `
+      case 7: return  `${name}    `
+      case 8: return  `${name}   `
+      case 9: return  `${name}  `
+      default: return name
+      }
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -166,7 +182,7 @@ export default class UserView extends React.Component {
       <View style={{flexDirection: 'column'}}>
       <View style={{paddingLeft: Dimensions.get('window').width* 0.025}}>
         <Text style={userViewStyle.profileItemName}>
-          {this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ?  this.props.navigation.getParam('name', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO-ID').name}
+          {this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ?  this.treatShortNames(this.props.navigation.getParam('name', 'NO-ID')) : this.treatShortNames(this.props.navigation.getParam('uploader', 'NO-ID').name)}
         </Text>
       </View>
 
