@@ -471,10 +471,10 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      {this.state.venueItem.title} was described by {this.state.venueItem.user_name} as:{"\n"}
+      What {this.state.venueItem.user_name} said about {this.state.venueItem.title} :{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
-      {this.state.venueItem.description}
+      {this.state.venueItem.description === "none yet" ? "No description available for this venue" : this.state.venueItem.description}
     </Text>
   </View>
 

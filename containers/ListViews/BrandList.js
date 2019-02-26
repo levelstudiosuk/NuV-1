@@ -83,10 +83,10 @@ export default class BrandList extends React.Component {
 
     returnMessage(){
       if (this.props.navigation.getParam('user', 'NO-ID') === true && this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') != true){
-        return `Here are your brand contributions.`
+        return `Your brand posts, ${this.props.navigation.getParam('name', 'NO-ID')}`
       }
       else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
-        return `Brand contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
+        return `Brands posted by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Click item/scan barcode for info"
@@ -207,23 +207,27 @@ export default class BrandList extends React.Component {
       <AutoHeightImage
         width={70}
         source={require('../../assets/AppIcons/shopping.png')}
-        style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
+        style={{marginBottom: Dimensions.get('window').height*0.01, marginTop: 5}}
        />
 
        {
          this.props.navigation.getParam('uploader', 'NO-ID') ? (
 
-           <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center', marginBottom: Dimensions.get('window').height*0.03}}>
+
+           <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+           <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
                {this.returnMessage()}{"\n"}{"\n"}
 
            </Text>
+           </View>
 
     ) :
-
-    <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center', marginBottom: Dimensions.get('window').height*0.03}}>
-        {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+    <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+    <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+        {this.returnMessage()}{"\n"}{"\n"}
 
     </Text>
+    </View>
   }
 
        </View>

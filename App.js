@@ -29,6 +29,7 @@ import ResetPassword from './containers/Global/ResetPassword.js';
 import ResetLanding from './containers/Global/ResetLanding.js';
 import NuVContributors from './containers/ListViews/NuVContributors.js';
 import { Constants } from 'expo'
+console.disableYellowBox = true;
 
 const navigationVariable = createStackNavigator({
   Landing: {screen: Landing},

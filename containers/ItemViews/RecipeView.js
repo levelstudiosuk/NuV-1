@@ -443,11 +443,6 @@ render() {
           </View>
         </View>
 
-        <View>
-        <SnapCarousel venueItem={this.state.recipeItem} images={images}/>
-        </View>
-
-
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
         <Text style={recipeViewStyle.vibeHeading}>NüV User Rating</Text>
           <StarRating

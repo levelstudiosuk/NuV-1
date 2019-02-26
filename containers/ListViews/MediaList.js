@@ -183,10 +183,10 @@ export default class MediaList extends React.Component {
 
     returnMessage(){
       if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') != true && this.props.navigation.getParam('user', 'NO-ID') === true ){
-        return `Here are your media contributions.`
+        return `Your media items, ${this.props.navigation.getParam('name', 'NO-ID')}`
       }
       else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
-        return `Here are all media contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
+        return `Media items posted by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Here is the news."
@@ -290,23 +290,27 @@ export default class MediaList extends React.Component {
       <AutoHeightImage
           width={70}
           source={require('../../assets/AppIcons/newspaper.png')}
-          style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
+          style={{marginBottom: Dimensions.get('window').height*0.01, marginTop: 5}}
       />
 
       {
         this.props.navigation.getParam('uploader', 'NO-ID') ? (
 
-          <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+          <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+          <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
               {this.returnMessage()}{"\n"}{"\n"}
 
           </Text>
+          </View>
 
    ) :
 
-   <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-       {TimeGreeting.getTimeBasedGreeting(this.props.navigation.getParam('name', 'NO-ID'))}{"\n"}{this.returnMessage()}{"\n"}{"\n"}
+   <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+   <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+       {this.returnMessage()}{"\n"}{"\n"}
 
    </Text>
+   </View>
  }
 
       </View>

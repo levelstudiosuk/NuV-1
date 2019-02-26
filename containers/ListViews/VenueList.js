@@ -109,10 +109,10 @@ export default class VenueList extends React.Component {
 
     returnMessage(){
       if (this.props.navigation.getParam('user', 'NO-ID') === true && !this.props.navigation.getParam('uploader', 'NO-ID')){
-        return `Here are your venue contributions.`
+        return `Your venues, ${this.props.navigation.getParam('name', 'NO-ID')}`
       }
       else if (this.props.navigation.getParam('viewingAnotherUser', 'NO-ID') === true && this.props.navigation.getParam('uploader', 'NO-ID')){
-        return `Here are all venue contributions made by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
+        return `Venues posted by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
         return "Search the ethical eateries here"
@@ -224,26 +224,32 @@ export default class VenueList extends React.Component {
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 
+
+
       <AutoHeightImage
           width={70}
           source={require('../../assets/AppIcons/dining.png')}
-          style={{marginBottom: Dimensions.get('window').height*0.04, marginTop: 5}}
+          style={{marginBottom: Dimensions.get('window').height*0.01, marginTop: 5}}
       />
 
       {
         this.props.navigation.getParam('uploader', 'NO-ID') ? (
 
-          <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+          <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+          <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
               {this.returnMessage()}{"\n"}{"\n"}
 
           </Text>
+          </View>
 
    ) :
 
-         <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
+        <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
+         <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
              {this.returnMessage()}{"\n"}{"\n"}
 
          </Text>
+         </View>
         }
 
       </View>
