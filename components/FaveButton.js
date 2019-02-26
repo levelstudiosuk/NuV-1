@@ -19,7 +19,7 @@ export default class FaveButton extends Component {
         >
           <Image
             source={require('../assets/NavBarIcons/Green/lightstar.png')}
-            style={{height:50, width:50, marginRight:20}}
+            style={{height:25, width:25, marginRight:20}}
           />
       </TouchableHighlight>
     )

@@ -13,6 +13,7 @@ import axios from 'axios';
 import moment from 'moment';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
+import * as Badges from '../../helper_functions/Badges.js';
 
 export default class NuVContributors extends React.Component {
   static navigationOptions = {
@@ -78,6 +79,18 @@ export default class NuVContributors extends React.Component {
 
     }
 
+    returnStatus(status){
+      if (status === "vegan"){
+       return "Vegan";
+      }
+      else if (status === "vegetarian"){
+       return "Vegetarian";
+      }
+      else {
+       return "vCurious";
+        }
+      }
+
     mapContributors(){
       const {navigate} = this.props.navigation;
       var navigation = this.props.navigation;
@@ -101,12 +114,19 @@ export default class NuVContributors extends React.Component {
               {item.profile.name === this.props.navigation.getParam('name', 'NO-ID') ? "You" : item.profile.name}
               </Text>
           </View>
+          <View key={i+13} style={venueListStyle.venuetextcontainer}>
+        <TouchableHighlight underlayColor={'white'}
+          key={i+15}
+          onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item)})}>
+          <AutoHeightImage key={i+20} source={Badges.getDietBadge(this.returnStatus(item.profile.user_is_vegan))} width={50} style={{borderRadius: 25}}/>
+        </TouchableHighlight>
+        </View>
           <View key={i+7} style={venueListStyle.venuetextcontainer}>
               <Text
               key={i+8}
               style={venueListStyle.contributionCount}
               onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item)})}>
-              {item.total_contributions} {item.total_contributions === 1 ? 'contribution' : 'contributions'}
+              {item.total_contributions} {item.total_contributions === 1 ? 'post' : 'posts'}
               </Text>
           </View>
         </View>
@@ -166,7 +186,6 @@ export default class NuVContributors extends React.Component {
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle onContributorsPage={true} changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
-        <AddItemButton navigation={this.props.navigation} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 
