@@ -51,9 +51,9 @@ export default class VenueList extends React.Component {
        venueItem.latitude,
        venueItem.longitude,
        self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ?
-       self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+       self.props.navigation.getParam('latitude', 'NO-ID') :  self.props.navigation.getParam('latitude', 'NO-ID'),
      self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ?
-     self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811)
+     self.props.navigation.getParam('longitude', 'NO-ID') : self.props.navigation.getParam('longitude', 'NO-ID'))
      <= self.props.navigation.getParam('distance', 'NO-ID'));
 
      self.setState({
@@ -249,7 +249,7 @@ export default class VenueList extends React.Component {
       </View>
       </ScrollView>
 
-    <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.05}} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.01}} showsVerticalScrollIndicator={false}>
     <View style={venueListStyle.container}>
 
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>

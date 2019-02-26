@@ -150,7 +150,7 @@ render() {
           >
           <GlobalButton
             onPress={() => this.chooseSearchLocation()}
-            buttonTitle={"Toggle"}
+            buttonTitle={"Search Location"}
           />
 
         </View>
@@ -214,7 +214,7 @@ render() {
                   >
                   <GlobalButton
                     onPress={() => this.setState({ selectedOption: "searchLocation" })}
-                    buttonTitle={"Search Location"}
+                    buttonTitle={"Toggle"}
                   />
 
                   <GlobalButton
@@ -301,7 +301,7 @@ render() {
         >
         <GlobalButton
           onPress={() => this.setState({ selectedOption: "currentLocation" })}
-          buttonTitle={"By My Location"}
+          buttonTitle={"Toggle"}
         />
 
         <GlobalButton

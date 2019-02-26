@@ -354,7 +354,9 @@ export default class MediaView extends React.Component {
     </View>
 
     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableHighlight underlayColor="white" onPress={()=>Linking.openURL(this.props.navigation.getParam('url', 'NO-ID'))}>
+        <TouchableHighlight underlayColor="white" onPress={()=> this.state.mediaItem.url ? Linking.openURL(this.state.mediaItem.url) :  Alert.alert(
+               "No link available for this item"
+            )}>
         <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
         </TouchableHighlight>
         { this.state.mediaItem.user_image ? (

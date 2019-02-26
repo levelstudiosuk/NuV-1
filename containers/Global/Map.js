@@ -124,7 +124,7 @@ export default class Map extends React.Component {
               onPress={() => this.setState({
                   clickedVenue: venue.id},
                   function(){ console.log("clicked", this.state.clickedVenue)}) }
-              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
+              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)`}
               pinColor={'blue'}
               description={"Click to view"}
               onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
@@ -143,7 +143,7 @@ export default class Map extends React.Component {
                   longitude: parseFloat(venue.longitude)
                   }}
               onPress={() => this.setState({clickedVenue: venue.id, latitude: parseFloat(venue.latitude), longitude: parseFloat(venue.longitude) }, function(){ console.log("clicked", this.state.clickedVenue)}) }
-              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), 55.9497, -3.1811)).toFixed(2)} km from you)`}
+              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), self.props.navigation.getParam('latitude', 'NO-ID'), self.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)`}
               pinColor={'blue'}
               description={"Click to view"}
               onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
