@@ -19,7 +19,7 @@ export default class AddItemButton extends Component {
         {
           <Image
             source={require('../assets/AppIcons/lightgreenplus.png')}
-            style={{height: !this.props.height ? 25 : this.props.height, width:!this.props.width ? 25 : this.props.width, marginRight: this.props.noMargin != true ? Dimensions.get('window').width*0.01 : 0}}
+            style={{height: !this.props.height ? 25 : this.props.height, width:!this.props.width ? 25 : this.props.width, marginLeft: this.props.noMargin != true ? 20 : 0, marginRight: this.props.noMargin != true ? 20 : 0}}
           />
         }
       </TouchableHighlight>

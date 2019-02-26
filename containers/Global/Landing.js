@@ -69,7 +69,7 @@ render() {
 
       <View style={landingStyle.descriptionContainer}>
           <Text style={landingStyle.descriptionText2}>
-              Join our community; find & share brilliant brands, researched recipes, awesome articles & ethical eateries{"\n"}{"\n"}
+              Join our community: find & share brilliant brands, researched recipes, awesome articles & ethical eateries{"\n"}{"\n"}
               This is just the veganing
           </Text>
       </View>

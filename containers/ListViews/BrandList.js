@@ -251,7 +251,7 @@ export default class BrandList extends React.Component {
 
       <Text style={{fontSize: Dimensions.get('window').width > 750 ? 24 : 20, marginBottom: Dimensions.get('window').height*0.02}}> {this.returnBrandMessage()} </Text>
     }
-      <View>
+      <View style={{ marginBottom: Dimensions.get('window').height*0.5}}>
         <GlobalButton
           buttonTitle="Home"
           onPress={() => navigate('Home', {
