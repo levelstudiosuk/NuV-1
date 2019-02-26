@@ -162,7 +162,11 @@ export default class Map extends React.Component {
 
     processMarkerClick(){
       console.log("clickedVenue", this.state.clickedVenue);
-      this.setState({ isFlipped: !this.state.isFlipped })
+      const {navigate} = this.props.navigation;
+
+      // this.setState({ isFlipped: !this.state.isFlipped })
+
+      navigate('VenueView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.clickedVenue, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     }
 
     resetFlipped(){
