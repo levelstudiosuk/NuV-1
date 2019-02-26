@@ -365,10 +365,12 @@ export default class MediaView extends React.Component {
     }
         <ShareButton
         marginLeft={Dimensions.get('window').width*0.07}
-        title="Shared from NüV"
-        message="A NüV user has shared something with you"
-        url="www.level-apps.co.uk"
-        subject="Hi, a NüV user thought you would like to see this..."
+        shareOptions={{
+        title: "Shared from NüV",
+        message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.mediaItem.title}. Download NüV now to see more killer posts just like this!`,
+        url: this.state.mediaItem.url,
+        subject: "Message from NüV"
+      }}
          />
     </View>
 

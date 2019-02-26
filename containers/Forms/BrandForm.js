@@ -247,16 +247,16 @@ export default class BrandForm extends React.Component {
     var image = this.state.image
 
     let typeOptions = [{
-      value: 'Fashion',
+      value: 'Household',
     },
      {
       value: 'Cosmetics',
     },
      {
-      value: 'Technology',
+      value: 'Fashion',
     },
     {
-     value: 'Entertainment',
+     value: 'Consumables',
    }
   ];
 

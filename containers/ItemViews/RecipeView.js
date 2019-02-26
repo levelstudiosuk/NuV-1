@@ -405,7 +405,7 @@ render() {
             shareOptions={{
             title: "Shared from NüV",
             message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.recipeItem.title} uploaded by ${this.state.recipeItem.user}. Download NüV now to see more killer posts just like this!`,
-            url: this.state.recipeItem.description,
+            url: this.state.recipeItem.method,
             subject: "Message from NüV"
           }}
              />

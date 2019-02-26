@@ -416,10 +416,12 @@ render() {
 
         <ShareButton
           marginLeft={Dimensions.get('window').width*0.07}
-          title="Shared from NüV"
-          message="Message to share"
-          url="www.level-apps.co.uk"
-          subject="Hi, a NüV user though you would like to see this..."
+          shareOptions={{
+          title: "Shared from NüV",
+          message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.brandItem.title} uploaded by ${this.state.brandItem.user}. Download NüV now to see more killer posts just like this!`,
+          url: this.state.brandItem.description,
+          subject: "Message from NüV"
+        }}
          />
     </View>
 
