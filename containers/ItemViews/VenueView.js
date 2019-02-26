@@ -417,7 +417,7 @@ render() {
       </View>
 
       <Text style={venueViewStyle.venuename}>
-          {this.state.venueItem.title} / {this.state.venueItem.postcode} / {this.state.venueItem.url}
+          {this.state.venueItem.title}
       </Text>
 
       <Text onPress={() => this.state.likers.length === 0 ? null : this.openLikersOverlay()} style={venueViewStyle.venueLikes}>
@@ -444,7 +444,7 @@ render() {
             }}
             title={`${this.returnRestaurantName()} (${parseFloat(this.approxDistanceBetweenTwoPoints(this.state.venueItem.latitude, this.state.venueItem.longitude, 55.9497, -3.1811)).toFixed(2)} km from you)`}
             pinColor={'red'}
-            description={"www link here"}
+            description={"See link below"}
           />
       </MapView>
     </View>

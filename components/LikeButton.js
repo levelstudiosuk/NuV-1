@@ -19,7 +19,7 @@ export default class LikeButton extends Component {
         >
           <Image
             source={this.props.itemAlreadyLiked === true ? require('../assets/like.png') : require('../assets/like_grey.png')}
-            style={{height:25, width:25, marginRight:20, marginLeft:20}}
+            style={{height:25, width:25,}}
           />
       </TouchableHighlight>
     )

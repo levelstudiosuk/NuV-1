@@ -4,6 +4,7 @@ import {  StyleSheet,
           TouchableHighlight,
           ScrollView,
           Dimensions,
+          Linking,
           Button,
           Text,
           View } from 'react-native';
@@ -380,7 +381,7 @@ render() {
         </View>
 
         <Text style={brandViewStyle.brandname}>
-            {this.state.brandItem.title} / Type: {this.state.brandItem.brand_type} / {this.state.brandItem.URL}
+            {this.state.brandItem.title} ({this.state.brandItem.brand_type})
         </Text>
 
         <View style={{alignItems: 'center'}}>
@@ -402,10 +403,13 @@ render() {
           flexDirection: 'row',
           justifyContent: 'center'}}>
 
+          <TouchableHighlight underlayColor='white' onPress={ () => this.state.brandItem.URL ? Linking.openURL(this.state.brandItem.URL) : null }>
         <AutoHeightImage
           width={Dimensions.get('window').width*0.1}
           style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}
           />
+
+          </TouchableHighlight>
 
         <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
         <AutoHeightImage
