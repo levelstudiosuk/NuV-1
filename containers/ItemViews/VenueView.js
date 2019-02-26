@@ -462,7 +462,7 @@ render() {
       marginLeft={Dimensions.get('window').width*0.07}
       shareOptions={{
       title: "Shared from NüV",
-      message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.venueItem.title} uploaded by ${this.state.venueItem.user}. Download NüV now to see more killer posts just like this!`,
+      message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this venue (${this.state.venueItem.title}) uploaded by ${this.state.venueItem.user_name}. Download NüV now to see more killer posts just like this!`,
       url: this.state.venueItem.url,
       subject: "Message from NüV"
     }}

@@ -77,8 +77,10 @@ export default class VenueForm extends React.Component {
 
     closeOverlay(){
       this.setState({
-        overlayVisible: false
-      })
+        overlayVisible: false,
+        validPostcode: this.state.userInVenue === true && this.state.latitude && this.state.longitude ? true : false
+      }
+    )
     }
 
     userInVenueStateUpdate(status){
@@ -245,7 +247,7 @@ export default class VenueForm extends React.Component {
            )
            return;
      }
-     if (this.state.postcode === "" || this.state.validPostcode != true){
+     if ((this.state.postcode === "" || this.state.validPostcode != true) && this.state.userInVenue != true){
        Alert.alert(
              "Please enter a valid postcode"
            )
@@ -434,13 +436,13 @@ export default class VenueForm extends React.Component {
       value: 'Restaurant',
     },
      {
-      value: 'Grocery Store',
+      value: 'Groceries',
     },
      {
-      value: 'Bar',
+      value: 'Café',
     },
     {
-     value: 'Outfitter',
+     value: 'Fast Food',
    }
   ];
 
@@ -486,7 +488,7 @@ export default class VenueForm extends React.Component {
             style={{borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(postcode) => {this.changePostcodeText(postcode)}}
             value={this.state.postcode} placeholder='Venue postcode' placeholderTextColor='black'
-            underlineColorAndroid='transparent' onEndEditing={()=> this.validatePostcode()}
+            underlineColorAndroid='transparent' onEndEditing={()=> this.state.latitude && this.state.longitude && this.state.userInVenue === true ? null : this.validatePostcode()}
           />
 
           <TextInput

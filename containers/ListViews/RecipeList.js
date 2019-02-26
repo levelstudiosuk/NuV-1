@@ -280,7 +280,7 @@ export default class RecipeList extends React.Component {
       <View
         style={{
           justifyContent: 'center',
-          alignItems: 'centre',
+          alignItems: 'center',
         }}
       >
         <TouchableOpacity
@@ -426,12 +426,18 @@ export default class RecipeList extends React.Component {
               {this.state.activeItem.item.title}
           </Text>
 
+          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+
+          <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />
+
           <Text style={{
             marginTop: Dimensions.get('window').height*0.01,
+            marginLeft: 10,
             fontSize: Dimensions.get('window').width > 750 ? 20 : 12,
             textAlign: 'center'}}>
-              <AutoHeightImage source={require('../../assets/AppIcons/clock.png')} width={Dimensions.get('window').width*0.05} />  Prep + Cook: {this.state.activeItem.item.prep_time ? this.state.activeItem.item.prep_time + this.state.activeItem.item.cooking_time : this.state.activeItem.item.cooking_time} mins
+            Prep + Cook: {this.state.activeItem.item.prep_time ? this.state.activeItem.item.prep_time + this.state.activeItem.item.cooking_time : this.state.activeItem.item.cooking_time} mins
           </Text>
+          </View>
 
            </View>
 

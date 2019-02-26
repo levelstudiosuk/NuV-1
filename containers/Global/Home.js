@@ -263,7 +263,7 @@ export default class Home extends React.Component {
   }
 
   getPortraitSize(){
-    return Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.6 : Dimensions.get('window').width*0.4
+    return Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.45 : Dimensions.get('window').width*0.4
   }
 
 render() {
@@ -314,7 +314,6 @@ render() {
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
           latitude: this.state.latitude ? this.state.latitude : 55.9497,
           longitude: this.state.longitude ? this.state.longitude : -3.1811
-
         })
           }
         style={{width: Dimensions.get('window').width}}>
@@ -334,7 +333,7 @@ render() {
             style={{
               borderWidth: 3,
               borderColor: '#a2e444',
-              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.3 : Dimensions.get('window').width*0.2,
+              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
@@ -348,7 +347,7 @@ render() {
       style={{
         marginTop:Dimensions.get('window').height* 0.02}}>
       <Image
-        style={{width: 90, height: 90}}
+        style={{width: 60, height: 60}}
         source= {Badges.getDietBadge (this.returnStatus())}
       />
     </View>
@@ -519,7 +518,7 @@ render() {
               borderRadius: 4,
               borderWidth: 3,
               borderColor: '#a2e444',
-              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.275,
+              borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
             source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
@@ -534,7 +533,7 @@ render() {
           style={{
             marginTop:Dimensions.get('window').height* 0.025}}>
           <Image
-            style={{width: 90, height: 90}}
+            style={{width: 60, height: 60}}
             source= {Badges.getDietBadge (this.returnStatus())}
           />
         </View>

@@ -24,7 +24,7 @@ export default class MapSettingsOverlay extends Component {
   }
 
   state = {
-      distance: 50,
+      distance: 10,
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
       selectedOption: null,
       place: ""

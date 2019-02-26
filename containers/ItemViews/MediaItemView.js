@@ -369,7 +369,7 @@ export default class MediaView extends React.Component {
         marginLeft={Dimensions.get('window').width*0.07}
         shareOptions={{
         title: "Shared from NüV",
-        message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this ${this.state.mediaItem.title}. Download NüV now to see more killer posts just like this!`,
+        message: `Hi, NüV user ${this.props.navigation.getParam('name', 'NO-ID')} thought you would like this article (${this.state.mediaItem.title}). Download NüV now to see more killer posts just like this!`,
         url: this.state.mediaItem.url,
         subject: "Message from NüV"
       }}
