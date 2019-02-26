@@ -32,7 +32,7 @@ render() {
       (hideModal, overlayState) => (
         <Fragment>
         <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Congratulations on changing your NüV password!</Text>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Looks like you''re coming up on a full (re)set!</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>You can now log back in with your new password.</Text>
         <View style={{alignItems: 'center'}}>
         <AutoHeightImage
           width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.6 : Dimensions.get('window').width*0.4}
@@ -42,9 +42,9 @@ render() {
             borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.3 : Dimensions.get('window').width*0.2,
             marginTop: Dimensions.get('window').height*0.05
             }}
-          source={require('../assets/wil.jpg')}
+          source={require('../assets/vegan_woman.jpeg')}
         />
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Wil Cornish, founder and senior developer at NüV</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Thanks again, the NüV team</Text>
 
         </View>
         </Fragment>
