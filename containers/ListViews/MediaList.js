@@ -298,7 +298,7 @@ export default class MediaList extends React.Component {
 
           <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
           <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-              {this.returnMessage()}{"\n"}{"\n"}
+              {this.returnMessage()}{"\n"}
 
           </Text>
           </View>
@@ -307,7 +307,7 @@ export default class MediaList extends React.Component {
 
    <View style={{alignItems:'center', marginBottom: Dimensions.get('window').height*0.03}}>
    <Text style={{marginTop: Dimensions.get('window').height*0.03, marginBottom: Dimensions.get('window').height*0.03, fontSize: Dimensions.get('window').width > 750 ? 24 : 18, textAlign: 'center'}}>
-       {this.returnMessage()}{"\n"}{"\n"}
+       {this.returnMessage()}{"\n"}
 
    </Text>
    </View>
@@ -316,10 +316,10 @@ export default class MediaList extends React.Component {
       </View>
       </ScrollView>
 
-      <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.04}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.01}} showsVerticalScrollIndicator={false}>
       <View style={mediaListStyle.container}>
 
-      <View style={{marginTop: Dimensions.get('window').height*0.04}}>
+      <View style={{marginTop: Dimensions.get('window').height*0.01}}>
       </View>
 
       {
