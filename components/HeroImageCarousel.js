@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: Dimensions.get('window').width*1,
-    height: Dimensions.get('window').height*0.38,
+    height: Dimensions.get('window').height*0.42,
   },
   customSlide: {
     backgroundColor: 'white',

@@ -378,8 +378,15 @@ export default class RegisterUser extends React.Component {
       <ScrollView style={{width: Dimensions.get('window').width*0.95}} showsVerticalScrollIndicator={false}>
       <View style={registerUserStyle.container}>
 
+      <View style={registerUserStyle.descriptionContainer}>
+          <Text style={registerUserStyle.descriptionText}>
+              Join our community: find & share brilliant brands, well researched recipes, awesome articles & ethical eateries{"\n"}{"\n"}
+              This is just the veganing
+          </Text>
+      </View>
+
           <TextInput
-            style={{color: this.state.emailTextColor, marginTop: Dimensions.get('window').height*0.1, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+            style={{color: this.state.emailTextColor, marginTop: Dimensions.get('window').height*0.05, borderBottomColor: 'grey', width: Dimensions.get('window').width*0.5, height: 40, marginBottom: Dimensions.get('window').height*0.04, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
             onChangeText={(email) => {this.changeEmailText(email)}}
             value={this.state.email} placeholder='Email address' placeholderTextColor='black'
             underlineColorAndroid='transparent' onEndEditing={this.emailFeedback}
@@ -478,5 +485,14 @@ const registerUserStyle = StyleSheet.create({
     textAlign: 'center',
     marginTop:  Constants.statusBarHeight+10,
     marginBottom: Dimensions.get('window').height*0.01
+  },
+  descriptionText: {
+    marginTop: Dimensions.get('window').height*0.03,
+
+    paddingLeft: Dimensions.get('window').width*0.005,
+    paddingRight: Dimensions.get('window').width*0.005,
+    textAlign: 'center',
+    fontSize: Dimensions.get('window').width < 750 ? 16 : 18,
+    color: '#696969',
   },
 });
