@@ -106,6 +106,7 @@ render() {
            onChangeText          =  {(password) => {this.changePasswordText(password)}}
            value                 =  {this.state.password} placeholder='Password' placeholderTextColor  =  'black'
            underlineColorAndroid =  'transparent'
+           secureTextEntry={true}
           />
 
          <View style={signInStyle.submitContainer}>

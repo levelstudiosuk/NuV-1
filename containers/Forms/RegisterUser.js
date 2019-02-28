@@ -305,7 +305,7 @@ export default class RegisterUser extends React.Component {
           spinner: false
 
         }, function(){
-          if (self.state.image){
+          if (self.state.image && Platform.OS == 'ios'){
           navigate('CropperHoldingPage', {registering: true, height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
         }
         else {
@@ -390,6 +390,7 @@ export default class RegisterUser extends React.Component {
             onChangeText={(password) => {this.changePasswordText(password)}}
             value={this.state.password} placeholder='Password' placeholderTextColor='black'
             underlineColorAndroid='transparent' onEndEditing={this.passwordFeedback}
+            secureTextEntry={true}
           />
 
           {
@@ -405,6 +406,7 @@ export default class RegisterUser extends React.Component {
             onChangeText={(password) => {this.changePassword2Text(password)}}
             value={this.state.password2} placeholder='Confirm password' placeholderTextColor='black'
             underlineColorAndroid='transparent' onEndEditing={this.passwordMatchChecker}
+            secureTextEntry={true}
           />
 
           {
