@@ -258,7 +258,7 @@ render() {
                     value                =  {this.state.password} placeholder='New password' placeholderTextColor = 'black'
                     underlineColorAndroid=  'transparent' underlineColorIOS="grey"
                     onEndEditing={this.passwordFeedback}
-
+                    secureTextEntry={true}
                    />
                    </View>
 
@@ -287,6 +287,7 @@ render() {
                value                 =  {this.state.password2} placeholder='Confirm new password' placeholderTextColor  =  'black'
                underlineColorAndroid =  'transparent'
                onEndEditing={this.passwordMatchChecker}
+               secureTextEntry={true}
               />
 
               {
