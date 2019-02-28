@@ -165,7 +165,7 @@ export default class EditUser extends React.Component {
       spinner: false
 
     }, function(){
-      if (self.state.image){
+      if (self.state.image && Platform.OS == 'ios'){
       navigate('CropperHoldingPage', {editingProfile: true, height: self.state.height, width: self.state.width, user_id: updatedProfile.user_id, avatar: uri, token: token, id: updatedProfile.id, name: updatedProfile.name, bio: updatedProfile.bio, user_is_vegan: updatedProfile.user_is_vegan, location: updatedProfile.location})
     }
     else {
@@ -221,7 +221,7 @@ export default class EditUser extends React.Component {
           />
 
           <GlobalButton
-             buttonTitle="Add new image"
+             buttonTitle="New image"
              onPress={() => this.pickImage()}/>
 
         {image &&

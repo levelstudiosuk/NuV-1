@@ -144,7 +144,7 @@ render() {
         </View>
 
         <View>
-          <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white'}}>
+          <Text style={{color: this.state.activeIndex === 1 ? 'black' : 'white', fontSize: 12}}>
             Vegetarian
           </Text>
         </View>
