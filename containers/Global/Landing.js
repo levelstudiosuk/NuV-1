@@ -9,7 +9,8 @@ import {  ImageBackground,
           TextStyle,
           ViewStyle,
           ScrollView, } from 'react-native';
-import {  Constants } from 'expo'
+import {  Constants,
+          Font } from 'expo'
 import    NavBar from '../../components/NavBar.js';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
@@ -45,6 +46,17 @@ render() {
             style={{marginTop:Dimensions.get('window').height*0.07}}
             width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.75 : Dimensions.get('window').width*0.57} />
       </View>
+
+      <View style={landingStyle.descriptionContainer}>
+          <Text style={landingStyle.descriptionText1}>
+              Life support for vegans {"\n"}
+              vegetarians & the v.curious
+          </Text>
+      </View>
+
+      <View>
+      <HeroImageCarousel />
+      </View>
       <View style={landingStyle.iconsContainer}>
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.16}
@@ -57,22 +69,6 @@ render() {
         />
       </View>
 
-      <View style={landingStyle.descriptionContainer}>
-          <Text style={landingStyle.descriptionText1}>
-              Life support for vegans, vegetarians & the v.curious
-          </Text>
-      </View>
-
-      <View>
-      <HeroImageCarousel />
-      </View>
-
-      <View style={landingStyle.descriptionContainer}>
-          <Text style={landingStyle.descriptionText2}>
-              Join our community: find & share brilliant brands, researched recipes, awesome articles & ethical eateries{"\n"}{"\n"}
-              This is just the veganing
-          </Text>
-      </View>
     </ScrollView>
   </View>
     );
@@ -90,7 +86,6 @@ const landingStyle = StyleSheet.create({
     marginTop: Dimensions.get('window').height*0.01,
     paddingLeft: Dimensions.get('window').width*0.0275,
     paddingRight: Dimensions.get('window').width*0.0275,
-
   },
   descriptionText1: {
     marginTop: Dimensions.get('window').height*0.03,
@@ -98,16 +93,7 @@ const landingStyle = StyleSheet.create({
     paddingLeft: Dimensions.get('window').width*0.005,
     paddingRight: Dimensions.get('window').width*0.005,
     textAlign: 'center',
-    fontSize: Dimensions.get('window').width < 750 ? 14 : 16,
-    color: '#696969',
-  },
-  descriptionText2: {
-    marginTop: Dimensions.get('window').height*0.03,
-    marginBottom: Dimensions.get('window').height*0.03,
-    paddingLeft: Dimensions.get('window').width*0.005,
-    paddingRight: Dimensions.get('window').width*0.005,
-    textAlign: 'center',
-    fontSize: Dimensions.get('window').width < 750 ? 14 : 16,
+    fontSize: Dimensions.get('window').width < 750 ? 18 : 20,
     color: '#696969',
   },
   iconsContainer: {
