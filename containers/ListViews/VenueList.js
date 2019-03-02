@@ -128,6 +128,37 @@ export default class VenueList extends React.Component {
       }
     }
 
+    deleteVenueItem(venue){
+      const {navigate} = this.props.navigation;
+
+      var self = this;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var venue = venue;
+
+      axios.delete(`http://nuv-api.herokuapp.com/venues/${venue.id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      var updatedVenueItems = self.state.venueItems.filter(item => item.id != venue.id)
+
+      self.setState({
+        venueItems: venueItems,
+      }, function(){
+        Alert.alert(
+               `${venue.title} has been deleted`
+            )
+
+       console.log("Response from delete post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+
     mapVenueItems(){
       const {navigate} = this.props.navigation;
       var navigation = this.props.navigation;
