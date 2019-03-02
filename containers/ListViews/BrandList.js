@@ -93,6 +93,37 @@ export default class BrandList extends React.Component {
       }
     }
 
+    deleteBrand(brand){
+      const {navigate} = this.props.navigation;
+
+      var self = this;
+      var token = navigation.getParam('token', 'NO-ID');
+      var brand = brand;
+
+      axios.delete(`http://nuv-api.herokuapp.com/brands/${brand.id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      var updatedBrandItems = self.state.brandItems.filter(item => item.id != brand.id)
+
+      self.setState({
+        brandItems: updatedBrandItems,
+      }, function(){
+        Alert.alert(
+               `${brand.title} has been deleted`
+            )
+
+       console.log("Response from delete post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+
   mapBrandItems(){
     const {navigate} = this.props.navigation;
 
@@ -142,6 +173,7 @@ export default class BrandList extends React.Component {
                 this.props.navigation.getParam('admin', 'NO-ID') === true ? (
               <View key={i+18}>
               <TouchableHighlight
+              onPress={() => this.deleteBrand(item)}
               style={{marginTop: Dimensions.get('window').height*0.008}}
               underlayColor={'white'}
               key={i+22}>

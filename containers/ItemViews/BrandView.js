@@ -243,6 +243,7 @@ export default class BrandView extends React.Component {
     }
     }
 
+
     deleteLike(navigation){
       var self = this;
 
