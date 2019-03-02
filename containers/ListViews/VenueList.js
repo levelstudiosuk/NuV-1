@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
@@ -144,7 +144,7 @@ export default class VenueList extends React.Component {
       var updatedVenueItems = self.state.venueItems.filter(item => item.id != venue.id)
 
       self.setState({
-        venueItems: venueItems,
+        venueItems: updatedVenueItems,
       }, function(){
         Alert.alert(
                `${venue.title} has been deleted`
@@ -226,6 +226,21 @@ export default class VenueList extends React.Component {
               {item.description}
               </Text>
             </View>
+            {
+              this.props.navigation.getParam('admin', 'NO-ID') === true ? (
+            <View style={{alignItems: 'center'}} key={i+18}>
+            <TouchableHighlight
+            onPress={() => this.deleteVenueItem(item)}
+            style={{marginTop: Dimensions.get('window').height*0.008}}
+            underlayColor={'white'}
+            key={i+22}>
+            <Image key={i+2}
+              source={require('../../assets/AppIcons/trash.png')}
+              style={{marginRight: 50, width: Dimensions.get('window').height*0.03, height: Dimensions.get('window').height*0.03}}/>
+            </TouchableHighlight>
+            </View>
+          ) : null
+        }
           </View>
         </View>
 
