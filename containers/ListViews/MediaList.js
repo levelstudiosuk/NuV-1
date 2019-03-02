@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import AddItemButton from '../../components/AddItemButton.js';
@@ -292,6 +292,21 @@ export default class MediaList extends React.Component {
                 {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()} - {item.source}
                 </Text>
               </View>
+              {
+                this.props.navigation.getParam('admin', 'NO-ID') === true && item.user_name ? (
+              <View style={{alignItems: 'center'}} key={i+18}>
+              <TouchableHighlight
+              onPress={() => this.deleteMediaItem(item)}
+              style={{marginTop: Dimensions.get('window').height*0.008}}
+              underlayColor={'white'}
+              key={i+22}>
+              <Image key={i+2}
+                source={require('../../assets/AppIcons/trash.png')}
+                style={{marginRight: 80, width: Dimensions.get('window').height*0.03, height: Dimensions.get('window').height*0.03}}/>
+              </TouchableHighlight>
+              </View>
+            ) : null
+          }
             </View>
           </View>
       )

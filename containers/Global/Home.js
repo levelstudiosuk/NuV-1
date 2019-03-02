@@ -128,7 +128,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
-         admin: navigation.getParam('admin', 'NO-ID'),
+         admin: this.props.navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -146,7 +146,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
-         admin: navigation.getParam('admin', 'NO-ID'),
+         admin: this.props.navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -164,7 +164,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
-         admin: navigation.getParam('admin', 'NO-ID'),
+         admin: this.props.navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -182,7 +182,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
-         admin: navigation.getParam('admin', 'NO-ID'),
+         admin: this.props.navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
