@@ -28,8 +28,8 @@ export default class SignIn extends React.Component {
     }
 
   state = {
-      email:    "",
-      password: ""
+      email:    "WC@gmail.com",
+      password: "Password8"
     };
 
 
@@ -63,6 +63,7 @@ export default class SignIn extends React.Component {
   }
   ).then(function(response) {
     var token = response.headers.authorization
+    var admin = JSON.parse(response.request['_response']).admin
       axios.get('http://nuv-api.herokuapp.com/this_users_profile',
         { headers: { Authorization: `${token}` }})
 
@@ -77,7 +78,8 @@ export default class SignIn extends React.Component {
             bio:           responseForName.bio,
             user_is_vegan: responseForName.user_is_vegan,
             user_id:       responseForName.user_id,
-            location:      responseForName.location
+            location:      responseForName.location,
+            admin: admin
           })
 
     })}).catch(function(e){
