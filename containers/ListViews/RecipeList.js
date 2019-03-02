@@ -194,6 +194,37 @@ export default class RecipeList extends React.Component {
     }
  }
 
+ deleteRecipeItem(recipe){
+   const {navigate} = this.props.navigation;
+
+   var self = this;
+   var token = this.props.navigation.getParam('token', 'NO-ID');
+   var recipe = recipe;
+
+   axios.delete(`http://nuv-api.herokuapp.com/recipes/${recipe.id}`,
+
+ { headers: { Authorization: `${token}` }})
+
+ .then(function(response){
+
+   var updatedRecipeItems = self.state.recipeItems.filter(item => item.id != recipe.id)
+
+   self.setState({
+     recipeItems: updatedRecipeItems,
+   }, function(){
+     Alert.alert(
+            `${recipe.title} has been deleted`
+         )
+
+    console.log("Response from delete post: ", response);
+   })
+  }
+ )
+ .catch(function(error){
+  console.log("Error: ", error);
+ })
+ }
+
   getFlatListItems = () => {
     this.setState({ isLoading: true });
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
