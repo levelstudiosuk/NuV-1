@@ -128,6 +128,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
+         admin: navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -145,6 +146,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
+         admin: navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -162,6 +164,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
+         admin: navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -179,6 +182,7 @@ export default class Home extends React.Component {
          name: this.props.navigation.getParam('name', 'NO-ID'),
          bio: this.props.navigation.getParam('bio', 'NO-ID'),
          location: this.props.navigation.getParam('location', 'NO-ID'),
+         admin: navigation.getParam('admin', 'NO-ID'),
          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     })
   }
@@ -213,6 +217,7 @@ export default class Home extends React.Component {
         bio: navigation.getParam('bio', 'NO-ID'),
         location: navigation.getParam('location', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
+        admin: navigation.getParam('admin', 'NO-ID'),
         distance: distance,
         latitude: latitude ? latitude : this.state.latitude,
         longitude: longitude ? longitude : this.state.longitude,
@@ -242,6 +247,7 @@ export default class Home extends React.Component {
         name:          navigation.getParam('name', 'NO-ID'),
         bio:           navigation.getParam('bio', 'NO-ID'),
         location:      navigation.getParam('location', 'NO-ID'),
+        admin:         navigation.getParam('admin', 'NO-ID'),
         user_is_vegan: navigation.getParam('user_is_vegan', 'NO-ID'),
         distance:      distance,
         latitude: latitude ? latitude : this.state.latitude,
@@ -419,6 +425,7 @@ render() {
             name:          this.props.navigation.getParam('name', 'NO-ID'),
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
+            admin:         this.props.navigation.getParam('admin', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Recipes"}
         />
@@ -455,6 +462,7 @@ render() {
             name:          this.props.navigation.getParam('name', 'NO-ID'),
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
+            admin:         this.props.navigation.getParam('admin', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"Shopping"} />
         <GlobalButton
@@ -465,6 +473,7 @@ render() {
             id:            this.props.navigation.getParam('id', 'NO-ID'),
             name:          this.props.navigation.getParam('name', 'NO-ID'),
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            admin:         this.props.navigation.getParam('admin', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
           buttonTitle={"News"} />
@@ -497,6 +506,7 @@ render() {
             name:          this.props.navigation.getParam('name', 'NO-ID'),
             bio:           this.props.navigation.getParam('bio', 'NO-ID'),
             location:      this.props.navigation.getParam('location', 'NO-ID'),
+            admin:         this.props.navigation.getParam('admin', 'NO-ID'),
             user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
             latitude:      this.state.latitude ? this.state.latitude : 55.9497,
             longitude:     this.state.longitude ? this.state.longitude : -3.1811
@@ -596,6 +606,7 @@ render() {
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
           name:          this.props.navigation.getParam('name', 'NO-ID'),
+          admin:         this.props.navigation.getParam('admin', 'NO-ID'),
           bio:           this.props.navigation.getParam('bio', 'NO-ID'),
           location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
@@ -631,6 +642,7 @@ render() {
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
           name:          this.props.navigation.getParam('name', 'NO-ID'),
+          admin:         this.props.navigation.getParam('admin', 'NO-ID'),
           bio:           this.props.navigation.getParam('bio', 'NO-ID'),
           location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
@@ -643,6 +655,7 @@ render() {
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
           name:          this.props.navigation.getParam('name', 'NO-ID'),
+          admin:         this.props.navigation.getParam('admin', 'NO-ID'),
           bio:           this.props.navigation.getParam('bio', 'NO-ID'),
           location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
@@ -663,6 +676,7 @@ render() {
           id:            this.props.navigation.getParam('id', 'NO-ID'),
           name:          this.props.navigation.getParam('name', 'NO-ID'),
           bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+          admin:         this.props.navigation.getParam('admin', 'NO-ID'),
           location:      this.props.navigation.getParam('location', 'NO-ID'),
           user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}}
       />

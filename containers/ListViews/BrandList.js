@@ -109,6 +109,7 @@ export default class BrandList extends React.Component {
         token:         this.props.navigation.getParam('token', 'NO-ID'),
         id:            this.props.navigation.getParam('id', 'NO-ID'),
         brand_id:      item.id,
+        admin:         this.props.navigation.getParam('admin', 'NO-ID'),
         name:          this.props.navigation.getParam('name', 'NO-ID'),
         bio:           this.props.navigation.getParam('bio', 'NO-ID'),
         location:      this.props.navigation.getParam('location', 'NO-ID'),
@@ -121,6 +122,7 @@ export default class BrandList extends React.Component {
       </TouchableHighlight>
           <View key={i+3} style={brandListStyle.brandtextcontainer}>
             <View key={i+4}>
+            <View key={i+24} style={{flexDirection: 'row'}}>
               <Text
                 key={i+5}
                 onPress={() => navigate('BrandView', {
@@ -128,6 +130,7 @@ export default class BrandList extends React.Component {
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
                   brand_id:      item.id,
+                  admin:         this.props.navigation.getParam('admin', 'NO-ID'),
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
@@ -135,6 +138,21 @@ export default class BrandList extends React.Component {
                 style={brandListStyle.brandtitle}>
                 {item.title}
               </Text>
+              {
+                this.props.navigation.getParam('admin', 'NO-ID') === true ? (
+              <View key={i+18}>
+              <TouchableHighlight
+              style={{marginTop: Dimensions.get('window').height*0.008}}
+              underlayColor={'white'}
+              key={i+22}>
+              <Image key={i+2}
+                source={require('../../assets/AppIcons/trash.png')}
+                style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02}}/>
+              </TouchableHighlight>
+              </View>
+            ) : null
+          }
+          </View>
               <Text
                 key={i+6}
                 onPress={() => navigate('BrandView', {
@@ -142,6 +160,7 @@ export default class BrandList extends React.Component {
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
                   brand_id:      item.id,
+                  admin:         this.props.navigation.getParam('admin', 'NO-ID'),
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
@@ -158,6 +177,7 @@ export default class BrandList extends React.Component {
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
                   brand_id:      item.id,
+                  admin:         this.props.navigation.getParam('admin', 'NO-ID'),
                   name:          this.props.navigation.getParam('name', 'NO-ID'),
                   bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                   location:      this.props.navigation.getParam('location', 'NO-ID'),
