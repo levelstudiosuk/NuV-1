@@ -193,6 +193,37 @@ export default class MediaList extends React.Component {
       }
     }
 
+    deleteMediaItem(media){
+      const {navigate} = this.props.navigation;
+
+      var self = this;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var media = media;
+
+      axios.delete(`http://nuv-api.herokuapp.com/media/${media.id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      var updatedMediaItems = self.state.mediaItems.filter(item => item.id != media.id)
+
+      self.setState({
+        mediaItems: updatedMediaItems,
+      }, function(){
+        Alert.alert(
+               `${media.title} has been deleted`
+            )
+
+       console.log("Response from delete post: ", response);
+      })
+     }
+    )
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+
     mapMediaItems(){
       const {navigate} = this.props.navigation;
 
