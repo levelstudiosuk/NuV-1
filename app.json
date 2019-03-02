@@ -30,7 +30,7 @@
     },
     "android": {
      "package": "com.levelapps.nuv",
-     "versionCode": 3.0,
+     "versionCode": 5.0,
      "permissions": ["ACCESS_COARSE_LOCATION",
       "ACCESS_FINE_LOCATION",
       "CAMERA"]
