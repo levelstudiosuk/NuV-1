@@ -334,6 +334,23 @@ export default class RecipeList extends React.Component {
           >
             {o.item.title ? this.handleLongRecipeNames(o.item.title) : 'Unknown'}
           </Text>
+          {
+            this.props.navigation.getParam('admin', 'NO-ID') === true ? (
+          <View style={{alignItems: 'center'}} key={i+18}>
+          <TouchableHighlight
+          onPress={() => this.state.activeId != o.item.id ? this.deleteRecipeItem(o.item) : Alert.alert(
+               `Cannot delete this item as it is active. Click off it to delete it via the same button`
+              )}
+          style={{marginTop: Dimensions.get('window').height*0.008}}
+          underlayColor={'white'}
+          key={i+22}>
+          <Image key={i+2}
+            source={require('../../assets/AppIcons/trash.png')}
+            style={{width: Dimensions.get('window').height*0.02, height: Dimensions.get('window').height*0.02}}/>
+          </TouchableHighlight>
+          </View>
+        ) : null
+      }
         </TouchableOpacity>
       </View>
     );
