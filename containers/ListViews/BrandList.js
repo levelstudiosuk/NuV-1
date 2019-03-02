@@ -8,6 +8,7 @@ import {  StyleSheet,
           Dimensions,
           Button,
           Text,
+          Alert,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    GlobalButton from '../../components/GlobalButton.js';
@@ -97,7 +98,7 @@ export default class BrandList extends React.Component {
       const {navigate} = this.props.navigation;
 
       var self = this;
-      var token = navigation.getParam('token', 'NO-ID');
+      var token = this.props.navigation.getParam('token', 'NO-ID');
       var brand = brand;
 
       axios.delete(`http://nuv-api.herokuapp.com/brands/${brand.id}`,
