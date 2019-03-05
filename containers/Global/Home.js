@@ -54,6 +54,7 @@ export default class Home extends React.Component {
       this.openVenueForm = this.openVenueForm.bind(this);
       this.openBrandForm = this.openBrandForm.bind(this);
       this.openMediaForm = this.openMediaForm.bind(this);
+      this.processLocationInfo = this.processLocationInfo.bind(this);
      }
 
   state = {
@@ -64,20 +65,26 @@ export default class Home extends React.Component {
   };
 
   componentDidMount(){
-    navigator.geolocation.getCurrentPosition(
-    position => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.processLocationInfo, this.handleLocationError);
+      }
+    }
+
+  processLocationInfo(position) {
       const myLocation = JSON.stringify(position);
 
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
         }, function(){
-          console.log("My position", this.state.latitude, this.state.longitude)});
-        },
-          error => Alert.alert(error.message),
-          { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-        );
-      }
+          console.log("My position: ", this.state.latitude, this.state.longitude)
+        });
+    }
+
+    handleLocationError(error) {
+      Alert.alert(error.message),
+    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+    }
 
   openOverlay(){
     this.setState({

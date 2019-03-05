@@ -177,7 +177,7 @@ export default class Map extends React.Component {
      }
 
     regionFrom(latitude, longitude, distanceInMetres) {
-        distance = distanceInMetres/2
+        // distance = distanceInMetres/2
         var circumference = 40075
         var oneDegreeOfLatitudeInMeters = 111.32 * 1000
         var angularDistance = distanceInMetres/circumference
