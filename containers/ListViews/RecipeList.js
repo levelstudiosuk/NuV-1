@@ -466,7 +466,13 @@ export default class RecipeList extends React.Component {
             />
         </TouchableHighlight>
 
-          <Text style={{
+          <Text
+          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
+          Alert.alert(
+               `Unfortunately this particular recipe can not be viewed at the moment`
+              )
+        }
+           style={{
             color: '#696969',
             marginTop: Dimensions.get('window').height*0.02,
             fontSize: Dimensions.get('window').width > 750 ? 20 : 16,

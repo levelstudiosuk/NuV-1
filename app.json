@@ -27,7 +27,7 @@
       "infoPlist": {
       "NSPhotoLibraryUsageDescription": "NüV needs to access your photo library to save a photo which shows you at your best."
     },
-    },
+  },
     "android": {
      "package": "com.levelapps.nuv",
      "versionCode": 6.0,
