@@ -252,7 +252,7 @@ export default class RecipeList extends React.Component {
   }
 
   removeNonAlphanumeric(string){
-    return string.replace(/\W/g, '');
+    return string.replace(/[^\w\s]/gi, '');
   }
 
   redirectToView(recipe, navigation){
@@ -275,7 +275,13 @@ export default class RecipeList extends React.Component {
    }
 
    const regex = new RegExp(`${sanitizedQuery.trim()}`, 'i');
+   console.log("Matches: ", recipes.filter(recipe => recipe.search(regex) >= 0));
+   if (recipes.filter(recipe => recipe.search(regex) >= 0).length > 5) {
+     return recipes.filter(recipe => recipe.search(regex) >= 0).slice(0, 4);
+   }
+   else {
    return recipes.filter(recipe => recipe.search(regex) >= 0);
+ }
   }
 
   renderMatches(recipes, navigation){
@@ -581,7 +587,7 @@ export default class RecipeList extends React.Component {
 
       {this.findRecipe(query).length > 0 ? (
         <View style={{backgroundColor: 'white', borderBottomWidth: 0.5, borderRightWidth: 0.5, borderLeftWidth: 0.5, borderColor: 'black', height: height*0.55}}>
-        <ScrollView style={{flex: 1, flexWrap: 'wrap', backgroundColor: 'white'}}>
+        <ScrollView style={{flexWrap: 'wrap', backgroundColor: 'white'}}>
         {this.renderMatches(recipes, this.props.navigation)}
         </ScrollView>
         </View>

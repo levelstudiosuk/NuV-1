@@ -90,7 +90,7 @@ export default class BrandList extends React.Component {
         return `Brands posted by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
-        return "Click item/scan barcode for info"
+        return "Click item for info"
       }
     }
 
@@ -289,7 +289,6 @@ export default class BrandList extends React.Component {
        <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
         <View style={brandListStyle.container}>
 
-      <BarCodeScanner/>
       <AutoHeightImage
         width={150}
         source={require('../../assets/brand_images/tesco.png')}
