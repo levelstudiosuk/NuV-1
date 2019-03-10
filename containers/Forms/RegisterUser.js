@@ -97,24 +97,24 @@ export default class RegisterUser extends React.Component {
             )
             return;
       }
-      if (this.state.name === ""){
-        Alert.alert(
-              "Please enter a username"
-            )
-           return;
-      }
-      if (this.state.name.length > 11){
+      // if (this.state.name === ""){
+      //   Alert.alert(
+      //         "Please enter a username"
+      //       )
+      //      return;
+      // }
+      if (this.state.name.length > 11 && this.state.name != ""){
         Alert.alert(
               "Your NüV name must be shorter than 12 characters"
             )
            return;
       }
-      if (this.state.location === ""){
-        Alert.alert(
-              "Please enter a hometown"
-            )
-          return;
-      }
+      // if (this.state.location === ""){
+      //   Alert.alert(
+      //         "Please enter a hometown"
+      //       )
+      //     return;
+      // }
       if (this.state.bio === ""){
         Alert.alert(
               "Please enter a bio"
@@ -278,10 +278,10 @@ export default class RegisterUser extends React.Component {
       }).then(function(second_response) {
         var token = second_response.headers.authorization;
         const formData = new FormData();
-       formData.append('profile[name]', self.state.name.trim());
+       formData.append('profile[name]', self.state.name === "" ? "NüV visitor" : self.state.name.trim());
        formData.append('profile[bio]', self.state.bio);
        formData.append('profile[user_is_vegan]', self.state.vSelection);
-       formData.append('profile[location]', self.state.location);
+       formData.append('profile[location]', self.state.location === "" ? "Undisclosed" : self.state.location);
        if (self.state.image != null){
        formData.append('profile[avatar]', {
         uri: self.state.image,
