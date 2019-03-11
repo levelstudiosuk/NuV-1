@@ -40,7 +40,7 @@ export default class RecipeView extends React.Component {
      <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
     ),
   }
-
+  
   constructor(props) {
     super(props);
       this.onStarRatingPress = this.onStarRatingPress.bind(this);

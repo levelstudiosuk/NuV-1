@@ -23,9 +23,15 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "buildNumber": "2.0.0",
       "bundleIdentifier": "com.levelapps.nuv",
       "infoPlist": {
-      "NSPhotoLibraryUsageDescription": "NüV needs to access your photo library to save a photo which shows you at your best."
+      "NSPhotoLibraryUsageDescription": "NüV needs to access your camera roll so that you can upload a profile picture. Your photos won't be shared without your permission.",
+      "NSLocationWhenInUseUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
+      "NSLocationAlwaysUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
+      "NSLocationUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
+      "NSCameraUsageDescription": "NüV requires access to your camera to let you add pictures of an item you wish to upload."
     },
   },
     "android": {

@@ -54,6 +54,11 @@ export default class NavBar extends React.Component {
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
+      onPress={() => this.props.openOverlay() }>
+          <Image source={require('../assets/NavBarIcons/barcode.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
+      </TouchableHighlight>
+
+      <TouchableHighlight underlayColor="white"
       onPress={() => navigate('Favourites', {
         user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
         settings: true,
