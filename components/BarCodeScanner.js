@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native';
+import { Text, Dimensions, View, StyleSheet, Alert } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class App extends Component {
@@ -49,7 +49,7 @@ const barCodeStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight + (Dimensions.get('window').height/2) - 100,
     backgroundColor: 'white',
   }
 });

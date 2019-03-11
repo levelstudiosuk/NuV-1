@@ -28,6 +28,7 @@ import BrandList from './containers/ListViews/BrandList.js';
 import ResetPassword from './containers/Global/ResetPassword.js';
 import ResetLanding from './containers/Global/ResetLanding.js';
 import NuVContributors from './containers/ListViews/NuVContributors.js';
+import Barcode from './containers/Global/Barcode.js';
 import { Constants } from 'expo'
 console.disableYellowBox = true;
 
@@ -58,7 +59,8 @@ const navigationVariable = createStackNavigator({
   FaveButton: {screen: FaveButton},
   BrandView: {screen: BrandView},
   RecipeView: {screen: RecipeView},
-  MediaItemView: {screen: MediaItemView}
+  MediaItemView: {screen: MediaItemView},
+  Barcode: {screen: Barcode}
 
 });
 

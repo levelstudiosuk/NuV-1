@@ -6,3 +6,4 @@ npm-debug.*
 *.key
 ./news_key.js
 *.mobileprovision
+./barcode_key.js
