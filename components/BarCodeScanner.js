@@ -7,6 +7,11 @@ export default class App extends Component {
     hasCameraPermission: null
   };
 
+  constructor(props) {
+    super(props);
+      this._handleBarCodeRead = this._handleBarCodeRead.bind(this);
+    }
+
   componentDidMount() {
     this._requestCameraPermission();
   }
@@ -18,13 +23,29 @@ export default class App extends Component {
     });
   };
 
+
+
   _handleBarCodeRead = data => {
     console.log("Product/BarCode Data:", data);
     Alert.alert(
-      'Scan successful!',
-      JSON.stringify(data),
+      'Results to go here...',
     );
+    this.setState({
+      barcode: data.data.slice(1, data.length)
+    },
+    function(){
+    console.log("State data: ", this.state.barcode);
+  }
+  )
   };
+
+  isProductVegan(){
+
+  }
+
+  fetchProductDetails(){
+    
+  }
 
 
   render() {
