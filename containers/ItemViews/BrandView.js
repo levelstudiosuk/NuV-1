@@ -21,6 +21,7 @@ import    LoadingCelery from '../../components/LoadingCelery.js';
 import    FaveButton from '../../components/FaveButton.js';
 import    LikeButton from '../../components/LikeButton.js';
 import    LikersOverlay from '../../components/LikersOverlay.js';
+import    Comments from '../Global/Comments.js';
 import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
 import axios from 'axios';
@@ -483,6 +484,9 @@ render() {
            buttonTitle="Rate & Home"
            onPress={ () => this.postRating() }/>
         </View>
+
+
+        <Comments item_id={this.state.brandItem.id} item_type="brands" navigation={this.props.navigation} />
 
         <LikersOverlay
               likers={this.state.likers}
