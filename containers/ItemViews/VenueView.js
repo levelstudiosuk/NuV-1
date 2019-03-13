@@ -495,7 +495,7 @@ render() {
 
   <View>
     <Text style={venueViewStyle.venuereviewtitle}>
-      What {this.state.venueItem.user_name} said about {this.state.venueItem.title} :{"\n"}
+      What {this.state.venueItem.user_name} said about {this.state.venueItem.title}:{"\n"}
     </Text>
     <Text style={venueViewStyle.venuereviewbody}>
       {this.state.venueItem.description === "none yet" ? "No description available for this venue" : this.state.venueItem.description}
