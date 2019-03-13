@@ -537,7 +537,7 @@ render() {
     <GlobalButton
       marginLeft={Dimensions.get('window').width*0.03}
       buttonTitle="Rate & Home"
-      onPress={() => this.postRating()}/>
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : this.postRating()}/>
     </View>
 
     <LikersOverlay

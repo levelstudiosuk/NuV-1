@@ -246,7 +246,7 @@ render() {
                   >
                   <GlobalButton
                     onPress={() => this.setState({ selectedOption: "searchLocation" })}
-                    buttonTitle={"Search Location"}
+                    buttonTitle={"Toggle"}
                   />
 
                   <GlobalButton
