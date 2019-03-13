@@ -300,6 +300,7 @@ render() {
             navigation={     this.props.navigation}
             openOverlay={    this.openOverlay}
             attributes={{
+              guest:         this.props.navigation.getParam('guest', 'NO-ID'),
               token:         this.props.navigation.getParam('token', 'NO-ID'),
               id:            this.props.navigation.getParam('id', 'NO-ID'),
               name:          this.props.navigation.getParam('name', 'NO-ID'),
@@ -317,6 +318,7 @@ render() {
       <TouchableHighlight
         underlayColor="white"
         onPress={() => navigate('UserView', {
+          guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           user_id:       this.props.navigation.getParam('user_id', 'NO-ID'),
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -450,7 +452,11 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-      <AddItemButton onPress={this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+      <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
+           Alert.alert(
+                 "You cannot add items to NüV unless you make a profile"
+              )
+          : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
     </View>
 
   ) : null}
@@ -506,6 +512,7 @@ render() {
       <TouchableHighlight
         underlayColor="white"
           onPress={() => navigate('UserView', {
+            guest:         this.props.navigation.getParam('guest', 'NO-ID'),
             user_id:       this.props.navigation.getParam('user_id', 'NO-ID'),
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -633,7 +640,11 @@ render() {
     this.state.avatarLoading === false ? (
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-    <AddItemButton onPress={this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+    <AddItemButton onPress={this.props.navigation.getParam('guest', 'NO-ID') === true ?
+         Alert.alert(
+               "You cannot add items to NüV unless you make a profile"
+            )
+        : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
 
 ) : null}
@@ -679,6 +690,7 @@ render() {
         navigation={this.props.navigation}
         openOverlay={this.openOverlay}
         attributes={{
+          guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
           name:          this.props.navigation.getParam('name', 'NO-ID'),

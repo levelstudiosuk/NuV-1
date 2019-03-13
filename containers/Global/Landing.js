@@ -66,7 +66,7 @@ export default class Landing extends React.Component {
       var token = second_response.headers.authorization;
       const formData = new FormData();
      formData.append('profile[name]', "NüV Guest");
-     formData.append('profile[bio]', "NüV guest users do not have a biography. To add a proper biography, please create a NüV account and fill in the biography field.");
+     formData.append('profile[bio]', "To add a biography, please create a NüV account and fill in the biography field.");
      formData.append('profile[user_is_vegan]', "vCurious");
      formData.append('profile[location]', "Undisclosed");
 

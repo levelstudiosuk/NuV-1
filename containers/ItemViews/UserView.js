@@ -17,6 +17,7 @@ import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    LogOut from '../../components/LogOut.js';
+import    axios from 'axios';
 import * as Badges from '../../helper_functions/Badges.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
@@ -99,15 +100,37 @@ export default class UserView extends React.Component {
         if (loggingOut === true){
           const {navigate} = this.props.navigation;
 
-          navigate('Landing', {
-            token:         this.props.navigation.getParam('token', 'NO-ID'),
-            id:            this.props.navigation.getParam('id', 'NO-ID'),
-            name:          this.props.navigation.getParam('name', 'NO-ID'),
-            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-            location:      this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+          this.deleteUser()
         }
       })
+    }
+
+    deleteUser(){
+      const {navigate} = this.props.navigation;
+
+      var self = this;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var id = this.props.navigation.getParam('id', 'NO-ID');
+
+      axios.delete(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+       console.log("Response from delete user: ", response);
+
+       navigate('Landing', {
+         token:         self.props.navigation.getParam('token', 'NO-ID'),
+         id:            self.props.navigation.getParam('id', 'NO-ID'),
+         name:          self.props.navigation.getParam('name', 'NO-ID'),
+         bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+         location:      self.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+      })
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
     }
 
     handleLogOut(){
@@ -265,7 +288,11 @@ export default class UserView extends React.Component {
 
   <View style={userViewStyle.editButtonContainer}>
     <GlobalButton
-      onPress={() => navigate('EditUser', {
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
+           Alert.alert(
+                 "You cannot edit your NüV profile if you are not registered"
+              )
+          : navigate('EditUser', {
         token:         this.props.navigation.getParam('token', 'NO-ID'),
         id:            this.props.navigation.getParam('id', 'NO-ID'),
         name:          this.props.navigation.getParam('name', 'NO-ID'),
@@ -280,7 +307,7 @@ export default class UserView extends React.Component {
 
 }
 
-    { this.props.navigation.getParam('settings', 'NO-ID') && this.props.navigation.getParam('settings', 'NO-ID') === true && this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+    { this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
       <LogOut
         openOverlay    = {this.openOverlay}
