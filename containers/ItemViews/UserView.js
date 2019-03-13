@@ -111,6 +111,7 @@ export default class UserView extends React.Component {
       var self = this;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var id = this.props.navigation.getParam('id', 'NO-ID');
+      var user_id = this.props.navigation.getParam('user_id', 'NO-ID');
 
       axios.delete(`http://nuv-api.herokuapp.com/profiles/${id}`,
 
@@ -118,7 +119,7 @@ export default class UserView extends React.Component {
 
     .then(function(response){
 
-       console.log("Response from delete user: ", response);
+       console.log("Response from delete profile: ", response);
 
        navigate('Landing', {
          token:         self.props.navigation.getParam('token', 'NO-ID'),
