@@ -679,7 +679,7 @@ render() {
     this.state.avatarLoading === false ? (
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-    <AddItemButton onPress={this.props.navigation.getParam('guest', 'NO-ID') === true ?
+    <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
          this.openRegistrationOverlay()
         : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
