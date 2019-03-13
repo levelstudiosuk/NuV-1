@@ -317,12 +317,6 @@ export default class BrandList extends React.Component {
        <ScrollView style={{width: Dimensions.get('window').width*0.95, marginTop: Dimensions.get('window').height*0.03}} showsVerticalScrollIndicator={false}>
         <View style={brandListStyle.container}>
 
-      <AutoHeightImage
-        width={150}
-        source={require('../../assets/brand_images/tesco.png')}
-        style={{marginBottom: Dimensions.get('window').height*0.03, marginTop: 2}}
-       />
-
       <View style={{marginTop: Dimensions.get('window').height*0.04}}>
       </View>
 
