@@ -99,7 +99,7 @@ render() {
       <View style={{alignItems: 'center'}}>
         <AutoHeightImage
           source={require('../../assets/greenlogo.png')}
-            style={{marginTop:Dimensions.get('window').height*0.07}}
+            style={{marginTop:Dimensions.get('window').height*0.03}}
             width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.75 : Dimensions.get('window').width*0.57} />
       </View>
 
@@ -113,6 +113,16 @@ render() {
       <View>
       <HeroImageCarousel />
       </View>
+
+      <Text
+      style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20,
+      marginTop: Dimensions.get('window').height*0.02
+    }}
+      onPress={() => this.setState({ spinner: true }, function() { this.guestSignIn() } ) }
+      >
+      Browse NüV as guest
+     </Text>
+
       <View style={landingStyle.iconsContainer}>
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.16}
@@ -124,15 +134,6 @@ render() {
           onPress={() => navigate('RegisterUser', {name: 'Home'})} buttonTitle={"Register"}
         />
       </View>
-
-      <Text
-      style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20,
-      marginBottom: Dimensions.get('window').height*0.035
-    }}
-      onPress={() => this.setState({ spinner: true }, function() { this.guestSignIn() } ) }
-      >
-      Browse NüV as guest
-     </Text>
 
     </ScrollView>
   </View>
@@ -164,7 +165,7 @@ const landingStyle = StyleSheet.create({
   iconsContainer: {
     width: Dimensions.get('window').width,
     marginLeft: 0,
-    marginTop: Dimensions.get('window').height*0.035,
+    marginTop: Dimensions.get('window').height*0.03,
     marginBottom: Dimensions.get('window').height*0.035,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
