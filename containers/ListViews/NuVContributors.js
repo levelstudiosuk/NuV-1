@@ -274,7 +274,7 @@ const venueListStyle = StyleSheet.create({
   venuetitle: {
     color: '#a2e444',
     margin: 4,
-    fontSize: 18,
+    fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
     fontWeight: 'bold',
   },
   contributionCount: {

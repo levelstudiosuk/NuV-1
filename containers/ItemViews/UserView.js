@@ -426,7 +426,7 @@ export default class UserView extends React.Component {
 </View>
 
 
-  { this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+  { this.props.navigation.getParam('guest', 'NO-ID') === true ? (
 
     <GuestRegistrationOffer
       openOverlay    = {this.openRegistrationOverlay}
