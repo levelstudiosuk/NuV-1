@@ -343,21 +343,21 @@ export default class MediaView extends React.Component {
       <View style={{marginTop: Dimensions.get('window').height*0.02}}>
       </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <FaveButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.already_liked} handleButtonClick={() => this.addMediaItemToFavourites()}/>
+          <FaveButton navigation={this.props.navigation} itemAlreadyLiked={this.state.mediaItem.already_liked} handleButtonClick={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : this.addMediaItemToFavourites()}/>
           { this.state.mediaItem.id ? (
 
           <LikeButton
           navigation={this.props.navigation}
           itemAlreadyLiked={this.state.mediaItem.id
           && this.state.likedItem === true ? true : false}
-          handleButtonClick={() => this.state.likedItem === true ?
+          handleButtonClick={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : this.state.likedItem === true ?
           this.deleteLike(this.props.navigation)
           : this.postLike(this.props.navigation)}
           />
 
         ) : null }
           <AddItemButton navigation={this.props.navigation}
-          onPress={() => navigate('MediaForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+          onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('MediaForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         </View>
 
         <Text style={mediaViewStyle.medianame}>
@@ -445,6 +445,16 @@ export default class MediaView extends React.Component {
         />
 
       ) : null }
+
+      {this.state.registrationOverlayVisible ? (
+      <GuestRegistrationOffer
+      openOverlay    = {this.openRegistrationOverlay}
+      handleRegistrationRequest   = {this.handleRegistrationRequest}
+      navigation =                  {this.props.navigation}
+      closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+      overlayVisible = {this.state.registrationOverlayVisible}
+    />
+    ) : null}
 
         </ScrollView>
       ) : <LoadingCelery /> }

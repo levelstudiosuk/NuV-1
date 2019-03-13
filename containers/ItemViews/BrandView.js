@@ -380,14 +380,14 @@ render() {
             flexDirection: 'row'}}>
               <FaveButton
                 navigation={this.props.navigation}
-                handleButtonClick={() => this.addBrandToFavourites()}/>
+                handleButtonClick={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : this.addBrandToFavourites()}/>
                 { this.state.brandItem.id ? (
 
                 <LikeButton
                 navigation={this.props.navigation}
                 itemAlreadyLiked={this.state.brandItem.id
                 && this.state.likedItem === true ? true : false}
-                handleButtonClick={() => this.state.likedItem === true ?
+                handleButtonClick={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : this.state.likedItem === true ?
                 this.deleteLike(this.props.navigation)
                 : this.postLike(this.props.navigation)}
                 />
@@ -395,7 +395,7 @@ render() {
               ) : null }
               <AddItemButton
                 navigation={this.props.navigation}
-                onPress={() => navigate('BrandForm', {
+                onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('BrandForm', {
                     avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
                     token: this.props.navigation.getParam('token', 'NO-ID'),
                     id: this.props.navigation.getParam('id', 'NO-ID'),
@@ -515,6 +515,16 @@ render() {
               currentUser={this.props.navigation.getParam('id', 'NO-ID')}
               navigation={this.props.navigation}
         />
+
+        {this.state.registrationOverlayVisible ? (
+        <GuestRegistrationOffer
+        openOverlay    = {this.openRegistrationOverlay}
+        handleRegistrationRequest   = {this.handleRegistrationRequest}
+        navigation =                  {this.props.navigation}
+        closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+        overlayVisible = {this.state.registrationOverlayVisible}
+      />
+      ) : null}
 
     </ScrollView>
 

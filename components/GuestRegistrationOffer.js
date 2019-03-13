@@ -28,7 +28,7 @@ render() {
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <GlobalButton onPress={() => this.props.handleRegistrationRequest(this.props.navigation)} buttonTitle={"Register"} />
-          <GlobalButton onPress={() => this.props.closeRegistrationOverlay()} buttonTitle={"No Thanks"} />
+          <GlobalButton onPress={() => this.props.closeRegistrationOverlay()} buttonTitle={"Not Now"} />
           </View>
 
         </Fragment>
