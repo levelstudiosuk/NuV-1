@@ -14,6 +14,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import    LoadingCelery from '../../components/LoadingCelery.js';
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
 import    VenueSettingsOverlay from '../../components/VenueSettingsOverlay.js';
@@ -55,13 +56,17 @@ export default class Home extends React.Component {
       this.openBrandForm = this.openBrandForm.bind(this);
       this.openMediaForm = this.openMediaForm.bind(this);
       this.processLocationInfo = this.processLocationInfo.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
      }
 
   state = {
     avatarLoading       : true,
     overlayVisible      : false,
     venueOverlayVisible : false,
-    addItemOverlayVisible: false
+    addItemOverlayVisible: false,
+    registrationOverlayVisible: false,
   };
 
   componentDidMount(){
@@ -121,6 +126,25 @@ export default class Home extends React.Component {
       venueOverlayVisible: false
     })
   }
+
+  openRegistrationOverlay(){
+    this.setState({
+      registrationOverlayVisible: true
+    })
+  }
+
+  closeRegistrationOverlay(){
+    this.setState({
+      registrationOverlayVisible: false
+    })
+  }
+
+handleRegistrationRequest(navigation){
+  const {navigate} = navigation;
+
+  navigate('Landing')
+
+}
 
   openRecipeForm(){
     const {navigate} = this.props.navigation;
@@ -456,9 +480,7 @@ render() {
         <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
       <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-           Alert.alert(
-                 "You cannot add items to NüV unless you make a profile"
-              )
+           this.openRegistrationOverlay()
           : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
     </View>
 
@@ -499,6 +521,17 @@ render() {
     ) :
       null
     }
+    { this.state.registrationOverlayVisible === true ? (
+
+      <GuestRegistrationOffer
+        openOverlay    = {this.openRegistrationOverlay}
+        handleRegistrationRequest   = {this.handleRegistrationRequest}
+        navigation =                  {this.props.navigation}
+        closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+        overlayVisible = {this.state.registrationOverlayVisible}
+      />
+
+    ) : null }
     </StickyHeaderFooterScrollView>
   ) :
 
@@ -647,7 +680,7 @@ render() {
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
     <AddItemButton onPress={this.props.navigation.getParam('guest', 'NO-ID') === true ?
-         this.openRegistrationOverlay
+         this.openRegistrationOverlay()
         : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
 
@@ -708,6 +741,17 @@ render() {
   ) :
     null
   }
+  { this.state.registrationOverlayVisible === true ? (
+
+    <GuestRegistrationOffer
+      openOverlay    = {this.openRegistrationOverlay}
+      handleRegistrationRequest   = {this.handleRegistrationRequest}
+      navigation =                  {this.props.navigation}
+      closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+      overlayVisible = {this.state.registrationOverlayVisible}
+    />
+
+  ) : null }
   </View>
 }
       </View>
