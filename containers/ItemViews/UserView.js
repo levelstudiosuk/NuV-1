@@ -16,6 +16,7 @@ import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    GlobalButton from '../../components/GlobalButton.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import    LogOut from '../../components/LogOut.js';
 import    axios from 'axios';
 import * as Badges from '../../helper_functions/Badges.js';
@@ -43,12 +44,16 @@ export default class UserView extends React.Component {
       this.openMapOverlay = this.openMapOverlay.bind(this);
       this.closeMapOverlay = this.closeMapOverlay.bind(this);
       this.launchMap = this.launchMap.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
       }
 
     state = {
       image: null,
       overlayVisible: false,
-      mapOverlayVisible: false
+      mapOverlayVisible: false,
+      registrationOverlayVisible: false
       };
 
     returnStatus(status){
@@ -75,6 +80,46 @@ export default class UserView extends React.Component {
         })
       }
 
+      openRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: true
+        })
+      }
+
+      closeRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: false
+        })
+      }
+
+    handleRegistrationRequest(navigation){
+      const {navigate} = navigation;
+
+      var self = this;
+      var token = navigation.getParam('token', 'NO-ID');
+      var id = navigation.getParam('id', 'NO-ID');
+      var user_id = navigation.getParam('user_id', 'NO-ID');
+
+      axios.delete(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+    { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+       console.log("Response from delete profile: ", response);
+
+       self.setState({
+         registrationOverlayVisible: false
+       }, function(){
+         navigate('Landing')
+
+       })
+      })
+    .catch(function(error){
+     console.log("Error: ", error);
+    })
+    }
+
     getLocation(location){
       if (Dimensions.get('window').width < 500 && location.length > 14){
         return location.substring(0, 14) + '...'
@@ -99,8 +144,20 @@ export default class UserView extends React.Component {
       }, function(){
         if (loggingOut === true){
           const {navigate} = this.props.navigation;
-
+          if (this.props.navigation.getParam('guest', 'NO-ID') === true){
           this.deleteUser()
+        }
+        else {
+
+          navigate('Landing', {
+            token:         this.props.navigation.getParam('token', 'NO-ID'),
+            id:            this.props.navigation.getParam('id', 'NO-ID'),
+            name:          this.props.navigation.getParam('name', 'NO-ID'),
+            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+            location:      this.props.navigation.getParam('location', 'NO-ID'),
+            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+
+        }
         }
       })
     }
@@ -290,9 +347,7 @@ export default class UserView extends React.Component {
   <View style={userViewStyle.editButtonContainer}>
     <GlobalButton
       onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-           Alert.alert(
-                 "You cannot edit your NüV profile if you are not registered"
-              )
+           this.openRegistrationOverlay()
           : navigate('EditUser', {
         token:         this.props.navigation.getParam('token', 'NO-ID'),
         id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -425,7 +480,19 @@ export default class UserView extends React.Component {
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
       buttonTitle={"Media"}
     />
+
   </View>
+  { this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
+
+    <GuestRegistrationOffer
+      openOverlay    = {this.openRegistrationOverlay}
+      handleRegistrationRequest   = {this.handleRegistrationRequest}
+      navigation =                  {this.props.navigation}
+      closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+      overlayVisible = {this.state.registrationOverlayVisible}
+    />
+
+  ) : null }
 </StickyHeaderFooterScrollView>
 {
   Platform.OS === "android" ? (
