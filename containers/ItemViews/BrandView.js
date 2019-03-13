@@ -486,7 +486,13 @@ render() {
         </View>
 
 
-        <Comments item_id={this.state.brandItem.id} item_type="brands" navigation={this.props.navigation} />
+        <Comments
+
+        item_id={this.state.brandItem.id}
+        item_type="brands"
+        token={this.props.navigation.getParam('token', 'NO-ID')}
+        active_user={this.props.navigation.getParam('name', 'NO-ID')}
+         />
 
         <LikersOverlay
               likers={this.state.likers}

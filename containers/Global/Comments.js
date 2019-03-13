@@ -23,12 +23,10 @@ export default class Comments extends React.Component {
 
  constructor(props) {
    super(props);
-   this.props = props;
     this.state = {
      comments: [],
      loadingComments: true,
      lastCommentUpdate: null,
-     review: props.review ? props.review : null,
      login: null,
    }
    this.scrollIndex = 0
@@ -37,10 +35,12 @@ export default class Comments extends React.Component {
 
  componentDidMount(){
    this.retrieveComments()
+
  }
 
    retrieveComments(){
-     var token = this.props.navigation.getParam('token', 'NO-ID');
+     var self = this;
+     var token = this.props.token;
      var endpoint = `http://nuv-api.herokuapp.com/${this.props.item_type}/${this.props.item_id}/comments`
 
      axios.get(endpoint,
@@ -53,8 +53,8 @@ export default class Comments extends React.Component {
        console.log("Comments: ", comments);
 
        self.setState({
-         hello: 'hello'
-       },
+         comments: comments
+        },
        function(){
          console.log("Comments: ", self.state.comments);
        }
@@ -63,7 +63,8 @@ export default class Comments extends React.Component {
    }
 
    postComment(){
-     var token = this.props.navigation.getParam('token', 'NO-ID');
+     var self = this;
+     var token = this.props.token;
      var endpoint = `http://nuv-api.herokuapp.com/${this.props.item_type}/${this.props.item_id}/comments`
 
      axios.post(endpoint, {"body":"Another comment right here", "brand_id": `${this.props.item_id}` },
@@ -75,7 +76,7 @@ export default class Comments extends React.Component {
        var comments = JSON.parse(response.request['_response'])
 
        self.setState({
-         comments: comments
+         postedComment: true
        },
        function(){
          console.log("Comments: ", self.state.comments);
@@ -85,7 +86,7 @@ export default class Comments extends React.Component {
    }
 
     render() {
-      const {navigate} = this.props.navigation;
+
       const data = this.state.comments
         return (
           <View style={commentsStyle.globalContainer}>
@@ -102,7 +103,7 @@ export default class Comments extends React.Component {
           <Comments
 
           data={data}
-          viewingUserName={this.props.navigation.getParam('name', 'NO-ID')}
+          viewingUserName={this.props.active_user}
           initialDisplayCount={10}
           editMinuteLimit={900}
           childrenPerPage={5}

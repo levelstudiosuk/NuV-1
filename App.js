@@ -29,6 +29,7 @@ import ResetPassword from './containers/Global/ResetPassword.js';
 import ResetLanding from './containers/Global/ResetLanding.js';
 import NuVContributors from './containers/ListViews/NuVContributors.js';
 import Barcode from './containers/Global/Barcode.js';
+import Comments from './containers/Global/Comments.js';
 import { Constants } from 'expo'
 console.disableYellowBox = true;
 
