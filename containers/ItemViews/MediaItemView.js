@@ -9,6 +9,7 @@ import FaveButton from '../../components/FaveButton.js';
 import LikeButton from '../../components/LikeButton.js';
 import ShareButton from '../../components/ShareButton.js';
 import AutoHeightImage from 'react-native-auto-height-image';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import GlobalButton from '../../components/GlobalButton.js';
 import StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import StarRating from 'react-native-star-rating';
@@ -33,12 +34,16 @@ export default class MediaView extends React.Component {
       this.postLike = this.postLike.bind(this);
       this.openLikersOverlay = this.openLikersOverlay.bind(this);
       this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
       }
 
       state = {
           starRating: 3,
           starCount: 2,
-          likersOverlayVisible: false
+          likersOverlayVisible: false,
+          registrationOverlayVisible: false,
         };
 
     componentDidMount(){
@@ -79,6 +84,25 @@ export default class MediaView extends React.Component {
     }
 
     }
+
+    openRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: true
+      })
+    }
+
+    closeRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: false
+      })
+    }
+
+  handleRegistrationRequest(navigation){
+    const {navigate} = navigation;
+
+    navigate('Landing')
+
+  }
 
     openLikersOverlay(){
       this.setState({

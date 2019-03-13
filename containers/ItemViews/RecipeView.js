@@ -13,6 +13,7 @@ import { StyleSheet,
          TouchableOpacity } from 'react-native';
 import { Constants } from 'expo'
 import   GlobalButton from '../../components/GlobalButton.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import   SnapCarousel       from '../../components/SnapCarousel.js';
 import   LoadingCelery       from '../../components/LoadingCelery.js';
 import   AddItemButton from '../../components/AddItemButton.js';
@@ -40,7 +41,7 @@ export default class RecipeView extends React.Component {
      <AutoHeightImage width={75} style={{position: 'absolute', right: Platform.OS === 'android' ? 0 : -65 }} source={require('../../assets/greenlogo.png')}/>
     ),
   }
-  
+
   constructor(props) {
     super(props);
       this.onStarRatingPress = this.onStarRatingPress.bind(this);
@@ -48,11 +49,15 @@ export default class RecipeView extends React.Component {
       this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
       this.openLikersOverlay = this.openLikersOverlay.bind(this);
       this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
       }
       state = {
       starRating: 3,
       starCount: 2,
-      likersOverlayVisible: false
+      likersOverlayVisible: false,
+      registrationOverlayVisible: false,
     };
 
     componentDidMount(){
@@ -96,6 +101,25 @@ export default class RecipeView extends React.Component {
         likersOverlayVisible: false
       })
     }
+
+    openRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: true
+      })
+    }
+
+    closeRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: false
+      })
+    }
+
+  handleRegistrationRequest(navigation){
+    const {navigate} = navigation;
+
+    navigate('Landing')
+
+  }
 
     postRating(){
 

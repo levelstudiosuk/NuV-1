@@ -9,6 +9,7 @@ import {  StyleSheet,
           Text,
           View } from 'react-native';
 import {  Constants } from 'expo'
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import    NavBar from '../../components/NavBar.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
@@ -40,12 +41,16 @@ export default class BrandView extends React.Component {
       this.addBrandToFavourites = this.addBrandToFavourites.bind(this);
       this.openLikersOverlay = this.openLikersOverlay.bind(this);
       this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
       }
 
       state = {
           starRating: parseInt(this.props.navigation.getParam('rating', 'NO-ID')),
           starCount: 2,
-          likersOverlayVisible: false
+          likersOverlayVisible: false,
+          registrationOverlayVisible: false,
         };
 
       onStarRatingPress(rating) {
@@ -53,6 +58,25 @@ export default class BrandView extends React.Component {
         starCount: rating
       });
       }
+
+      openRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: true
+        })
+      }
+
+      closeRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: false
+        })
+      }
+
+    handleRegistrationRequest(navigation){
+      const {navigate} = navigation;
+
+      navigate('Landing')
+
+    }
 
       componentDidMount(){
         var id = this.props.navigation.getParam('brand_id', 'NO-ID');

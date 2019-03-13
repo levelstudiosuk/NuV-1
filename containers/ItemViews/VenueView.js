@@ -35,6 +35,7 @@ import {
        TouchableOpacity}  from 'react-native';
 import axios from 'axios';
 import LikersOverlay from '../../components/LikersOverlay.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 
 export default class VenueView extends React.Component {
   static navigationOptions = {
@@ -51,11 +52,15 @@ constructor(props) {
     this.checkFavouriteStatus = this.checkFavouriteStatus.bind(this);
     this.openLikersOverlay = this.openLikersOverlay.bind(this);
     this.closeLikersOverlay = this.closeLikersOverlay.bind(this);
+    this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+    this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+    this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
     }
     state = {
     starRating: 3,
     starCount: 2,
-    likersOverlayVisible: false
+    likersOverlayVisible: false,
+    registrationOverlayVisible: false,
     };
 
 
@@ -95,6 +100,25 @@ constructor(props) {
    })
 
     }
+
+    openRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: true
+      })
+    }
+
+    closeRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: false
+      })
+    }
+
+  handleRegistrationRequest(navigation){
+    const {navigate} = navigation;
+
+    navigate('Landing')
+
+  }
 
     openLikersOverlay(){
       this.setState({
