@@ -11,6 +11,7 @@ import Expo, { ImagePicker } from 'expo';
 import {Permissions} from 'expo';
 import axios from 'axios';
 import moment from 'moment';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 
@@ -26,11 +27,15 @@ export default class VenueList extends React.Component {
       super(props);
 
       this.changeToggleSelection = this.changeToggleSelection.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
     }
 
     state = {
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
-      venuesLoading: true
+      venuesLoading: true,
+      registrationOverlayVisible: false,
     }
 
     componentDidMount(){
@@ -74,6 +79,25 @@ export default class VenueList extends React.Component {
     getActiveToggleIndex(){
       return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
     }
+
+    openRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: true
+      })
+    }
+
+    closeRegistrationOverlay(){
+      this.setState({
+        registrationOverlayVisible: false
+      })
+    }
+
+  handleRegistrationRequest(navigation){
+    const {navigate} = navigation;
+
+    navigate('Landing')
+
+  }
 
     approxDistanceBetweenTwoPoints(lat1, long1, lat2, long2){
 
@@ -172,6 +196,7 @@ export default class VenueList extends React.Component {
         key={i+1}
         style={venueListStyle.venueimage}
         onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+        guest: this.props.navigation.getParam('guest', 'NO-ID'),
         avatar: navigation.getParam('avatar', 'NO-ID'),
         token: navigation.getParam('token', 'NO-ID'),
         profile_id: navigation.getParam('id', 'NO-ID'),
@@ -187,6 +212,7 @@ export default class VenueList extends React.Component {
               key={i+5}
               style={venueListStyle.venuetitle}
               onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              guest: this.props.navigation.getParam('guest', 'NO-ID'),
               avatar: navigation.getParam('avatar', 'NO-ID'),
               token: navigation.getParam('token', 'NO-ID'),
               profile_id: navigation.getParam('id', 'NO-ID'),
@@ -200,6 +226,7 @@ export default class VenueList extends React.Component {
               key={i+6}
               style={venueListStyle.venuetype}
               onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              guest: this.props.navigation.getParam('guest', 'NO-ID'),
               avatar: navigation.getParam('avatar', 'NO-ID'),
               token: navigation.getParam('token', 'NO-ID'),
               profile_id: navigation.getParam('id', 'NO-ID'),
@@ -215,6 +242,7 @@ export default class VenueList extends React.Component {
               key={i+8}
               style={venueListStyle.venuedescription}
               onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              guest: this.props.navigation.getParam('guest', 'NO-ID'),
               settings: true,
               avatar: navigation.getParam('avatar', 'NO-ID'),
               token: navigation.getParam('token', 'NO-ID'),
@@ -266,7 +294,7 @@ export default class VenueList extends React.Component {
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} />
         <AddItemButton navigation={this.props.navigation}
-        onPress={() => navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+        onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('VenueForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
         {/*<FaveButton navigation={this.props.navigation}/>*/}
       </View>
 
@@ -323,6 +351,17 @@ export default class VenueList extends React.Component {
           buttonTitle="Home"
           onPress={() => navigate('Home', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
       </View>
+
+      {this.state.registrationOverlayVisible ? (
+      <GuestRegistrationOffer
+      openOverlay    = {this.openRegistrationOverlay}
+      handleRegistrationRequest   = {this.handleRegistrationRequest}
+      navigation =                  {this.props.navigation}
+      closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+      overlayVisible = {this.state.registrationOverlayVisible}
+    />
+    ) : null}
+
     </View>
   </ScrollView>
 </View>

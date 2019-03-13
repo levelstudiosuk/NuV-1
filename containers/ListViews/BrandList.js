@@ -17,6 +17,7 @@ import    AddItemButton from '../../components/AddItemButton.js';
 import    BarCodeScanner from '../../components/BarCodeScanner.js';
 import    FaveButton from '../../components/FaveButton.js';
 import    SmallTwoWayToggle from '../../components/SmallTwoWayToggle.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    Expo, { ImagePicker } from 'expo';
 import {  Permissions} from 'expo'
@@ -36,12 +37,35 @@ export default class BrandList extends React.Component {
       super(props);
 
       this.changeToggleSelection = this.changeToggleSelection.bind(this);
+      this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+      this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+      this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
      }
 
     state = {
         seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
-        contentLoading: true
+        contentLoading: true,
+        registrationOverlayVisible: false,
       }
+
+      openRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: true
+        })
+      }
+
+      closeRegistrationOverlay(){
+        this.setState({
+          registrationOverlayVisible: false
+        })
+      }
+
+    handleRegistrationRequest(navigation){
+      const {navigate} = navigation;
+
+      navigate('Landing')
+
+    }
 
     componentDidMount(){
       var token = this.props.navigation.getParam('token', 'NO-ID');
@@ -137,6 +161,7 @@ export default class BrandList extends React.Component {
       underlayColor={'white'}
       key={i+1}
       onPress={() => navigate('BrandView', {
+        guest: this.props.navigation.getParam('guest', 'NO-ID'),
         avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
         token:         this.props.navigation.getParam('token', 'NO-ID'),
         id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -158,6 +183,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+5}
                 onPress={() => navigate('BrandView', {
+                  guest: this.props.navigation.getParam('guest', 'NO-ID'),
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -189,6 +215,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+6}
                 onPress={() => navigate('BrandView', {
+                  guest: this.props.navigation.getParam('guest', 'NO-ID'),
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -206,6 +233,7 @@ export default class BrandList extends React.Component {
               <Text
                 key={i+8}
                 onPress={() => navigate('BrandView', {
+                  guest: this.props.navigation.getParam('guest', 'NO-ID'),
                   avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
                   token:         this.props.navigation.getParam('token', 'NO-ID'),
                   id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -246,7 +274,7 @@ export default class BrandList extends React.Component {
       <View style={{flex: 1, flexDirection: 'row'}}>
         <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()}  />
         <AddItemButton navigation={this.props.navigation}
-           onPress={() => navigate('BrandForm', {
+           onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('BrandForm', {
               avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
               token: this.props.navigation.getParam('token', 'NO-ID'),
               id: this.props.navigation.getParam('id', 'NO-ID'),
@@ -319,6 +347,15 @@ export default class BrandList extends React.Component {
              location: this.props.navigation.getParam('location', 'NO-ID'),
              user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}/>
     </View>
+    {this.state.registrationOverlayVisible ? (
+    <GuestRegistrationOffer
+    openOverlay    = {this.openRegistrationOverlay}
+    handleRegistrationRequest   = {this.handleRegistrationRequest}
+    navigation =                  {this.props.navigation}
+    closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+    overlayVisible = {this.state.registrationOverlayVisible}
+  />
+  ) : null}
     </View>
   </ScrollView>
   </View>

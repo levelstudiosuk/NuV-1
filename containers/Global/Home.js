@@ -215,6 +215,7 @@ export default class Home extends React.Component {
     }, function(){
 
       navigate('Map', {
+        guest: this.props.navigation.getParam('guest', 'NO-ID'),
         user_id: navigation.getParam('user_id', 'NO-ID'),
         settings: true,
         avatar: navigation.getParam('avatar', 'NO-ID'),
@@ -246,6 +247,7 @@ export default class Home extends React.Component {
     }, function(){
 
       navigate('VenueList', {
+        guest:         this.props.navigation.getParam('guest', 'NO-ID'),
         user_id:       navigation.getParam('user_id', 'NO-ID'),
         settings:       true,
         avatar:        navigation.getParam('avatar', 'NO-ID'),

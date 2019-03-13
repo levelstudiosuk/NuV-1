@@ -32,6 +32,7 @@ import axios from 'axios';
 import * as TimeGreeting from '../../helper_functions/TimeGreeting.js';
 import * as ReverseArray from '../../helper_functions/ReverseArray.js';
 import * as ShuffleArray from '../../helper_functions/ShuffleArray.js';
+import    GuestRegistrationOffer from '../../components/GuestRegistrationOffer.js';
 import _ from 'lodash';
 const     ITEM_HEIGHT = 100;
 const { width, height } = Dimensions.get('window');
@@ -49,19 +50,42 @@ export default class RecipeList extends React.Component {
 
   this.changeToggleSelection = this.changeToggleSelection.bind(this);
   this.redirectToView = this.redirectToView.bind(this);
+  this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
+  this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
+  this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
 }
 
   state = {
     isLoading: false,
     recipeTyped: "",
     seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
-    recipesLoading: true
+    recipesLoading: true,
+    registrationOverlayVisible: false,
   }
 
   getActiveToggleIndex(){
     console.log("Active index: ", this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1);
     return this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? 0 : 1
   }
+
+  openRegistrationOverlay(){
+    this.setState({
+      registrationOverlayVisible: true
+    })
+  }
+
+  closeRegistrationOverlay(){
+    this.setState({
+      registrationOverlayVisible: false
+    })
+  }
+
+handleRegistrationRequest(navigation){
+  const {navigate} = navigation;
+
+  navigate('Landing')
+
+}
 
   async componentDidMount() {
 
@@ -257,7 +281,7 @@ export default class RecipeList extends React.Component {
 
   redirectToView(recipe, navigation){
     const {navigate} = navigation
-    this.setState({ clickedRecipe: recipe}, function(){ navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.ids[this.state.names.indexOf(this.state.clickedRecipe)], name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})})
+    this.setState({ clickedRecipe: recipe}, function(){ navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.ids[this.state.names.indexOf(this.state.clickedRecipe)], name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})})
   }
 
   findRecipe(query, diet) {
@@ -452,7 +476,7 @@ export default class RecipeList extends React.Component {
           >
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
+          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
           Alert.alert(
                `Unfortunately this particular recipe can not be viewed at the moment`
               )
@@ -473,7 +497,7 @@ export default class RecipeList extends React.Component {
         </TouchableHighlight>
 
           <Text
-          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
+          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
           Alert.alert(
                `Unfortunately this particular recipe can not be viewed at the moment`
               )
@@ -534,6 +558,16 @@ export default class RecipeList extends React.Component {
         ) : null
       }
 
+      {this.state.registrationOverlayVisible ? (
+      <GuestRegistrationOffer
+      openOverlay    = {this.openRegistrationOverlay}
+      handleRegistrationRequest   = {this.handleRegistrationRequest}
+      navigation =                  {this.props.navigation}
+      closeRegistrationOverlay   = {this.closeRegistrationOverlay}
+      overlayVisible = {this.state.registrationOverlayVisible}
+    />
+    ) : null}
+
         {
           this.state.recipeItems ? (
           <Pagination
@@ -563,7 +597,7 @@ export default class RecipeList extends React.Component {
         <View style={{flex: 1, flexDirection: 'row', position: 'absolute', top: height*0.012}}>
           <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} marginLeft={5}/>
           <AddItemButton navigation={this.props.navigation}
-          onPress={() => navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+          onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
           {/*<FaveButton navigation={this.props.navigation}/>*/}
         </View>
 
