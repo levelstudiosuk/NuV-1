@@ -24,7 +24,7 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{fontSize: Dimensions.get('window').width < 750 ? 17 : 21, marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>If you want to access this feature you will need to register and create a NüV account.</Text>
+        <Text style={{fontSize: Dimensions.get('window').width < 750 ? 17 : 21, marginBottom: Dimensions.get('window').height*0.03, marginTop: Dimensions.get('window').height*0.03 }}>If you want to access this feature you will need to register and create a FREE NüV account</Text>
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <GlobalButton onPress={() => this.props.handleRegistrationRequest(this.props.navigation)} buttonTitle={"Register"} />

@@ -53,7 +53,8 @@ export default class UserView extends React.Component {
       image: null,
       overlayVisible: false,
       mapOverlayVisible: false,
-      registrationOverlayVisible: false
+      registrationOverlayVisible: false,
+
       };
 
     returnStatus(status){
@@ -95,29 +96,8 @@ export default class UserView extends React.Component {
     handleRegistrationRequest(navigation){
       const {navigate} = navigation;
 
-      var self = this;
-      var token = navigation.getParam('token', 'NO-ID');
-      var id = navigation.getParam('id', 'NO-ID');
-      var user_id = navigation.getParam('user_id', 'NO-ID');
+      navigate('Landing')
 
-      axios.delete(`http://nuv-api.herokuapp.com/profiles/${id}`,
-
-    { headers: { Authorization: `${token}` }})
-
-    .then(function(response){
-
-       console.log("Response from delete profile: ", response);
-
-       self.setState({
-         registrationOverlayVisible: false
-       }, function(){
-         navigate('Landing')
-
-       })
-      })
-    .catch(function(error){
-     console.log("Error: ", error);
-    })
     }
 
     getLocation(location){
@@ -143,52 +123,15 @@ export default class UserView extends React.Component {
         overlayVisible: false
       }, function(){
         if (loggingOut === true){
-          const {navigate} = this.props.navigation;
-          if (this.props.navigation.getParam('guest', 'NO-ID') === true){
-          this.deleteUser()
-        }
-        else {
-
           navigate('Landing', {
-            token:         this.props.navigation.getParam('token', 'NO-ID'),
-            id:            this.props.navigation.getParam('id', 'NO-ID'),
-            name:          this.props.navigation.getParam('name', 'NO-ID'),
-            bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-            location:      this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
-
-        }
+            token:         self.props.navigation.getParam('token', 'NO-ID'),
+            id:            self.props.navigation.getParam('id', 'NO-ID'),
+            name:          self.props.navigation.getParam('name', 'NO-ID'),
+            bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+            location:      self.props.navigation.getParam('location', 'NO-ID'),
+            user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
         }
       })
-    }
-
-    deleteUser(){
-      const {navigate} = this.props.navigation;
-
-      var self = this;
-      var token = this.props.navigation.getParam('token', 'NO-ID');
-      var id = this.props.navigation.getParam('id', 'NO-ID');
-      var user_id = this.props.navigation.getParam('user_id', 'NO-ID');
-
-      axios.delete(`http://nuv-api.herokuapp.com/profiles/${id}`,
-
-    { headers: { Authorization: `${token}` }})
-
-    .then(function(response){
-
-       console.log("Response from delete profile: ", response);
-
-       navigate('Landing', {
-         token:         self.props.navigation.getParam('token', 'NO-ID'),
-         id:            self.props.navigation.getParam('id', 'NO-ID'),
-         name:          self.props.navigation.getParam('name', 'NO-ID'),
-         bio:           self.props.navigation.getParam('bio', 'NO-ID'),
-         location:      self.props.navigation.getParam('location', 'NO-ID'),
-         user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')})
-      })
-    .catch(function(error){
-     console.log("Error: ", error);
-    })
     }
 
     handleLogOut(){
@@ -403,53 +346,14 @@ export default class UserView extends React.Component {
 
 }
 
-    <View style={userViewStyle.iconsContainer}>
+<View style={userViewStyle.iconsContainer}>
 
-      <GlobalButton
-        marginLeft={Dimensions.get('window').width*0.12}
-        onPress={() => this.props.navigation.getParam('recipes', 'NO-ID') === 0 ? Alert.alert(
-               `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any recipes yet`
-            ) : navigate('RecipeList', {
-          user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
-            user: true,
-            viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
-            uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
-            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-            token: this.props.navigation.getParam('token', 'NO-ID'),
-            id: this.props.navigation.getParam('id', 'NO-ID'),
-            name: this.props.navigation.getParam('name', 'NO-ID'),
-            bio: this.props.navigation.getParam('bio', 'NO-ID'),
-            location: this.props.navigation.getParam('location', 'NO-ID'),
-            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-          buttonTitle={"Recipes"}
-        />
-      <GlobalButton
-        marginRight={Dimensions.get('window').width*0.12}
-        onPress={() => this.props.navigation.getParam('venues', 'NO-ID') === 0 ? Alert.alert(
-               `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any venues yet`
-            ) : navigate('VenueList', {
-          user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
-          user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
-          uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
-          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-        buttonTitle={"Eateries"}
-        />
-      </View>
-
-    <View style={userViewStyle.iconsContainer2}>
-
-    <GlobalButton
-      marginLeft={Dimensions.get('window').width*0.12}
-      onPress={() => this.props.navigation.getParam('brands', 'NO-ID') === 0 ? Alert.alert(
-             `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any brands yet`
-          ) : navigate('BrandList', {
-        user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
+  <GlobalButton
+    marginLeft={Dimensions.get('window').width*0.12}
+    onPress={() => this.props.navigation.getParam('recipes', 'NO-ID') === 0 ? Alert.alert(
+           `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any recipes yet`
+        ) : navigate('RecipeList', {
+      user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
         viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
         uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
@@ -460,28 +364,68 @@ export default class UserView extends React.Component {
         bio: this.props.navigation.getParam('bio', 'NO-ID'),
         location: this.props.navigation.getParam('location', 'NO-ID'),
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-      buttonTitle={"Brands"}
+      buttonTitle={"Recipes"}
     />
-    <GlobalButton
-      marginRight={Dimensions.get('window').width*0.12}
-      onPress={() => this.props.navigation.getParam('media', 'NO-ID') === 0 ? Alert.alert(
-             `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any media items yet`
-          ) : navigate('MediaList', {
-        user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
-        user: true,
-        viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
-        uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
-        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-        token: this.props.navigation.getParam('token', 'NO-ID'),
-        id: this.props.navigation.getParam('id', 'NO-ID'),
-        name: this.props.navigation.getParam('name', 'NO-ID'),
-        bio: this.props.navigation.getParam('bio', 'NO-ID'),
-        location: this.props.navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
-      buttonTitle={"Media"}
+  <GlobalButton
+    marginRight={Dimensions.get('window').width*0.12}
+    onPress={() => this.props.navigation.getParam('venues', 'NO-ID') === 0 ? Alert.alert(
+           `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any venues yet`
+        ) : navigate('VenueList', {
+      user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
+      user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+      viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
+      uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
+      token: this.props.navigation.getParam('token', 'NO-ID'),
+      id: this.props.navigation.getParam('id', 'NO-ID'),
+      name: this.props.navigation.getParam('name', 'NO-ID'),
+      bio: this.props.navigation.getParam('bio', 'NO-ID'),
+      location: this.props.navigation.getParam('location', 'NO-ID'),
+      user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+    buttonTitle={"Eateries"}
     />
-
   </View>
+
+<View style={userViewStyle.iconsContainer2}>
+
+<GlobalButton
+  marginLeft={Dimensions.get('window').width*0.12}
+  onPress={() => this.props.navigation.getParam('brands', 'NO-ID') === 0 ? Alert.alert(
+         `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any brands yet`
+      ) : navigate('BrandList', {
+    user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
+    user: true,
+    viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
+    uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
+    avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+    token: this.props.navigation.getParam('token', 'NO-ID'),
+    id: this.props.navigation.getParam('id', 'NO-ID'),
+    name: this.props.navigation.getParam('name', 'NO-ID'),
+    bio: this.props.navigation.getParam('bio', 'NO-ID'),
+    location: this.props.navigation.getParam('location', 'NO-ID'),
+    user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+  buttonTitle={"Brands"}
+/>
+<GlobalButton
+  marginRight={Dimensions.get('window').width*0.12}
+  onPress={() => this.props.navigation.getParam('media', 'NO-ID') === 0 ? Alert.alert(
+         `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any media items yet`
+      ) : navigate('MediaList', {
+    user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
+    user: true,
+    viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
+    uploader: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? null : this.props.navigation.getParam('uploader', 'NO-ID'),
+    avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+    token: this.props.navigation.getParam('token', 'NO-ID'),
+    id: this.props.navigation.getParam('id', 'NO-ID'),
+    name: this.props.navigation.getParam('name', 'NO-ID'),
+    bio: this.props.navigation.getParam('bio', 'NO-ID'),
+    location: this.props.navigation.getParam('location', 'NO-ID'),
+    user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+  buttonTitle={"Media"}
+/>
+</View>
+
+
   { this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
     <GuestRegistrationOffer

@@ -428,6 +428,7 @@ render() {
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.1}
           onPress={() => navigate('RecipeList', {
+            guest:         this.props.navigation.getParam('guest', 'NO-ID'),
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
             id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -469,6 +470,7 @@ render() {
         <GlobalButton
           marginLeft={Dimensions.get('window').width*0.1}
           onPress={() => navigate('BrandList', {
+            guest:         this.props.navigation.getParam('guest', 'NO-ID'),
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
             id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -481,6 +483,7 @@ render() {
         <GlobalButton
           marginRight={Dimensions.get('window').width*0.1}
           onPress={() => navigate('MediaList', {
+            guest:         this.props.navigation.getParam('guest', 'NO-ID'),
             avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
             token:         this.props.navigation.getParam('token', 'NO-ID'),
             id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -616,6 +619,7 @@ render() {
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.1}
         onPress={() => navigate('RecipeList', {
+          guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -641,9 +645,7 @@ render() {
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
     <AddItemButton onPress={this.props.navigation.getParam('guest', 'NO-ID') === true ?
-         Alert.alert(
-               "You cannot add items to NüV unless you make a profile"
-            )
+         this.openRegistrationOverlay
         : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
 
@@ -656,6 +658,7 @@ render() {
       <GlobalButton
         marginLeft={Dimensions.get('window').width*0.1}
         onPress={() => navigate('BrandList', {
+          guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),
@@ -669,6 +672,7 @@ render() {
       <GlobalButton
         marginRight={Dimensions.get('window').width*0.1}
         onPress={() => navigate('MediaList', {
+          guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           avatar:        this.props.navigation.getParam('avatar', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
           id:            this.props.navigation.getParam('id', 'NO-ID'),

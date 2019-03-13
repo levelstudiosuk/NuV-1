@@ -43,61 +43,48 @@ export default class Landing extends React.Component {
   }
 
   guestSignIn(){
-    var session_url = 'http://nuv-api.herokuapp.com/signup';
+    var session_url = 'http://nuv-api.herokuapp.com/login';
     var {navigate} = this.props.navigation;
     var self = this;
-
-    var email = Date.now() + "@1.com"
-    var password = "Password8"
-
     axios.post(session_url, {"user":
   {
-    "email": email,
-    "password": password
+    "email": "1552467737294@1.com",
+    "password": "Password8"
   }
   }
-).then(function(response) {
-      axios.post(`http://nuv-api.herokuapp.com/login`, {"user":
-    {
-      "email": email,
-      "password": password
-    }
-    }).then(function(second_response) {
-      var token = second_response.headers.authorization;
-      const formData = new FormData();
-     formData.append('profile[name]', "NüV Guest");
-     formData.append('profile[bio]', "To add a biography, please create a NüV account and fill in the biography field.");
-     formData.append('profile[user_is_vegan]', "vCurious");
-     formData.append('profile[location]', "Undisclosed");
-
-       axios.post('http://nuv-api.herokuapp.com/profiles',
-      formData,
-    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
-    .then(function(third_response){
+  ).then(function(response) {
+    var token = response.headers.authorization
+    var admin = JSON.parse(response.request['_response']).admin
       axios.get('http://nuv-api.herokuapp.com/this_users_profile',
-     { headers: { Authorization: `${token}` }})
-     .then(function(fourth_response){
-       var responseForName = JSON.parse(fourth_response.request['_response'])
-       var uri = responseForName.avatar.url
+        { headers: { Authorization: `${token}` }})
 
-      self.setState({
+   .then(function(second_response){
+     var responseForName = JSON.parse(second_response.request['_response'])
+     var uri = responseForName.avatar.url
 
-        spinner: false
+     self.setState({ spinner: false},
 
-      }, function(){
-        if (self.state.image && Platform.OS == 'ios'){
-          navigate('Home', {guest: true, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
-      }
-      else {
-        navigate('Home', {guest: true, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
-      }
-        })
-        })
-      })
-    })
-  }).catch(function(e){
+     function(){
+       navigate('Home', {
+             guest:         true,
+             avatar:        uri,
+             token:         token,
+             id:            responseForName.id,
+             name:          responseForName.name,
+             bio:           responseForName.bio,
+             user_is_vegan: responseForName.user_is_vegan,
+             user_id:       responseForName.user_id,
+             location:      responseForName.location,
+             admin: admin
+           })
+     })
+
+    })}).catch(function(e){
+      Alert.alert(
+        'There was an error logging you in. Make sure to enter valid credentials.'
+        )
         console.log(e);
-      })
+        })
   }
 
 render() {
