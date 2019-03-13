@@ -16,11 +16,20 @@ import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    HeroImageCarousel from '../../components/HeroImageCarousel.js';
+import    SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class Landing extends React.Component {
   static navigationOptions = {
       header: null,
   };
+
+  constructor(props){
+    super(props)
+  }
+
+  state = {
+    spinner: false
+  }
 
 
   componentDidMount(){
@@ -33,11 +42,71 @@ export default class Landing extends React.Component {
     ).catch(err => { console.log('caught', err.message); });
   }
 
+  guestSignIn(){
+    var session_url = 'http://nuv-api.herokuapp.com/signup';
+    var {navigate} = this.props.navigation;
+    var self = this;
+
+    var email = Date.now() + "@1.com"
+    var password = "Password8"
+
+    axios.post(session_url, {"user":
+  {
+    "email": email,
+    "password": password
+  }
+  }
+).then(function(response) {
+      axios.post(`http://nuv-api.herokuapp.com/login`, {"user":
+    {
+      "email": email,
+      "password": password
+    }
+    }).then(function(second_response) {
+      var token = second_response.headers.authorization;
+      const formData = new FormData();
+     formData.append('profile[name]', "NüV Guest");
+     formData.append('profile[bio]', "NüV guest users do not have a biography. To add a proper biography, please create a NüV account and fill in the biography field.");
+     formData.append('profile[user_is_vegan]', "vCurious");
+     formData.append('profile[location]', "Undisclosed");
+
+       axios.post('http://nuv-api.herokuapp.com/profiles',
+      formData,
+    { headers: { Authorization: `${token}`, 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' }})
+    .then(function(third_response){
+      axios.get('http://nuv-api.herokuapp.com/this_users_profile',
+     { headers: { Authorization: `${token}` }})
+     .then(function(fourth_response){
+       var responseForName = JSON.parse(fourth_response.request['_response'])
+       var uri = responseForName.avatar.url
+
+      self.setState({
+
+        spinner: false
+
+      }, function(){
+        if (self.state.image && Platform.OS == 'ios'){
+          navigate('Home', {guest: true, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      }
+      else {
+        navigate('Home', {guest: true, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      }
+        })
+        })
+      })
+    })
+  }).catch(function(e){
+        console.log(e);
+      })
+  }
+
 render() {
   const {navigate} = this.props.navigation;
     return (
 
       <View style={landingStyle.container}>
+
+      <SubmittedFormSpinner spinner={this.state.spinner} message="Signing you in as a NüV guest..." />
 
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center'}}>
@@ -73,7 +142,7 @@ render() {
       style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20,
       marginBottom: Dimensions.get('window').height*0.035
     }}
-      onPress={() => this.guestSignIn()}
+      onPress={() => this.setState({ spinner: true }, function() { this.guestSignIn() } ) }
       >
       Browse NüV as guest
      </Text>
