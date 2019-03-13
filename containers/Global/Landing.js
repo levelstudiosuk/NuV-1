@@ -69,6 +69,15 @@ render() {
         />
       </View>
 
+      <Text
+      style={{fontSize: Dimensions.get('window').width > 750 ? 20 : 16, color: '#2e8302', textAlign: 'center', paddingLeft: 20, paddingRight: 20,
+      marginBottom: Dimensions.get('window').height*0.035
+    }}
+      onPress={() => this.guestSignIn()}
+      >
+      Browse NüV as guest
+     </Text>
+
     </ScrollView>
   </View>
     );
@@ -100,6 +109,7 @@ const landingStyle = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginLeft: 0,
     marginTop: Dimensions.get('window').height*0.035,
+    marginBottom: Dimensions.get('window').height*0.035,
     backgroundColor: 'transparent',
     justifyContent: 'space-between',
     alignItems: 'center',
