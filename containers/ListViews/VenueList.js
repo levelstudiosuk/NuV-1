@@ -50,7 +50,7 @@ export default class VenueList extends React.Component {
    .then(function(response){
 
      var responseItems = JSON.parse(response.request['_response']);
-     var venueItems = responseItems.
+     var venueItems = self.props.navigation.getParam('viewingAnotherUser') != true ? responseItems.
      filter(venueItem => venueItem.longitude && venueItem.latitude &&
        self.approxDistanceBetweenTwoPoints(
        venueItem.latitude,
@@ -59,7 +59,9 @@ export default class VenueList extends React.Component {
        self.props.navigation.getParam('latitude', 'NO-ID') :  self.props.navigation.getParam('latitude', 'NO-ID'),
      self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ?
      self.props.navigation.getParam('longitude', 'NO-ID') : self.props.navigation.getParam('longitude', 'NO-ID'))
-     <= self.props.navigation.getParam('distance', 'NO-ID'));
+     <= self.props.navigation.getParam('distance', 'NO-ID'))
+
+     : responseItems;
 
      self.setState({
        venueItems:  self.props.navigation.getParam('user', 'NO-ID') === true ? venueItems.filter(venueItem => venueItem.user_id === self.props.navigation.getParam('user_id', 'NO-ID')) : venueItems
