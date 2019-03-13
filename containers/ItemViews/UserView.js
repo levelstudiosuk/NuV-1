@@ -352,7 +352,7 @@ export default class UserView extends React.Component {
     marginLeft={Dimensions.get('window').width*0.12}
     onPress={() => this.props.navigation.getParam('recipes', 'NO-ID') === 0 ? Alert.alert(
            `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any recipes yet`
-        ) : navigate('RecipeList', {
+        ) : this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('RecipeList', {
       user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
         user: true,
         viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -370,7 +370,7 @@ export default class UserView extends React.Component {
     marginRight={Dimensions.get('window').width*0.12}
     onPress={() => this.props.navigation.getParam('venues', 'NO-ID') === 0 ? Alert.alert(
            `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any venues yet`
-        ) : navigate('VenueList', {
+        ) : this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('VenueList', {
       user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
       user: true, avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
       viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -391,7 +391,7 @@ export default class UserView extends React.Component {
   marginLeft={Dimensions.get('window').width*0.12}
   onPress={() => this.props.navigation.getParam('brands', 'NO-ID') === 0 ? Alert.alert(
          `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any brands yet`
-      ) : navigate('BrandList', {
+      ) : this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('BrandList', {
     user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
     user: true,
     viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
@@ -409,7 +409,7 @@ export default class UserView extends React.Component {
   marginRight={Dimensions.get('window').width*0.12}
   onPress={() => this.props.navigation.getParam('media', 'NO-ID') === 0 ? Alert.alert(
          `${this.props.navigation.getParam('uploader', 'NO-ID').name} has not posted any media items yet`
-      ) : navigate('MediaList', {
+      ) : this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('MediaList', {
     user_id: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('uploader', 'NO_ID').id,
     user: true,
     viewingAnotherUser: this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? false : true,
