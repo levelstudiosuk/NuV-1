@@ -64,7 +64,18 @@ render() {
         <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>You scanned {this.props.productDetails.title}!</Text>
         <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>{this.returnVeganStatus(this.props.productDetails.vegan)}</Text>
         <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>{this.returnVegetarianStatus(this.props.productDetails.vegetarian)}</Text>
-
+        { this.props.productDetails.eco ? (
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This product is eco</Text>
+      ) : null
+      }
+      { this.props.productDetails.fairtrade ? (
+      <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This is a Fairtrade product</Text>
+      ) : null
+      }
+      { this.props.productDetails.organic ? (
+      <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This product is organic</Text>
+      ) : null
+      }
         <View style={{alignItems: 'center'}}>
 
         {  this.props.productDetails.vegan === true ? (

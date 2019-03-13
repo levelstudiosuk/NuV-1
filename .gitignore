@@ -4,6 +4,6 @@ npm-debug.*
 *.jks
 *.p12
 *.key
-./news_key.js
+news_key.js
 *.mobileprovision
-./barcode_key.js
+barcode_key.js
