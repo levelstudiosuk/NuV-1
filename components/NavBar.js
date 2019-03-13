@@ -36,6 +36,7 @@ export default class NavBar extends React.Component {
 
       <TouchableHighlight underlayColor="white"
       onPress={() => navigate('NuVContributors', {
+        guest:         this.props.navigation.getParam('guest', 'NO-ID'),
         user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
         settings: true,
         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
