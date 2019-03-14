@@ -237,7 +237,8 @@ handleRegistrationRequest(navigation){
     this.setState({
       overlayVisible: false
     }, function(){
-
+      console.log("Latitude: ", latitude ? latitude : this.state.latitude);
+      console.log("Longitude: ", longitude ? longitude : this.state.longitude);
       navigate('Map', {
         guest: this.props.navigation.getParam('guest', 'NO-ID'),
         user_id: navigation.getParam('user_id', 'NO-ID'),

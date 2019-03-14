@@ -59,7 +59,7 @@ export default class Map extends React.Component {
      // var pointsArray = [{latitude: -3.1811, longitude: 55.9497}].concat(responseItems.filter(venueItem => venueItem.longitude && venueItem.latitude))
      // var location = self.getRegionForCoordinates(pointsArray)
 
-     var region = self.regionFrom(self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497, self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811, self.props.navigation.getParam('distance', 'NO-ID')*1000)
+     var region = self.regionFrom(self.props.navigation.getParam('latitude', 'NO-ID') ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497, self.props.navigation.getParam('longitude', 'NO-ID') ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811, self.props.navigation.getParam('distance', 'NO-ID')*1000)
 
      console.log("Location: ", region);
 
@@ -68,8 +68,8 @@ export default class Map extends React.Component {
      .filter(venueItem => venueItem.longitude && venueItem.latitude && self.approxDistanceBetweenTwoPoints(
        venueItem.latitude,
        venueItem.longitude,
-       self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
-       self.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
+       self.props.navigation.getParam('latitude', 'NO-ID') ? self.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+       self.props.navigation.getParam('longitude', 'NO-ID') ? self.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
      )
      <= self.props.navigation.getParam('distance', 'NO-ID'));
 
@@ -124,7 +124,9 @@ export default class Map extends React.Component {
               onPress={() => this.setState({
                   clickedVenue: venue.id},
                   function(){ console.log("clicked", this.state.clickedVenue)}) }
-              title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)`}
+              title={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)` :
+              `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 55.9497), this.props.navigation.getParam('longitude', -3.1811))).toFixed(2)} km from your searched location)`
+            }
               pinColor={'blue'}
               description={"Click to view"}
               onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
@@ -223,8 +225,8 @@ render() {
           >
         <MapView.Marker
             coordinate={{
-              latitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
-              longitude: this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? this.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
+              latitude: this.props.navigation.getParam('latitude', 'NO-ID') ? this.props.navigation.getParam('latitude', 'NO-ID') : 55.9497,
+              longitude: this.props.navigation.getParam('longitude', 'NO-ID') ? this.props.navigation.getParam('longitude', 'NO-ID') : -3.1811
               }}
               title={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? "Your searched location" : "Your location"}
               pinColor={'red'}

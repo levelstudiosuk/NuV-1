@@ -250,7 +250,7 @@ render() {
                   />
 
                   <GlobalButton
-                    onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan)}
+                    onPress={() => this.props.launchMap(this.props.navigation, this.state.distance, this.state.seeOnlyVegan, null, null)}
                     buttonTitle={"Go"}
                   />
 
