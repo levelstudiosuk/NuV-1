@@ -492,6 +492,7 @@ render() {
    item_type="brands"
    token={this.props.navigation.getParam('token', 'NO-ID')}
    active_user={this.props.navigation.getParam('name', 'NO-ID')}
+   navigation={this.props.navigation}
     />
 
       <View style={{

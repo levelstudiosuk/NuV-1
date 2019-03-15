@@ -7,11 +7,13 @@ import {  Alert,
           Dimensions,
           Text,
           ScrollView,
+          TouchableHighlight,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    BarCodeScanner from '../../components/BarCodeScanner.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
+import    moment from 'moment';
 
 export default class Comments extends React.Component {
   static navigationOptions = {
@@ -36,6 +38,44 @@ export default class Comments extends React.Component {
  componentDidMount(){
    this.retrieveComments()
 
+ }
+
+ retrieveUploaderProfile(contributor, navigation){
+
+   const {navigate} = navigation;
+   var navigation = navigation;
+
+   var id = contributor.profile.id;
+   var token = this.props.navigation.getParam('token', 'NO-ID');
+   var self = this;
+
+   axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
+
+{ headers: { Authorization: `${token}` }})
+
+.then(function(response){
+
+  var uploaderProfile = JSON.parse(response.request['_response'])
+
+  self.setState({ loadingProfile: false},
+    function(){
+  navigate('UserView',
+  {notMyProfile: true,
+     uploader: uploaderProfile,
+     guest: this.props.navigation.getParam('guest', 'NO-ID'),
+     token: self.props.navigation.getParam('token', 'NO-ID'),
+     avatar:        self.props.navigation.getParam('avatar', 'NO-ID'),
+     id:            self.props.navigation.getParam('id', 'NO-ID'),
+     name:          self.props.navigation.getParam('name', 'NO-ID'),
+     bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+     location:      self.props.navigation.getParam('location', 'NO-ID'),
+     user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
+   })
+ }
+ )
+}).catch(function(error){
+  console.log("Error: ", error);
+})
  }
 
    retrieveComments(){
@@ -85,6 +125,48 @@ export default class Comments extends React.Component {
      })
    }
 
+   renderPostComments(){
+       const {navigate} = this.props.navigation;
+       var navigation = this.props.navigation;
+
+       return this.state.comments.map((item, i) =>
+
+       <View key={i} style={{marginTop: Dimensions.get('window').height*0.02}}>
+
+      <View key={i+10} style={commentsStyle.commentContentContainer}>
+
+      <View style={{marginRight: Dimensions.get('window').width*0.025}}>
+       <TouchableHighlight underlayColor={'white'}
+         key={i+1}
+         onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item, navigation)})}>
+         <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
+       </TouchableHighlight>
+       </View>
+
+       <View key={i} style={commentsStyle.commentItem}>
+       <View>
+       <Text style={commentsStyle.commentPosterName}>
+        {item.profile.name}
+       </Text>
+       </View>
+
+       <View key={i+2} style={{marginBottom: 10, textAlign: 'center'}}>
+       <Text>{item.body}</Text>
+       </View>
+
+       <View>
+       <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 18 : 14, color: '#a2e444', marginBottom: 3}}>
+        {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()}
+       </Text>
+       </View>
+       </View>
+
+       </View>
+
+       </View>
+     )
+   }
+
     render() {
 
       const data = this.state.comments
@@ -102,9 +184,11 @@ export default class Comments extends React.Component {
 
 
           <View style={commentsStyle.commentsContainer}>
-          <Text style={commentsStyle.commentsHeading}>
-          Comments here
+          <Text style={commentsStyle.commentsSectionHeading}>
+          Comments ({this.state.comments.length})
           </Text>
+
+          {this.renderPostComments()}
           </View>
 
 
@@ -124,15 +208,35 @@ export default class Comments extends React.Component {
         justifyContent: 'center',
       },
       commentsContainer: {
-        marginTop: Dimensions.get('window').height*0.005,
+        marginTop: Dimensions.get('window').height*0.025,
         alignItems: 'center',
-        justifyContent: 'center',
       },
-      commentsHeading: {
-      fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
+      commentsSectionHeading: {
+      fontSize: Dimensions.get('window').width > 750 ? 27 : 25,
       textAlign: 'center',
       color: '#a2e444',
-      marginTop: Dimensions.get('window').height*0.03
+      marginTop: Dimensions.get('window').height*0.01
+      },
+      commentPosterName: {
+      fontSize: Dimensions.get('window').width > 750 ? 22 : 19,
+      textAlign: 'center',
+      color: '#a2e444',
+      marginTop: Dimensions.get('window').height*0.0025,
+      marginBottom: 10
+      },
+      commentItem: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: '#F3F2F2',
+        borderRadius: Dimensions.get('window').height*0.005,
+        width: Dimensions.get('window').width*0.74
+      },
+      commentText: {
+        fontSize: Dimensions.get('window').width > 750 ? 18 : 14
+      },
+      commentContentContainer: {
+        flex: 1,
+        flexDirection: 'row',
       },
 
     })
