@@ -326,6 +326,8 @@ render() {
           <NavBar
             navigation={     this.props.navigation}
             openOverlay={    this.openOverlay}
+            openAddItemOverlay={this.openAddItemOverlay}
+            openRegistrationOverlay = {this.openRegistrationOverlay}
             attributes={{
               guest:         this.props.navigation.getParam('guest', 'NO-ID'),
               token:         this.props.navigation.getParam('token', 'NO-ID'),
@@ -730,6 +732,8 @@ render() {
       <NavBar
         navigation={this.props.navigation}
         openOverlay={this.openOverlay}
+        openAddItemOverlay={this.openAddItemOverlay}
+        openRegistrationOverlay = {this.openRegistrationOverlay}
         attributes={{
           guest:         this.props.navigation.getParam('guest', 'NO-ID'),
           token:         this.props.navigation.getParam('token', 'NO-ID'),
