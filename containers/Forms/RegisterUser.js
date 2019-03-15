@@ -282,6 +282,9 @@ export default class RegisterUser extends React.Component {
        formData.append('profile[bio]', self.state.bio);
        formData.append('profile[user_is_vegan]', self.state.vSelection);
        formData.append('profile[location]', self.state.location === "" ? "Undisclosed" : self.state.location);
+       if (!self.state.image){
+         formData.append('profile[needs_avatar]', true);
+       }
        if (self.state.image != null){
        formData.append('profile[avatar]', {
         uri: self.state.image,
