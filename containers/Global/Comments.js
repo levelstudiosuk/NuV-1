@@ -213,10 +213,6 @@ export default class Comments extends React.Component {
      self.setState({
        deletingLike: false
      }, function(){
-       Alert.alert(
-              "You no longer like this comment"
-           )
-
            self.retrieveComments()
          })
        }
@@ -244,9 +240,6 @@ export default class Comments extends React.Component {
      self.setState({
        deletingComment: false,
      }, function(){
-       Alert.alert(
-            "You deleted that comment"
-           )
     // Retrieve comments from the API once more so that the deleted comment is not included in the list
       self.retrieveComments()
      })
