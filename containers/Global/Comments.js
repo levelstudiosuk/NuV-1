@@ -150,6 +150,37 @@ export default class Comments extends React.Component {
      })
    }
 
+   deleteComment(comment){
+     const {navigate} = this.props.navigation;
+
+     var self = this;
+     var token = this.props.navigation.getParam('token', 'NO-ID');
+     var comment = comment;
+     console.log("Comment: ", comment);
+
+     axios.delete(`http://nuv-api.herokuapp.com/comments/${comment.id}`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+
+     self.setState({
+       deletingComment: false,
+     }, function(){
+       Alert.alert(
+            "You deleted that comment"
+           )
+    // Retrieve comments from the API once more so that the deleted comment is not included in the list
+      self.retrieveComments()
+     })
+    }
+   )
+   .catch(function(error){
+    console.log("Error: ", error);
+   })
+   }
+
    renderPostComments(){
        const {navigate} = this.props.navigation;
        var navigation = this.props.navigation;
@@ -190,9 +221,25 @@ export default class Comments extends React.Component {
            flex: 1,
            flexDirection: 'row'}}>
 
+           {
+             this.props.navigation.getParam('admin', 'NO-ID') === true || this.props.navigation.getParam('id', 'NO-ID') === item.profile.id ? (
+           <View key={i+18}>
+           <TouchableHighlight
+           onPress={() => this.deleteComment(item)}
+           style={{justifyContent: 'center', alignItems: 'center', marginRight: Dimensions.get('window').width*0.05, height: 25, width: 25}}
+           underlayColor={'#F3F2F2'}
+           key={i+22}>
+           <Image key={i+2}
+             source={require('../../assets/AppIcons/trash.png')}
+             style={{width: 17, height: 17}}/>
+           </TouchableHighlight>
+           </View>
+         ) : null
+       }
+
                <LikeButton
                navigation={this.props.navigation}
-               itemAlreadyLiked={false}
+               itemAlreadyLiked={item.already_liked ? true : false}
                commentSection={true}
                handleButtonClick={() => console.log("Hi")}
                />
