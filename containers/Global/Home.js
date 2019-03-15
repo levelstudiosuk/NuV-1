@@ -480,7 +480,7 @@ render() {
 
     {
       this.state.avatarLoading === false ? (
-        <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
+        <View style={{alignItems: 'center', height: Dimensions.get('window').width*0.1, overflow: 'visible'}}>
 
         <TouchableHighlight underlayColor="white"
         onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
@@ -498,11 +498,12 @@ render() {
 
           <Image source={require('../../assets/new_barcode.png')}
             style={{
-            height: Dimensions.get('window').width*0.12,
-            width: Dimensions.get('window').width*0.12,
+            height: Dimensions.get('window').width*0.15,
+            width: Dimensions.get('window').width*0.15,
             marginRight: Dimensions.get('window').width*0.08,
             marginLeft: Dimensions.get('window').width*0.08,
-            marginBottom: 20}}
+            marginBottom: 20
+          }}
             />
 
         </TouchableHighlight>
@@ -701,7 +702,7 @@ render() {
 
   {
     this.state.avatarLoading === false ? (
-      <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
+      <View style={{alignItems: 'center', height: Dimensions.get('window').width*0.1, overflow: 'visible'}}>
 
       <TouchableHighlight underlayColor="white"
       onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
@@ -719,11 +720,12 @@ render() {
 
         <Image source={require('../../assets/new_barcode.png')}
           style={{
-          height: Dimensions.get('window').width*0.12,
-          width: Dimensions.get('window').width*0.12,
+          height: Dimensions.get('window').width*0.15,
+          width: Dimensions.get('window').width*0.15,
           marginRight: Dimensions.get('window').width*0.08,
           marginLeft: Dimensions.get('window').width*0.08,
-          marginBottom: 20}}
+          marginBottom: 20
+        }}
           />
 
       </TouchableHighlight>

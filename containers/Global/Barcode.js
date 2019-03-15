@@ -34,6 +34,12 @@ export default class Barcode extends React.Component {
         return (
           <View style={barcodeStyle.globalContainer}>
 
+          <View style={barcodeStyle.titleContainer}>
+            <Text style={barcodeStyle.title}>
+              Scan barcode with camera
+            </Text>
+          </View>
+
             <BarCodeScanner />
 
           </View>
@@ -46,6 +52,14 @@ export default class Barcode extends React.Component {
       globalContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-      }
+      },
+      titleContainer: {
+        alignItems: 'center',
+        marginTop: Dimensions.get('window').height*0.03
+      },
+      title: {
+        textAlign: 'center',
+        fontSize: Dimensions.get('window').width > 750 ? 22 : 17
+      },
 
     });
