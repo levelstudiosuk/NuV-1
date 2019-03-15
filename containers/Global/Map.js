@@ -121,15 +121,13 @@ export default class Map extends React.Component {
                   latitude: parseFloat(venue.latitude),
                   longitude: parseFloat(venue.longitude)
                   }}
-              onPress={() => this.setState({
-                  clickedVenue: venue.id},
-                  function(){ console.log("clicked", this.state.clickedVenue)}) }
+
               title={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)` :
               `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 55.9497), this.props.navigation.getParam('longitude', -3.1811))).toFixed(2)} km from your searched location)`
             }
               pinColor={'blue'}
               description={"Click to view"}
-              onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
+              onCalloutPress={() => this.processMarkerClick(venue.id)}>
           </MapView.Marker>
         )
     }
@@ -144,11 +142,10 @@ export default class Map extends React.Component {
                   latitude: parseFloat(venue.latitude),
                   longitude: parseFloat(venue.longitude)
                   }}
-              onPress={() => this.setState({clickedVenue: venue.id, latitude: parseFloat(venue.latitude), longitude: parseFloat(venue.longitude) }, function(){ console.log("clicked", this.state.clickedVenue)}) }
               title={`${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)`}
               pinColor={'blue'}
               description={"Click to view"}
-              onCalloutPress={() => this.state.clickedVenue ? this.processMarkerClick(venue.id) : console.log("No clicked venue currently")}>
+              onCalloutPress={() => this.processMarkerClick(venue.id)}>
           </MapView.Marker>
         )
     }
@@ -162,13 +159,13 @@ export default class Map extends React.Component {
       }
     }
 
-    processMarkerClick(){
-      console.log("clickedVenue", this.state.clickedVenue);
+    processMarkerClick(id){
       const {navigate} = this.props.navigation;
 
       // this.setState({ isFlipped: !this.state.isFlipped })
 
-      navigate('VenueView', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('profile_id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.clickedVenue, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
+      navigate('VenueView', {guest: this.props.navigation.getParam('guest', 'NO-ID'),
+              avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('profile_id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     }
 
     resetFlipped(){
