@@ -380,7 +380,7 @@ render() {
               borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
-            source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+            source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
           />
         </Animatable.View>
     </TouchableHighlight>
@@ -607,7 +607,7 @@ render() {
               borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
-            source={{uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+              source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
           />
           </Animatable.View>
 

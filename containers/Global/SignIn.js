@@ -68,8 +68,10 @@ export default class SignIn extends React.Component {
         { headers: { Authorization: `${token}` }})
 
    .then(function(second_response){
+     console.log("Response for name: ", second_response);
      var responseForName = JSON.parse(second_response.request['_response'])
-     var uri = responseForName.avatar.url
+     console.log("Response for name2 : ", responseForName);
+     var uri = responseForName.needs_avatar === true ? null : responseForName.avatar.url
       navigate('Home', {
             avatar:        uri,
             token:         token,
