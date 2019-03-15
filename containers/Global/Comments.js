@@ -15,6 +15,7 @@ import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    moment from 'moment';
+import    LikeButton from '../../components/LikeButton.js';
 
 export default class Comments extends React.Component {
   static navigationOptions = {
@@ -99,16 +100,28 @@ export default class Comments extends React.Component {
      .then(function(response){
 
        var comments = JSON.parse(response.request['_response'])
-       console.log("Comments: ", comments);
 
        self.setState({
          comments: comments
         },
        function(){
-         console.log("Comments: ", self.state.comments);
-       }
+         console.log("Finished getting comments from API");
+        }
      )
      })
+   }
+
+   getRequestBody(){
+     switch(this.props.item_type){
+       case("media"):
+          return {"body": this.state.commentBody, "medium_id": `${this.props.item_id}` }
+       case("brands"):
+          return {"body": this.state.commentBody, "brand_id": `${this.props.item_id}` }
+       case("recipes"):
+          return {"body": this.state.commentBody, "recipe_id": `${this.props.item_id}` }
+       case("venues"):
+          return {"body": this.state.commentBody, "venue_id": `${this.props.item_id}` }
+     }
    }
 
    postComment(){
@@ -116,8 +129,9 @@ export default class Comments extends React.Component {
      var self = this;
      var token = this.props.token;
      var endpoint = `http://nuv-api.herokuapp.com/${this.props.item_type}/${this.props.item_id}/comments`
+     var requestBody = this.getRequestBody()
 
-     axios.post(endpoint, {"body": this.state.commentBody, "brand_id": `${this.props.item_id}` },
+     axios.post(endpoint, requestBody,
 
        { headers: { Authorization: `${token}` }})
 
@@ -129,7 +143,7 @@ export default class Comments extends React.Component {
          postingComment: false
        },
        function(){
-         console.log("Comments: ", self.state.comments);
+         // Retrieve comments from the API once more so that the newly added comment is included in the list
          self.retrieveComments()
        }
      )
@@ -170,6 +184,20 @@ export default class Comments extends React.Component {
         {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()}
        </Text>
        </View>
+
+       <View
+         style={{
+           flex: 1,
+           flexDirection: 'row'}}>
+
+               <LikeButton
+               navigation={this.props.navigation}
+               itemAlreadyLiked={false}
+               commentSection={true}
+               handleButtonClick={() => console.log("Hi")}
+               />
+          </View>
+
        </View>
 
        </View>
@@ -207,8 +235,15 @@ export default class Comments extends React.Component {
             {this.state.commentBody != "" && this.props.navigation.getParam('guest', 'NO-ID') != true ? (
 
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <GlobalButton onPress={() => this.state.postingComment != true ? this.changeCommentBody("") : null} buttonTitle={"Cancel"} />
-              <GlobalButton onPress={() => this.state.postingComment != true ? this.postComment() : null} buttonTitle={this.state.postingComment != true ? "Publish" : "Publishing..."} />
+              <GlobalButton
+              onPress={() => this.state.postingComment != true ? this.changeCommentBody("") : null}
+              buttonTitle={"Cancel"}
+              />
+              <GlobalButton
+              onPress={() => this.state.postingComment != true ? this.setState({ postingComment: true },
+              function() {this.postComment()}) : null}
+              buttonTitle={this.state.postingComment != true ? "Publish" : "Publishing..."}
+              />
               </View>
 
             ) : null
@@ -271,7 +306,7 @@ export default class Comments extends React.Component {
         alignItems: 'center',
         flexDirection: 'column',
         backgroundColor: '#F3F2F2',
-        borderRadius: Dimensions.get('window').height*0.005,
+        borderRadius: Dimensions.get('window').height*0.02,
         width: Dimensions.get('window').width*0.74
       },
       commentText: {

@@ -13,24 +13,15 @@ export default class LikeButton extends Component {
     return (
 
       <TouchableHighlight
-        style={faveButtonStyle.content}
+        style={{width:  this.props.commentSection ? 32 : 50, height: this.props.commentSection ? 32 : 50, justifyContent: 'center', alignItems: 'center'}}
         onPress={this.props.handleButtonClick}
-        underlayColor="white"
+        underlayColor={this.props.commentSection ? '#F3F2F2' : "white"}
         >
           <Image
             source={this.props.itemAlreadyLiked === true ? require('../assets/like.png') : require('../assets/like_grey.png')}
-            style={{height:25, width:25,}}
+            style={{height:this.props.commentSection ? 25 : 25, width: this.props.commentSection ? 25 : 25}}
           />
       </TouchableHighlight>
     )
   }
 }
-
-const faveButtonStyle = StyleSheet.create({
-  content: {
-  width:          50,
-  height:         50,
-  justifyContent: 'center',
-  alignItems:     'center',
-  },
-});
