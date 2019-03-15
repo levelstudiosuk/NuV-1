@@ -11,6 +11,7 @@ import {  Alert,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    BarCodeScanner from '../../components/BarCodeScanner.js';
+import    GlobalButton from '../../components/GlobalButton.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    moment from 'moment';
@@ -30,14 +31,22 @@ export default class Comments extends React.Component {
      loadingComments: true,
      lastCommentUpdate: null,
      login: null,
+     commentBody: ""
    }
    this.scrollIndex = 0
+   this.changeCommentBody = this.changeCommentBody.bind(this);
 
  }
 
  componentDidMount(){
    this.retrieveComments()
 
+ }
+
+ changeCommentBody(comment){
+   this.setState({
+     commentBody: comment
+   })
  }
 
  retrieveUploaderProfile(contributor, navigation){
@@ -51,32 +60,32 @@ export default class Comments extends React.Component {
 
    axios.get(`http://nuv-api.herokuapp.com/profiles/${id}`,
 
-{ headers: { Authorization: `${token}` }})
+    { headers: { Authorization: `${token}` }})
 
-.then(function(response){
+    .then(function(response){
 
-  var uploaderProfile = JSON.parse(response.request['_response'])
+      var uploaderProfile = JSON.parse(response.request['_response'])
 
-  self.setState({ loadingProfile: false},
-    function(){
-  navigate('UserView',
-  {notMyProfile: true,
-     uploader: uploaderProfile,
-     guest: this.props.navigation.getParam('guest', 'NO-ID'),
-     token: self.props.navigation.getParam('token', 'NO-ID'),
-     avatar:        self.props.navigation.getParam('avatar', 'NO-ID'),
-     id:            self.props.navigation.getParam('id', 'NO-ID'),
-     name:          self.props.navigation.getParam('name', 'NO-ID'),
-     bio:           self.props.navigation.getParam('bio', 'NO-ID'),
-     location:      self.props.navigation.getParam('location', 'NO-ID'),
-     user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
-   })
- }
- )
-}).catch(function(error){
-  console.log("Error: ", error);
-})
- }
+      self.setState({ loadingProfile: false},
+        function(){
+      navigate('UserView',
+      {notMyProfile: true,
+         uploader: uploaderProfile,
+         guest: this.props.navigation.getParam('guest', 'NO-ID'),
+         token: self.props.navigation.getParam('token', 'NO-ID'),
+         avatar:        self.props.navigation.getParam('avatar', 'NO-ID'),
+         id:            self.props.navigation.getParam('id', 'NO-ID'),
+         name:          self.props.navigation.getParam('name', 'NO-ID'),
+         bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+         location:      self.props.navigation.getParam('location', 'NO-ID'),
+         user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
+       })
+     }
+     )
+    }).catch(function(error){
+      console.log("Error: ", error);
+    })
+     }
 
    retrieveComments(){
      var self = this;
@@ -103,23 +112,25 @@ export default class Comments extends React.Component {
    }
 
    postComment(){
+
      var self = this;
      var token = this.props.token;
      var endpoint = `http://nuv-api.herokuapp.com/${this.props.item_type}/${this.props.item_id}/comments`
 
-     axios.post(endpoint, {"body":"Another comment right here", "brand_id": `${this.props.item_id}` },
+     axios.post(endpoint, {"body": this.state.commentBody, "brand_id": `${this.props.item_id}` },
 
        { headers: { Authorization: `${token}` }})
 
      .then(function(response){
 
-       var comments = JSON.parse(response.request['_response'])
-
        self.setState({
-         postedComment: true
+         postedComment: true,
+         commentBody: "",
+         postingComment: false
        },
        function(){
          console.log("Comments: ", self.state.comments);
+         self.retrieveComments()
        }
      )
      })
@@ -145,12 +156,12 @@ export default class Comments extends React.Component {
 
        <View key={i} style={commentsStyle.commentItem}>
        <View>
-       <Text style={commentsStyle.commentPosterName}>
+       <Text style={commentsStyle.commentPosterName} onPress={() => this.retrieveUploaderProfile(item, navigation)}>
         {item.profile.name}
        </Text>
        </View>
 
-       <View key={i+2} style={{marginBottom: 10, textAlign: 'center'}}>
+       <View key={i+2} style={{paddingLeft: 5, paddingRight: 5, marginBottom: 10, textAlign: 'center'}}>
        <Text>{item.body}</Text>
        </View>
 
@@ -175,10 +186,34 @@ export default class Comments extends React.Component {
 
           <ScrollView
             contentContainerStyle={commentsStyle.globalContainer}
-            onScroll={(event) => {
-                this.scrollIndex = event.nativeEvent.contentOffset.y
-            }}
-            ref={'scrollView'}>
+            showsVerticalScrollIndicator={false}
+            >
+
+            <View style={{alignItems: 'center', marginTop: 10}}>
+
+            { this.props.navigation.getParam('guest', 'NO-ID') != true ? (
+
+            <TextInput
+              style={{borderWidth: 2, borderBottomColor: 'grey', borderTopColor: 'grey', borderRightColor: 'grey', borderLeftColor: 'grey', width: Dimensions.get('window').width*0.8, height: Dimensions.get('window').height*0.07, marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02, borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+              onChangeText={(commentBody) => {this.changeCommentBody(commentBody)}}
+              value={this.state.commentBody} placeholder='Add a public comment...' placeholderTextColor='black'
+              underlineColorAndroid='transparent'
+            />
+
+          ) : null
+
+        }
+
+            {this.state.commentBody != "" && this.props.navigation.getParam('guest', 'NO-ID') != true ? (
+
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <GlobalButton onPress={() => this.state.postingComment != true ? this.changeCommentBody("") : null} buttonTitle={"Cancel"} />
+              <GlobalButton onPress={() => this.state.postingComment != true ? this.postComment() : null} buttonTitle={this.state.postingComment != true ? "Publish" : "Publishing..."} />
+              </View>
+
+            ) : null
+          }
+          </View>
 
         {this.state.comments.length > 0 ? (
 
@@ -192,7 +227,15 @@ export default class Comments extends React.Component {
           </View>
 
 
-           ) : null}
+           ) :
+
+           <View style={commentsStyle.commentsContainer}>
+           <Text style={commentsStyle.commentsSectionHeading}>
+           Comments ({this.state.comments.length})
+           </Text>
+           </View>
+
+         }
 
       </ScrollView>
 
@@ -208,7 +251,7 @@ export default class Comments extends React.Component {
         justifyContent: 'center',
       },
       commentsContainer: {
-        marginTop: Dimensions.get('window').height*0.025,
+        marginTop: Dimensions.get('window').height*0.015,
         alignItems: 'center',
       },
       commentsSectionHeading: {
@@ -235,7 +278,6 @@ export default class Comments extends React.Component {
         fontSize: Dimensions.get('window').width > 750 ? 18 : 14
       },
       commentContentContainer: {
-        flex: 1,
         flexDirection: 'row',
       },
 
