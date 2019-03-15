@@ -179,9 +179,7 @@ export default class Comments extends React.Component {
        postingLike: false
 
      }, function(){
-       Alert.alert(
-              "You now like this comment"
-           )
+
         self.retrieveComments()
 
         })
@@ -213,6 +211,7 @@ export default class Comments extends React.Component {
      self.setState({
        deletingLike: false
      }, function(){
+
            self.retrieveComments()
          })
        }
@@ -240,6 +239,9 @@ export default class Comments extends React.Component {
      self.setState({
        deletingComment: false,
      }, function(){
+       Alert.alert(
+            "You deleted that comment"
+           )
     // Retrieve comments from the API once more so that the deleted comment is not included in the list
       self.retrieveComments()
      })
@@ -291,7 +293,7 @@ export default class Comments extends React.Component {
            flexDirection: 'row'}}>
 
            {
-             this.props.navigation.getParam('admin', 'NO-ID') === true || this.props.navigation.getParam('id', 'NO-ID') === item.profile.id ? (
+             this.props.navigation.getParam('admin', 'NO-ID') === true || this.props.navigation.getParam('id', 'NO-ID') === item.profile.id || this.props.navigation.getParam('profile_id', 'NO-ID') === item.profile.id ? (
            <View key={i+18}>
            <TouchableHighlight
            onPress={() => this.deleteComment(item)}
@@ -452,7 +454,7 @@ export default class Comments extends React.Component {
         flexDirection: 'column',
         backgroundColor: '#F3F2F2',
         borderRadius: Dimensions.get('window').height*0.02,
-        width: Dimensions.get('window').width*0.74
+        width: Dimensions.get('window').width*0.71
       },
       commentText: {
         fontSize: Dimensions.get('window').width > 750 ? 18 : 14

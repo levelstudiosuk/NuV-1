@@ -26,6 +26,7 @@ import    LikersOverlay from '../../components/LikersOverlay.js';
 import   Expo, {
          ImagePicker } from 'expo';
 import { Permissions} from 'expo'
+import    Comments from '../Global/Comments.js';
 import   MapView, {
          PROVIDER_GOOGLE} from 'react-native-maps';
 import   Map from '../../containers/Global/Map.js';
@@ -477,6 +478,15 @@ render() {
             containerStyle={{marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.02}}
           />
         </View>
+
+        <Comments
+
+       item_id={this.state.recipeItem.id}
+       item_type="recipes"
+       token={this.props.navigation.getParam('token', 'NO-ID')}
+       active_user={this.props.navigation.getParam('name', 'NO-ID')}
+       navigation={this.props.navigation}
+        />
 
         <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
           <Text style={recipeViewStyle.vibeHeading}>Rate this recipe</Text>
