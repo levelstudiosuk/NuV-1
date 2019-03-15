@@ -24,7 +24,7 @@ export default class MapSettingsOverlay extends Component {
   }
 
   state = {
-      distance: 10,
+      distance: 1,
       seeOnlyVegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID') === "vegan" ? true : false,
       selectedOption: null,
       place: ""
@@ -139,7 +139,7 @@ render() {
           >
           <GlobalButton
             onPress={() => this.chooseCurrentLocation()}
-            buttonTitle={"Near Here"}
+            buttonTitle={"Near Me"}
           />
 
         </View>
@@ -150,7 +150,7 @@ render() {
           >
           <GlobalButton
             onPress={() => this.chooseSearchLocation()}
-            buttonTitle={"Search Place"}
+            buttonTitle={"Search"}
           />
 
         </View>
@@ -268,9 +268,9 @@ render() {
       <View style={buttonContainerStyle.container}>
         <Slider
           animateTransitions={true}
-          minimumValue={5}
-          maximumValue={100}
-          step={5}
+          minimumValue={1}
+          maximumValue={60}
+          step={1}
           minimumTrackTintColor={'#a2e444'}
           maximumTrackTintColor={'#2e8302'}
           thumbTintColor={'white'}

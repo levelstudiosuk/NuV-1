@@ -203,9 +203,6 @@ render() {
   <View>
   { this.state.venueItems ? (
     <ScrollView>
-    <FlipComponent
-        isFlipped={this.state.isFlipped}
-        frontView={
 
       <View style={mapStyle.container}>
           <MapView style={mapStyle.map}
@@ -248,38 +245,7 @@ render() {
            />
         </View>
       </View>
-          }
-
-        backView={
-
-          <View>
-
-          { this.state.clickedVenue ? (
-
-          <VenueView
-            fromMap={true}
-            venue={this.state.clickedVenue}   profile_id={this.props.navigation.getParam('profile_id', 'NO-ID')}  token={this.props.navigation.getParam('token', 'NO-ID')}  navigation={this.props.navigation}
-          />
-
-        ) : null
-
-      }
-      </View>
-          }
-          />
-
-        {
-          this.state.isFlipped === true ? (
-            <View style={mapStyle.flipbutton}>
-            <GlobalButton
-              buttonTitle="Flip"
-              onPress={() => {
-                this.resetFlipped()
-              }}
-              />
-            </View>
-          ) : null
-        }
+      
       </ScrollView>
 
     ) :

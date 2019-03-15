@@ -506,10 +506,6 @@ render() {
     </Text>
   </View>
 
-  <View>
-  <SnapCarousel venueItem={this.state.venueItem} images={images}/>
-  </View>
-
   <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
     <Text style={venueViewStyle.vibeHeading}>
       NuV user rating
