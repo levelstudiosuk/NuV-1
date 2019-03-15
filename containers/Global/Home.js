@@ -482,9 +482,30 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-      <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-           this.openRegistrationOverlay()
-          : this.openAddItemOverlay()} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+        <TouchableHighlight underlayColor="white"
+        onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
+             this.openRegistrationOverlay()
+            : navigate('Barcode', {
+          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+          settings: true,
+          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+          token: this.props.navigation.getParam('token', 'NO-ID'),
+          id: this.props.navigation.getParam('id', 'NO-ID'),
+          name: this.props.navigation.getParam('name', 'NO-ID'),
+          bio: this.props.navigation.getParam('bio', 'NO-ID'),
+          location: this.props.navigation.getParam('location', 'NO-ID'),
+          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
+
+          <Image source={require('../../assets/new_barcode.png')}
+            style={{
+            height: Dimensions.get('window').width*0.12,
+            width: Dimensions.get('window').width*0.12,
+            marginRight: Dimensions.get('window').width*0.08,
+            marginLeft: Dimensions.get('window').width*0.08,
+            marginBottom: 20}}
+            />
+
+        </TouchableHighlight>
     </View>
 
   ) : null}
@@ -682,10 +703,30 @@ render() {
     this.state.avatarLoading === false ? (
       <View style={{alignItems: 'center', height: 10, overflow: 'visible'}}>
 
-    <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-         this.openRegistrationOverlay()
-        : this.openAddItemOverlay()
-      } noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+      <TouchableHighlight underlayColor="white"
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
+           this.openRegistrationOverlay()
+          : navigate('Barcode', {
+        user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+        settings: true,
+        avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+        token: this.props.navigation.getParam('token', 'NO-ID'),
+        id: this.props.navigation.getParam('id', 'NO-ID'),
+        name: this.props.navigation.getParam('name', 'NO-ID'),
+        bio: this.props.navigation.getParam('bio', 'NO-ID'),
+        location: this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
+
+        <Image source={require('../../assets/new_barcode.png')}
+          style={{
+          height: Dimensions.get('window').width*0.12,
+          width: Dimensions.get('window').width*0.12,
+          marginRight: Dimensions.get('window').width*0.08,
+          marginLeft: Dimensions.get('window').width*0.08,
+          marginBottom: 20}}
+          />
+
+      </TouchableHighlight>
   </View>
 
 ) : null}

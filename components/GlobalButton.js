@@ -22,11 +22,11 @@ render() {
 
       <GradientButton
         onPressAction     = {this.props.onPress}
-        textStyle         = {{fontSize: Dimensions.get('window').width < 750 ? 15 : 23, color: 'white', fontWeight: 'normal'}}
+        textStyle         = {{fontSize: Dimensions.get('window').width < 750 ? 15 : 19, color: 'white', fontWeight: 'normal'}}
         text              = {this.props.buttonTitle}
         radius            = {10}
         height            = {45}
-        width             = {Dimensions.get('window').width*0.3}
+        width             = {Dimensions.get('window').width*0.25}
         impact            = 'True'
         impactStyle       = 'Light'
         gradientBegin     = "#2e8302"
