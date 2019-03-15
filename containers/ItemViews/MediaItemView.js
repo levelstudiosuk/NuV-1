@@ -16,6 +16,7 @@ import StarRating from 'react-native-star-rating';
 import { AsyncStorage, Alert } from "react-native"
 import axios from 'axios';
 import LikersOverlay from '../../components/LikersOverlay.js';
+import    Comments from '../Global/Comments.js';
 
 export default class MediaView extends React.Component {
   static navigationOptions = {

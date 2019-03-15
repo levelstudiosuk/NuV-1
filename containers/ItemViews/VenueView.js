@@ -20,6 +20,7 @@ import Expo,
      { ImagePicker }      from 'expo';
 import MapView,
       {PROVIDER_GOOGLE}   from 'react-native-maps';
+import    Comments from '../Global/Comments.js';
 import {
        StyleSheet,
        ScrollView,
@@ -518,6 +519,15 @@ render() {
       containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
       />
   </View>
+
+      <Comments
+
+     item_id={this.state.venueItem.id}
+     item_type="venues"
+     token={this.props.navigation.getParam('token', 'NO-ID')}
+     active_user={this.props.navigation.getParam('name', 'NO-ID')}
+     navigation={this.props.navigation}
+      />
 
   <View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.005, width: Dimensions.get('window').width*1}}>
     <Text style={venueViewStyle.vibeHeading}>
