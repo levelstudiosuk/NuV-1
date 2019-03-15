@@ -338,9 +338,16 @@ export default class Comments extends React.Component {
                   */
                />
 
+               {item.likes > 0 ?  (
+
             <View style={{marginLeft: Dimensions.get('window').width*0.004, justifyContent: 'center', alignItems: 'center', marginRight: Dimensions.get('window').width*0.05, height: 25, width: 25 }}>
-            <Text>{item.likes > 0 ? item.likes : ""}</Text>
+            <Text>{item.likes}</Text>
             </View>
+
+          ) : null
+
+        }
+
           </View>
 
        </View>
