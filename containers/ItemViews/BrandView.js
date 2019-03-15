@@ -21,6 +21,7 @@ import    AddItemButton from '../../components/AddItemButton.js';
 import    LoadingCelery from '../../components/LoadingCelery.js';
 import    FaveButton from '../../components/FaveButton.js';
 import    LikeButton from '../../components/LikeButton.js';
+import    Comments from '../Global/Comments.js';
 import    LikersOverlay from '../../components/LikersOverlay.js';
 import {  AsyncStorage, Alert } from "react-native"
 import moment from 'moment';
@@ -484,6 +485,14 @@ render() {
         containerStyle={{marginBottom: Dimensions.get('window').height*0.02}}
         />
     </View>
+
+    <Comments
+
+   item_id={this.state.brandItem.id}
+   item_type="brands"
+   token={this.props.navigation.getParam('token', 'NO-ID')}
+   active_user={this.props.navigation.getParam('name', 'NO-ID')}
+    />
 
       <View style={{
         alignItems: 'center',

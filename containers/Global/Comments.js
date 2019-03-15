@@ -98,33 +98,17 @@ export default class Comments extends React.Component {
             }}
             ref={'scrollView'}>
 
-        {this.state.comments.length ? (
-
-          <Comments
-
-          data={data}
-          viewingUserName={this.props.active_user}
-          initialDisplayCount={10}
-          editMinuteLimit={900}
-          childrenPerPage={5}
-          lastCommentUpdate={this.state.lastCommentUpdate}
-
-          childPropName={'children'}
-          isChild={() =>this.isCommentChild(item)}
-          keyExtractor={item => item.comment_id}
-          usernameExtractor={item => this.extractUsername(item)}
-          editTimeExtractor={item => this.extractEditTime(item)}
-          createdTimeExtractor={item => this.extractCreatedTime(item)}
-          bodyExtractor={item => this.extractBody(item)}
-          imageExtractor={item => this.extractImage(item)}
-          likeExtractor={item => this.likeExtractor(item)}
-          reportedExtractor={item => this.reportedExtractor(item)}
-          likesExtractor={item => this.likesExtractor(item)}
-          childrenCountExtractor={item => this.extractChildrenCount(item)}
-          timestampExtractor={item => item.updated_at}
+        {this.state.comments.length > 0 ? (
 
 
-        /> ) : null}
+          <View style={commentsStyle.commentsContainer}>
+          <Text style={commentsStyle.commentsHeading}>
+          Comments here
+          </Text>
+          </View>
+
+
+           ) : null}
 
       </ScrollView>
 
@@ -138,4 +122,17 @@ export default class Comments extends React.Component {
       globalContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-      }
+      },
+      commentsContainer: {
+        marginTop: Dimensions.get('window').height*0.005,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      commentsHeading: {
+      fontSize: Dimensions.get('window').width > 750 ? 27 : 20,
+      textAlign: 'center',
+      color: '#a2e444',
+      marginTop: Dimensions.get('window').height*0.03
+      },
+
+    })
