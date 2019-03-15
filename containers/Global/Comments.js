@@ -32,10 +32,17 @@ export default class Comments extends React.Component {
      loadingComments: true,
      lastCommentUpdate: null,
      login: null,
-     commentBody: ""
+     commentBody: "",
+     deletingLike: false,
+     postingLike: false
    }
    this.scrollIndex = 0
    this.changeCommentBody = this.changeCommentBody.bind(this);
+   this.deleteComment = this.deleteComment.bind(this);
+   this.postLike = this.postLike.bind(this);
+   this.deleteLike = this.deleteLike.bind(this);
+   this.retrieveComments = this.retrieveComments.bind(this);
+   this.postComment = this.postComment.bind(this);
 
  }
 
@@ -105,7 +112,7 @@ export default class Comments extends React.Component {
          comments: comments
         },
        function(){
-         console.log("Finished getting comments from API");
+         console.log("Comments from API: ", self.state.comments);
         }
      )
      })
@@ -148,6 +155,75 @@ export default class Comments extends React.Component {
        }
      )
      })
+   }
+
+   postLike(navigation, comment){
+
+     this.setState({ postingLike: true }, function(){
+
+     var self = this;
+     const {navigate} = navigation
+
+       var token = navigation.getParam('token', 'NO-ID');
+       var id = comment.id
+       var self = this;
+
+     axios.post(`http://nuv-api.herokuapp.com/comments/${id}/like`,  {"data": ""},
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     self.setState({
+
+       postingLike: false
+
+     }, function(){
+       Alert.alert(
+              "You now like this comment"
+           )
+        self.retrieveComments()
+
+        })
+      }
+    ).catch(function(error){
+     console.log("Error: ", error);
+   })
+   })
+   }
+
+
+   deleteLike(navigation, comment){
+     var self = this;
+
+     self.setState({ deletingLike: true }, function(){
+
+     const {navigate} = navigation
+
+       var token = navigation.getParam('token', 'NO-ID');
+       var id = comment.id
+       var self = this;
+
+     axios.delete(`http://nuv-api.herokuapp.com/comments/${id}/remove_like`,
+
+   { headers: { Authorization: `${token}` }})
+
+   .then(function(response){
+
+     self.setState({
+       deletingLike: false
+     }, function(){
+       Alert.alert(
+              "You no longer like this comment"
+           )
+
+           self.retrieveComments()
+         })
+       }
+     ).catch(function(error){
+    console.log("Error: ", error);
+   })
+   })
    }
 
    deleteComment(comment){
@@ -239,10 +315,32 @@ export default class Comments extends React.Component {
 
                <LikeButton
                navigation={this.props.navigation}
-               itemAlreadyLiked={item.already_liked ? true : false}
+               itemAlreadyLiked={item.user_liked ? true : false}
                commentSection={true}
-               handleButtonClick={() => console.log("Hi")}
+               handleButtonClick=
+               {() =>
+                 this.props.navigation.getParam('guest', 'NO-ID') != true &&
+                 item.user_liked === true &&
+                 this.state.deletingLike === false ?
+                 this.deleteLike(this.props.navigation, item) :
+                 this.state.postingLike === false &&
+                 this.props.navigation.getParam('guest', 'NO-ID') != true ?
+                 this.postLike(this.props.navigation, item) :
+                 null
+               }
+               /* Assuming the user is not a guest, if the comment is already liked and the like is not currently being deleted,
+                 call the deleteLike() method.
+
+                 Else, again assuming the user is not a guest, if a like is not currently being posted for the comment,
+                 launch the postLike() method.
+
+                 Otherwise do nothing when the thumb button is clicked.
+                  */
                />
+
+            <View style={{marginLeft: Dimensions.get('window').width*0.004, justifyContent: 'center', alignItems: 'center', marginRight: Dimensions.get('window').width*0.05, height: 25, width: 25 }}>
+            <Text>{item.likes > 0 ? item.likes : ""}</Text>
+            </View>
           </View>
 
        </View>
