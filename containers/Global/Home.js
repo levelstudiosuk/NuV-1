@@ -482,7 +482,7 @@ render() {
 
       <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
            this.openRegistrationOverlay()
-          : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+          : this.openAddItemOverlay()} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
     </View>
 
   ) : null}
@@ -682,7 +682,8 @@ render() {
 
     <AddItemButton onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
          this.openRegistrationOverlay()
-        : this.openAddItemOverlay} noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
+        : this.openAddItemOverlay()
+      } noMargin={true} height={Dimensions.get('window').width*0.1} width={Dimensions.get('window').width*0.1} />
   </View>
 
 ) : null}
