@@ -22,7 +22,7 @@ import    ImageSlider from 'react-native-image-slider';
     'https://thegreenhubonline.com/wp-content/uploads/2018/07/SUNANDEARTH20of221.jpg',
     'http://coveteur.com/wp-content/uploads/2017/03/best-food-instagram-accounts-17.jpg',
     'https://static1.squarespace.com/static/57f925036b8f5bb7f2af92bd/t/59276b643e00be74ac7baaa5/1495755820649/?format=1000w',
-    'https://www.saveur.com/sites/saveur.com/files/styles/1000_1x_/public/the-sunkissed-kitchen_619x748.jpg?itok=NdwcI6uH&fc=50,50',
+    'https://livekindlyproduction-8u6efaq1lwo6x9a.stackpathdns.com/wp-content/uploads/2018/05/vivera-Cropped.jpg',
     'https://www.livekindly.co/wp-content/uploads/2017/07/vegan-richa-e1500398339476.png',
     'https://static.boredpanda.com/blog/wp-content/uploads/2017/09/vegan-colorful-food-arrangements-jose-naturallyjo-7-59b0ee2425e1d__700.jpg',
     'https://livekindlyproduction-8u6efaq1lwo6x9a.stackpathdns.com/wp-content/uploads/2017/08/go-vegan-telegraph-e1503838040217.jpg',
