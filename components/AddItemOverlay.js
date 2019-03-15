@@ -49,12 +49,12 @@ render() {
         <View style={addItemOverlayStyle.iconsContainer}>
 
           <GlobalButton
-            marginLeft={Dimensions.get('window').width*0.12}
+            marginLeft={Dimensions.get('window').width*0.18}
             onPress={() => this.props.openRecipeForm() }
               buttonTitle={"Recipe"}
             />
           <GlobalButton
-            marginRight={Dimensions.get('window').width*0.12}
+            marginRight={Dimensions.get('window').width*0.18}
             onPress={() => this.props.openVenueForm() }
             buttonTitle={"Eatery"}
             />
@@ -63,12 +63,12 @@ render() {
         <View style={addItemOverlayStyle.iconsContainer2}>
 
         <GlobalButton
-          marginLeft={Dimensions.get('window').width*0.12}
+          marginLeft={Dimensions.get('window').width*0.18}
           onPress={() => this.props.openBrandForm() }
           buttonTitle={"Brand"}
         />
         <GlobalButton
-          marginRight={Dimensions.get('window').width*0.12}
+          marginRight={Dimensions.get('window').width*0.18}
           onPress={() => this.props.openMediaForm() }
           buttonTitle={"Media"}
         />

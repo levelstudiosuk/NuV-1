@@ -120,17 +120,17 @@ render() {
     }}
       onPress={() => this.setState({ spinner: true }, function() { this.guestSignIn() } ) }
       >
-      Browse NüV as guest
+      Enter as guest
      </Text>
 
       <View style={landingStyle.iconsContainer}>
         <GlobalButton
-          marginLeft={Dimensions.get('window').width*0.16}
+          marginLeft={Dimensions.get('window').width*0.20}
           onPress={() => navigate('SignIn', {name: 'Home'})}
           buttonTitle={"Sign in"}
         />
         <GlobalButton
-          marginRight={Dimensions.get('window').width*0.16}
+          marginRight={Dimensions.get('window').width*0.20}
           onPress={() => navigate('RegisterUser', {name: 'Home'})} buttonTitle={"Register"}
         />
       </View>

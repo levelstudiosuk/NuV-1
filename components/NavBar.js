@@ -52,13 +52,13 @@ export default class NavBar extends React.Component {
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
-      onPress={() => this.props.openOverlay() }>
-          <Image source={require('../assets/NavBarIcons/Green/greenworld.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.props.openRegistrationOverlay() : this.props.openAddItemOverlay()}>
+          <Image source={require('../assets/AppIcons/lightgreenplus.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
-      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.props.openRegistrationOverlay() : this.props.openAddItemOverlay()}>
-          <Image source={require('../assets/AppIcons/lightgreenplus.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
+      onPress={() => this.props.openOverlay() }>
+          <Image source={require('../assets/NavBarIcons/Green/greenworld.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
