@@ -139,7 +139,7 @@ render() {
           >
           <GlobalButton
             onPress={() => this.chooseCurrentLocation()}
-            buttonTitle={"My Location"}
+            buttonTitle={"Near Here"}
           />
 
         </View>
@@ -150,7 +150,7 @@ render() {
           >
           <GlobalButton
             onPress={() => this.chooseSearchLocation()}
-            buttonTitle={"Search Location"}
+            buttonTitle={"Search Place"}
           />
 
         </View>

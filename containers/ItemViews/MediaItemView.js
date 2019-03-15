@@ -386,7 +386,9 @@ export default class MediaView extends React.Component {
         </TouchableHighlight>
         { this.state.mediaItem.user_image ? (
         <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
-        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.mediaItem.user_image}}/>
+        <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}
+        source={this.state.mediaItem.user_image ? {uri: this.state.mediaItem.user_image} : require('../../assets/usericon.png')}
+        />
         </TouchableHighlight>
       ) : null
     }

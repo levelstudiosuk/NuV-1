@@ -480,7 +480,10 @@ render() {
   <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
   </TouchableHighlight>
   <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() } >
-    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.venueItem.user_image}}/>
+    <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}
+    source={this.state.venueItem.user_image ? {uri: this.state.venueItem.user_image} : require('../../assets/usericon.png')}
+
+    />
   </TouchableHighlight>
 
     <ShareButton

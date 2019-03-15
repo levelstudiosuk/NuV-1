@@ -441,7 +441,9 @@ render() {
         <AutoHeightImage
           width={Dimensions.get('window').width*0.1}
           style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}
-          source={{uri: this.state.brandItem.user_image}}/>
+          source={this.state.brandItem.user_image ? {uri: this.state.brandItem.user_image} : require('../../assets/usericon.png')}
+          />
+
         </TouchableHighlight>
 
         <ShareButton

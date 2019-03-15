@@ -420,7 +420,9 @@ render() {
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
 
           <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() }>
-            <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={{uri: this.state.recipeItem.user_image}}/>
+            <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}
+            source={this.state.recipeItem.user_image ? {uri: this.state.recipeItem.user_image} : require('../../assets/usericon.png')}
+/>
           </TouchableHighlight>
               <Text style={recipeViewStyle.recipetype}>
                 {this.state.recipeItem.category}

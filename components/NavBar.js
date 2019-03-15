@@ -53,7 +53,7 @@ export default class NavBar extends React.Component {
 
       <TouchableHighlight underlayColor="white"
       onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.props.openRegistrationOverlay() : this.props.openAddItemOverlay()}>
-          <Image source={require('../assets/AppIcons/lightgreenplus.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
+          <Image source={require('../assets/NavBarIcons/plus.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"

@@ -266,7 +266,11 @@ export default class Comments extends React.Component {
        <TouchableHighlight underlayColor={'white'}
          key={i+1}
          onPress={() => this.setState({loadingProfile: true}, function(){ this.retrieveUploaderProfile(item, navigation)})}>
-         <AutoHeightImage key={i+2} source={{uri: item.profile.avatar.url}} width={50} style={{borderRadius: 25}}/>
+         <AutoHeightImage
+         key={i+2}
+          width={50} style={{borderRadius: 25}}
+          source={item.profile.avatar.url ? {uri: item.profile.avatar.url} : require('../../assets/usericon.png')}
+          />
        </TouchableHighlight>
        </View>
 

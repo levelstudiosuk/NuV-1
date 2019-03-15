@@ -241,8 +241,8 @@ export default class UserView extends React.Component {
         borderRadius:   Dimensions.get('window').width*0.25,
         marginTop:      Dimensions.get('window').height*0.05
         }}
-      source={{
-        uri: this.props.navigation.getParam('avatar', 'NO-ID') ? this.props.navigation.getParam('avatar', 'NO-ID') : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+        source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
+
     />
 
   ) :
@@ -257,8 +257,8 @@ export default class UserView extends React.Component {
       borderRadius:   Dimensions.get('window').width*0.25,
       marginTop:      Dimensions.get('window').height*0.05
       }}
-    source={{
-      uri: this.props.navigation.getParam('uploader', 'NO-ID').avatar.url ? this.props.navigation.getParam('uploader', 'NO-ID').avatar.url : 'http://khoshamoz.ir/img/SiteGeneralImg/unknown_user_comments.png'}}
+      source={this.props.navigation.getParam('uploader', 'NO-ID').avatar.url ? {uri: this.props.navigation.getParam('uploader', 'NO-ID').avatar.url} : require('../../assets/usericon.png')}
+
   />
 
 }
