@@ -24,6 +24,17 @@ import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-s
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
 import    SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
+import ActionCable from 'react-native-actioncable'
+
+const cable = ActionCable.createConsumer('https://nuv-api.herokuapp.com/cable')
+
+// ... Other code
+cable.subscriptions.create('ChatChannel', {
+    received(data) {
+        console.log('Received data:', data)
+    }
+})
+
 export default class UserView extends React.Component {
   static navigationOptions = {
     title: null,
@@ -95,7 +106,7 @@ export default class UserView extends React.Component {
         bio:           this.props.navigation.getParam('bio', 'NO-ID'),
         location:      this.props.navigation.getParam('location', 'NO-ID'),
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-        sender_id: navigation.getParam('current_user_id', 'NO-ID')})
+        current_user_id: navigation.getParam('current_user_id', 'NO-ID')})
         }
       )
       })

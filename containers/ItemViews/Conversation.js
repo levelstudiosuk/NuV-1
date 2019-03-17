@@ -30,6 +30,31 @@ export default class Conversation extends React.Component {
 
   componentDidMount(){
 
+
+
+  }
+
+  retrieveMessages(){
+    var self = this;
+    var token = this.props.token;
+    var endpoint = `http://nuv-api.herokuapp.com/conversations/${this.props.navigation('conversation', 'NO-ID').id}`;
+
+    axios.get(endpoint,
+
+      { headers: { Authorization: `${token}` }})
+
+    .then(function(response){
+
+      var messages = JSON.parse(response.request['_response']).messages
+
+      self.setState({
+        messages: messages
+       },
+      function(){
+        console.log("conversations from API: ", self.state.conversations);
+       }
+    )
+    })
   }
 
   mapMessages(){
@@ -41,7 +66,7 @@ export default class Conversation extends React.Component {
         return (
           <View style={barcodeStyle.globalContainer}>
 
-          { this.state.conversations.length > 0 ? (
+          { this.state.messages && this.state.messages.length > 0 ? (
 
           <View style={barcodeStyle.titleContainer}>
             {this.mapMessages()}
