@@ -32,11 +32,11 @@ export default class Conversations extends React.Component {
   constructor(props) {
     super(props);
 
-    }
-
-    state = {
-
+    this.state = {
+      conversations: null
       };
+
+    }
 
   componentDidMount(){
 
