@@ -287,6 +287,27 @@ export default class UserView extends React.Component {
 
   }
 
+      {  this.props.navigation.getParam('notMyProfile', 'NO-ID') === true ? (
+
+  <View style={userViewStyle.editButtonContainer}>
+    <GlobalButton
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
+           this.openRegistrationOverlay()
+          : navigate('Conversation', {
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+      buttonTitle={"Message User"}
+    />
+  </View>
+
+) : null
+
+}
+
       {  this.props.navigation.getParam('notMyProfile', 'NO-ID') != true ? (
 
   <View style={userViewStyle.editButtonContainer}>
