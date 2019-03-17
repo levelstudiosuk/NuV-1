@@ -142,7 +142,8 @@ export default class MediaView extends React.Component {
         name:          self.props.navigation.getParam('name', 'NO-ID'),
         bio:           self.props.navigation.getParam('bio', 'NO-ID'),
         location:      self.props.navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID')
+        user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+        current_user_id: self.props.navigation.getParam('current_user_id', 'NO-ID'),
       })
 
     }).catch(function(error){

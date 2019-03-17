@@ -197,7 +197,7 @@ export default class VenueList extends React.Component {
       <TouchableHighlight
         key={i+1}
         style={venueListStyle.venueimage}
-        onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+        onPress={() => navigate('VenueView', {current_user_id: navigation.getParam('user_id', 'NO-ID'),
         guest: this.props.navigation.getParam('guest', 'NO-ID'),
         avatar: navigation.getParam('avatar', 'NO-ID'),
         token: navigation.getParam('token', 'NO-ID'),
@@ -243,7 +243,7 @@ export default class VenueList extends React.Component {
               <Text
               key={i+8}
               style={venueListStyle.venuedescription}
-              onPress={() => navigate('VenueView', {user_id: navigation.getParam('user_id', 'NO-ID'),
+              onPress={() => navigate('VenueView', {user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
               guest: this.props.navigation.getParam('guest', 'NO-ID'),
               settings: true,
               avatar: navigation.getParam('avatar', 'NO-ID'),

@@ -281,7 +281,8 @@ handleRegistrationRequest(navigation){
 
   redirectToView(recipe, navigation){
     const {navigate} = navigation
-    this.setState({ clickedRecipe: recipe}, function(){ navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.ids[this.state.names.indexOf(this.state.clickedRecipe)], name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})})
+    this.setState({ clickedRecipe: recipe}, function(){ navigate('RecipeView', {                current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+, guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.ids[this.state.names.indexOf(this.state.clickedRecipe)], name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})})
   }
 
   findRecipe(query, diet) {
@@ -476,7 +477,8 @@ handleRegistrationRequest(navigation){
           >
           <TouchableHighlight
           underlayColor="white"
-          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
+          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {                current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+, guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
           Alert.alert(
                `Unfortunately this particular recipe can not be viewed at the moment`
               )
@@ -497,7 +499,8 @@ handleRegistrationRequest(navigation){
         </TouchableHighlight>
 
           <Text
-          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
+          onPress={() => this.state.ids[this.state.names.indexOf(this.state.activeItem.item.title)] < 3536 ? navigate('RecipeView', {                 current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+, guest: this.props.navigation.getParam('guest', 'NO-ID'), avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.state.activeItem.item.id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')}) :
           Alert.alert(
                `Unfortunately this particular recipe can not be viewed at the moment`
               )
@@ -597,7 +600,8 @@ handleRegistrationRequest(navigation){
         <View style={{flex: 1, flexDirection: 'row', position: 'absolute', top: height*0.012}}>
           <SmallTwoWayToggle changeToggleSelection={this.changeToggleSelection} activeIndex={this.getActiveToggleIndex()} marginLeft={5}/>
           <AddItemButton navigation={this.props.navigation}
-          onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('RecipeForm', {avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
+          onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.openRegistrationOverlay() : navigate('RecipeForm', {                current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+, avatar: this.props.navigation.getParam('avatar', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: this.props.navigation.getParam('id', 'NO-ID'), name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})} />
           {/*<FaveButton navigation={this.props.navigation}/>*/}
         </View>
 

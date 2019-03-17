@@ -161,6 +161,7 @@ export default class NuVContributors extends React.Component {
         uploader: uploaderProfile,
         guest: this.props.navigation.getParam('guest', 'NO-ID'),
         fromContributorsPage: true,
+        current_user_id: navigation.getParam('current_user_id', 'NO-ID'),
         token: this.props.navigation.getParam('token', 'NO-ID'),
         brands: !contributor.brands_cont_count ? 0 : contributor.brands_cont_count,
         media: !contributor.media_cont_count ? 0 : contributor.media_cont_count,

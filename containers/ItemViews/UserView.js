@@ -22,6 +22,7 @@ import    axios from 'axios';
 import * as Badges from '../../helper_functions/Badges.js';
 import    StickyHeaderFooterScrollView from 'react-native-sticky-header-footer-scroll-view';
 import    MapSettingsOverlay from '../../components/MapSettingsOverlay.js';
+import    SubmittedFormSpinner from '../../components/SubmittedFormSpinner.js';
 
 export default class UserView extends React.Component {
   static navigationOptions = {
@@ -47,6 +48,7 @@ export default class UserView extends React.Component {
       this.openRegistrationOverlay = this.openRegistrationOverlay.bind(this);
       this.closeRegistrationOverlay = this.closeRegistrationOverlay.bind(this);
       this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
+      this.startConversation = this.startConversation.bind(this);
       }
 
     state = {
@@ -54,8 +56,50 @@ export default class UserView extends React.Component {
       overlayVisible: false,
       mapOverlayVisible: false,
       registrationOverlayVisible: false,
+      spinner: false
 
       };
+
+
+    startConversation(navigation){
+
+      const {navigate} = navigation
+
+      console.log("Sender ID: ", this.props.navigation.getParam('uploader', 'NO-ID').user_id);
+      console.log("Recipient ID: ", this.props.navigation.getParam('current_user_id', 'NO-ID'));
+
+      var self = this;
+      var token = this.props.navigation.getParam('token', 'NO-ID');
+      var endpoint = "http://nuv-api.herokuapp.com/conversations";
+      var requestBody = {"sender_id": this.props.navigation.getParam('uploader', 'NO-ID').user_id,
+                        "recipient_id": this.props.navigation.getParam('current_user_id', 'NO-ID')}
+
+      axios.post(endpoint, requestBody,
+
+        { headers: { Authorization: `${token}` }})
+
+      .then(function(response){
+
+        console.log("Response: ", response);
+
+        self.setState({
+          spinner: false
+        },
+        function(){
+
+          navigate('Conversations', {
+        recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
+        token:         this.props.navigation.getParam('token', 'NO-ID'),
+        id:            this.props.navigation.getParam('id', 'NO-ID'),
+        name:          this.props.navigation.getParam('name', 'NO-ID'),
+        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+        location:      this.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+        sender_id: navigation.getParam('current_user_id', 'NO-ID')})
+        }
+      )
+      })
+    }
 
     returnStatus(status){
       if (status === "vegan"){
@@ -166,6 +210,10 @@ export default class UserView extends React.Component {
     )
     }
   )
+  }
+
+  getConversationStarterMessage(){
+    return `Connecting you with ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
   }
 
   treatShortNames(name){
@@ -290,16 +338,14 @@ export default class UserView extends React.Component {
       {  this.props.navigation.getParam('notMyProfile', 'NO-ID') === true ? (
 
   <View style={userViewStyle.editButtonContainer}>
+
+  <SubmittedFormSpinner spinner={this.state.spinner} message={this.getConversationStarterMessage()} />
+
     <GlobalButton
       onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
            this.openRegistrationOverlay()
-          : navigate('Conversation', {
-        token:         this.props.navigation.getParam('token', 'NO-ID'),
-        id:            this.props.navigation.getParam('id', 'NO-ID'),
-        name:          this.props.navigation.getParam('name', 'NO-ID'),
-        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-        location:      this.props.navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
+          : this.setState({ spinner: true }, function() { this.startConversation(this.props.navigation) })
+        }
       buttonTitle={"Message User"}
     />
   </View>

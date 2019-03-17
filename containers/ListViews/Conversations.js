@@ -66,7 +66,7 @@ export default class Conversations extends React.Component {
         return (
           <View style={barcodeStyle.globalContainer}>
 
-          { this.state.conversations.length > 0 ? (
+          { this.state.conversations && this.state.conversations.length > 0 ? (
 
           <View style={barcodeStyle.titleContainer}>
             {this.mapConversations()}

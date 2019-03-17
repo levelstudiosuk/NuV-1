@@ -267,7 +267,9 @@ export default class MediaList extends React.Component {
         bio:           this.props.navigation.getParam('bio', 'NO-ID'),
         location:      this.props.navigation.getParam('location', 'NO-ID'),
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-        user_id:       item.user_id
+        user_id:       item.user_id,
+        current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+
       })}
         style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
           <Image source={require('../../assets/AppIcons/greennews.png')} style={{height: 80, width: 80}}/>
@@ -283,7 +285,9 @@ export default class MediaList extends React.Component {
                 bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                 location:      this.props.navigation.getParam('location', 'NO-ID'),
                 user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-                user_id:       item.user_id
+                user_id:       item.user_id,
+                current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
+
               })}
                style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {item.title}
@@ -299,7 +303,8 @@ export default class MediaList extends React.Component {
                 bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                 location:      this.props.navigation.getParam('location', 'NO-ID'),
                 user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-                user_id:       item.user_id
+                user_id:       item.user_id,
+                current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
               })}
                 style={mediaListStyle.mediadescription}>
                 {item.description}
@@ -315,7 +320,8 @@ export default class MediaList extends React.Component {
                 bio:           this.props.navigation.getParam('bio', 'NO-ID'),
                 location:      this.props.navigation.getParam('location', 'NO-ID'),
                 user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-              user_id:       item.user_id
+              user_id:       item.user_id,
+              current_user_id: this.props.navigation.getParam('user_id', 'NO-ID')
             })}
                 style={mediaListStyle.mediadescription}  style={mediaListStyle.mediatitle}>
                 {moment(new Date(item.publishedAt), 'MMMM Do YYYY, h:mm:ss a').calendar()} - {item.source}
