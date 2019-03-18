@@ -97,7 +97,6 @@ export default class UserView extends React.Component {
 
         .then(function(response){
 
-          console.log("Raw response post first convo start: ", JSON.parse(response.request['_response']));
           var conversations = JSON.parse(response.request['_response']).filter(item =>
             (item.recipient_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.sender_id === self.props.navigation.getParam('current_user_id', 'NO-ID')) ||
             (item.sender_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.recipient_id === self.props.navigation.getParam('current_user_id', 'NO-ID'))
@@ -137,7 +136,6 @@ export default class UserView extends React.Component {
           (item.recipient_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.sender_id === self.props.navigation.getParam('current_user_id', 'NO-ID')) ||
           (item.sender_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.recipient_id === self.props.navigation.getParam('current_user_id', 'NO-ID'))
       )
-        console.log("Conversations: ", conversations);
 
       self.setState({
         spinner: false
