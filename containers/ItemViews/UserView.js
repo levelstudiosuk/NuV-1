@@ -333,7 +333,7 @@ export default class UserView extends React.Component {
       borderRadius:   Dimensions.get('window').width*0.25,
       marginTop:      Dimensions.get('window').height*0.05
       }}
-      source={this.props.navigation.getParam('uploader', 'NO-ID').avatar.url ? {uri: this.props.navigation.getParam('uploader', 'NO-ID').avatar.url} : require('../../assets/usericon.png')}
+      source={this.props.navigation.getParam('uploader', 'NO-ID').avatar ? {uri: "http://res.cloudinary.com/nuv-api/" + this.props.navigation.getParam('uploader', 'NO-ID').avatar} : require('../../assets/usericon.png')}
 
   />
 
