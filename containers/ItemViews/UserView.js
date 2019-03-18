@@ -76,9 +76,7 @@ export default class UserView extends React.Component {
 
       const {navigate} = navigation
 
-      console.log("Sender ID: ", this.props.navigation.getParam('uploader', 'NO-ID').user_id);
-      console.log("Recipient ID: ", this.props.navigation.getParam('current_user_id', 'NO-ID'));
-
+      if (this.props.navigation.getParam('uploader', 'NO-ID').conversation_partner_of_mine === false){
       var self = this;
       var token = this.props.navigation.getParam('token', 'NO-ID');
       var endpoint = "http://nuv-api.herokuapp.com/conversations";
@@ -110,6 +108,25 @@ export default class UserView extends React.Component {
         }
       )
       })
+    }
+    else {
+
+      this.setState({
+        spinner: false
+      },
+      function(){
+
+      navigate('Conversations', {
+    recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
+    token:         this.props.navigation.getParam('token', 'NO-ID'),
+    id:            this.props.navigation.getParam('id', 'NO-ID'),
+    name:          this.props.navigation.getParam('name', 'NO-ID'),
+    bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+    location:      this.props.navigation.getParam('location', 'NO-ID'),
+    user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+    current_user_id: navigation.getParam('current_user_id', 'NO-ID')})
+  })
+  }
     }
 
     returnStatus(status){
@@ -357,7 +374,7 @@ export default class UserView extends React.Component {
            this.openRegistrationOverlay()
           : this.setState({ spinner: true }, function() { this.startConversation(this.props.navigation) })
         }
-      buttonTitle={"Message User"}
+      buttonTitle={this.props.navigation.getParam('uploader', 'NO-ID').conversation_partner_of_mine === false ? "Message User" : "View Messages"}
     />
   </View>
 
