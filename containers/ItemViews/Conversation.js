@@ -14,7 +14,7 @@ import {  Constants } from 'expo'
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    GlobalButton from '../../components/GlobalButton.js';
-
+import    moment from 'moment';
 
 export default class Conversation extends React.Component {
   static navigationOptions = {
@@ -124,42 +124,13 @@ export default class Conversation extends React.Component {
   }
 
   getPlaceholderText(){
-    return `Say something to ${this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').sender_name :  this.props.navigation.getParam('conversation', 'NO-ID').recipient_name}...`
-  }
-
-  mapMessages(navigation){
-
-    return this.state.messages.map((item, i) =>
-
-    <View key={i+10} style={convoStyle.commentContentContainer}>
-
-    <View style={{marginRight: Dimensions.get('window').width*0.025}}>
-     <TouchableHighlight underlayColor={'white'}
-       key={i+1}
-      >
-       <AutoHeightImage
-       key={i+2}
-        width={50} style={{borderRadius: 25}}
-        source={item.user_id === navigation.getParam('conversation', 'NO-ID').sender_id ? {uri: navigation.getParam('conversation', 'NO-ID').sender_avatar} : {uri: navigation.getParam('conversation', 'NO-ID').recipient_avatar}}
-        />
-     </TouchableHighlight>
-     </View>
-
-     <View key={i} style={convoStyle.commentItem}>
-     <Text style={convoStyle.commentPosterName} onPress={() => console.log("hi")}>
-      {item.body}
-     </Text>
-     </View>
-     </View>
-
-   )
-
+    return `Say something to ${this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}...`
   }
 
   _renderItem = ({item}) => (
     <View key={item.id+10} style={convoStyle.commentContentContainer}>
 
-    <View key={item.id+13} style={{marginRight: Dimensions.get('window').width*0.025}}>
+    <View key={item.id+13} style={{justifyContent: 'center', alignItems: 'center', marginRight: Dimensions.get('window').width*0.01}}>
      <TouchableHighlight underlayColor={'white'}
        key={item.id+1}
       >
@@ -178,6 +149,11 @@ export default class Conversation extends React.Component {
      </Text>
      </View>
      </View>
+     <View style={{justifyContent: 'center', alignItems: 'center'}} key={item.id+8}>
+     <Text style={{fontSize: Dimensions.get('window').width > 750 ? 12 : 8}}>
+      {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()}
+     </Text>
+     </View>
      </View>
   );
 
@@ -192,7 +168,7 @@ export default class Conversation extends React.Component {
 
           <View style={convoStyle.titleContainer}>
           <Text style={convoStyle.title}>
-            Messages with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').sender_name :  this.props.navigation.getParam('conversation', 'NO-ID').recipient_name}
+            Messages with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}
           </Text>
             <FlatList
               data={this.state.messages}
@@ -212,31 +188,23 @@ export default class Conversation extends React.Component {
 
       }
 
-      <TextInput
-        style={{marginTop: Dimensions.get('window').height*0.02, borderWidth: 2, borderBottomColor: 'grey',
-        borderTopColor: 'grey', borderRightColor: 'grey', borderLeftColor: 'grey',
-        width: Dimensions.get('window').width*0.8, height: Dimensions.get('window').height*0.07,
-        marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01,
-        borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
-
-        onChangeText={(messageBody) => {this.changeMessageBody(messageBody)}}
-        value={this.state.messageBody} placeholder={this.getPlaceholderText()} placeholderTextColor='black'
-        underlineColorAndroid='transparent'
-      />
-
-      {this.state.messageBody != "" ? (
 
         <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-        <View style={{backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.06, borderRadius: 5}}>
+
+        <TextInput
+          style={{marginTop: Dimensions.get('window').height*0.02, borderWidth: 2, borderBottomColor: 'grey',
+          borderTopColor: 'grey', borderRightColor: 'grey', borderLeftColor: 'grey',
+          width: Dimensions.get('window').width*0.7, height: Dimensions.get('window').height*0.07,
+          marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01,
+          borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+
+          onChangeText={(messageBody) => {this.changeMessageBody(messageBody)}}
+          value={this.state.messageBody} placeholder={this.getPlaceholderText()} placeholderTextColor='black'
+          underlineColorAndroid='transparent'
+        />
+        <View style={{paddingLeft: 10, marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.25, borderRadius: 5}}>
         <Text
-        style={{marginLeft: Dimensions.get('window').width*0.05, color: '#a2e444'}}
-        onPress={() => this.state.postingMessage != true ? this.changeMessageBody("") : null}
-        >Cancel
-        </Text>
-        </View>
-        <View style={{backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.06, borderRadius: 5}}>
-        <Text
-        style={{marginRight: Dimensions.get('window').width*0.05, color: '#a2e444'}}
+        style={{color: '#a2e444', textAlign: 'center' }}
         onPress={() => this.state.postingMessage != true ? this.setState({ postingMessage: true },
         function() {this.postMessage()}) : null}
         >{this.state.postingMessage != true ? "Send" : "Sending..."}
@@ -244,8 +212,6 @@ export default class Conversation extends React.Component {
         </View>
         </View>
 
-      ) : null
-    }
 
           </View>
         )
@@ -262,11 +228,12 @@ export default class Conversation extends React.Component {
       titleContainer: {
         alignItems: 'center',
         marginTop: Dimensions.get('window').height*0.01,
-        height: Dimensions.get('window').height*0.75,
+        height: Dimensions.get('window').height*0.77,
       },
       title: {
         textAlign: 'center',
-        fontSize: Dimensions.get('window').width > 750 ? 22 : 17
+        fontSize: Dimensions.get('window').width > 750 ? 22 : 17,
+        marginBottom: 15
       },
 
       commentPosterName: {
