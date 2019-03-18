@@ -71,7 +71,7 @@ export default class Conversations extends React.Component {
     const {navigate} = navigation;
 
     navigate('Conversation', {
-      recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
+      recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id ? this.props.navigation.getParam('uploader', 'NO-ID').id : null,
       token:         this.props.navigation.getParam('token', 'NO-ID'),
       id:            this.props.navigation.getParam('id', 'NO-ID'),
       name:          this.props.navigation.getParam('name', 'NO-ID'),

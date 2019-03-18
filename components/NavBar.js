@@ -57,6 +57,20 @@ export default class NavBar extends React.Component {
       </TouchableHighlight>
 
       <TouchableHighlight underlayColor="white"
+      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ? this.props.openRegistrationOverlay() :
+      navigate('Conversations', {
+      recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
+      token:         this.props.navigation.getParam('token', 'NO-ID'),
+      id:            this.props.navigation.getParam('id', 'NO-ID'),
+      name:          this.props.navigation.getParam('name', 'NO-ID'),
+      bio:           this.props.navigation.getParam('bio', 'NO-ID'),
+      location:      this.props.navigation.getParam('location', 'NO-ID'),
+      user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+      current_user_id: this.props.navigation.getParam('user_id', 'NO-ID') ? this.props.navigation.getParam('user_id', 'NO-ID') : this.props.navigation.getParam('current_user_id', 'NO-ID')})}>
+          <Image source={require('../assets/speech-bubble.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
+      </TouchableHighlight>
+
+      <TouchableHighlight underlayColor="white"
       onPress={() => this.props.openOverlay() }>
           <Image source={require('../assets/NavBarIcons/worldwide.png')} style={{height: Dimensions.get('window').width < 400 ? 28 : 34, marginRight: Dimensions.get('window').width*0.08, width: Dimensions.get('window').width < 400 ? 28 : 34, marginBottom: 20}}/>
       </TouchableHighlight>
