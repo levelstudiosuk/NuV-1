@@ -178,7 +178,7 @@ export default class Conversation extends React.Component {
 
         <View style={convoStyle.titleContainer}>
           <Text style={convoStyle.title}>
-            This is the start of your conversation with this user.
+            This is the start of your conversation with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}
           </Text>
         </View>
 

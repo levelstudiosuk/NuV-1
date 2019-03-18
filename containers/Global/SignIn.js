@@ -28,8 +28,8 @@ export default class SignIn extends React.Component {
     }
 
   state = {
-      email:    "Q@1.com",
-      password: "Password1"
+      email:    "greenanswer@homail.com",
+      password: "carrots"
     };
 
 

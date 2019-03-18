@@ -89,45 +89,75 @@ export default class UserView extends React.Component {
 
       .then(function(response){
 
-        console.log("Response: ", response);
+        var endpoint = "http://nuv-api.herokuapp.com/conversations"
+
+        axios.get(endpoint,
+
+          { headers: { Authorization: `${token}` }})
+
+        .then(function(response){
+
+          console.log("Raw response post first convo start: ", JSON.parse(response.request['_response']));
+          var conversations = JSON.parse(response.request['_response']).filter(item =>
+            (item.recipient_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.sender_id === self.props.navigation.getParam('current_user_id', 'NO-ID')) ||
+            (item.sender_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.recipient_id === self.props.navigation.getParam('current_user_id', 'NO-ID'))
+          )
 
         self.setState({
           spinner: false
         },
         function(){
 
-          navigate('Conversations', {
-        recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
-        token:         this.props.navigation.getParam('token', 'NO-ID'),
-        id:            this.props.navigation.getParam('id', 'NO-ID'),
-        name:          this.props.navigation.getParam('name', 'NO-ID'),
-        bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-        location:      this.props.navigation.getParam('location', 'NO-ID'),
-        user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-        current_user_id: navigation.getParam('current_user_id', 'NO-ID')})
+          navigate('Conversation', {
+        conversation:  conversations[0],
+        recipient:     self.props.navigation.getParam('uploader', 'NO-ID').id,
+        token:         self.props.navigation.getParam('token', 'NO-ID'),
+        id:            self.props.navigation.getParam('id', 'NO-ID'),
+        name:          self.props.navigation.getParam('name', 'NO-ID'),
+        bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+        location:      self.props.navigation.getParam('location', 'NO-ID'),
+        user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+        current_user_id: self.props.navigation.getParam('current_user_id', 'NO-ID')})
         }
-      )
+      )})
       })
     }
     else {
 
-      this.setState({
+      var endpoint = "http://nuv-api.herokuapp.com/conversations"
+      var self = this;
+
+      axios.get(endpoint,
+
+        { headers: { Authorization: `${token}` }})
+
+      .then(function(response){
+
+        var conversations = JSON.parse(response.request['_response']).filter(item =>
+          (item.recipient_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.sender_id === self.props.navigation.getParam('current_user_id', 'NO-ID')) ||
+          (item.sender_id === self.props.navigation.getParam('uploader', 'NO-ID').user_id && item.recipient_id === self.props.navigation.getParam('current_user_id', 'NO-ID'))
+      )
+        console.log("Conversations: ", conversations);
+
+      self.setState({
         spinner: false
       },
       function(){
 
-      navigate('Conversations', {
-    recipient:     this.props.navigation.getParam('uploader', 'NO-ID').id,
-    token:         this.props.navigation.getParam('token', 'NO-ID'),
-    id:            this.props.navigation.getParam('id', 'NO-ID'),
-    name:          this.props.navigation.getParam('name', 'NO-ID'),
-    bio:           this.props.navigation.getParam('bio', 'NO-ID'),
-    location:      this.props.navigation.getParam('location', 'NO-ID'),
-    user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID'),
-    current_user_id: navigation.getParam('current_user_id', 'NO-ID')})
-  })
+      navigate('Conversation', {
+    conversation:  conversations[0],
+    recipient:     self.props.navigation.getParam('uploader', 'NO-ID').id,
+    token:         self.props.navigation.getParam('token', 'NO-ID'),
+    id:            self.props.navigation.getParam('id', 'NO-ID'),
+    name:          self.props.navigation.getParam('name', 'NO-ID'),
+    bio:           self.props.navigation.getParam('bio', 'NO-ID'),
+    location:      self.props.navigation.getParam('location', 'NO-ID'),
+    user_is_vegan: self.props.navigation.getParam('user_is_vegan', 'NO-ID'),
+    current_user_id: self.props.navigation.getParam('current_user_id', 'NO-ID')})
+  })})
   }
     }
+
 
     returnStatus(status){
       if (status === "vegan"){
