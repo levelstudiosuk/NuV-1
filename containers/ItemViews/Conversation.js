@@ -123,10 +123,6 @@ export default class Conversation extends React.Component {
     })
   }
 
-  getPlaceholderText(){
-    return `Say something to ${this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}...`
-  }
-
   _renderItem = ({item}) => (
     <View key={item.id+10} style={convoStyle.commentContentContainer}>
 
@@ -149,7 +145,7 @@ export default class Conversation extends React.Component {
      </Text>
      </View>
      </View>
-     <View style={{justifyContent: 'center', alignItems: 'center'}} key={item.id+8}>
+     <View style={{justifyContent: 'center', alignItems: 'center', width: Dimensions.get('window').width*0.12, flexWrap: 'wrap'}} key={item.id+8}>
      <Text style={{fontSize: Dimensions.get('window').width > 750 ? 12 : 8}}>
       {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()}
      </Text>
@@ -189,20 +185,21 @@ export default class Conversation extends React.Component {
       }
 
 
-        <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
 
         <TextInput
           style={{marginTop: Dimensions.get('window').height*0.02, borderWidth: 2, borderBottomColor: 'grey',
           borderTopColor: 'grey', borderRightColor: 'grey', borderLeftColor: 'grey',
           width: Dimensions.get('window').width*0.7, height: Dimensions.get('window').height*0.07,
-          marginTop: Dimensions.get('window').height*0.02, marginBottom: Dimensions.get('window').height*0.01,
+          marginTop: Dimensions.get('window').height*0.02, marginRight: Dimensions.get('window').width*0.02,
+          marginLeft: 20, marginBottom: 20,
           borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
 
           onChangeText={(messageBody) => {this.changeMessageBody(messageBody)}}
-          value={this.state.messageBody} placeholder={this.getPlaceholderText()} placeholderTextColor='black'
+          value={this.state.messageBody} placeholder="Say something..." placeholderTextColor='black'
           underlineColorAndroid='transparent'
         />
-        <View style={{paddingLeft: 10, marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.25, borderRadius: 5}}>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, borderRadius: 5}}>
         <Text
         style={{color: '#a2e444', textAlign: 'center' }}
         onPress={() => this.state.postingMessage != true ? this.setState({ postingMessage: true },
@@ -228,7 +225,7 @@ export default class Conversation extends React.Component {
       titleContainer: {
         alignItems: 'center',
         marginTop: Dimensions.get('window').height*0.01,
-        height: Dimensions.get('window').height*0.77,
+        height: Dimensions.get('window').height*0.74,
       },
       title: {
         textAlign: 'center',
