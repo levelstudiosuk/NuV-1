@@ -106,7 +106,10 @@ export default class Conversation extends React.Component {
        var newMessage = data.message
        var messages = this.state.messages
 
-        this.setState({messages: messages.concat([data.message])})
+        this.setState({messages: messages.concat([data.message])}, function(){
+          setTimeout(() => this.flatListRef.scrollToEnd(), 200)
+          // this.flatListRef.scrollToIndex({animated: true, index: this.state.messages.length-1});
+        })
      }
    })
   }
@@ -162,7 +165,9 @@ export default class Conversation extends React.Component {
         messages: messages
        },
       function(){
-        console.log("conversations from API: ", self.state.messages);
+          // self.flatListRef.scrollToIndex({animated: true, index: self.state.messages.length-1});
+          setTimeout(() => self.flatListRef.scrollToEnd(), 200)
+           console.log("conversations from API: ", self.state.messages);
        }
     )
     })
@@ -196,7 +201,7 @@ export default class Conversation extends React.Component {
 
      >
 
-     <View key={item.id+5} style={{alignItems: 'flexStart'}}>
+     <View key={item.id+5}>
      <Text style={convoStyle.commentPosterName} onPress={() => console.log("Clicked text")}>
       {item.body}
      </Text>
@@ -224,6 +229,7 @@ export default class Conversation extends React.Component {
             Messages with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}
           </Text>
             <FlatList
+              ref={(ref) => { this.flatListRef = ref; }}
               data={this.state.messages}
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
