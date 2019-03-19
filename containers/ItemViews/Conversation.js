@@ -33,16 +33,19 @@ export default class Conversation extends React.Component {
       messageBody: ""
       };
 
-    this.titleContainerHeight = new Animated.Value(Dimensions.get('window').height*0.74);
+    this.titleContainerHeight = new Animated.Value(Dimensions.get('window').height*0.75);
     this.changeMessageBody = this.changeMessageBody.bind(this);
     this.createSocket = this.createSocket.bind(this);
 
     }
 
     componentWillMount () {
-      console.log("Mounting component in willMount: ", this.titleContainerHeight);
-    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+    this.keyboardWillShowSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidHide', this.keyboardWillHide)
+    : Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+
+    this.keyboardWillHideSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidShow', this.keyboardWillShow)
+    : Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+
   }
 
   componentWillUnmount() {
@@ -51,23 +54,37 @@ export default class Conversation extends React.Component {
   }
 
   keyboardWillShow = (event) => {
-    console.log("Keyboard showing");
 
     Animated.parallel([
       Animated.timing(this.titleContainerHeight, {
         duration: event.duration,
-        toValue: Dimensions.get('window').height*0.4,
+        toValue: Dimensions.get('window').height*0.25,
       }),
     ]).start();
   };
 
   keyboardWillHide = (event) => {
+
+    if (Platform.OS === 'ios'){
     Animated.parallel([
       Animated.timing(this.titleContainerHeight, {
         duration: event.duration,
-        toValue: Dimensions.get('window').height*0.74,
+        toValue: Dimensions.get('window').height*0.75,
       }),
     ]).start();
+  }
+
+    else {
+
+      Animated.parallel([
+        Animated.timing(this.titleContainerHeight, {
+          duration: 500,
+          toValue: Dimensions.get('window').height*0.75,
+        }),
+      ]).start();
+
+
+    }
   }
 
   componentDidMount(){
