@@ -9,6 +9,7 @@ import {  Alert,
           FlatList,
           ScrollView,
           TouchableHighlight,
+          KeyboardAvoidingView,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    AutoHeightImage from 'react-native-auto-height-image';
@@ -158,7 +159,7 @@ export default class Conversation extends React.Component {
     render() {
       const {navigate} = this.props.navigation;
         return (
-          <View style={convoStyle.globalContainer}>
+          <KeyboardAvoidingView style={convoStyle.globalContainer} behavior="padding">
 
           { this.state.messages && this.state.messages.length > 0 ? (
 
@@ -204,7 +205,7 @@ export default class Conversation extends React.Component {
         <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, borderRadius: 5}}>
         <Text
         style={{color: '#a2e444', textAlign: 'center' }}
-        onPress={() => this.state.postingMessage != true ? this.setState({ postingMessage: true },
+        onPress={() => this.state.postingMessage != true && this.state.messageBody != "" ? this.setState({ postingMessage: true },
         function() {this.postMessage()}) : null}
         >{this.state.postingMessage != true ? "Send" : "Sending..."}
         </Text>
@@ -212,7 +213,7 @@ export default class Conversation extends React.Component {
         </View>
 
 
-          </View>
+          </KeyboardAvoidingView>
         )
       }
     }
