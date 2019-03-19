@@ -2,6 +2,7 @@ import    React from 'react';
 import {  Alert,
           StyleSheet,
           Platform,
+          Animated,
           TextInput,
           Image,
           Dimensions,
@@ -9,7 +10,7 @@ import {  Alert,
           FlatList,
           ScrollView,
           TouchableHighlight,
-          KeyboardAvoidingView,
+          Keyboard,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    AutoHeightImage from 'react-native-auto-height-image';
@@ -32,12 +33,42 @@ export default class Conversation extends React.Component {
       messageBody: ""
       };
 
-
+    this.titleContainerHeight = new Animated.Value(Dimensions.get('window').height*0.74);
     this.changeMessageBody = this.changeMessageBody.bind(this);
     this.createSocket = this.createSocket.bind(this);
 
-
     }
+
+    componentWillMount () {
+      console.log("Mounting component in willMount: ", this.titleContainerHeight);
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    console.log("Keyboard showing");
+
+    Animated.parallel([
+      Animated.timing(this.titleContainerHeight, {
+        duration: event.duration,
+        toValue: Dimensions.get('window').height*0.4,
+      }),
+    ]).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.parallel([
+      Animated.timing(this.titleContainerHeight, {
+        duration: event.duration,
+        toValue: Dimensions.get('window').height*0.74,
+      }),
+    ]).start();
+  }
 
   componentDidMount(){
 
@@ -159,11 +190,11 @@ export default class Conversation extends React.Component {
     render() {
       const {navigate} = this.props.navigation;
         return (
-          <KeyboardAvoidingView style={convoStyle.globalContainer} behavior="padding">
+          <View style={convoStyle.globalContainer}>
 
           { this.state.messages && this.state.messages.length > 0 ? (
 
-          <View style={convoStyle.titleContainer}>
+          <Animated.View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.01, height: this.titleContainerHeight}}>
           <Text style={convoStyle.title}>
             Messages with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}
           </Text>
@@ -173,7 +204,7 @@ export default class Conversation extends React.Component {
               renderItem={this._renderItem}
               showsVerticalScrollIndicator={false}
             />
-          </View>
+          </Animated.View>
 
         ) :
 
@@ -202,7 +233,7 @@ export default class Conversation extends React.Component {
           value={this.state.messageBody} placeholder="Say something..." placeholderTextColor='black'
           underlineColorAndroid='transparent'
         />
-        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, borderRadius: 5}}>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, height: 15, borderRadius: 5}}>
         <Text
         style={{color: '#a2e444', textAlign: 'center' }}
         onPress={() => this.state.postingMessage != true && this.state.messageBody != "" ? this.setState({ postingMessage: true },
@@ -213,7 +244,7 @@ export default class Conversation extends React.Component {
         </View>
 
 
-          </KeyboardAvoidingView>
+          </View>
         )
       }
     }
@@ -224,11 +255,6 @@ export default class Conversation extends React.Component {
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'column'
-      },
-      titleContainer: {
-        alignItems: 'center',
-        marginTop: Dimensions.get('window').height*0.01,
-        height: Dimensions.get('window').height*0.74,
       },
       title: {
         textAlign: 'center',
