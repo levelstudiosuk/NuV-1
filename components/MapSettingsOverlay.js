@@ -82,7 +82,7 @@ export default class MapSettingsOverlay extends Component {
       console.log(error);
       console.log("Error fetching coordinates data.");
       Alert.alert(
- 'Could not find weather for your location',
+ 'Could not find your location',
  "Try to be more specific e.g. type 'Bath Somerset' rather than 'Bath' or 'Bangor Wales' instead of 'Bangor'."
 )
   self.setState({

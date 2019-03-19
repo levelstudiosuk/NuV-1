@@ -181,6 +181,8 @@ export default class Conversations extends React.Component {
       },
       commentContentContainer: {
         flexDirection: 'row',
+        paddingTop: 5,
+        paddingBottom: 5
       },
 
     });
