@@ -17,6 +17,7 @@ import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import    GlobalButton from '../../components/GlobalButton.js';
 import    moment from 'moment';
+import ActionCable from 'react-native-actioncable';
 
 export default class Conversation extends React.Component {
   static navigationOptions = {
@@ -38,15 +39,6 @@ export default class Conversation extends React.Component {
     this.createSocket = this.createSocket.bind(this);
 
     }
-
-    componentWillMount () {
-    this.keyboardWillShowSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidHide', this.keyboardWillHide)
-    : Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-
-    this.keyboardWillHideSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidShow', this.keyboardWillShow)
-    : Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-
-  }
 
   keyboardWillShow = (event) => {
 
@@ -83,6 +75,12 @@ export default class Conversation extends React.Component {
   }
 
   componentWillMount(){
+    this.keyboardWillShowSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidHide', this.keyboardWillHide)
+    : Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+
+    this.keyboardWillHideSub = Platform.OS === 'android' ? Keyboard.addListener('keyboardDidShow', this.keyboardWillShow)
+    : Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+
     this.createSocket()
 
   }
@@ -95,19 +93,18 @@ export default class Conversation extends React.Component {
 
   createSocket(){
     const cable = ActionCable.createConsumer('http://nuv-api.herokuapp.com/cable')
+    cable.connect()
 
     this.messages = cable.subscriptions.create({
      channel: 'MessagesChannel',
      conversation: this.props.navigation.getParam('conversation', 'NO-ID').id
    }, {
-     connected: () => {},
+     connected: () => {console.log("Connected to action cable socket");
+},
      received: (data) => {
        console.log("Data received via socket: ", data);
        var newMessage = data.message
        var messages = this.state.messages
-       console.log("MESSAGES: ", messages);
-       console.log("New message: ", newMessage);
-       console.log("After push: ", messages.concat([data.message]));
 
         this.setState({messages: messages.concat([data.message])})
      }
@@ -178,6 +175,7 @@ export default class Conversation extends React.Component {
      <TouchableHighlight underlayColor={'white'}
        key={item.id+1}
       >
+
        <AutoHeightImage
        key={item.id+2}
         width={30} style={{borderRadius: 15}}
@@ -186,15 +184,26 @@ export default class Conversation extends React.Component {
      </TouchableHighlight>
      </View>
 
-     <View key={item.id+3} style={convoStyle.commentItem}>
-     <View key={item.id+5}>
+     <View key={item.id+3}
+
+     style={{flexDirection: 'column',
+     backgroundColor: item.user_id === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? 'white' : '#a2e444',
+     paddingTop: 5, paddingBottom: 5, marginTop: 5, marginBottom: 5,
+     borderWidth: 1,
+     borderColor: item.user_id === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? '#a2e444' : 'transparent',
+     borderRadius: Dimensions.get('window').height*0.02,
+     width: Dimensions.get('window').width*0.7}}
+
+     >
+
+     <View key={item.id+5} style={{alignItems: 'flexStart'}}>
      <Text style={convoStyle.commentPosterName} onPress={() => console.log("Clicked text")}>
       {item.body}
      </Text>
      </View>
      </View>
      <View style={{justifyContent: 'center', alignItems: 'center', width: Dimensions.get('window').width*0.12, flexWrap: 'wrap'}} key={item.id+8}>
-     <Text style={{fontSize: Dimensions.get('window').width > 750 ? 12 : 8}}>
+     <Text style={{fontSize: Dimensions.get('window').width > 750 ? 12 : 8, color: 'grey'}}>
       {moment(new Date(item.created_at), 'MMMM Do YYYY, h:mm:ss a').fromNow()}
      </Text>
      </View>
@@ -224,13 +233,13 @@ export default class Conversation extends React.Component {
 
         ) :
 
-        <View style={convoStyle.titleContainer}>
+        <Animated.View style={{alignItems: 'center', marginTop: Dimensions.get('window').height*0.01, height: this.titleContainerHeight}}>
           <Text style={{textAlign: 'center',
           fontSize: Dimensions.get('window').width > 750 ? 17 : 13,
           marginBottom: 15}}>
             This is the start of your conversation with {this.props.navigation.getParam('current_user_id', 'NO-ID') === this.props.navigation.getParam('conversation', 'NO-ID').sender_id ? this.props.navigation.getParam('conversation', 'NO-ID').recipient_name :  this.props.navigation.getParam('conversation', 'NO-ID').sender_name}
           </Text>
-        </View>
+        </Animated.View>
 
       }
 
@@ -242,16 +251,16 @@ export default class Conversation extends React.Component {
           borderTopColor: 'grey', borderRightColor: 'grey', borderLeftColor: 'grey',
           width: Dimensions.get('window').width*0.7, height: Dimensions.get('window').height*0.07,
           marginTop: Dimensions.get('window').height*0.02, marginRight: Dimensions.get('window').width*0.02,
-          marginLeft: 20, marginBottom: 20,
-          borderColor: 'white', borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
+          marginLeft: 20, marginBottom: 20, borderRadius: 10,
+          borderWidth: 1, textAlign: 'center', fontWeight: 'normal', fontSize: 15}}
 
           onChangeText={(messageBody) => {this.changeMessageBody(messageBody)}}
-          value={this.state.messageBody} placeholder="Say something..." placeholderTextColor='black'
+          value={this.state.messageBody} placeholder="Type a message..." placeholderTextColor='grey'
           underlineColorAndroid='transparent'
         />
-        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, height: Dimensions.get('window').width*0.07, borderRadius: 10}}>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#a2e444', borderWidth: 1, borderColor: '#a2e444', width: Dimensions.get('window').width*0.20, height: Dimensions.get('window').width*0.11, borderRadius: 10}}>
         <Text
-        style={{color: '#a2e444', textAlign: 'center' }}
+        style={{color: 'black', textAlign: 'center' }}
         onPress={() => this.state.postingMessage != true && this.state.messageBody != "" ? this.setState({ postingMessage: true },
         function() {this.postMessage()}) : null}
         >{this.state.postingMessage != true ? "Send" : "Sending..."}
@@ -279,22 +288,11 @@ export default class Conversation extends React.Component {
       },
 
       commentPosterName: {
-      fontSize: Dimensions.get('window').width > 750 ? 17 : 14,
-      textAlign: 'center',
-      color: '#a2e444',
+      fontSize: Dimensions.get('window').width > 750 ? 15 : 12,
+      color: 'black',
       marginTop: Dimensions.get('window').height*0.0025,
-      marginBottom: 10
-      },
-      commentItem: {
-        alignItems: 'center',
-        flexDirection: 'column',
-        backgroundColor: '#F3F2F2',
-        paddingTop: 5,
-        paddingBottom: 5,
-        marginTop: 5,
-        marginBottom: 5,
-        borderRadius: Dimensions.get('window').height*0.02,
-        width: Dimensions.get('window').width*0.7
+      marginBottom: 10,
+      marginLeft: Dimensions.get('window').width*0.03
       },
       commentContentContainer: {
         flexDirection: 'row',
