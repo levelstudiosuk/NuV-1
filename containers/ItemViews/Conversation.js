@@ -48,11 +48,6 @@ export default class Conversation extends React.Component {
 
   }
 
-  componentWillUnmount() {
-    this.keyboardWillShowSub.remove();
-    this.keyboardWillHideSub.remove();
-  }
-
   keyboardWillShow = (event) => {
 
     Animated.parallel([
@@ -87,15 +82,19 @@ export default class Conversation extends React.Component {
     }
   }
 
-  componentDidMount(){
-
-    this.retrieveMessages()
+  componentWillMount(){
     this.createSocket()
 
   }
 
+  componentDidMount(){
+
+    this.retrieveMessages()
+
+  }
+
   createSocket(){
-    const cable = ActionCable.createConsumer('https://nuv-api.herokuapp.com/cable')
+    const cable = ActionCable.createConsumer('http://nuv-api.herokuapp.com/cable')
 
     this.messages = cable.subscriptions.create({
      channel: 'MessagesChannel',
