@@ -233,7 +233,7 @@ export default class Conversation extends React.Component {
           value={this.state.messageBody} placeholder="Say something..." placeholderTextColor='black'
           underlineColorAndroid='transparent'
         />
-        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, height: 15, borderRadius: 5}}>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginRight: Dimensions.get('window').width*0.05, backgroundColor: '#F3F2F2', width: Dimensions.get('window').width*0.20, height: Dimensions.get('window').width*0.07, borderRadius: 10}}>
         <Text
         style={{color: '#a2e444', textAlign: 'center' }}
         onPress={() => this.state.postingMessage != true && this.state.messageBody != "" ? this.setState({ postingMessage: true },
