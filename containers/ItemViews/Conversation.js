@@ -166,7 +166,9 @@ export default class Conversation extends React.Component {
        },
       function(){
           // self.flatListRef.scrollToIndex({animated: true, index: self.state.messages.length-1});
+          if (self.state.messages.length > 0){
           setTimeout(() => self.flatListRef.scrollToEnd(), 200)
+        }
            console.log("conversations from API: ", self.state.messages);
        }
     )
