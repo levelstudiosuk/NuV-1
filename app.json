@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.levelapps.nuv",
-      "buildNumber": "5.0.0",
+      "buildNumber": "6.0.0",
       "infoPlist": {
       "NSPhotoLibraryUsageDescription": "NüV needs to access your camera roll so that you can upload a profile picture. Your photos won't be shared without your permission.",
       "NSLocationWhenInUseUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
@@ -36,7 +36,7 @@
   },
     "android": {
      "package": "com.levelapps.nuv",
-     "versionCode": 10.0,
+     "versionCode": 11.0,
      "permissions": ["ACCESS_COARSE_LOCATION",
       "ACCESS_FINE_LOCATION",
       "CAMERA"]
