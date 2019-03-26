@@ -381,7 +381,7 @@ render() {
               borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
-            source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
+            source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: 'http://res.cloudinary.com/nuv-api/' + this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
           />
         </Animatable.View>
     </TouchableHighlight>
@@ -613,7 +613,7 @@ render() {
               borderRadius: Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.225 : Dimensions.get('window').width*0.2,
               marginTop: Dimensions.get('window').height*0.02
               }}
-              source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
+              source={this.props.navigation.getParam('avatar', 'NO-ID') ? {uri: 'http://res.cloudinary.com/nuv-api/' + this.props.navigation.getParam('avatar', 'NO-ID')} : require('../../assets/usericon.png')}
           />
           </Animatable.View>
 

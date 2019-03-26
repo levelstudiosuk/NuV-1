@@ -71,7 +71,7 @@ export default class SignIn extends React.Component {
      console.log("Response for name: ", second_response);
      var responseForName = JSON.parse(second_response.request['_response'])
      console.log("Response for name2 : ", responseForName);
-     var uri = responseForName.needs_avatar === true ? null : responseForName.avatar.url
+     var uri = responseForName.needs_avatar === true ? null : responseForName.avatar
       navigate('Home', {
             avatar:        uri,
             token:         token,
@@ -119,7 +119,6 @@ render() {
             onPress={() => this.postData()}
           />
          </View>
-
          <View>
 
          <Text
