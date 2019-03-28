@@ -164,7 +164,7 @@ export default class Map extends React.Component {
 
       // this.setState({ isFlipped: !this.state.isFlipped })
 
-      navigate('VenueView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), current_user_id: navigation.getParam('user_id', 'NO-ID'),
+      navigate('VenueView', {guest: this.props.navigation.getParam('guest', 'NO-ID'), current_user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
               avatar: this.props.navigation.getParam('avatar', 'NO-ID'), profile_id: this.props.navigation.getParam('profile_id', 'NO-ID'), token: this.props.navigation.getParam('token', 'NO-ID'), id: id, name: this.props.navigation.getParam('name', 'NO-ID'), bio: this.props.navigation.getParam('bio', 'NO-ID'), location: this.props.navigation.getParam('location', 'NO-ID'), user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})
     }
 
