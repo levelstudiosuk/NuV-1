@@ -102,8 +102,6 @@ handleRegistrationRequest(navigation){
 
    .then(function(response){
 
-     console.log("Response from recies: ", response);
-
      var responseItems = JSON.parse(response.request['_response'])
      var recipeItems = ShuffleArray.shuffle(responseItems);
      recipeItems.forEach((recipe, index) => {
