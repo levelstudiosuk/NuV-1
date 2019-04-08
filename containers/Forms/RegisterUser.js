@@ -298,7 +298,7 @@ export default class RegisterUser extends React.Component {
        { headers: { Authorization: `${token}` }})
        .then(function(fourth_response){
          var responseForName = JSON.parse(fourth_response.request['_response'])
-         var uri = responseForName.avatar.url
+         var uri = responseForName.avatar ? responseForName.avatar.url : null
 
         self.setState({
 
@@ -490,7 +490,6 @@ const registerUserStyle = StyleSheet.create({
   },
   descriptionText: {
     marginTop: Dimensions.get('window').height*0.03,
-
     paddingLeft: Dimensions.get('window').width*0.005,
     paddingRight: Dimensions.get('window').width*0.005,
     textAlign: 'center',
