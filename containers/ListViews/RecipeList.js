@@ -354,7 +354,7 @@ handleRegistrationRequest(navigation){
               : { backgroundColor: 'white', marginBottom: 0 }
           ]}
         >
-        <AutoHeightImage width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.20 : Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/cutlery.png')}/>
+        <AutoHeightImage width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.20 : Dimensions.get('window').width*0.20} source={require('../../assets/AppIcons/cutlerynew.png')}/>
           <Text
             style={[
               registerUserStyle.name2,

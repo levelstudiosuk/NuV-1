@@ -23,7 +23,7 @@ export default class ShareExample extends React.Component {
     return(
       <TouchableOpacity onPress={this.onSharePress} >
         <Image
-          source={require('../assets/AppIcons/sharegreen.png')}
+          source={require('../assets/AppIcons/sharenew.png')}
           style={{
             height:Dimensions.get('window').width*0.1, width:Dimensions.get('window').width*0.1,
             marginLeft: 10,

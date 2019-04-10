@@ -213,7 +213,7 @@ export default class MediaList extends React.Component {
         return `Media items posted by ${this.props.navigation.getParam('uploader', 'NO-ID').name}`
       }
       else {
-        return "Here is the news."
+        return "Here is the news"
       }
     }
 
@@ -272,7 +272,7 @@ export default class MediaList extends React.Component {
 
       })}
         style={mediaListStyle.mediadescription} style={mediaListStyle.mediaimage}>
-          <Image source={require('../../assets/AppIcons/greennews.png')} style={{height: 80, width: 80}}/>
+          <Image source={require('../../assets/AppIcons/greynews.png')} style={{height: 80, width: 80}}/>
         </TouchableHighlight>
             <View  key={i+2} style={mediaListStyle.mediatextcontainer}>
               <View  key={i+1}>

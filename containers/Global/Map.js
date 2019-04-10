@@ -125,7 +125,7 @@ export default class Map extends React.Component {
               title={this.props.navigation.getParam('searchedLocation', 'NO-ID') === true ? `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 'NO-ID'), this.props.navigation.getParam('longitude', 'NO-ID'))).toFixed(2)} km from you)` :
               `${venue.title} (${parseFloat(this.approxDistanceBetweenTwoPoints(parseFloat(venue.latitude), parseFloat(venue.longitude), this.props.navigation.getParam('latitude', 55.9497), this.props.navigation.getParam('longitude', -3.1811))).toFixed(2)} km from your searched location)`
             }
-              pinColor={'blue'}
+              pinColor={'green'}
               description={"Click to view"}
               onCalloutPress={() => this.processMarkerClick(venue.id)}>
           </MapView.Marker>
