@@ -479,7 +479,7 @@ render() {
 
   <View style={{flexDirection: 'row', justifyContent: 'center'}}>
   <TouchableHighlight underlayColor="white" onPress={()=> url ? Linking.openURL(`${url}`) : console.log("No URL for this venue")}>
-  <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}/>
+  <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/unlink.png')}/>
   </TouchableHighlight>
   <TouchableHighlight underlayColor='white' onPress={() => this.retrieveUploaderProfile() } >
     <AutoHeightImage width={Dimensions.get('window').width*0.1} style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }}

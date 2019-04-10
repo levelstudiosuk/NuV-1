@@ -174,7 +174,7 @@ export default class BrandList extends React.Component {
         user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}
       style={brandListStyle.brandimage}>
         <Image key={i+2}
-          source={require('../../assets/AppIcons/greenprice.png')}
+          source={require('../../assets/AppIcons/price-tag.png')}
           style={{height: 100, width: 100}}/>
 
       </TouchableHighlight>

@@ -434,7 +434,7 @@ render() {
           <TouchableHighlight underlayColor='white' onPress={ () => this.state.brandItem.URL ? Linking.openURL(this.state.brandItem.URL) : null }>
         <AutoHeightImage
           width={Dimensions.get('window').width*0.1}
-          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/linkgreen.png')}
+          style={{ borderRadius: Dimensions.get('window').width*0.025, margin: Dimensions.get('window').width*0.025 }} source={require('../../assets/AppIcons/unlink.png')}
           />
 
           </TouchableHighlight>
