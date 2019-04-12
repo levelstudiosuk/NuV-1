@@ -60,6 +60,34 @@ export default class RegisterUser extends React.Component {
       })
     }
 
+    storeLogInCredentials = async(response) => {
+
+      var self = this;
+      var responseForName = response;
+
+      var credentials = {email: this.state.email, password: this.state.password}
+
+      try {
+        AsyncStorage.getItem('me').then((me) => {
+          const myDetails = me ? JSON.parse(me) : [];
+          if (myDetails.length === 0){
+            myDetails.push(credentials);
+            AsyncStorage.setItem('me', JSON.stringify(myDetails));
+        }
+        if (self.state.image && Platform.OS == 'ios'){
+        navigate('CropperHoldingPage', {registering: true, height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      }
+      else {
+        navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
+      }
+    })}
+      catch (error) {
+        Alert.alert(
+               "Could not complete the login process"
+            )
+      }
+  }
+
     fieldCompletionCheck(){
       if (this.state.email === ""){
         Alert.alert(
@@ -305,12 +333,7 @@ export default class RegisterUser extends React.Component {
           spinner: false
 
         }, function(){
-          if (self.state.image && Platform.OS == 'ios'){
-          navigate('CropperHoldingPage', {registering: true, height: self.state.height, width: self.state.width, user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
-        }
-        else {
-          navigate('Home', {user_id: responseForName.user_id, avatar: uri, token: token, id: responseForName.id, name: responseForName.name, bio: responseForName.bio, user_is_vegan: responseForName.user_is_vegan, location: responseForName.location})
-        }
+          self.storeLogInCredentials(responseForName)
           })
           })
         })
