@@ -33,30 +33,24 @@ export default class SignIn extends React.Component {
     };
 
   componentDidMount(){
-    this.retrieveFavourites();
+    this.retrieveUserCredentials();
   }
 
-  retrieveFavourites(){
+  retrieveUserCredentials(){
       AsyncStorage.getItem('me').then((me) => {
         this.setState({
           email: me ? JSON.parse(me)[0].email : "",
           password: me ? JSON.parse(me)[0].password : "",
           userRemembered: true
         }, function(){
-
           if (!me){
             this.setState({
               email: "",
               password: "",
               userRemembered: false
-            },
-            function(){
-              console.log("Email: ", this.state.email);
-              console.log("Password: ", this.state.password);
             }
           )
           }
-
         })
       }).catch((error) => {
         console.log(error)
