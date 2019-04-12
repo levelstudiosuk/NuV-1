@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, ImageEditor, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
+import { StyleSheet, AsyncStorage, ImageBackground, ImageEditor, Alert, ScrollView, Platform, TouchableHighlight, Image, TextInput, Dimensions, Button, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import GlobalButton from '../../components/GlobalButton.js';
 import VWayToggle from '../../components/VWayToggle.js';
@@ -60,10 +60,13 @@ export default class RegisterUser extends React.Component {
       })
     }
 
-    storeLogInCredentials = async(response) => {
+    storeLogInCredentials = async(response, token) => {
 
       var self = this;
+      var {navigate} = this.props.navigation;
       var responseForName = response;
+      var uri = responseForName.avatar ? responseForName.avatar.url : null
+      var token = token;
 
       var credentials = {email: this.state.email, password: this.state.password}
 
@@ -333,7 +336,7 @@ export default class RegisterUser extends React.Component {
           spinner: false
 
         }, function(){
-          self.storeLogInCredentials(responseForName)
+          self.storeLogInCredentials(responseForName, token)
           })
           })
         })

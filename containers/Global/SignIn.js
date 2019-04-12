@@ -6,6 +6,7 @@ import {  Alert,
           Image,
           Dimensions,
           Text,
+          AsyncStorage,
           View } from 'react-native';
 import {  Constants } from 'expo'
 import    GlobalButton from '../../components/GlobalButton.js';
@@ -28,8 +29,7 @@ export default class SignIn extends React.Component {
     }
 
   state = {
-      email:    "",
-      password: ""
+
     };
 
   componentDidMount(){
@@ -39,8 +39,8 @@ export default class SignIn extends React.Component {
   retrieveFavourites(){
       AsyncStorage.getItem('me').then((me) => {
         this.setState({
-          email: me.email,
-          password: me.password
+          email: JSON.parse(me)[0].email,
+          password: JSON.parse(me)[0].password
         }, function(){
           if (me){
           if (JSON.parse(me).length === 0){
@@ -49,7 +49,8 @@ export default class SignIn extends React.Component {
               password: ""
             },
             function(){
-              console.log("Me: ", this.state.credentials);
+              console.log("Email: ", this.state.email);
+              console.log("Password: ", this.state.password);
             }
           )
           }
