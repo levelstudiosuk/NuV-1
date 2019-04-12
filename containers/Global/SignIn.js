@@ -32,6 +32,34 @@ export default class SignIn extends React.Component {
       password: ""
     };
 
+  componentDidMount(){
+    this.retrieveFavourites();
+  }
+
+  retrieveFavourites(){
+      AsyncStorage.getItem('me').then((me) => {
+        this.setState({
+          email: me.email,
+          password: me.password
+        }, function(){
+          if (me){
+          if (JSON.parse(me).length === 0){
+            this.setState({
+              email: "",
+              password: ""
+            },
+            function(){
+              console.log("Me: ", this.state.credentials);
+            }
+          )
+          }
+          }
+        })
+      }).catch((error) => {
+        console.log(error)
+       }
+     )
+      }
 
   changeEmailText(email){
     this.setState({
