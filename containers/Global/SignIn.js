@@ -39,14 +39,16 @@ export default class SignIn extends React.Component {
   retrieveFavourites(){
       AsyncStorage.getItem('me').then((me) => {
         this.setState({
-          email: JSON.parse(me)[0].email,
-          password: JSON.parse(me)[0].password
+          email: me ? JSON.parse(me)[0].email : "",
+          password: me ? JSON.parse(me)[0].password : "",
+          userRemembered: true
         }, function(){
-          if (me){
-          if (JSON.parse(me).length === 0){
+
+          if (!me){
             this.setState({
               email: "",
-              password: ""
+              password: "",
+              userRemembered: false
             },
             function(){
               console.log("Email: ", this.state.email);
@@ -54,7 +56,7 @@ export default class SignIn extends React.Component {
             }
           )
           }
-          }
+
         })
       }).catch((error) => {
         console.log(error)
@@ -80,6 +82,43 @@ export default class SignIn extends React.Component {
     navigate('ResetPassword')
   }
 
+  storeLogInCredentials = async(response, token, admin) => {
+
+    var self = this;
+    var {navigate} = this.props.navigation;
+    var responseForName = response;
+    var uri = responseForName.needs_avatar === true ? null : responseForName.avatar
+    var token = token;
+    var admin = admin;
+
+    var credentials = {email: this.state.email, password: this.state.password}
+
+    try {
+      AsyncStorage.getItem('me').then((me) => {
+        const myDetails = me ? JSON.parse(me) : [];
+        if (myDetails.length === 0){
+          myDetails.push(credentials);
+          AsyncStorage.setItem('me', JSON.stringify(myDetails));
+      }
+      navigate('Home', {
+            avatar:        uri,
+            token:         token,
+            id:            responseForName.id,
+            name:          responseForName.name,
+            bio:           responseForName.bio,
+            user_is_vegan: responseForName.user_is_vegan,
+            user_id:       responseForName.user_id,
+            location:      responseForName.location,
+            admin: admin
+          })
+  })}
+    catch (error) {
+      Alert.alert(
+             "Could not complete the login process"
+          )
+    }
+}
+
   postData(){
     var session_url = 'http://nuv-api.herokuapp.com/login';
     var {navigate} = this.props.navigation;
@@ -101,17 +140,23 @@ export default class SignIn extends React.Component {
      var responseForName = JSON.parse(second_response.request['_response'])
      console.log("Response for name2 : ", responseForName);
      var uri = responseForName.needs_avatar === true ? null : responseForName.avatar
-      navigate('Home', {
-            avatar:        uri,
-            token:         token,
-            id:            responseForName.id,
-            name:          responseForName.name,
-            bio:           responseForName.bio,
-            user_is_vegan: responseForName.user_is_vegan,
-            user_id:       responseForName.user_id,
-            location:      responseForName.location,
-            admin: admin
-          })
+
+     if (self.state.userRemembered === false){
+     self.storeLogInCredentials(responseForName, token, admin);
+   }
+   else {
+     navigate('Home', {
+           avatar:        uri,
+           token:         token,
+           id:            responseForName.id,
+           name:          responseForName.name,
+           bio:           responseForName.bio,
+           user_is_vegan: responseForName.user_is_vegan,
+           user_id:       responseForName.user_id,
+           location:      responseForName.location,
+           admin: admin
+         })
+   }
 
     })}).catch(function(e){
       Alert.alert(
