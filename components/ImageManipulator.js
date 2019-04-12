@@ -125,16 +125,6 @@ export default class ImgManipulator extends Component {
                 width: cropWidth,
                 height: cropHeight,
             }
-            // console.log('onPanResponderRelease', cropObj)
-            // console.log('imgHeight', imgHeight)
-            // console.log('this.maxSizes.height', maxSizes.height)
-            // console.log('offsetMaxHeight', offsetMaxHeight)
-            // console.log('offsetMaxHeight', offsetMaxHeight)
-            // console.log('OUT OF BOUNDS Y', isOutOfBoundsY)
-            // console.log('offsetMaxWidth', offsetMaxWidth)
-            // console.log('OUT OF BOUNDS X', isOutOfBoundsX)
-            // const oldURI = uri
-            // const { onPictureChoosed } = this.props
             const isRemote = /^(http|https|ftp)?(?:[\:\/]*)([a-z0-9\.-]*)(?:\:([0-9]+))?(\/[^?#]*)?(?:\?([^#]*))?(?:#(.*))?$/.test(uri)
             if (!isRemote) {
                 if (cropObj.height > 0 && cropObj.width > 0) {
