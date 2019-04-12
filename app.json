@@ -6,7 +6,7 @@
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
-    "version": "10.0.0",
+    "version": "11.0.0",
     "orientation": "portrait",
     "icon": "./assets/AppIcons/letter-n.png",
     "splash": {
@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.levelapps.nuv",
-      "buildNumber": "9.0.0",
+      "buildNumber": "10.0.0",
       "infoPlist": {
       "NSPhotoLibraryUsageDescription": "NüV needs to access your camera roll so that you can upload a profile picture. Your photos won't be shared without your permission.",
       "NSLocationWhenInUseUsageDescription": "NüV requires your location so that we can show you nearby restaurants.",
@@ -36,7 +36,7 @@
   },
     "android": {
      "package": "com.levelapps.nuv",
-     "versionCode": 15.0,
+     "versionCode": 16.0,
      "permissions": ["ACCESS_COARSE_LOCATION",
       "ACCESS_FINE_LOCATION",
       "CAMERA"]

@@ -7,7 +7,7 @@ var other_request = require('request');
 var response = request('POST', 'http://localhost:3000/login', {
  json: {
    user: {
-     email: 'wil@example.com',
+     email: 'jon@example.com',
      password: 'password',
    }
  },
@@ -15,7 +15,6 @@ var response = request('POST', 'http://localhost:3000/login', {
 var answer = JSON.parse(response.getBody().toString('utf8'));
 
 var auth_token = (response.headers.authorization);
-console.log("SOMETHING: ", auth_token);
 
 var options = {
  method: 'POST',
@@ -34,4 +33,3 @@ var options = {
 };
 
 res = other_request(options);
-console.log("done!");
