@@ -32,13 +32,11 @@ export default class ProductInfoTable extends Component {
           columns={this.state.columns}
           dataSource={
             [
-          {detail: 'Vegan', status: this.props.productDetails.vegan === true ? <Icon name="info-outline"/>
- :                <Icon name="info-outline"/>
-},
-          {detail: 'Vegetarian', status: this.props.productDetails.vegetarian === true ? 'Yes' : 'No'},
-          {detail: 'Eco', status: this.props.productDetails.eco === true ? 'Yes' : 'No'},
-          {detail: 'Fairtrade', status: this.props.productDetails.fairtrade === true ? 'Yes' : 'No'},
-          {detail: 'Organic', status: this.props.productDetails.organic === true ? 'Yes' : 'No'}
+          {detail: 'Vegan', status: this.props.productDetails.vegan === true ? <Icon name="done"/> : <Icon name="clear"/> },
+          {detail: 'Vegetarian', status: this.props.productDetails.vegetarian === true ? <Icon name="done"/> : <Icon name="clear"/> },
+          {detail: 'Eco', status: this.props.productDetails.eco === true ? <Icon name="done"/> : <Icon name="clear"/> },
+          {detail: 'Fairtrade', status: this.props.productDetails.fairtrade === true ? <Icon name="done"/> : <Icon name="clear"/> },
+          {detail: 'Organic', status: this.props.productDetails.organic === true ? <Icon name="done"/> : <Icon name="clear"/> }
         ]
         }
         />
