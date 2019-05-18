@@ -8,6 +8,8 @@ import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
 import Slider from 'react-native-slider';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import ProductInfoTable from './ProductInfoTable.js';
 
 export default class ScannedCodePopUp extends Component {
 
@@ -17,6 +19,7 @@ export default class ScannedCodePopUp extends Component {
   }
 
   state = {
+
     };
 
   returnVegetarianStatus(status){
@@ -61,30 +64,20 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>You scanned {this.props.productDetails.title}!</Text>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>{this.returnVeganStatus(this.props.productDetails.vegan)}</Text>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>{this.returnVegetarianStatus(this.props.productDetails.vegetarian)}</Text>
-        { this.props.productDetails.eco ? (
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This product is eco</Text>
-      ) : null
+        <Text style={scannedPopUpStyle.productHeading}>{this.props.productDetails.title}</Text>
+        { this.props.productDetails.healthNotes ? (
+          <Text style={scannedPopUpStyle.productHealthNotes}>{this.props.productDetails.healthNotes.replace('?', '').replace('[r][n]', '\n').replace('[r][n]', '\n').replace('[r][n]', '\n').replace('[r][n]', '\n')}</Text>
+        ) : null
       }
-      { this.props.productDetails.fairtrade ? (
-      <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This is a Fairtrade product</Text>
-      ) : null
-      }
-      { this.props.productDetails.organic ? (
-      <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>This product is organic</Text>
-      ) : null
-      }
-        <View style={{alignItems: 'center'}}>
+      <ProductInfoTable
+        productDetails={this.props.productDetails}
+       />
+        <View style={{alignItems: 'center', marginTop: 0}}>
 
         {  this.props.productDetails.vegan === true ? (
         <AutoHeightImage
           width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
-          style={{
-            borderWidth: 3,
-            marginTop: Dimensions.get('window').height*0.05
-            }}
+          style={scannedPopUpStyle.imageStyle}
           source={require('../assets/badges/Vegan.png')}
         />
       ) :
@@ -92,36 +85,27 @@ render() {
       null
     }
 
-    {  this.props.productDetails.vegetarian === true && this.props.productDetails.vegan != true ? (
+        {  this.props.productDetails.vegetarian === true && this.props.productDetails.vegan != true ? (
+        <AutoHeightImage
+          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
+          style={scannedPopUpStyle.imageStyle}
+          source={require('../assets/badges/Veggie.png')}
+        />
+      ) :
+
+      null
+    }
+
+    {  this.props.productDetails.vegetarian != true && this.props.productDetails.vegan != true ? (
     <AutoHeightImage
       width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
-      style={{
-        borderWidth: 3,
-        marginTop: Dimensions.get('window').height*0.05
-        }}
-      source={require('../assets/badges/Veggie.png')}
+      style={scannedPopUpStyle.imageStyle}
+      source={require('../assets/badges/warning-sign.png')}
     />
-  ) :
+    ) :
 
-  null
-}
-
-{  this.props.productDetails.vegetarian != true && this.props.productDetails.vegan != true ? (
-<AutoHeightImage
-  width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
-  style={{
-    borderWidth: 3,
-    marginTop: Dimensions.get('window').height*0.05
-    }}
-  source={require('../assets/badges/warning-sign.png')}
-/>
-) :
-
-null
-}
-
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Hope it helped! :-)</Text>
-
+    null
+    }
         </View>
         </Fragment>
       )
@@ -133,7 +117,7 @@ null
   }
 }
 
-const buttonContainerStyle = StyleSheet.create({
+const scannedPopUpStyle = StyleSheet.create({
   content: {
     width:           '100%',
     backgroundColor: 'purple',
@@ -158,6 +142,29 @@ const buttonContainerStyle = StyleSheet.create({
    shadowOffset: {width: 0, height: 1},
    shadowOpacity: 0.5,
    shadowRadius: 1,
-
- }
+ },
+ productHeading: {
+   fontWeight: 'bold',
+   textAlign: 'center',
+   fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+   marginBottom: Dimensions.get('window').height*0.02,
+   marginTop: Dimensions.get('window').height*0.03,
+ },
+ productHealthNotes: {
+   color: '#a2e444',
+   fontWeight: 'bold',
+   textAlign: 'center',
+   fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+   marginBottom: Dimensions.get('window').height*0.02,
+   marginTop: Dimensions.get('window').height*0.03,
+ },
+  productDetailItem: {
+    textAlign: 'center',
+    fontSize: Dimensions.get('window').width > 750 ? 20 : 16,
+    marginBottom: Dimensions.get('window').height*0.02,
+    marginTop: Dimensions.get('window').height*0.03
+  },
+  imageStyle: {
+    marginTop: -Dimensions.get('window').height*0.05,
+  },
 });

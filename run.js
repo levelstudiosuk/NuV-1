@@ -25,7 +25,7 @@ var options = {
  },
  body: {
    article: {
-     title: 'how to eat too many aubergines',
+     title: 'Sampling aubergines by the barrel',
      description: 'eating way too many aubergines is a fundamental part of life for many people. It really gives you a change to see life from the view point of a whole load of aubergines'
    }
  },

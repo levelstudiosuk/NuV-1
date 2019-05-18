@@ -17,7 +17,7 @@ render() {
   return (
     <View style={{  alignItems: 'center', marginTop: Dimensions.get('window').height*0.025 }}>
 
-    <Overlay visible={this.props.overlayVisible} onClose={this.props.closeOverlay} closeOnTouchOutside
+    <Overlay visible={this.props.overlayVisible} onClose={this.props.closeRegistrationOverlay} closeOnTouchOutside
     animationType="fadeInUp" containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
     childrenWrapperStyle={{backgroundColor: 'white', borderRadius: 15}}
     animationDuration={500}>
