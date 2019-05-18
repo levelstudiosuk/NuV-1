@@ -4,10 +4,11 @@ import { Text, Dimensions, View, StyleSheet, Alert } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 import axios from 'axios';
 import key from '../barcode_key.js';
+import BarCodeInfoOverlay from './BarCodeInfoOverlay';
 
 export default class App extends Component {
   state = {
-    hasCameraPermission: null
+    hasCameraPermission: null,
   };
 
   constructor(props) {
@@ -28,8 +29,6 @@ export default class App extends Component {
       hasCameraPermission: status === 'granted',
     });
   };
-
-
 
   _handleBarCodeRead = data => {
     console.log("Data: ", data);
@@ -104,6 +103,7 @@ export default class App extends Component {
       <ScannedCodePopUp productDetails={this.state.productDetails} overlayVisible={this.state.overlayVisible} closeOverlay={this.closeOverlay} />
     ) : null
   }
+
         {this.state.hasCameraPermission === null ?
           <Text>Requesting for camera permission</Text> :
           this.state.hasCameraPermission === false ?

@@ -5,6 +5,7 @@ import {  Alert,
           TextInput,
           Image,
           Dimensions,
+          TouchableOpacity,
           Text,
           View } from 'react-native';
 import {  Constants } from 'expo'
@@ -12,6 +13,7 @@ import    BarCodeScanner from '../../components/BarCodeScanner.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
 import { Icon } from 'react-native-material-ui';
+import BarCodeInfoOverlay from '../../components/BarCodeInfoOverlay';
 
 export default class Barcode extends React.Component {
   static navigationOptions = {
@@ -24,11 +26,25 @@ export default class Barcode extends React.Component {
   constructor(props) {
     super(props);
 
+    this.openInfoOverlay = this.openInfoOverlay.bind(this);
+    this.closeInfoOverlay = this.openInfoOverlay.bind(this);
     }
 
     state = {
-
+      infoOverlayVisible: false,
       };
+
+      openInfoOverlay(){
+            this.setState({
+              infoOverlayVisible: true
+            })
+      }
+
+      closeInfoOverlay(){
+        this.setState({
+          infoOverlayVisible: false
+        })
+      }
 
     render() {
       const {navigate} = this.props.navigation;
@@ -44,10 +60,19 @@ export default class Barcode extends React.Component {
             </Text>
           </View>
 
-            <BarCodeScanner />
+            <BarCodeScanner
+             />
+
+             <BarCodeInfoOverlay
+               closeInfoOverlay={this.closeInfoOverlay}
+               openInfoOverlay={this.openInfoOverlay}
+               overlayVisible={this.state.infoOverlayVisible}
+             />
 
             <View style={barcodeStyle.iconContainer}>
+              <TouchableOpacity onPress={() => this.openInfoOverlay()}>
                <Icon name="info-outline"/>
+             </TouchableOpacity>
             </View>
 
           </View>
