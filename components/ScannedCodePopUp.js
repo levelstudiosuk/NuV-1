@@ -165,7 +165,6 @@ const scannedPopUpStyle = StyleSheet.create({
     marginTop: Dimensions.get('window').height*0.03
   },
   imageStyle: {
-    borderWidth: 3,
     marginTop: -Dimensions.get('window').height*0.05,
   },
 });
