@@ -123,7 +123,7 @@ const barCodeStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight + (Dimensions.get('window').height/2) - 100,
+    paddingTop: Constants.statusBarHeight + Dimensions.get('window').height*0.17,
     backgroundColor: 'white',
   }
 });
