@@ -11,6 +11,7 @@ import {  Constants } from 'expo'
 import    BarCodeScanner from '../../components/BarCodeScanner.js';
 import    AutoHeightImage from 'react-native-auto-height-image';
 import    axios from 'axios';
+import { Icon } from 'react-native-material-ui';
 
 export default class Barcode extends React.Component {
   static navigationOptions = {
@@ -45,6 +46,10 @@ export default class Barcode extends React.Component {
 
             <BarCodeScanner />
 
+            <View style={barcodeStyle.iconContainer}>
+               <Icon name="info-outline"/>
+            </View>
+
           </View>
         )
       }
@@ -53,6 +58,7 @@ export default class Barcode extends React.Component {
     const barcodeStyle = StyleSheet.create({
 
       globalContainer: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -73,5 +79,10 @@ export default class Barcode extends React.Component {
         fontSize: Dimensions.get('window').width > 750 ? 22 : 17,
         paddingLeft: Dimensions.get('window').width*0.03,
         paddingRight: Dimensions.get('window').width*0.03,
+      },
+      iconContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: Dimensions.get('window').height*0.03,
       },
     });
