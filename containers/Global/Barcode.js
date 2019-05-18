@@ -27,7 +27,7 @@ export default class Barcode extends React.Component {
     super(props);
 
     this.openInfoOverlay = this.openInfoOverlay.bind(this);
-    this.closeInfoOverlay = this.openInfoOverlay.bind(this);
+    this.closeInfoOverlay = this.closeInfoOverlay.bind(this);
     }
 
     state = {
@@ -35,9 +35,9 @@ export default class Barcode extends React.Component {
       };
 
       openInfoOverlay(){
-            this.setState({
-              infoOverlayVisible: true
-            })
+        this.setState({
+          infoOverlayVisible: true
+        })
       }
 
       closeInfoOverlay(){

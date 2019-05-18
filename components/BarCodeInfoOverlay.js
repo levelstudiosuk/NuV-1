@@ -17,21 +17,8 @@ export default class BarCodeInfoOverlay extends Component {
   }
 
   state = {
-    infoOverlayVisible: false,
 
     };
-
-    openInfoOverlay(){
-          this.setState({
-            infoOverlayVisible: true
-          })
-    }
-
-    closeInfoOverlay(){
-      this.setState({
-        infoOverlayVisible: false
-      })
-    }
 
 render() {
   return (
