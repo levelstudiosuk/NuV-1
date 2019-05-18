@@ -484,20 +484,17 @@ render() {
       this.state.avatarLoading === false ? (
         <View style={{alignItems: 'center', height: Dimensions.get('window').width*0.1, overflow: 'visible'}}>
 
-        <TouchableHighlight underlayColor="white"
-        onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-             this.openRegistrationOverlay()
-            : navigate('Barcode', {
-          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
-          settings: true,
-          avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
-          token: this.props.navigation.getParam('token', 'NO-ID'),
-          user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
-          id: this.props.navigation.getParam('id', 'NO-ID'),
-          name: this.props.navigation.getParam('name', 'NO-ID'),
-          bio: this.props.navigation.getParam('bio', 'NO-ID'),
-          location: this.props.navigation.getParam('location', 'NO-ID'),
-          user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
+          <TouchableHighlight underlayColor="white"
+          onPress={() => navigate('Barcode', {
+            user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
+            settings: true,
+            avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
+            token: this.props.navigation.getParam('token', 'NO-ID'),
+            id: this.props.navigation.getParam('id', 'NO-ID'),
+            name: this.props.navigation.getParam('name', 'NO-ID'),
+            bio: this.props.navigation.getParam('bio', 'NO-ID'),
+            location: this.props.navigation.getParam('location', 'NO-ID'),
+            user_is_vegan: this.props.navigation.getParam('user_is_vegan', 'NO-ID')})}>
 
           <Image source={require('../../assets/new_barcode.png')}
             style={{
@@ -711,9 +708,7 @@ render() {
       <View style={{alignItems: 'center', height: Dimensions.get('window').width*0.1, overflow: 'visible'}}>
 
       <TouchableHighlight underlayColor="white"
-      onPress={() => this.props.navigation.getParam('guest', 'NO-ID') === true ?
-           this.openRegistrationOverlay()
-          : navigate('Barcode', {
+      onPress={() => navigate('Barcode', {
         user_id: this.props.navigation.getParam('user_id', 'NO-ID'),
         settings: true,
         avatar: this.props.navigation.getParam('avatar', 'NO-ID'),
