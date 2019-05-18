@@ -8,6 +8,8 @@ import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
 import Slider from 'react-native-slider';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import ProductInfoTable from './ProductInfoTable.js';
 
 export default class ScannedCodePopUp extends Component {
 
@@ -17,6 +19,7 @@ export default class ScannedCodePopUp extends Component {
   }
 
   state = {
+
     };
 
   returnVegetarianStatus(status){
@@ -66,25 +69,14 @@ render() {
           <Text style={scannedPopUpStyle.productHealthNotes}>{this.props.productDetails.healthNotes.replace('?', '')}</Text>
         ) : null
       }
-        <Text style={scannedPopUpStyle.productDetailItem}>{this.returnVeganStatus(this.props.productDetails.vegan)}</Text>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>{this.returnVegetarianStatus(this.props.productDetails.vegetarian)}</Text>
-        { this.props.productDetails.eco ? (
-        <Text style={scannedPopUpStyle.productDetailItem}>This product is eco</Text>
-      ) : null
-      }
-      { this.props.productDetails.fairtrade ? (
-      <Text style={scannedPopUpStyle.productDetailItem}>This is a Fairtrade product</Text>
-      ) : null
-      }
-      { this.props.productDetails.organic ? (
-      <Text style={scannedPopUpStyle.productDetailItem}>This product is organic</Text>
-      ) : null
-      }
+      <ProductInfoTable
+        productDetails={this.props.productDetails}
+       />
         <View style={{alignItems: 'center'}}>
 
         {  this.props.productDetails.vegan === true ? (
         <AutoHeightImage
-          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
+          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
           style={scannedPopUpStyle.imageStyle}
           source={require('../assets/badges/Vegan.png')}
         />
@@ -95,7 +87,7 @@ render() {
 
         {  this.props.productDetails.vegetarian === true && this.props.productDetails.vegan != true ? (
         <AutoHeightImage
-          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
+          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
           style={scannedPopUpStyle.imageStyle}
           source={require('../assets/badges/Veggie.png')}
         />
@@ -106,7 +98,7 @@ render() {
 
     {  this.props.productDetails.vegetarian != true && this.props.productDetails.vegan != true ? (
     <AutoHeightImage
-      width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
+      width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
       style={scannedPopUpStyle.imageStyle}
       source={require('../assets/badges/warning-sign.png')}
     />
@@ -175,5 +167,5 @@ const scannedPopUpStyle = StyleSheet.create({
   imageStyle: {
     borderWidth: 3,
     marginTop: Dimensions.get('window').height*0.05,
-    }
+  },
 });
