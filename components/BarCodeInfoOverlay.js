@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Button }    from 'react-native-elements';
 import { View,
          Dimensions,
-         StyleSheet, Text } from 'react-native';
+         StyleSheet, Text, Linking } from 'react-native';
 import GradientButton from './GradientButton.js';
 import GlobalButton from './GlobalButton.js';
 import Overlay from 'react-native-modal-overlay'
@@ -31,11 +31,11 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>You clicked me!</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Powered by <Text onPress={() => Linking.openURL("https://www.canieatit.co.uk")} style={{color: '#a2e444'}}>‘Can I Eat It?’</Text> The community-driven food & drink App</Text>
 
         <View style={{alignItems: 'center'}}>
 
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Hope it helped! :-)</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>A database of 100,000 food and drink products, and growing daily. The scanner will reveal if a product is vegan, vegetarian, eco, fair-trade or organic</Text>
 
         </View>
         </Fragment>
