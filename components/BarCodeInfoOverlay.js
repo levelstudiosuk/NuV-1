@@ -31,7 +31,7 @@ render() {
     {
       (hideModal, overlayState) => (
         <Fragment>
-        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Powered by <Text onPress={() => Linking.openURL("https://www.canieatit.co.uk")} style={{color: '#a2e444'}}>‘Can I Eat It?’</Text> The community-driven food & drink App</Text>
+        <Text style={{textAlign: 'center', fontSize: Dimensions.get('window').width > 750 ? 20 : 16, marginBottom: Dimensions.get('window').height*0.02, marginTop: Dimensions.get('window').height*0.03 }}>Powered by <Text onPress={() => Linking.openURL("http://www.canieatit.co.uk")} style={{color: '#a2e444'}}>‘Can I Eat It?’</Text> The community-driven food & drink App</Text>
 
         <View style={{alignItems: 'center'}}>
 

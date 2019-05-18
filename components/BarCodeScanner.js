@@ -67,7 +67,16 @@ export default class App extends Component {
       );
     }
       else {
-      var productDetails = {title: responseData.title ? responseData.title: "Name not specified", vegetarian: responseData.properties.vegetarian ? responseData.properties.vegetarian : "Not specified", vegan: responseData.properties.vegan ? responseData.properties.vegan : "Not specified", eco: responseData.properties.eco ? responseData.properties.eco : null, fairtrade: responseData.properties.fairtrade ? responseData.properties.fairtrade : null, organic: responseData.properties.organic ? responseData.properties.organic : null}
+      var productDetails =
+      {
+      title: responseData.title ? responseData.title: "Name not specified",
+      vegetarian: responseData.properties.vegetarian ? responseData.properties.vegetarian : "Not specified",
+      vegan: responseData.properties.vegan ? responseData.properties.vegan : "Not specified",
+      eco: responseData.properties.eco ? responseData.properties.eco : null,
+      fairtrade: responseData.properties.fairtrade ? responseData.properties.fairtrade : null,
+      organic: responseData.properties.organic ? responseData.properties.organic : null,
+      healthNotes: responseData.properties.healthnotes ? responseData.properties.healthnotes : null
+    }
       self.setState({
 
         productDetails: productDetails
