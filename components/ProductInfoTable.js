@@ -39,6 +39,8 @@ export default class ProductInfoTable extends Component {
           {detail: 'Organic', status: this.props.productDetails.organic === true ? <Icon name="done"/> : <Icon name="clear"/> }
         ]
         }
+        headerStyle={{border: 'none', backgroundColor: 'white', borderColor: 'white'}}
+        headerContainerStyle={{border: 'none', backgroundColor: 'white', borderColor: 'white'}}
         />
    )
  }

@@ -66,17 +66,17 @@ render() {
         <Fragment>
         <Text style={scannedPopUpStyle.productHeading}>{this.props.productDetails.title}</Text>
         { this.props.productDetails.healthNotes ? (
-          <Text style={scannedPopUpStyle.productHealthNotes}>{this.props.productDetails.healthNotes.replace('?', '')}</Text>
+          <Text style={scannedPopUpStyle.productHealthNotes}>{this.props.productDetails.healthNotes.replace('?', '').replace('[r][n]', '\n').replace('[r][n]', '\n').replace('[r][n]', '\n').replace('[r][n]', '\n')}</Text>
         ) : null
       }
       <ProductInfoTable
         productDetails={this.props.productDetails}
        />
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginTop: 0}}>
 
         {  this.props.productDetails.vegan === true ? (
         <AutoHeightImage
-          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
+          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
           style={scannedPopUpStyle.imageStyle}
           source={require('../assets/badges/Vegan.png')}
         />
@@ -87,7 +87,7 @@ render() {
 
         {  this.props.productDetails.vegetarian === true && this.props.productDetails.vegan != true ? (
         <AutoHeightImage
-          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
+          width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
           style={scannedPopUpStyle.imageStyle}
           source={require('../assets/badges/Veggie.png')}
         />
@@ -98,7 +98,7 @@ render() {
 
     {  this.props.productDetails.vegetarian != true && this.props.productDetails.vegan != true ? (
     <AutoHeightImage
-      width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.2 : Dimensions.get('window').width*0.25}
+      width={Dimensions.get('window').width < 750 ? Dimensions.get('window').width*0.4 : Dimensions.get('window').width*0.3}
       style={scannedPopUpStyle.imageStyle}
       source={require('../assets/badges/warning-sign.png')}
     />
@@ -166,6 +166,6 @@ const scannedPopUpStyle = StyleSheet.create({
   },
   imageStyle: {
     borderWidth: 3,
-    marginTop: Dimensions.get('window').height*0.05,
+    marginTop: -Dimensions.get('window').height*0.05,
   },
 });

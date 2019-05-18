@@ -9,6 +9,7 @@ import BarCodeInfoOverlay from './BarCodeInfoOverlay';
 export default class App extends Component {
   state = {
     hasCameraPermission: null,
+    unrecognisedProductAlertShowing: false,
   };
 
   constructor(props) {
@@ -17,6 +18,7 @@ export default class App extends Component {
       this.fetchProductDetails = this.fetchProductDetails.bind(this);
       this.toggleOverlay = this.toggleOverlay.bind(this);
       this.closeOverlay = this.closeOverlay.bind(this);
+      this.fetchProductDetails = this.fetchProductDetails.bind(this);
     }
 
   componentDidMount() {
@@ -65,6 +67,9 @@ export default class App extends Component {
       Alert.alert(
         "Product not recognised. Please try again"
       );
+      this.setState({ unrecognisedProductAlertShowing: true }, function(){
+        setTimeout(function(){ this.setState({ unrecognisedProductAlertShowing: false }) }, 2000);
+      })
     }
       else {
       var productDetails =
@@ -118,7 +123,7 @@ export default class App extends Component {
           this.state.hasCameraPermission === false ?
             <Text>Camera permission is not granted</Text> :
             <BarCodeScanner
-              onBarCodeRead={this._handleBarCodeRead}
+              onBarCodeRead={this.state.overlayVisible === true || this.state.unrecognisedProductAlertShowing === true ? null : this._handleBarCodeRead}
               style={{ height: 200, width: 200 }}
             />
         }
